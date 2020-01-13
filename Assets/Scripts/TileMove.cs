@@ -180,6 +180,7 @@ public class TileMove : MonoBehaviour
                 }
             }
         }
+        //test
         if(selectableTiles.Count != 0)
         {
             attacking = true;
