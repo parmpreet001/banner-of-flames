@@ -136,12 +136,12 @@ public class TileMove : MonoBehaviour
         Debug.Log("Reached end of coroutine");
         if(transform.tag == "PlayerUnit")
             GetComponent<SpriteRenderer>().color = Color.gray;
-        GetAttackableTargets(1,1);
+        FindAttackableTiles(1,1);
         yield return null;
     } 
     
     //Highlights all targets the unit can attack
-    public void GetAttackableTargets(int minRange, int maxRange)
+    public void FindAttackableTiles(int minRange, int maxRange)
     {
         ComputeAdjacentLists(false);
         GetCurrentTile();
@@ -180,7 +180,6 @@ public class TileMove : MonoBehaviour
                 }
             }
         }
-        //test
         if(selectableTiles.Count != 0)
         {
             attacking = true;

@@ -21,7 +21,7 @@ public class MapManager : MonoBehaviour
             unmovedAllyUnits += 1;
             allyUnits.Add(allyUnit);
         }
-
+        //Adds each enemyUnit to  the enemy unit list
         foreach (GameObject enemyUnit in GameObject.FindGameObjectsWithTag("EnemyUnit"))
         {
             activeEnemyUnits += 1;
@@ -37,29 +37,7 @@ public class MapManager : MonoBehaviour
         }
         else
         {
-            if(!enemyUnits[activeEnemyUnits-1].GetComponent<EnemyMove>().moved && !enemyUnits[activeEnemyUnits-1].GetComponent<EnemyMove>().moving)
-                enemyUnits[activeEnemyUnits-1].GetComponent<EnemyMove>().Move();
-            else if(enemyUnits[activeEnemyUnits-1].GetComponent<EnemyMove>().attacking)
-            {
-                if(enemyUnits[activeEnemyUnits-1].GetComponent<EnemyMove>().closestTarget.transform.parent.GetComponent<Tile>().attackable)
-                {
-                    Debug.Log("Enemy attacked");
-                    enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().RemoveSelectableTiles();
-                    enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().attacking = false;
-                }
-            }
-            else if(enemyUnits[activeEnemyUnits-1].GetComponent<EnemyMove>().moved)
-            {
-                enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().RemoveSelectableTiles();
-                Debug.Log("finished moving");
-                activeEnemyUnits -= 1;
-                
-            }   
-
-            if(activeEnemyUnits == 0)
-            {
-                StartPlayerPhase();
-            }
+            EnemyPhase();
         }
     }
 
@@ -128,11 +106,13 @@ public class MapManager : MonoBehaviour
             activeEnemyUnits++;
             enemyUnit.GetComponent<EnemyMove>().moved = false;
         }
+        selectedUnit = enemyUnits[activeEnemyUnits - 1];
     }
 
     //Starts the player phase
     private void StartPlayerPhase()
     {
+        selectedUnit = null;
         unmovedAllyUnits = 0;
         playerPhase = true;
         turn++;
@@ -142,5 +122,35 @@ public class MapManager : MonoBehaviour
             allyUnit.GetComponent<AllyMove>().moved = false;
             allyUnit.GetComponent<SpriteRenderer>().color = Color.white;
         }
+    }
+
+    //Enemy Phase
+    private void EnemyPhase()
+    {
+        //If the enemy has not moved and is not currently moving, they move (wow this sounds fucking stupid)
+        if(!selectedUnit.GetComponent<EnemyMove>().moved && !selectedUnit.GetComponent<EnemyMove>().moving)
+            selectedUnit.GetComponent<EnemyMove>().Move();
+        //Enemy attacking phase. Will attack a target if there is one avaliable
+        else if(selectedUnit.GetComponent<EnemyMove>().attacking)
+        {
+            if(selectedUnit.GetComponent<EnemyMove>().closestTarget.transform.parent.GetComponent<Tile>().attackable)
+            {
+                Debug.Log("Enemy attacked");
+                enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().RemoveSelectableTiles();
+                enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().attacking = false;
+            }
+        }
+        //If the enemy has moved
+        else if(selectedUnit.GetComponent<EnemyMove>().moved)
+        {
+            enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().RemoveSelectableTiles();
+            Debug.Log("finished moving");
+            activeEnemyUnits -= 1;
+            if(activeEnemyUnits != 0)
+                selectedUnit = enemyUnits[activeEnemyUnits - 1];
+        }   
+        //If all enemies have moved
+        if(activeEnemyUnits == 0)
+            StartPlayerPhase();
     }
 }
