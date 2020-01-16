@@ -53,7 +53,7 @@ public class MapManager : MonoBehaviour
             {
                 if(selectedTile.GetComponent<Tile>().attackable)
                 {
-                    Debug.Log("Attacked");
+                    selectedUnit.GetComponent<Stats>().Attack(selectedTile.transform.GetChild(0).gameObject);
                     selectedUnit.GetComponent<AllyMove>().attacking = false;
                     selectedUnit.GetComponent<AllyMove>().RemoveSelectableTiles();
                 }
@@ -99,13 +99,23 @@ public class MapManager : MonoBehaviour
     //Starts the enemy phase
     private void StartEnemyPhase()
     {
-        activeEnemyUnits = 0;
         playerPhase = false;
+
+        List<GameObject> enemyUnitsTemp = new List<GameObject>();
+        //Removes dead enemies from enemyUnits list
+        foreach (GameObject enemyUnit in enemyUnits)
+        {
+            if (enemyUnit.activeSelf)
+                enemyUnitsTemp.Add(enemyUnit);
+        }
+        enemyUnits = enemyUnitsTemp;
+
+        //Sets all enemyUnits moved value to false
         foreach(GameObject enemyUnit in enemyUnits)
         {
-            activeEnemyUnits++;
             enemyUnit.GetComponent<EnemyMove>().moved = false;
         }
+        activeEnemyUnits = enemyUnits.Count;
         selectedUnit = enemyUnits[activeEnemyUnits - 1];
     }
 

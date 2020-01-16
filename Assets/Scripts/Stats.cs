@@ -54,5 +54,15 @@ public class Stats : MonoBehaviour
     public void Attack(GameObject target)
     {
         int dmg = str - target.GetComponent<Stats>().def;
+        if (dmg <= 0)
+            dmg = 1;
+        Debug.Log(transform.name + " attacked " + target.transform.name + " for " + dmg + "damage");
+        target.GetComponent<Stats>().hp -= dmg;
+
+        if(target.GetComponent<Stats>().hp <= 0)
+        {
+            Debug.Log(target.transform.name + " fucking died.");
+            target.gameObject.SetActive(false);
+        }
     }
 }
