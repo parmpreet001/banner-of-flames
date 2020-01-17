@@ -49,14 +49,12 @@ public class MapManager : MonoBehaviour
         {
             Collider2D selectedTile = Physics2D.OverlapBox((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.01f, 0.01f), 0); //tile the player clicked on
 
-            if (selectedUnit && selectedUnit.GetComponent<AllyMove>().attacking)
+            //If unit is attacking
+            if (selectedUnit && selectedUnit.GetComponent<AllyMove>().findingTarget)
             {
+                //if the selectedTile is attackable
                 if(selectedTile.GetComponent<Tile>().attackable)
-                {
                     selectedUnit.GetComponent<Stats>().Attack(selectedTile.transform.GetChild(0).gameObject);
-                    selectedUnit.GetComponent<AllyMove>().attacking = false;
-                    selectedUnit.GetComponent<AllyMove>().RemoveSelectableTiles();
-                }
             }
             //if a unit is already selected and the player clicks on a tile that is not selectable, unselects the unit
             else if (selectedUnit && (!selectedTile.GetComponent<Tile>().selectable || selectedTile.GetComponent<Tile>().current))
@@ -86,7 +84,7 @@ public class MapManager : MonoBehaviour
     private void CheckUnmovedUnits()
     {
         //If the selected unit has moved and is not currently moving(meaning that it has reaching the end of its walk animation coroutine)
-        if (selectedUnit && selectedUnit.GetComponent<AllyMove>().moved && !selectedUnit.GetComponent<AllyMove>().moving && !selectedUnit.GetComponent<AllyMove>().attacking)
+        if (selectedUnit && selectedUnit.GetComponent<AllyMove>().moved && !selectedUnit.GetComponent<AllyMove>().moving && !selectedUnit.GetComponent<AllyMove>().findingTarget)
         {
             unmovedAllyUnits -= 1; //Decrements the amount of allies that have not moved yet
             selectedUnit = null; //Unselects the current unit
@@ -105,7 +103,7 @@ public class MapManager : MonoBehaviour
         //Removes dead enemies from enemyUnits list
         foreach (GameObject enemyUnit in enemyUnits)
         {
-            if (enemyUnit.activeSelf)
+            if (enemyUnit)
                 enemyUnitsTemp.Add(enemyUnit);
         }
         enemyUnits = enemyUnitsTemp;
@@ -126,11 +124,16 @@ public class MapManager : MonoBehaviour
         unmovedAllyUnits = 0;
         playerPhase = true;
         turn++;
+        List<GameObject> allyUnitsTemp = new List<GameObject>();
+
         foreach(GameObject allyUnit in allyUnits)
         {
+            if(allyUnit)
+            {
             unmovedAllyUnits += 1;
             allyUnit.GetComponent<AllyMove>().moved = false;
             allyUnit.GetComponent<SpriteRenderer>().color = Color.white;
+            }
         }
     }
 
@@ -138,18 +141,24 @@ public class MapManager : MonoBehaviour
     private void EnemyPhase()
     {
         //If the enemy has not moved and is not currently moving, they move (wow this sounds fucking stupid)
-        if(!selectedUnit.GetComponent<EnemyMove>().moved && !selectedUnit.GetComponent<EnemyMove>().moving)
-            selectedUnit.GetComponent<EnemyMove>().Move();
+
+        if(selectedUnit.GetComponent<EnemyMove>().attacking)
+        {
+
+        }
         //Enemy attacking phase. Will attack a target if there is one avaliable
-        else if(selectedUnit.GetComponent<EnemyMove>().attacking)
+        else if(selectedUnit.GetComponent<EnemyMove>().findingTarget)
         {
             if(selectedUnit.GetComponent<EnemyMove>().closestTarget.transform.parent.GetComponent<Tile>().attackable)
             {
                 Debug.Log("Enemy attacked");
-                enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().RemoveSelectableTiles();
-                enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().attacking = false;
+                selectedUnit.GetComponent<Stats>().Attack(selectedUnit.GetComponent<EnemyMove>().closestTarget.gameObject);
+                //enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().RemoveSelectableTiles();
+                //enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().attacking = false;
             }
         }
+        else if (!selectedUnit.GetComponent<EnemyMove>().moved && !selectedUnit.GetComponent<EnemyMove>().moving)
+            selectedUnit.GetComponent<EnemyMove>().Move();
         //If the enemy has moved
         else if(selectedUnit.GetComponent<EnemyMove>().moved)
         {

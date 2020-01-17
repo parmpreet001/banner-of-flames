@@ -56,13 +56,28 @@ public class Stats : MonoBehaviour
         int dmg = str - target.GetComponent<Stats>().def;
         if (dmg <= 0)
             dmg = 1;
-        Debug.Log(transform.name + " attacked " + target.transform.name + " for " + dmg + "damage");
-        target.GetComponent<Stats>().hp -= dmg;
 
-        if(target.GetComponent<Stats>().hp <= 0)
+        StartCoroutine(AttackProcess(dmg,target));
+    }
+
+    IEnumerator AttackProcess(int dmg, GameObject target)
+    {
+        GetComponent<TileMove>().findingTarget = false;
+        GetComponent<TileMove>().attacking = true;
+        Debug.Log(transform.name + " attacked " + target.transform.name + " for " + dmg + "damage");
+        target.GetComponent<Stats>().hp -= dmg; ;
+
+        yield return new WaitForSeconds(1f);
+
+        if (target.GetComponent<Stats>().hp <= 0)
         {
             Debug.Log(target.transform.name + " fucking died.");
-            target.gameObject.SetActive(false);
+            yield return new WaitForSeconds(1f);
+            Destroy(target.gameObject);
         }
+
+        GetComponent<TileMove>().attacking = false;
+        GetComponent<TileMove>().RemoveSelectableTiles();
+        yield return null;
     }
 }
