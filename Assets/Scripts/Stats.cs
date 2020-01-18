@@ -15,7 +15,7 @@ public class Stats : MonoBehaviour
     public int attackRangeMax; //maximum attack range of the unit
 
     //Equipped weapon
-
+    public Weapon equippedWeapon;
 
 
     public void Init()
@@ -53,19 +53,48 @@ public class Stats : MonoBehaviour
 
     public void Attack(GameObject target)
     {
-        int dmg = str - target.GetComponent<Stats>().def;
+        StartCoroutine(AttackProcess(target));
+    }
+
+    IEnumerator AttackProcess(GameObject target)
+    {
+        bool hit = false;
+        bool attackTwice = false;
+        bool enemyAttackTwice = false;
+        int dmg = str + equippedWeapon.dmg - target.GetComponent<Stats>().def;
+        int hitrate = equippedWeapon.accuracy + (skl * 2);
+        int avoid = spd * 2;
+        int targetHitrate = target.GetComponent<Stats>().equippedWeapon.accuracy + (skl * 2);
+        int targetAvoid = target.GetComponent<Stats>().spd * 2;
+        int accuracy = (hitrate - targetAvoid);
+        int targetAccuracy = (targetHitrate - avoid);
+
+        Debug.Log("Accuracy is " + accuracy);
+
         if (dmg <= 0)
             dmg = 1;
 
-        StartCoroutine(AttackProcess(dmg,target));
-    }
+        float rnd = Random.Range(0, 100);
+        if(rnd <= accuracy)
+        {
+            hit = true;
+        }
 
-    IEnumerator AttackProcess(int dmg, GameObject target)
-    {
+        Debug.Log("rnd is " + rnd);
+
+
         GetComponent<TileMove>().findingTarget = false;
         GetComponent<TileMove>().attacking = true;
-        Debug.Log(transform.name + " attacked " + target.transform.name + " for " + dmg + "damage");
-        target.GetComponent<Stats>().hp -= dmg; ;
+
+        if(hit)
+        {
+            Debug.Log(transform.name + " attacked " + target.transform.name + " for " + dmg + "damage");
+            target.GetComponent<Stats>().hp -= dmg;
+        }
+        else
+        {
+            Debug.Log(transform.name + " missed!");
+        }
 
         yield return new WaitForSeconds(1f);
 
@@ -74,8 +103,13 @@ public class Stats : MonoBehaviour
             Debug.Log(target.transform.name + " fucking died.");
             yield return new WaitForSeconds(1f);
             Destroy(target.gameObject);
+
+            GetComponent<TileMove>().attacking = false;
+            GetComponent<TileMove>().RemoveSelectableTiles();
+            yield return null;
         }
 
+        Debug.Log("reached end of attack");
         GetComponent<TileMove>().attacking = false;
         GetComponent<TileMove>().RemoveSelectableTiles();
         yield return null;

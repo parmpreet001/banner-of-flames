@@ -12,6 +12,7 @@ public class MapManager : MonoBehaviour
     private List<GameObject> enemyUnits = new List<GameObject>(); //List of all alive enemy units on the map
     [SerializeField]
     private GameObject selectedUnit; //The currently selected unit. Can be either a ally unit or an enemy unit. 
+    Collider2D selectedTile;
 
     void Start()
     {
@@ -47,7 +48,7 @@ public class MapManager : MonoBehaviour
         //If left mouse button is pressed
         if (Input.GetMouseButtonUp(0))
         {
-            Collider2D selectedTile = Physics2D.OverlapBox((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.01f, 0.01f), 0); //tile the player clicked on
+            selectedTile = Physics2D.OverlapBox((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.01f, 0.01f), 0);
 
             //If unit is attacking
             if (selectedUnit && selectedUnit.GetComponent<AllyMove>().findingTarget)

@@ -1024,6 +1024,7 @@ MonoBehaviour:
   selectableTiles: []
   selected: 0
   moving: 0
+  findingTarget: 0
   attacking: 0
   moved: 0
 --- !u!212 &616844895
@@ -1089,13 +1090,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  baseHP: 5
-  baseSTR: 0
-  baseMAG: 5
-  baseDEF: 5
-  baseRES: 5
+  baseHP: 15
+  baseSTR: 8
+  baseMAG: 4
+  baseDEF: 6
+  baseRES: 2
   baseSKL: 5
-  baseSPD: 5
+  baseSPD: 6
   hp: 0
   str: 0
   mag: 0
@@ -1113,6 +1114,7 @@ MonoBehaviour:
   mov: 4
   attackRangeMin: 0
   attackRangeMax: 0
+  equippedWeapon: {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
 --- !u!1 &617257097
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,6 +1190,7 @@ MonoBehaviour:
   selectableTiles: []
   selected: 0
   moving: 0
+  findingTarget: 0
   attacking: 0
   moved: 0
   closestTarget: {fileID: 0}
@@ -1254,13 +1257,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  baseHP: 8
-  baseSTR: 8
-  baseMAG: 8
-  baseDEF: 8
-  baseRES: 8
-  baseSKL: 8
-  baseSPD: 8
+  baseHP: 12
+  baseSTR: 5
+  baseMAG: 4
+  baseDEF: 3
+  baseRES: 4
+  baseSKL: 4
+  baseSPD: 4
   hp: 0
   str: 0
   mag: 0
@@ -1278,6 +1281,7 @@ MonoBehaviour:
   mov: 4
   attackRangeMin: 0
   attackRangeMax: 0
+  equippedWeapon: {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
 --- !u!1001 &646380547
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1674,6 +1678,7 @@ MonoBehaviour:
   selectableTiles: []
   selected: 0
   moving: 0
+  findingTarget: 0
   attacking: 0
   moved: 0
 --- !u!61 &870737328
@@ -1715,12 +1720,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  baseHP: 5
-  baseSTR: 20
-  baseMAG: 5
+  baseHP: 20
+  baseSTR: 7
+  baseMAG: 9
   baseDEF: 5
-  baseRES: 5
-  baseSKL: 5
+  baseRES: 8
+  baseSKL: 4
   baseSPD: 5
   hp: 0
   str: 0
@@ -1739,6 +1744,7 @@ MonoBehaviour:
   mov: 4
   attackRangeMin: 0
   attackRangeMax: 0
+  equippedWeapon: {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
 --- !u!1001 &895632005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2918,6 +2924,7 @@ MonoBehaviour:
   selectableTiles: []
   selected: 0
   moving: 0
+  findingTarget: 0
   attacking: 0
   moved: 0
   closestTarget: {fileID: 0}
@@ -3011,7 +3018,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   baseHP: 10
-  baseSTR: 10
+  baseSTR: 2
   baseMAG: 10
   baseDEF: 10
   baseRES: 10
@@ -3034,6 +3041,7 @@ MonoBehaviour:
   mov: 4
   attackRangeMin: 0
   attackRangeMax: 0
+  equippedWeapon: {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
 --- !u!1001 &1574432285
 PrefabInstance:
   m_ObjectHideFlags: 0
