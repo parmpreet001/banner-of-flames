@@ -23,6 +23,7 @@ public class EnemyMove : TileMove
         double targetDistance = 0; //Distance to the closestTarget
         Tile closestTileToTarget = selectableTiles[0]; //Tile closest to the target. Default value is the tile the enemy is currently standing on
 
+        //Finds closest target
         foreach (GameObject target in targets)
         {
             if (Vector2.Distance(transform.position, target.transform.position) < Vector2.Distance(transform.position, closestTarget.transform.position))
@@ -35,11 +36,20 @@ public class EnemyMove : TileMove
         {
             if (Vector2.Distance(tile.transform.position, closestTarget.transform.position) < targetDistance)
             {
-                closestTileToTarget = tile;
-                targetDistance = Vector2.Distance(closestTileToTarget.transform.position, closestTarget.transform.position);
+                if(Vector2.Distance(tile.transform.position, closestTarget.transform.position) >= GetComponent<Stats>().equippedWeapon.minRange &&
+                    Vector2.Distance(tile.transform.position, closestTarget.transform.position) <= GetComponent<Stats>().equippedWeapon.maxRange)
+                {
+                    closestTileToTarget = tile;
+                    targetDistance = Vector2.Distance(closestTileToTarget.transform.position, closestTarget.transform.position);
+                }
+
             }
         }
 
+        if(closestTileToTarget == currentTile)
+        {
+            Debug.Log("the enemy did not move");
+        }
         MovetToTile(closestTileToTarget);
     }
 }

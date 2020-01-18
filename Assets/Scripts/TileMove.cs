@@ -8,7 +8,7 @@ public class TileMove : MonoBehaviour
     GameObject[] tiles;
 
     Stack<Tile> path = new Stack<Tile>();
-    Tile currentTile = new Tile(); //Tile the unit starts on
+    public Tile currentTile = new Tile(); //Tile the unit starts on
 
     public bool selected = false;
     public bool moving = false;
@@ -137,7 +137,7 @@ public class TileMove : MonoBehaviour
         Debug.Log("Reached end of coroutine");
         if(transform.tag == "PlayerUnit")
             GetComponent<SpriteRenderer>().color = Color.gray;
-        FindAttackableTiles(1,1);
+        FindAttackableTiles(GetComponent<Stats>().equippedWeapon.minRange,GetComponent<Stats>().equippedWeapon.maxRange);
         yield return null;
     } 
     
