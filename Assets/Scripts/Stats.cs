@@ -58,35 +58,28 @@ public class Stats : MonoBehaviour
 
     IEnumerator AttackProcess(GameObject target)
     {
-        bool hit = false;
         bool attackTwice = false;
         bool enemyAttackTwice = false;
-        int dmg = str + equippedWeapon.dmg - target.GetComponent<Stats>().def;
-        int hitrate = equippedWeapon.accuracy + (skl * 2);
-        int avoid = spd * 2;
-        int targetHitrate = target.GetComponent<Stats>().equippedWeapon.accuracy + (skl * 2);
-        int targetAvoid = target.GetComponent<Stats>().spd * 2;
+
+        int dmg = GetDmg(gameObject, target);
+        int hitrate = GetHitrate(gameObject);
+        int avoid = GetAvoid(gameObject);
+        int targetDmg = GetDmg(target, gameObject);
+        int targetHitrate = GetHitrate(target);
+        int targetAvoid = GetAvoid(target);
+
         int accuracy = (hitrate - targetAvoid);
         int targetAccuracy = (targetHitrate - avoid);
 
-        Debug.Log("Accuracy is " + accuracy);
-
-        if (dmg <= 0)
-            dmg = 1;
-
-        float rnd = Random.Range(0, 100);
-        if(rnd <= accuracy)
-        {
-            hit = true;
-        }
-
-        Debug.Log("rnd is " + rnd);
-
+        if(spd >= target.GetComponent<Stats>().spd + 5)
+            attackTwice = true;
+        else if(target.GetComponent<Stats>().spd >+ spd + 5)
+            enemyAttackTwice = true;
 
         GetComponent<TileMove>().findingTarget = false;
         GetComponent<TileMove>().attacking = true;
 
-        if(hit)
+        if(HitOrMiss(accuracy))
         {
             Debug.Log(transform.name + " attacked " + target.transform.name + " for " + dmg + "damage");
             target.GetComponent<Stats>().hp -= dmg;
@@ -97,6 +90,20 @@ public class Stats : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
+
+        if(attackTwice)
+        {
+            if (HitOrMiss(accuracy))
+            {
+                Debug.Log(transform.name + " attacked " + target.transform.name + " for " + dmg + "damage");
+                target.GetComponent<Stats>().hp -= dmg;
+            }
+            else
+            {
+                Debug.Log(transform.name + " missed!");
+            }
+            yield return new WaitForSeconds(1f);
+        }
 
         if (target.GetComponent<Stats>().hp <= 0)
         {
@@ -113,5 +120,29 @@ public class Stats : MonoBehaviour
         GetComponent<TileMove>().attacking = false;
         GetComponent<TileMove>().RemoveSelectableTiles();
         yield return null;
+    }
+
+    private int GetDmg(GameObject unit, GameObject target)
+    {
+        int dmg = unit.GetComponent<Stats>().str + unit.GetComponent<Stats>().equippedWeapon.dmg - target.GetComponent<Stats>().def;
+        if (dmg <= 0)
+            dmg = 1;
+        return dmg;
+    }
+
+    private int GetHitrate(GameObject unit)
+    {
+        return unit.GetComponent<Stats>().equippedWeapon.accuracy + (unit.GetComponent<Stats>().skl * 2);
+    }
+
+    private int GetAvoid(GameObject unit)
+    {
+        return unit.GetComponent<Stats>().spd * 2;
+    }
+
+    private bool HitOrMiss(int accuracy)
+    {
+        float rnd = Random.Range(0, 100);
+        return rnd <= accuracy;
     }
 }

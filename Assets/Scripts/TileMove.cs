@@ -120,7 +120,7 @@ public class TileMove : MonoBehaviour
 
     IEnumerator WalkToTileAnimation(Tile tile)
     {
-        Debug.Log("Starting coroutine");
+        Debug.Log(transform.name + "has Stared coroutine");
         Tile t = path.Pop();
         while(path.Count > 0)
         {
@@ -134,7 +134,7 @@ public class TileMove : MonoBehaviour
         selected = false;
         moving = false;
         moved = true;
-        Debug.Log("Reached end of coroutine");
+        Debug.Log(transform.name + "has reached end of coroutine");
         if(transform.tag == "PlayerUnit")
             GetComponent<SpriteRenderer>().color = Color.gray;
         FindAttackableTiles(GetComponent<Stats>().equippedWeapon.minRange,GetComponent<Stats>().equippedWeapon.maxRange);

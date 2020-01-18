@@ -45,11 +45,6 @@ public class EnemyMove : TileMove
 
             }
         }
-
-        if(closestTileToTarget == currentTile)
-        {
-            Debug.Log("the enemy did not move");
-        }
         MovetToTile(closestTileToTarget);
     }
 }
