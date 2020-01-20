@@ -15,7 +15,7 @@ public class AllyMove :TileMove
     {
         if (!moving && selected)
         {
-            FindSelectableTiles(GetComponent<PlayerStats>().mov);
+            FindSelectableTiles(GetComponent<AllyStats>().mov);
             CheckMouse();
         }
     }
