@@ -13,7 +13,6 @@ public class MapManager : MonoBehaviour
     public GameObject selectedUnit; //The currently selected unit. Can be either a ally unit or an enemy unit. 
     GameObject selectedTile;
 
-
     void Start()
     {
         //Adds each AllyUnit to the allyUnits list
@@ -37,7 +36,6 @@ public class MapManager : MonoBehaviour
                 StartEnemyPhase();
             else
                 PlayerPhase();
-            //CheckUnmovedUnits();
         }
         else
         {
@@ -57,7 +55,9 @@ public class MapManager : MonoBehaviour
                 selectedUnit = null;
                 unmovedAllyUnits -= 1;
                 Debug.Log("Number of unmoved ally units is " + unmovedAllyUnits);
-            }  
+            }
+            else if (!selectedUnit.GetComponent<AllyMove>().selected)
+                selectedUnit = null;
         }
         //If left mouse button is pressed
         if (Input.GetMouseButtonUp(0))
@@ -70,7 +70,8 @@ public class MapManager : MonoBehaviour
                 if(selectedTile)
                 {
                     //If a player unit is standing on the tile and has not moved
-                    if(selectedTile.transform.childCount == 1 && !selectedTile.transform.GetChild(0).GetComponent<AllyMove>().moved)
+                    if(selectedTile.transform.childCount == 1 && selectedTile.transform.GetChild(0).tag == "PlayerUnit" &&
+                        !selectedTile.transform.GetChild(0).GetComponent<AllyMove>().moved)
                     {
                         selectedUnit = selectedTile.transform.GetChild(0).gameObject;
                         selectedUnit.GetComponent<AllyMove>().selected = true;

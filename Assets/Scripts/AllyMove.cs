@@ -18,7 +18,7 @@ public class AllyMove :TileMove
         if (selected)
         {
             if (moved)
-                selected = false;
+                UnselectUnit();
             else
                 CheckMouse();
         }
@@ -49,11 +49,11 @@ public class AllyMove :TileMove
                     if (selectedTile.GetComponent<Tile>().selectable && !selectedTile.GetComponent<Tile>().current)
                         MovetToTile(selectedTile.GetComponent<Tile>());
                     else if (!selectedTile.GetComponent<Tile>().selectable || selectedTile.GetComponent<Tile>().current)
-                        selected = false;
+                        UnselectUnit();
                 }
             }
         }
-        else
+        else if(firstClick)
         {
             firstClick = false;
             FindSelectableTiles(GetComponent<AllyStats>().mov);
@@ -61,6 +61,13 @@ public class AllyMove :TileMove
             
     }
 
+    private void UnselectUnit()
+    {
+        selected = false;
+        firstClick = true;
+        RemoveSelectableTiles();
+
+    }
 
 
     private GameObject GetTile()
