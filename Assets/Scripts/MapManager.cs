@@ -13,6 +13,7 @@ public class MapManager : MonoBehaviour
     public GameObject selectedUnit; //The currently selected unit. Can be either a ally unit or an enemy unit. 
     GameObject selectedTile;
 
+
     void Start()
     {
         //Adds each AllyUnit to the allyUnits list

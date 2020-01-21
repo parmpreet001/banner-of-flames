@@ -5,6 +5,7 @@ using UnityEngine;
 public class AllyMove :TileMove
 {
     private GameObject selectedTile;
+    public bool firstClick = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,29 +26,42 @@ public class AllyMove :TileMove
 
     private void CheckMouse()
     {
-        if(Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && !firstClick)
         {
             if (attacking)
             {
                 //Nothing here yet
             }
-            else if(findingTarget)
+            else if (findingTarget)
             {
                 selectedTile = GetTile();
                 if (selectedTile.GetComponent<Tile>().attackable)
                     GetComponent<Stats>().Attack(selectedTile.transform.GetChild(0).gameObject);
             }
             //If unit is not moving
-            else if(!moving)
+            else if (!moving)
             {
-                FindSelectableTiles(GetComponent<AllyStats>().mov);
                 selectedTile = GetTile();
-                //If the selectedTile is selectable and is not the same one the unit is standing on
-                if(selectedTile && selectedTile.GetComponent<Tile>().selectable && !selectedTile.GetComponent<Tile>().current)
-                    MovetToTile(selectedTile.GetComponent<Tile>());
+
+                if (selectedTile)
+                {
+                    //If the selectedTile is selectable and is not the same one the unit is standing on
+                    if (selectedTile.GetComponent<Tile>().selectable && !selectedTile.GetComponent<Tile>().current)
+                        MovetToTile(selectedTile.GetComponent<Tile>());
+                    else if (!selectedTile.GetComponent<Tile>().selectable || selectedTile.GetComponent<Tile>().current)
+                        selected = false;
+                }
             }
         }
+        else
+        {
+            firstClick = false;
+            FindSelectableTiles(GetComponent<AllyStats>().mov);
+        }
+            
     }
+
+
 
     private GameObject GetTile()
     {
