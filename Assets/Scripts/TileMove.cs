@@ -88,9 +88,9 @@ public class TileMove : MonoBehaviour
 
     public void MovetToTile(Tile tile)
     {
+        moving = true;
         path.Clear();
         tile.target = true;
-        moving = true;
 
         Tile next = tile;
         while(next != null)
@@ -131,9 +131,7 @@ public class TileMove : MonoBehaviour
         }
         transform.SetParent(tile.transform);
         transform.position = tile.transform.position;
-        selected = false;
         moving = false;
-        moved = true;
         Debug.Log(transform.name + "has reached end of coroutine");
         if(transform.tag == "PlayerUnit")
             GetComponent<SpriteRenderer>().color = Color.gray;
@@ -187,6 +185,8 @@ public class TileMove : MonoBehaviour
         }
         else
         {
+            selected = false;
+            moved = true;
             RemoveSelectableTiles();
         }
     }

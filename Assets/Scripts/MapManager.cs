@@ -11,7 +11,7 @@ public class MapManager : MonoBehaviour
     private List<GameObject> allyUnits = new List<GameObject>(); //List of all alive ally units on the map
     private List<GameObject> enemyUnits = new List<GameObject>(); //List of all alive enemy units on the map
     public GameObject selectedUnit; //The currently selected unit. Can be either a ally unit or an enemy unit. 
-    Collider2D selectedTile;
+    GameObject selectedTile;
 
     void Start()
     {
@@ -32,8 +32,11 @@ public class MapManager : MonoBehaviour
     {
         if(playerPhase)
         {
-            CheckMouse();
-            CheckUnmovedUnits();
+            if (unmovedAllyUnits == 0)
+                StartEnemyPhase();
+            else
+                PlayerPhase();
+            //CheckUnmovedUnits();
         }
         else
         {
@@ -42,8 +45,39 @@ public class MapManager : MonoBehaviour
     }
 
     //Checks where the player clicked
-    private void CheckMouse()
+    private void PlayerPhase()
     {
+        //If a unit is selected
+        if (selectedUnit)
+        {
+            //if the unit has finished moving
+            if (selectedUnit.GetComponent<AllyMove>().moved)
+            {
+                selectedUnit = null;
+                unmovedAllyUnits -= 1;
+                Debug.Log("Number of unmoved ally units is " + unmovedAllyUnits);
+            }  
+        }
+        //If left mouse button is pressed
+        if (Input.GetMouseButtonUp(0))
+        {
+            //If a unit is not selected
+            if (!selectedUnit)
+            {
+                selectedTile = GetTile(); //Gets the tile the player clicked
+                //If selectedTile is not null, meaning that the player didnt click outside the map
+                if(selectedTile)
+                {
+                    //If a player unit is standing on the tile and has not moved
+                    if(selectedTile.transform.childCount == 1 && !selectedTile.transform.GetChild(0).GetComponent<AllyMove>().moved)
+                    {
+                        selectedUnit = selectedTile.transform.GetChild(0).gameObject;
+                        selectedUnit.GetComponent<AllyMove>().selected = true;
+                    }
+                }
+            }
+        }
+        /*
         //If left mouse button is pressed
         if (Input.GetMouseButtonUp(0))
         {
@@ -78,6 +112,22 @@ public class MapManager : MonoBehaviour
                 Debug.Log("Selected " + selectedUnit.transform.name);
             }
         }
+        */
+    }
+
+    private GameObject GetTile()
+    {
+        GameObject tile = null;
+        Collider2D[] colliders = Physics2D.OverlapBoxAll((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.01f, 0.01f), 0);
+        foreach(Collider2D item in colliders)
+        {
+            if (item.tag == "Tile")
+            {
+                tile = item.gameObject;
+            }
+                
+        }
+        return tile;
     }
 
     //Checks and updates the value of unmovedAllyUnits

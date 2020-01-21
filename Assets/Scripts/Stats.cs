@@ -110,14 +110,12 @@ public class Stats : MonoBehaviour
             Debug.Log(target.transform.name + " fucking died.");
             yield return new WaitForSeconds(1f);
             Destroy(target.gameObject);
-
-            GetComponent<TileMove>().attacking = false;
-            GetComponent<TileMove>().RemoveSelectableTiles();
-            yield return null;
         }
 
         Debug.Log("reached end of attack");
+        
         GetComponent<TileMove>().attacking = false;
+        GetComponent<TileMove>().moved = true;
         GetComponent<TileMove>().RemoveSelectableTiles();
         yield return null;
     }
