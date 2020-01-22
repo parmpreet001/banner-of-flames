@@ -133,8 +133,6 @@ public class TileMove : MonoBehaviour
         transform.position = tile.transform.position;
         moving = false;
         Debug.Log(transform.name + "has reached end of coroutine");
-        if(transform.tag == "PlayerUnit")
-            GetComponent<SpriteRenderer>().color = Color.gray;
         FindAttackableTiles(GetComponent<Stats>().equippedWeapon.minRange,GetComponent<Stats>().equippedWeapon.maxRange);
         yield return null;
     } 

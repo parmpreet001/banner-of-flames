@@ -52,6 +52,7 @@ public class MapManager : MonoBehaviour
             //if the unit has finished moving
             if (selectedUnit.GetComponent<AllyMove>().moved)
             {
+                selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
                 selectedUnit = null;
                 unmovedAllyUnits -= 1;
                 Debug.Log("Number of unmoved ally units is " + unmovedAllyUnits);
@@ -127,7 +128,6 @@ public class MapManager : MonoBehaviour
             {
                 tile = item.gameObject;
             }
-                
         }
         return tile;
     }

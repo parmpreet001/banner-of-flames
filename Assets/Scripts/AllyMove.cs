@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class AllyMove :TileMove
 {
-    private GameObject selectedTile;
     public bool firstClick = true;
+    private GameObject selectedTile;
+    private Tile startingTile;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -53,10 +55,18 @@ public class AllyMove :TileMove
                 }
             }
         }
+        else if(Input.GetMouseButtonUp(1))
+        {
+            transform.SetParent(startingTile.transform);
+            transform.position = startingTile.transform.position;
+            UnselectUnit();
+        }
         else if(firstClick)
         {
             firstClick = false;
             FindSelectableTiles(GetComponent<AllyStats>().mov);
+            startingTile = currentTile;
+            Debug.Log("Starting on " + startingTile.transform.name + "," + startingTile.transform.parent.name);
         }
             
     }
@@ -64,6 +74,9 @@ public class AllyMove :TileMove
     private void UnselectUnit()
     {
         selected = false;
+        moving = false;
+        findingTarget = false;
+        attacking = false;
         firstClick = true;
         RemoveSelectableTiles();
 

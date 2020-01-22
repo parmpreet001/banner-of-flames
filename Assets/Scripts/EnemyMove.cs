@@ -42,7 +42,6 @@ public class EnemyMove : TileMove
                     closestTileToTarget = tile;
                     targetDistance = Vector2.Distance(closestTileToTarget.transform.position, closestTarget.transform.position);
                 }
-
             }
         }
         MovetToTile(closestTileToTarget);
