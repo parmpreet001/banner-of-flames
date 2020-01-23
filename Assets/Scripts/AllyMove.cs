@@ -30,7 +30,11 @@ public class AllyMove :TileMove
     {
         if (Input.GetMouseButtonUp(0) && !firstClick)
         {
-            if (attacking)
+            if (actionMenu)
+            {
+
+            }
+            else if (attacking)
             {
                 //Nothing here yet
             }
@@ -51,7 +55,12 @@ public class AllyMove :TileMove
                     if (selectedTile.GetComponent<Tile>().selectable && !selectedTile.GetComponent<Tile>().current)
                         MovetToTile(selectedTile.GetComponent<Tile>());
                     else if (!selectedTile.GetComponent<Tile>().selectable || selectedTile.GetComponent<Tile>().current)
-                        UnselectUnit();
+                    {
+                        actionMenu = true;
+                        RemoveSelectableTiles();
+                        //UnselectUnit();
+                    }
+                        
                 }
             }
         }
@@ -95,5 +104,10 @@ public class AllyMove :TileMove
             }
         }
         return tile;
+    }
+
+    private void ShowMenu()
+    {
+        actionMenu = true;
     }
 }

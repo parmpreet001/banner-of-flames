@@ -14,6 +14,7 @@ public class TileMove : MonoBehaviour
     public bool moving = false;
     public bool findingTarget = false;
     public bool attacking = false;
+    public bool actionMenu = false;
     public bool moved = false;
 
 
