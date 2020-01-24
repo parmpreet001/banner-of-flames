@@ -8,6 +8,7 @@ public class UITest : MonoBehaviour
     public GameObject target;
     private GameObject actionMenu;
     private bool buttonsCreated = false;
+    List<string> buttons = new List<string>();
 
     // Start is called before the first frame update
     void Start()
@@ -24,18 +25,23 @@ public class UITest : MonoBehaviour
             {
                 if(!buttonsCreated)
                 {
+
                     actionMenu.SetActive(true);
                     actionMenu.transform.GetChild(0).gameObject.GetComponent<Button>().onClick.AddListener(OnClick);
                     buttonsCreated = true;
                 }
                 else
                 {
-                    transform.position = new Vector2(target.transform.position.x + 1f,target.transform.position.y);
+                    //transform.position = new Vector2(target.transform.position.x + 1f,target.transform.position.y);
                 }
             }
         }
     }
 
+    private void CreateButtons()
+    {
+        
+    }
     private void OnClick()
     {
         Debug.Log("d");

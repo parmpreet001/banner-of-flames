@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TileMove : MonoBehaviour
 {
+    public GameObject cursor;
     public List<Tile> selectableTiles = new List<Tile>(); //List of tiles that can be selected
     GameObject[] tiles;
 
@@ -20,6 +21,7 @@ public class TileMove : MonoBehaviour
 
     protected void Init()
     {
+        cursor = GameObject.Find("Cursor");
         tiles = GameObject.FindGameObjectsWithTag("Tile");
     }
 

@@ -12,6 +12,7 @@ public class MapManager : MonoBehaviour
     private List<GameObject> enemyUnits = new List<GameObject>(); //List of all alive enemy units on the map
     public GameObject selectedUnit; //The currently selected unit. Can be either a ally unit or an enemy unit. 
     GameObject selectedTile;
+    public GameObject cursor;
 
     void Start()
     {
@@ -61,12 +62,12 @@ public class MapManager : MonoBehaviour
                 selectedUnit = null;
         }
         //If left mouse button is pressed
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetKeyUp(KeyCode.Z))
         {
             //If a unit is not selected
             if (!selectedUnit)
             {
-                selectedTile = GetTile(); //Gets the tile the player clicked
+                selectedTile = cursor.GetComponent<Cursor>().GetTile().gameObject; //Gets the tile the player clicked
                 //If selectedTile is not null, meaning that the player didnt click outside the map
                 if(selectedTile)
                 {
@@ -118,6 +119,7 @@ public class MapManager : MonoBehaviour
         */
     }
 
+    /* Click
     private GameObject GetTile()
     {
         GameObject tile = null;
@@ -131,7 +133,7 @@ public class MapManager : MonoBehaviour
         }
         return tile;
     }
-
+    */
     //Checks and updates the value of unmovedAllyUnits
     private void CheckUnmovedUnits()
     {

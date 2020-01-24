@@ -28,26 +28,23 @@ public class AllyMove :TileMove
 
     private void CheckMouse()
     {
-        if (Input.GetMouseButtonUp(0) && !firstClick)
+        if (Input.GetKeyUp(KeyCode.Z) && !firstClick)
         {
-            if (actionMenu)
-            {
-
-            }
-            else if (attacking)
+            //if (actionMenu)
+            if (attacking)
             {
                 //Nothing here yet
             }
             else if (findingTarget)
             {
-                selectedTile = GetTile();
+                selectedTile = cursor.GetComponent<Cursor>().GetTile().gameObject;
                 if (selectedTile.GetComponent<Tile>().attackable)
                     GetComponent<Stats>().Attack(selectedTile.transform.GetChild(0).gameObject);
             }
             //If unit is not moving
             else if (!moving)
             {
-                selectedTile = GetTile();
+                selectedTile = cursor.GetComponent<Cursor>().GetTile().gameObject;
 
                 if (selectedTile)
                 {
@@ -56,15 +53,15 @@ public class AllyMove :TileMove
                         MovetToTile(selectedTile.GetComponent<Tile>());
                     else if (!selectedTile.GetComponent<Tile>().selectable || selectedTile.GetComponent<Tile>().current)
                     {
-                        actionMenu = true;
+                        //actionMenu = true;
                         RemoveSelectableTiles();
-                        //UnselectUnit();
+                        UnselectUnit();
                     }
                         
                 }
             }
         }
-        else if(Input.GetMouseButtonUp(1))
+        else if(Input.GetKeyUp(KeyCode.X))
         {
             transform.SetParent(startingTile.transform);
             transform.position = startingTile.transform.position;
