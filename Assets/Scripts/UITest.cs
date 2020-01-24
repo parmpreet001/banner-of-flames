@@ -43,32 +43,45 @@ public class UITest : MonoBehaviour
         actionMenu.SetActive(true);
         buttonsCreated = true;
 
-
         AllyMove am = selectedAllyUnit.GetComponent<AllyMove>();
 
         if (am.attacking)
             buttons.Add("Attack");
+        buttons.Add("Temp");
         buttons.Add("Wait");
 
         for(int i = 0; i < buttons.Count; i++)
         {
-            actionMenu.transform.GetChild(i).GetChild(0).GetComponent<Text>().text = buttons[i];
-            actionMenu.transform.GetChild(i).GetChild(0).gameObject.SetActive(true);
-            actionMenu.transform.GetChild(i).gameObject.SetActive(true);
-            actionMenu.transform.GetChild(i).GetComponent<Button>().Select();
-            if(buttons[i] == "Wait")
+            if(buttons[i] == "Temp")
             {
-                actionMenu.transform.GetChild(i).gameObject.GetComponent<Button>().onClick.AddListener(Wait);
+                actionMenu.transform.Find("Button2").gameObject.SetActive(true);
+                actionMenu.transform.Find("Button2").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
+            }
+            else if(buttons[i] == "Wait")
+            {
+                actionMenu.transform.Find("WaitButton").gameObject.SetActive(true);
+                actionMenu.transform.Find("WaitButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
             }
         }
-        for(int i = 0; i < buttons.Count; i++)
-        {
 
-        }
+        actionMenu.GetComponent<RectTransform>().anchoredPosition = new Vector2(actionMenu.GetComponent<RectTransform>().anchoredPosition.x, 17.5f * (buttons.Count - 1));
     }
-    private void Wait()
+    public void Wait()
     {
         selectedAllyUnit.GetComponent<AllyMove>().UnselectUnit();
         selectedAllyUnit.GetComponent<AllyMove>().moved = true;
+        ResetActionMenu();
+    }
+
+    private void ResetActionMenu()
+    {
+        selectedAllyUnit = null;
+        buttonsCreated = false;
+        buttons.Clear();
+        for(int i = 0; i < actionMenu.transform.childCount; i++)
+        {
+            if (actionMenu.transform.GetChild(i).gameObject.activeInHierarchy)
+                actionMenu.transform.GetChild(i).gameObject.SetActive(false);
+        }
     }
 }

@@ -10,7 +10,8 @@ public class MapManager : MonoBehaviour
     private int activeEnemyUnits; //Total number of active(aka not dead enemy units) on the map
     private List<GameObject> allyUnits = new List<GameObject>(); //List of all alive ally units on the map
     private List<GameObject> enemyUnits = new List<GameObject>(); //List of all alive enemy units on the map
-    public GameObject selectedUnit; //The currently selected unit. Can be either a ally unit or an enemy unit. 
+    public GameObject selectedUnit; //The currently selected unit. Can be either a ally unit or an enemy unit.
+    public GameObject actionMenu;
     GameObject selectedTile;
     public GameObject cursor;
 
@@ -77,6 +78,7 @@ public class MapManager : MonoBehaviour
                     {
                         selectedUnit = selectedTile.transform.GetChild(0).gameObject;
                         selectedUnit.GetComponent<AllyMove>().selected = true;
+                        actionMenu.GetComponent<UITest>().selectedAllyUnit = selectedUnit;
                     }
                 }
             }
