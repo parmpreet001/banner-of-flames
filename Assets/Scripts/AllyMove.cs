@@ -30,8 +30,11 @@ public class AllyMove :TileMove
     {
         if (Input.GetKeyUp(KeyCode.Z) && !firstClick)
         {
-            //if (actionMenu)
-            if (attacking)
+            if (actionMenu)
+            {
+
+            }
+            else if (attacking)
             {
                 //Nothing here yet
             }
@@ -53,7 +56,7 @@ public class AllyMove :TileMove
                         MovetToTile(selectedTile.GetComponent<Tile>());
                     else if (!selectedTile.GetComponent<Tile>().selectable || selectedTile.GetComponent<Tile>().current)
                     {
-                        //actionMenu = true;
+                        actionMenu = true;
                         RemoveSelectableTiles();
                         UnselectUnit();
                     }

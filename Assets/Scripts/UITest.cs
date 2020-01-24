@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UITest : MonoBehaviour
 {
-    public GameObject target;
+    public GameObject selectedAllyUnit;
     private GameObject actionMenu;
     private bool buttonsCreated = false;
     List<string> buttons = new List<string>();
@@ -19,16 +19,16 @@ public class UITest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(target)
+        if(selectedAllyUnit)
         {
-            if(target.GetComponent<AllyMove>().actionMenu)
+            if(selectedAllyUnit.GetComponent<AllyMove>().actionMenu)
             {
                 if(!buttonsCreated)
                 {
-
-                    actionMenu.SetActive(true);
-                    actionMenu.transform.GetChild(0).gameObject.GetComponent<Button>().onClick.AddListener(OnClick);
-                    buttonsCreated = true;
+                    CreateButtons();
+                    
+                    //actionMenu.transform.GetChild(0).gameObject.GetComponent<Button>().onClick.AddListener(OnClick);
+                    
                 }
                 else
                 {
@@ -40,7 +40,25 @@ public class UITest : MonoBehaviour
 
     private void CreateButtons()
     {
-        
+        actionMenu.SetActive(true);
+        buttonsCreated = true;
+
+
+        AllyMove am = selectedAllyUnit.GetComponent<AllyMove>();
+
+        if (am.attacking)
+            buttons.Add("Attack");
+        buttons.Add("Wait");
+
+        for(int i = 0; i < buttons.Count; i++)
+        {
+            actionMenu.transform.GetChild(i).GetChild(0).GetComponent<Text>().text = "Wait";
+            actionMenu.transform.GetChild(i).GetChild(0).gameObject.SetActive(true);
+            actionMenu.transform.GetChild(i).gameObject.SetActive(true);
+            
+        }
+
+
     }
     private void OnClick()
     {
