@@ -20,7 +20,7 @@ public class AllyMove :TileMove
         if (selected)
         {
             CheckCursor();
-            if (moved)
+            if (finished)
                 UnselectUnit();
             else
                 CheckInput();
@@ -34,9 +34,11 @@ public class AllyMove :TileMove
             if (actionMenu)
             {
                 Debug.Log("Action menu");
+
             }
             else if (attacking)
             {
+                cursor.GetComponent<Cursor>().canMove = true;
                 //Nothing here yet
             }
             else if (findingTarget)
@@ -44,6 +46,10 @@ public class AllyMove :TileMove
                 selectedTile = cursor.GetComponent<Cursor>().GetTile().gameObject;
                 if (selectedTile.GetComponent<Tile>().attackable)
                     GetComponent<Stats>().Attack(selectedTile.transform.GetChild(0).gameObject);
+            }
+            else if(moved)
+            {
+                
             }
             //If unit is not moving
             else if (!moving)
@@ -95,6 +101,8 @@ public class AllyMove :TileMove
         findingTarget = false;
         attacking = false;
         firstClick = true;
+        moved = false;
+        actionMenu = false;
         cursor.GetComponent<Cursor>().canMove = true;
         RemoveSelectableTiles();
 

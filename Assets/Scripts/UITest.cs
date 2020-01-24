@@ -45,17 +45,16 @@ public class UITest : MonoBehaviour
 
         AllyMove am = selectedAllyUnit.GetComponent<AllyMove>();
 
-        if (am.attacking)
+        if (am.findingTarget)
             buttons.Add("Attack");
-        buttons.Add("Temp");
         buttons.Add("Wait");
 
         for(int i = 0; i < buttons.Count; i++)
         {
-            if(buttons[i] == "Temp")
+            if(buttons[i] == "Attack")
             {
-                actionMenu.transform.Find("Button2").gameObject.SetActive(true);
-                actionMenu.transform.Find("Button2").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
+                actionMenu.transform.Find("AttackButton").gameObject.SetActive(true);
+                actionMenu.transform.Find("AttackButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
             }
             else if(buttons[i] == "Wait")
             {
@@ -69,7 +68,13 @@ public class UITest : MonoBehaviour
     public void Wait()
     {
         selectedAllyUnit.GetComponent<AllyMove>().UnselectUnit();
-        selectedAllyUnit.GetComponent<AllyMove>().moved = true;
+        selectedAllyUnit.GetComponent<AllyMove>().finished = true;
+        ResetActionMenu();
+    }
+
+    public void Attack()
+    {
+        selectedAllyUnit.GetComponent<AllyMove>().actionMenu = false;
         ResetActionMenu();
     }
 

@@ -13,10 +13,11 @@ public class TileMove : MonoBehaviour
 
     public bool selected = false;
     public bool moving = false;
+    public bool moved = false;
     public bool findingTarget = false;
     public bool attacking = false;
     public bool actionMenu = false;
-    public bool moved = false;
+    public bool finished = false;
 
 
     protected void Init()
@@ -135,6 +136,7 @@ public class TileMove : MonoBehaviour
         transform.SetParent(tile.transform);
         transform.position = tile.transform.position;
         moving = false;
+        moved = true;
         Debug.Log(transform.name + "has reached end of coroutine");
         FindAttackableTiles(GetComponent<Stats>().equippedWeapon.minRange,GetComponent<Stats>().equippedWeapon.maxRange);
         yield return null;
@@ -184,11 +186,13 @@ public class TileMove : MonoBehaviour
         {
             findingTarget = true;
         }
-        else
+        if (transform.tag == "EnemyUnit" && findingTarget == false)
         {
             selected = false;
-            moved = true;
+            finished = true;
             RemoveSelectableTiles();
         }
+        else
+            actionMenu = true;
     }
 }

@@ -52,7 +52,7 @@ public class MapManager : MonoBehaviour
         if (selectedUnit)
         {
             //if the unit has finished moving
-            if (selectedUnit.GetComponent<AllyMove>().moved)
+            if (selectedUnit.GetComponent<AllyMove>().finished)
             {
                 selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
                 selectedUnit = null;
@@ -74,7 +74,7 @@ public class MapManager : MonoBehaviour
                 {
                     //If a player unit is standing on the tile and has not moved
                     if(selectedTile.transform.childCount == 1 && selectedTile.transform.GetChild(0).tag == "PlayerUnit" &&
-                        !selectedTile.transform.GetChild(0).GetComponent<AllyMove>().moved)
+                        !selectedTile.transform.GetChild(0).GetComponent<AllyMove>().finished)
                     {
                         selectedUnit = selectedTile.transform.GetChild(0).gameObject;
                         selectedUnit.GetComponent<AllyMove>().selected = true;
@@ -140,7 +140,7 @@ public class MapManager : MonoBehaviour
     private void CheckUnmovedUnits()
     {
         //If the selected unit has moved and is not currently moving(meaning that it has reaching the end of its walk animation coroutine)
-        if (selectedUnit && selectedUnit.GetComponent<AllyMove>().moved && !selectedUnit.GetComponent<AllyMove>().moving && !selectedUnit.GetComponent<AllyMove>().findingTarget)
+        if (selectedUnit && selectedUnit.GetComponent<AllyMove>().finished && !selectedUnit.GetComponent<AllyMove>().moving && !selectedUnit.GetComponent<AllyMove>().findingTarget)
         {
             unmovedAllyUnits -= 1; //Decrements the amount of allies that have not moved yet
             selectedUnit = null; //Unselects the current unit
@@ -167,7 +167,7 @@ public class MapManager : MonoBehaviour
         //Sets all enemyUnits moved value to false
         foreach(GameObject enemyUnit in enemyUnits)
         {
-            enemyUnit.GetComponent<EnemyMove>().moved = false;
+            enemyUnit.GetComponent<EnemyMove>().finished = false;
         }
         activeEnemyUnits = enemyUnits.Count;
         selectedUnit = enemyUnits[activeEnemyUnits - 1];
@@ -187,7 +187,7 @@ public class MapManager : MonoBehaviour
             if(allyUnit)
             {
             unmovedAllyUnits += 1;
-            allyUnit.GetComponent<AllyMove>().moved = false;
+            allyUnit.GetComponent<AllyMove>().finished = false;
             allyUnit.GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
@@ -213,10 +213,10 @@ public class MapManager : MonoBehaviour
                 //enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().attacking = false;
             }
         }
-        else if (!selectedUnit.GetComponent<EnemyMove>().moved && !selectedUnit.GetComponent<EnemyMove>().moving)
+        else if (!selectedUnit.GetComponent<EnemyMove>().finished && !selectedUnit.GetComponent<EnemyMove>().moving)
             selectedUnit.GetComponent<EnemyMove>().Move();
         //If the enemy has moved
-        else if(selectedUnit.GetComponent<EnemyMove>().moved)
+        else if(selectedUnit.GetComponent<EnemyMove>().finished)
         {
             enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().RemoveSelectableTiles();
             Debug.Log("finished moving");
