@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class Cursor : MonoBehaviour
 {
+    public bool canMove = true;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-            transform.position = (Vector2)transform.position + Vector2.up;
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-            transform.position = (Vector2)transform.position + Vector2.right;
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-            transform.position = (Vector2)transform.position + Vector2.down;
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            transform.position = (Vector2)transform.position + Vector2.left;
+        if(canMove)
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+                transform.position = (Vector2)transform.position + Vector2.up;
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+                transform.position = (Vector2)transform.position + Vector2.right;
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+                transform.position = (Vector2)transform.position + Vector2.down;
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+                transform.position = (Vector2)transform.position + Vector2.left;
+        }
     }
 
     public Tile GetTile()

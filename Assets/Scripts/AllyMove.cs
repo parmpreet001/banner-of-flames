@@ -19,20 +19,21 @@ public class AllyMove :TileMove
     {
         if (selected)
         {
+            CheckCursor();
             if (moved)
                 UnselectUnit();
             else
-                CheckMouse();
+                CheckInput();
         }
     }
 
-    private void CheckMouse()
+    private void CheckInput()
     {
         if (Input.GetKeyUp(KeyCode.Z) && !firstClick)
         {
             if (actionMenu)
             {
-
+                Debug.Log("Action menu");
             }
             else if (attacking)
             {
@@ -58,7 +59,7 @@ public class AllyMove :TileMove
                     {
                         actionMenu = true;
                         RemoveSelectableTiles();
-                        UnselectUnit();
+                        //UnselectUnit();
                     }
                         
                 }
@@ -76,17 +77,25 @@ public class AllyMove :TileMove
             FindSelectableTiles(GetComponent<AllyStats>().mov);
             startingTile = currentTile;
             Debug.Log("Starting on " + startingTile.transform.name + "," + startingTile.transform.parent.name);
-        }
-            
+        }     
     }
 
-    private void UnselectUnit()
+    private void CheckCursor()
+    {
+        if (attacking || actionMenu)
+            cursor.GetComponent<Cursor>().canMove = false;
+        else
+            cursor.GetComponent<Cursor>().canMove = true;
+    }
+
+    public void UnselectUnit()
     {
         selected = false;
         moving = false;
         findingTarget = false;
         attacking = false;
         firstClick = true;
+        cursor.GetComponent<Cursor>().canMove = true;
         RemoveSelectableTiles();
 
     }

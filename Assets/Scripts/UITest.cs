@@ -52,16 +52,23 @@ public class UITest : MonoBehaviour
 
         for(int i = 0; i < buttons.Count; i++)
         {
-            actionMenu.transform.GetChild(i).GetChild(0).GetComponent<Text>().text = "Wait";
+            actionMenu.transform.GetChild(i).GetChild(0).GetComponent<Text>().text = buttons[i];
             actionMenu.transform.GetChild(i).GetChild(0).gameObject.SetActive(true);
             actionMenu.transform.GetChild(i).gameObject.SetActive(true);
-            
+            actionMenu.transform.GetChild(i).GetComponent<Button>().Select();
+            if(buttons[i] == "Wait")
+            {
+                actionMenu.transform.GetChild(i).gameObject.GetComponent<Button>().onClick.AddListener(Wait);
+            }
         }
+        for(int i = 0; i < buttons.Count; i++)
+        {
 
-
+        }
     }
-    private void OnClick()
+    private void Wait()
     {
-        Debug.Log("d");
+        selectedAllyUnit.GetComponent<AllyMove>().UnselectUnit();
+        selectedAllyUnit.GetComponent<AllyMove>().moved = true;
     }
 }
