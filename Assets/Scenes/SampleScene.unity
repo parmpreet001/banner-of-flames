@@ -1377,10 +1377,11 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   selected: 0
   moving: 0
+  moved: 0
   findingTarget: 0
   attacking: 0
   actionMenu: 0
-  moved: 0
+  finished: 0
   firstClick: 1
 --- !u!212 &616844895
 SpriteRenderer:
@@ -1547,10 +1548,11 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   selected: 0
   moving: 0
+  moved: 0
   findingTarget: 0
   attacking: 0
   actionMenu: 0
-  moved: 0
+  finished: 0
   closestTarget: {fileID: 0}
 --- !u!212 &617257101
 SpriteRenderer:
@@ -2167,10 +2169,11 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   selected: 0
   moving: 0
+  moved: 0
   findingTarget: 0
   attacking: 0
   actionMenu: 0
-  moved: 0
+  finished: 0
   firstClick: 1
 --- !u!61 &870737328
 BoxCollider2D:
@@ -2766,7 +2769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64f6785930330a44c91405d7ebfc0cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedAllyUnit: {fileID: 870737324}
+  selectedAllyUnit: {fileID: 0}
 --- !u!1001 &1131476391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3908,10 +3911,11 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   selected: 0
   moving: 0
+  moved: 0
   findingTarget: 0
   attacking: 0
   actionMenu: 0
-  moved: 0
+  finished: 0
   closestTarget: {fileID: 0}
 --- !u!61 &1553497268
 BoxCollider2D:

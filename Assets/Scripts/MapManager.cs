@@ -209,8 +209,6 @@ public class MapManager : MonoBehaviour
             {
                 Debug.Log("Enemy attacked");
                 selectedUnit.GetComponent<Stats>().Attack(selectedUnit.GetComponent<EnemyMove>().closestTarget.gameObject);
-                //enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().RemoveSelectableTiles();
-                //enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().attacking = false;
             }
         }
         else if (!selectedUnit.GetComponent<EnemyMove>().finished && !selectedUnit.GetComponent<EnemyMove>().moving)

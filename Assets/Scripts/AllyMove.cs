@@ -6,7 +6,8 @@ public class AllyMove :TileMove
 {
     public bool firstClick = true;
     private GameObject selectedTile;
-    private Tile startingTile;
+    private Tile startingTile; //The tile the unit started on
+    private Tile movedTile; //The tile the unit moved to
     
     // Start is called before the first frame update
     void Start()
@@ -60,7 +61,11 @@ public class AllyMove :TileMove
                 {
                     //If the selectedTile is selectable and is not the same one the unit is standing on
                     if (selectedTile.GetComponent<Tile>().selectable && !selectedTile.GetComponent<Tile>().current)
+                    {
                         MovetToTile(selectedTile.GetComponent<Tile>());
+                        movedTile = selectedTile.GetComponent<Tile>();
+                    }
+                        
                     else if (!selectedTile.GetComponent<Tile>().selectable || selectedTile.GetComponent<Tile>().current)
                     {
                         actionMenu = true;
@@ -73,9 +78,27 @@ public class AllyMove :TileMove
         }
         else if(Input.GetKeyUp(KeyCode.X))
         {
-            transform.SetParent(startingTile.transform);
-            transform.position = startingTile.transform.position;
-            UnselectUnit();
+            if(findingTarget && !actionMenu)
+            {
+                actionMenu = true;
+            }
+            else if(moved)
+            {
+                transform.SetParent(startingTile.transform);
+                transform.position = startingTile.transform.position;
+                RemoveSelectableTiles();
+                moved = false;
+                actionMenu = false;
+                findingTarget = false;
+                FindSelectableTiles(GetComponent<AllyStats>().mov);
+            }
+            else
+            {
+                transform.SetParent(startingTile.transform);
+                transform.position = startingTile.transform.position;
+                UnselectUnit();
+            }
+
         }
         else if(firstClick)
         {

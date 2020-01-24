@@ -21,20 +21,18 @@ public class UITest : MonoBehaviour
     {
         if(selectedAllyUnit)
         {
-            if(selectedAllyUnit.GetComponent<AllyMove>().actionMenu)
+            if (selectedAllyUnit.GetComponent<AllyMove>().actionMenu)
             {
-                if(!buttonsCreated)
+                if (!buttonsCreated)
                 {
                     CreateButtons();
-                    
-                    //actionMenu.transform.GetChild(0).gameObject.GetComponent<Button>().onClick.AddListener(OnClick);
-                    
-                }
-                else
-                {
-                    //transform.position = new Vector2(target.transform.position.x + 1f,target.transform.position.y);
                 }
             }
+            else if (!selectedAllyUnit.GetComponent<AllyMove>().actionMenu && buttonsCreated)
+            {
+                ResetActionMenu(false);
+            }
+                
         }
     }
 
@@ -69,18 +67,19 @@ public class UITest : MonoBehaviour
     {
         selectedAllyUnit.GetComponent<AllyMove>().UnselectUnit();
         selectedAllyUnit.GetComponent<AllyMove>().finished = true;
-        ResetActionMenu();
+        ResetActionMenu(true);
     }
 
     public void Attack()
     {
         selectedAllyUnit.GetComponent<AllyMove>().actionMenu = false;
-        ResetActionMenu();
+        ResetActionMenu(false);
     }
 
-    private void ResetActionMenu()
+    private void ResetActionMenu(bool removeSelectedAllyUnit)
     {
-        selectedAllyUnit = null;
+        if (removeSelectedAllyUnit)
+            selectedAllyUnit = null;
         buttonsCreated = false;
         buttons.Clear();
         for(int i = 0; i < actionMenu.transform.childCount; i++)
