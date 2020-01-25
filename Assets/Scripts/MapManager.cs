@@ -68,7 +68,7 @@ public class MapManager : MonoBehaviour
             //If a unit is not selected
             if (!selectedUnit)
             {
-                selectedTile = cursor.GetComponent<Cursor>().GetTile().gameObject; //Gets the tile the player clicked
+                selectedTile = cursor.GetComponent<Cursor>().currentTile.gameObject; //Gets the tile the player clicked
                 //If selectedTile is not null, meaning that the player didnt click outside the map
                 if(selectedTile)
                 {

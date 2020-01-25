@@ -44,7 +44,7 @@ public class AllyMove :TileMove
             }
             else if (findingTarget)
             {
-                selectedTile = cursor.GetComponent<Cursor>().GetTile().gameObject;
+                selectedTile = cursor.GetComponent<Cursor>().currentTile.gameObject;
                 if (selectedTile.GetComponent<Tile>().attackable)
                     GetComponent<Stats>().Attack(selectedTile.transform.GetChild(0).gameObject);
             }
@@ -55,7 +55,7 @@ public class AllyMove :TileMove
             //If unit is not moving
             else if (!moving)
             {
-                selectedTile = cursor.GetComponent<Cursor>().GetTile().gameObject;
+                selectedTile = cursor.GetComponent<Cursor>().currentTile.gameObject;
 
                 if (selectedTile)
                 {

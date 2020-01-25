@@ -10,6 +10,8 @@ public class Stats : MonoBehaviour
     public int hp, str, mag, def, res, skl, spd; //The units current stats
     public double hpGrowth, strGrowth, magGrowth, defGrowth, resGrowth, sklGrowth, spdGrowth; //Growth rates of the unit.
 
+    public int maxHP;
+
     public int mov; //Movement speed of the unit
     public int attackRangeMin; //mininum attack range of the unit
     public int attackRangeMax; //maximum attack range of the unit
@@ -21,6 +23,7 @@ public class Stats : MonoBehaviour
     public void Init()
     {
         hp = baseHP; str = baseSTR; mag = baseMAG; def = baseDEF; res = baseRES; skl = baseSKL; spd = baseSPD;
+        maxHP = hp;
     }
 
     
@@ -49,6 +52,7 @@ public class Stats : MonoBehaviour
                 spd++;
             levels--;
         }
+        maxHP = hp;
     }
 
     public void Attack(GameObject target)

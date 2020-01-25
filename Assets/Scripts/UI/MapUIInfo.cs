@@ -8,4 +8,9 @@ public class MapUIInfo : MonoBehaviour
 {
     public GameObject selectedAllyUnit;
     // Update is called once per frame
+    private void Update()
+    {
+        if (selectedAllyUnit && !selectedAllyUnit.GetComponent<AllyMove>().selected)
+            selectedAllyUnit = null;
+    }
 }

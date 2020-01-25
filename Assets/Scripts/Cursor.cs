@@ -5,10 +5,12 @@ using UnityEngine;
 public class Cursor : MonoBehaviour
 {
     public bool canMove = true;
+    public Tile currentTile; //The tile the cursor is currently on
     void Update()
     {
         if(canMove)
         {
+
             if (Input.GetKeyDown(KeyCode.UpArrow))
                 transform.position = (Vector2)transform.position + Vector2.up;
             else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -17,10 +19,12 @@ public class Cursor : MonoBehaviour
                 transform.position = (Vector2)transform.position + Vector2.down;
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
                 transform.position = (Vector2)transform.position + Vector2.left;
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+                GetTile();
         }
     }
 
-    public Tile GetTile()
+    private void GetTile()
     {
         Tile tile = null;
         Collider2D[] colliders = Physics2D.OverlapBoxAll((Vector2)transform.position, new Vector2(0.5f, 0.5f), 0);
@@ -32,6 +36,16 @@ public class Cursor : MonoBehaviour
                 tile = item.GetComponent<Tile>();
             }
         }
-        return tile;
+        currentTile = tile;
+    }
+
+    public bool CurrentTileHasAllyUnit()
+    {
+        return (currentTile && currentTile.transform.childCount == 1 && currentTile.transform.GetChild(0).tag == "PlayerUnit");
+    }
+
+    public bool CurrentTileHasEnemyUnit()
+    {
+        return (currentTile && currentTile.transform.childCount == 1 && currentTile.transform.GetChild(0).tag == "EnemyUnit");
     }
 }
