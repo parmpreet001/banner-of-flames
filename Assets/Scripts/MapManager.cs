@@ -78,7 +78,7 @@ public class MapManager : MonoBehaviour
                     {
                         selectedUnit = selectedTile.transform.GetChild(0).gameObject;
                         selectedUnit.GetComponent<AllyMove>().selected = true;
-                        actionMenu.GetComponent<UITest>().selectedAllyUnit = selectedUnit;
+                        actionMenu.GetComponent<MapUIInfo>().selectedAllyUnit = selectedUnit;
                     }
                 }
             }

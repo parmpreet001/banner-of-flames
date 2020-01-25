@@ -1,25 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class UITest : MonoBehaviour
+public class MapActionMenu : MonoBehaviour
 {
-    public GameObject selectedAllyUnit;
-    private GameObject actionMenu;
+    private GameObject UIElements;
+    private GameObject selectedAllyUnit;
     private bool buttonsCreated = false;
     List<string> buttons = new List<string>();
-
     // Start is called before the first frame update
     void Start()
     {
-        actionMenu = transform.Find("ActionMenu").gameObject;
+        UIElements = transform.parent.gameObject;    
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(selectedAllyUnit)
+        selectedAllyUnit = UIElements.GetComponent<MapUIInfo>().selectedAllyUnit;
+        if (selectedAllyUnit)
         {
             if (selectedAllyUnit.GetComponent<AllyMove>().actionMenu)
             {
@@ -32,13 +31,11 @@ public class UITest : MonoBehaviour
             {
                 ResetActionMenu(false);
             }
-                
         }
     }
 
     private void CreateButtons()
     {
-        actionMenu.SetActive(true);
         buttonsCreated = true;
 
         AllyMove am = selectedAllyUnit.GetComponent<AllyMove>();
@@ -47,21 +44,21 @@ public class UITest : MonoBehaviour
             buttons.Add("Attack");
         buttons.Add("Wait");
 
-        for(int i = 0; i < buttons.Count; i++)
+        for (int i = 0; i < buttons.Count; i++)
         {
-            if(buttons[i] == "Attack")
+            if (buttons[i] == "Attack")
             {
-                actionMenu.transform.Find("AttackButton").gameObject.SetActive(true);
-                actionMenu.transform.Find("AttackButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
+                transform.Find("AttackButton").gameObject.SetActive(true);
+                transform.Find("AttackButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
             }
-            else if(buttons[i] == "Wait")
+            else if (buttons[i] == "Wait")
             {
-                actionMenu.transform.Find("WaitButton").gameObject.SetActive(true);
-                actionMenu.transform.Find("WaitButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
+                transform.Find("WaitButton").gameObject.SetActive(true);
+                transform.Find("WaitButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
             }
         }
 
-        actionMenu.GetComponent<RectTransform>().anchoredPosition = new Vector2(actionMenu.GetComponent<RectTransform>().anchoredPosition.x, 17.5f * (buttons.Count - 1));
+        GetComponent<RectTransform>().anchoredPosition = new Vector2(GetComponent<RectTransform>().anchoredPosition.x, 17.5f * (buttons.Count - 1));
     }
     public void Wait()
     {
@@ -82,10 +79,10 @@ public class UITest : MonoBehaviour
             selectedAllyUnit = null;
         buttonsCreated = false;
         buttons.Clear();
-        for(int i = 0; i < actionMenu.transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
-            if (actionMenu.transform.GetChild(i).gameObject.activeInHierarchy)
-                actionMenu.transform.GetChild(i).gameObject.SetActive(false);
+            if (transform.GetChild(i).gameObject.activeInHierarchy)
+                transform.GetChild(i).gameObject.SetActive(false);
         }
     }
 }
