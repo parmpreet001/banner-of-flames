@@ -8,6 +8,9 @@ public class MapActionMenu : MonoBehaviour
     private GameObject selectedAllyUnit;
     private bool buttonsCreated = false;
     List<string> buttons = new List<string>();
+
+    public int menuCursorPosition = 1;
+    public GameObject menuCursor;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,12 +28,15 @@ public class MapActionMenu : MonoBehaviour
                 if (!buttonsCreated)
                 {
                     CreateButtons();
+                    menuCursor.SetActive(true);
                 }
+                menuCursorInput();
             }
             else if (!selectedAllyUnit.GetComponent<AllyMove>().actionMenu && buttonsCreated)
             {
                 ResetActionMenu(false);
             }
+
         }
     }
 
@@ -57,9 +63,31 @@ public class MapActionMenu : MonoBehaviour
                 transform.Find("WaitButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
             }
         }
-
         GetComponent<RectTransform>().anchoredPosition = new Vector2(GetComponent<RectTransform>().anchoredPosition.x, 17.5f * (buttons.Count - 1));
     }
+
+    private void menuCursorInput()
+    {
+        if(Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (menuCursorPosition < buttons.Count)
+                menuCursorPosition++;
+        }
+        if(Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (menuCursorPosition > 1)
+                menuCursorPosition--;
+        }
+        menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(menuCursor.GetComponent<RectTransform>().anchoredPosition.x, -35 * (menuCursorPosition - 1));
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            //Debug.Log(transform.Find(buttons[menuCursorPosition-1] + "Button").ToString());
+            string methodName = buttons[menuCursorPosition - 1];
+            Invoke(methodName, 0);
+
+        }
+    }
+
     public void Wait()
     {
         selectedAllyUnit.GetComponent<AllyMove>().UnselectUnit();
@@ -84,5 +112,7 @@ public class MapActionMenu : MonoBehaviour
             if (transform.GetChild(i).gameObject.activeInHierarchy)
                 transform.GetChild(i).gameObject.SetActive(false);
         }
+        menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(menuCursor.GetComponent<RectTransform>().anchoredPosition.x, 0);
+        menuCursorPosition = 1;
     }
 }

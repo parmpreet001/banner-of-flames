@@ -6,6 +6,7 @@ public class MapInfoHUD : MonoBehaviour
 {
     private GameObject UIElements;
     private GameObject selectedAllyUnit;
+    [SerializeField]
     private GameObject selectedEnemyUnit;
     public GameObject cursor;
 
@@ -51,6 +52,18 @@ public class MapInfoHUD : MonoBehaviour
                 selectedEnemyUnit = null;
             }
         }
+        if (!selectedEnemyUnit)
+        {
+            Debug.Log("E");
+            selectedEnemyUnit = null;
+            enemyUnitStatsUI.SetActive(false);
+        }
+        if (selectedAllyUnit && selectedAllyUnit.GetComponent<AllyMove>().finished)
+        {
+            selectedAllyUnit = null;
+            allyUnitStatsUI.SetActive(false);
+        }
+            
     }
 
     private void UpdateUnitStatsUI(GameObject UnitStatsUI,GameObject unit)
