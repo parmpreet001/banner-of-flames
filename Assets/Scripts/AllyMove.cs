@@ -5,7 +5,8 @@ using UnityEngine;
 public class AllyMove :TileMove
 {
     public bool firstClick = true;
-    private GameObject selectedTile;
+    [SerializeField]
+    public GameObject selectedTile;
     private Tile startingTile; //The tile the unit started on
     private Tile movedTile; //The tile the unit moved to
     
@@ -35,7 +36,6 @@ public class AllyMove :TileMove
             if (actionMenu)
             {
                 Debug.Log("Action menu");
-
             }
             else if (attacking)
             {
@@ -44,6 +44,7 @@ public class AllyMove :TileMove
             }
             else if (findingTarget)
             {
+                cursor.GetComponent<Cursor>().GetTile();
                 selectedTile = cursor.GetComponent<Cursor>().currentTile.gameObject;
                 if (selectedTile.GetComponent<Tile>().attackable)
                     GetComponent<Stats>().Attack(selectedTile.transform.GetChild(0).gameObject);
@@ -81,6 +82,7 @@ public class AllyMove :TileMove
         {
             if(findingTarget && !actionMenu)
             {
+                
                 actionMenu = true;
             }
             else if(moved)
@@ -99,7 +101,7 @@ public class AllyMove :TileMove
                 transform.position = startingTile.transform.position;
                 UnselectUnit();
             }
-
+            cursor.transform.position = transform.parent.transform.position;
         }
         else if(firstClick)
         {

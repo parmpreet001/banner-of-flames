@@ -24,7 +24,7 @@ public class Cursor : MonoBehaviour
         }
     }
 
-    private void GetTile()
+    public void GetTile()
     {
         Tile tile = null;
         Collider2D[] colliders = Physics2D.OverlapBoxAll((Vector2)transform.position, new Vector2(0.5f, 0.5f), 0);
