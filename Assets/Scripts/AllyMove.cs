@@ -67,7 +67,7 @@ public class AllyMove :TileMove
                         movedTile = selectedTile.GetComponent<Tile>();
                     }
                         
-                    else if (!selectedTile.GetComponent<Tile>().selectable || selectedTile.GetComponent<Tile>().current)
+                    else if ((!selectedTile.GetComponent<Tile>().selectable || selectedTile.GetComponent<Tile>().current) && selectedTile.GetComponent<Tile>().transform.childCount == 0)
                     {
                         actionMenu = true;
                         RemoveSelectableTiles();
@@ -82,10 +82,9 @@ public class AllyMove :TileMove
         {
             if(findingTarget && !actionMenu)
             {
-                
                 actionMenu = true;
             }
-            else if(moved)
+            else if(moved && !attacking)
             {
                 transform.SetParent(startingTile.transform);
                 transform.position = startingTile.transform.position;
@@ -95,13 +94,14 @@ public class AllyMove :TileMove
                 findingTarget = false;
                 FindSelectableTiles(GetComponent<AllyStats>().mov);
             }
-            else
+            else if(!attacking)
             {
                 transform.SetParent(startingTile.transform);
                 transform.position = startingTile.transform.position;
                 UnselectUnit();
             }
-            cursor.transform.position = transform.parent.transform.position;
+            if(!attacking)
+                cursor.transform.position = transform.parent.transform.position;
         }
         else if(firstClick)
         {
