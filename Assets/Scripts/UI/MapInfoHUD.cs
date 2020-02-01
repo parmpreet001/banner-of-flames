@@ -21,7 +21,8 @@ public class MapInfoHUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow)
+            || Input.GetKeyDown(KeyCode.X))
         {
             if (UIElements.GetComponent<MapUIInfo>().selectedAllyUnit)
                 selectedAllyUnit = UIElements.GetComponent<MapUIInfo>().selectedAllyUnit;

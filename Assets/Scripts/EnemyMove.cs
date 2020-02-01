@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyMove : TileMove
 {
     public GameObject closestTarget;
+    private bool targetOutsideRange;
     void Start()
     {
         Init();   
@@ -34,21 +35,23 @@ public class EnemyMove : TileMove
         targetDistance = Vector2.Distance(transform.position, closestTarget.transform.position);
         Debug.Log("Distance is " + targetDistance);
 
+        targetOutsideRange = (targetDistance > GetComponent<EnemyStats>().mov);
+
         foreach (Tile tile in selectableTiles)
         {
             Debug.Log("Distance between " + tile.transform.name + " and target is " + Vector2.Distance(tile.transform.position, closestTarget.transform.position));
             if (Vector2.Distance(tile.transform.position, closestTarget.transform.position) < targetDistance)
             {
+                Debug.Log("here");
                 if((Vector2.Distance(transform.position,closestTarget.transform.position) > GetComponent<Stats>().mov + GetComponent<Stats>().equippedWeapon.maxRange ||
                     (Vector2.Distance(tile.transform.position, closestTarget.transform.position) >= GetComponent<Stats>().equippedWeapon.minRange &&
-                    Vector2.Distance(tile.transform.position, closestTarget.transform.position) <= GetComponent<Stats>().equippedWeapon.maxRange)))
+                    Vector2.Distance(tile.transform.position, closestTarget.transform.position) <= GetComponent<Stats>().equippedWeapon.maxRange)) || targetOutsideRange)
                 {
                     closestTileToTarget = tile;
                     targetDistance = Vector2.Distance(closestTileToTarget.transform.position, closestTarget.transform.position);
                 }
             }
         }
-
         Debug.Log("Cloest tile to target is " + closestTileToTarget.transform.name + " with a distance of " + targetDistance);
         MovetToTile(closestTileToTarget);
     }
