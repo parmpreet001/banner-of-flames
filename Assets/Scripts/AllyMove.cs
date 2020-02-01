@@ -66,8 +66,9 @@ public class AllyMove :TileMove
                         MovetToTile(selectedTile.GetComponent<Tile>());
                         movedTile = selectedTile.GetComponent<Tile>();
                     }
-                        
-                    else if ((!selectedTile.GetComponent<Tile>().selectable || selectedTile.GetComponent<Tile>().current) && selectedTile.GetComponent<Tile>().transform.childCount == 0)
+                      
+                    else if(selectedTile.GetComponent<Tile>().current)
+                    //else if ((!selectedTile.GetComponent<Tile>().selectable || selectedTile.GetComponent<Tile>().current) && selectedTile.GetComponent<Tile>().transform.childCount == 0)
                     {
                         actionMenu = true;
                         RemoveSelectableTiles();

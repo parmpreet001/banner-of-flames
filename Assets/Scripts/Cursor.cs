@@ -19,7 +19,7 @@ public class Cursor : MonoBehaviour
                 transform.position = (Vector2)transform.position + Vector2.down;
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
                 transform.position = (Vector2)transform.position + Vector2.left;
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+            //if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
                 GetTile();
         }
     }
@@ -32,7 +32,6 @@ public class Cursor : MonoBehaviour
         {
             if (item.transform.tag == "Tile")
             {
-                Debug.Log("TIle found");
                 tile = item.GetComponent<Tile>();
             }
         }

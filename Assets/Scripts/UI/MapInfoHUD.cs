@@ -54,7 +54,6 @@ public class MapInfoHUD : MonoBehaviour
         }
         if (!selectedEnemyUnit)
         {
-            Debug.Log("E");
             selectedEnemyUnit = null;
             enemyUnitStatsUI.SetActive(false);
         }
