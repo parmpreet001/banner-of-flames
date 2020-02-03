@@ -20,6 +20,7 @@ public class TileMove : MonoBehaviour
     public bool finished = false;
 
 
+
     protected void Init()
     {
         cursor = GameObject.Find("Cursor");

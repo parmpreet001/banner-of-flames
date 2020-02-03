@@ -11,6 +11,13 @@ public class EnemyMove : TileMove
         Init();   
     }
 
+    void Update()
+    {
+        if (moving)
+        {
+            cursor.GetComponent<Cursor>().followTarget = transform;
+        }
+    }
     public void Move()
     {
         FindSelectableTiles(GetComponent<EnemyStats>().mov);

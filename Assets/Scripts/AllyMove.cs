@@ -21,6 +21,10 @@ public class AllyMove :TileMove
     {
         if (selected)
         {
+            if(moving)
+            {
+                cursor.GetComponent<Cursor>().followTarget = transform;
+            }
             CheckCursor();
             if (finished)
                 UnselectUnit();
@@ -131,6 +135,7 @@ public class AllyMove :TileMove
         moved = false;
         actionMenu = false;
         cursor.GetComponent<Cursor>().canMove = true;
+        cursor.GetComponent<Cursor>().followTarget = null;
         RemoveSelectableTiles();
 
     }

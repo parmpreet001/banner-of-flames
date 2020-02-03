@@ -6,11 +6,15 @@ public class Cursor : MonoBehaviour
 {
     public bool canMove = true;
     public Tile currentTile; //The tile the cursor is currently on
+    public Transform followTarget;
     void Update()
     {
-        if(canMove)
+        if (followTarget)
         {
-
+            transform.position = followTarget.position;
+        }
+        else if(canMove)
+        {
             if (Input.GetKeyDown(KeyCode.UpArrow))
                 transform.position = (Vector2)transform.position + Vector2.up;
             else if (Input.GetKeyDown(KeyCode.RightArrow))
