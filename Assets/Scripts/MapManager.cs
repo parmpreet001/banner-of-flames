@@ -171,6 +171,7 @@ public class MapManager : MonoBehaviour
         }
         activeEnemyUnits = enemyUnits.Count;
         selectedUnit = enemyUnits[activeEnemyUnits - 1];
+        cursor.GetComponent<Cursor>().canMove = false;
     }
 
     //Starts the player phase
@@ -191,6 +192,7 @@ public class MapManager : MonoBehaviour
             allyUnit.GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
+        cursor.GetComponent<Cursor>().canMove = true;
     }
 
     //Enemy Phase
