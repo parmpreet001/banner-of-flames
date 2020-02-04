@@ -193,6 +193,7 @@ public class MapManager : MonoBehaviour
             }
         }
         cursor.GetComponent<Cursor>().canMove = true;
+        cursor.GetComponent<Cursor>().followTarget = null;
     }
 
     //Enemy Phase
