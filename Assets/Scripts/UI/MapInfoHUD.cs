@@ -5,7 +5,6 @@ using TMPro;
 public class MapInfoHUD : MonoBehaviour
 {
     private GameObject UIElements;
-    private GameObject selectedAllyUnit;
     [SerializeField]
     private GameObject selectedEnemyUnit;
     public GameObject cursor;
@@ -21,20 +20,18 @@ public class MapInfoHUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow)
-            || Input.GetKeyDown(KeyCode.X))
+        //if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow)
+        //    || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Z))
         {
             if (UIElements.GetComponent<MapUIInfo>().selectedAllyUnit)
-                selectedAllyUnit = UIElements.GetComponent<MapUIInfo>().selectedAllyUnit;
-            else if (cursor.GetComponent<Cursor>().CurrentTileHasAllyUnit())
-                selectedAllyUnit = cursor.GetComponent<Cursor>().currentTile.transform.GetChild(0).gameObject;
-            else
-                selectedAllyUnit = null;
-
-            if(selectedAllyUnit)
             {
                 allyUnitStatsUI.SetActive(true);
-                UpdateUnitStatsUI(allyUnitStatsUI, selectedAllyUnit);
+                UpdateUnitStatsUI(allyUnitStatsUI, UIElements.GetComponent<MapUIInfo>().selectedAllyUnit);
+            }
+            else if(UIElements.GetComponent<MapUIInfo>().hoveringUnit && UIElements.GetComponent<MapUIInfo>().hoveringUnit.tag == "PlayerUnit")
+            {
+                allyUnitStatsUI.SetActive(true);
+                UpdateUnitStatsUI(allyUnitStatsUI, UIElements.GetComponent<MapUIInfo>().hoveringUnit);
             }
             else
             {
@@ -53,16 +50,15 @@ public class MapInfoHUD : MonoBehaviour
                 selectedEnemyUnit = null;
             }
         }
-        if (!selectedEnemyUnit)
-        {
-            selectedEnemyUnit = null;
-            enemyUnitStatsUI.SetActive(false);
-        }
-        if (selectedAllyUnit && selectedAllyUnit.GetComponent<AllyMove>().finished)
-        {
-            selectedAllyUnit = null;
-            allyUnitStatsUI.SetActive(false);
-        }
+        //if (!selectedEnemyUnit)
+        //{
+        //    selectedEnemyUnit = null;
+        //    enemyUnitStatsUI.SetActive(false);
+        //}
+        //if (!UIElements.GetComponent<MapUIInfo>().selectedAllyUnit)
+        //{
+        //    allyUnitStatsUI.SetActive(false);
+        //}
             
     }
 

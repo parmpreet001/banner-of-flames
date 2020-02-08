@@ -7,10 +7,13 @@ using UnityEngine.UI;
 public class MapUIInfo : MonoBehaviour
 {
     public GameObject selectedAllyUnit;
+    public GameObject hoveringUnit;
+    public GameObject cursor;
     // Update is called once per frame
     private void Update()
     {
-        if (selectedAllyUnit && !selectedAllyUnit.GetComponent<AllyMove>().selected)
+        hoveringUnit = cursor.GetComponent<Cursor>().GetCurrentUnit();
+        if (selectedAllyUnit && (!selectedAllyUnit.GetComponent<AllyMove>().selected || selectedAllyUnit.GetComponent<AllyMove>().finished))
             selectedAllyUnit = null;
     }
 }

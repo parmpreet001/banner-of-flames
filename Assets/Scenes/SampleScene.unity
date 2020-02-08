@@ -4677,6 +4677,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedAllyUnit: {fileID: 0}
+  hoveringUnit: {fileID: 0}
+  cursor: {fileID: 1149305415}
 --- !u!1001 &1131476391
 PrefabInstance:
   m_ObjectHideFlags: 0
