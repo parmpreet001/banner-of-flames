@@ -51,4 +51,13 @@ public class Cursor : MonoBehaviour
     {
         return (currentTile && currentTile.transform.childCount == 1 && currentTile.transform.GetChild(0).tag == "EnemyUnit");
     }
+
+    public GameObject GetCurrentUnit()
+    {
+        if(CurrentTileHasAllyUnit() || CurrentTileHasEnemyUnit())
+        {
+            return currentTile.transform.GetChild(0).gameObject;
+        }
+        return null;
+    }
 }
