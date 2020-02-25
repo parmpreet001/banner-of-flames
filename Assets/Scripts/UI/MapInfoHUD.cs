@@ -51,7 +51,6 @@ public class MapInfoHUD : MonoBehaviour
                 selectedEnemyUnit = null;
             }
 
-            /*
             if (UIElements.GetComponent<MapUIInfo>().selectedAllyUnit && selectedEnemyUnit)
             {
                 battleForecastUI.SetActive(true);
@@ -60,7 +59,6 @@ public class MapInfoHUD : MonoBehaviour
             {
                 battleForecastUI.SetActive(false);
             }
-            */
         }
         //if (!selectedEnemyUnit)
         //{
