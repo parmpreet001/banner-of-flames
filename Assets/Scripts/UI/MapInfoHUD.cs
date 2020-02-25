@@ -11,6 +11,7 @@ public class MapInfoHUD : MonoBehaviour
 
     public GameObject allyUnitStatsUI;
     public GameObject enemyUnitStatsUI;
+    public GameObject battleForecastUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +50,17 @@ public class MapInfoHUD : MonoBehaviour
                 enemyUnitStatsUI.SetActive(false);
                 selectedEnemyUnit = null;
             }
+
+            /*
+            if (UIElements.GetComponent<MapUIInfo>().selectedAllyUnit && selectedEnemyUnit)
+            {
+                battleForecastUI.SetActive(true);
+            }
+            else
+            {
+                battleForecastUI.SetActive(false);
+            }
+            */
         }
         //if (!selectedEnemyUnit)
         //{

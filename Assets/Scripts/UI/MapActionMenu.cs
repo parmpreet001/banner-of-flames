@@ -36,7 +36,10 @@ public class MapActionMenu : MonoBehaviour
             {
                 ResetActionMenu(false);
             }
-
+        }
+        else
+        {
+            ResetActionMenu(false);
         }
     }
 

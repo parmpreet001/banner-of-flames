@@ -2911,13 +2911,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 627056664}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1074349318}
   - {fileID: 1759849417}
-  m_Father: {fileID: 1125684502}
+  m_Father: {fileID: 1615191709}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
@@ -4655,7 +4655,6 @@ RectTransform:
   m_Children:
   - {fileID: 1940039613}
   - {fileID: 1615191709}
-  - {fileID: 627056665}
   m_Father: {fileID: 1253351397}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6508,6 +6507,7 @@ RectTransform:
   m_Children:
   - {fileID: 187109495}
   - {fileID: 920767170}
+  - {fileID: 627056665}
   m_Father: {fileID: 1125684502}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6532,6 +6532,7 @@ MonoBehaviour:
   cursor: {fileID: 1149305415}
   allyUnitStatsUI: {fileID: 187109494}
   enemyUnitStatsUI: {fileID: 920767169}
+  battleForecastUI: {fileID: 627056664}
 --- !u!1001 &1635417325
 PrefabInstance:
   m_ObjectHideFlags: 0

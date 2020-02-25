@@ -25,6 +25,10 @@ public class AllyMove :TileMove
             {
                 cursor.GetComponent<Cursor>().followTarget = transform;
             }
+            else
+            {
+                cursor.GetComponent<Cursor>().followTarget = null;
+            }
             CheckCursor();
             if (finished)
                 UnselectUnit();
