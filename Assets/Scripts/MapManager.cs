@@ -78,64 +78,12 @@ public class MapManager : MonoBehaviour
                     {
                         selectedUnit = selectedTile.transform.GetChild(0).gameObject;
                         selectedUnit.GetComponent<AllyMove>().selected = true;
-                        actionMenu.GetComponent<MapUIInfo>().selectedAllyUnit = selectedUnit;
                     }
                 }
             }
         }
-        /*
-        //If left mouse button is pressed
-        if (Input.GetMouseButtonUp(0))
-        {
-            selectedTile = Physics2D.OverlapBox((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.01f, 0.01f), 0);
-
-            //If unit is attacking
-            if (selectedUnit && selectedUnit.GetComponent<AllyMove>().findingTarget)
-            {
-                //if the selectedTile is attackable
-                if(selectedTile.GetComponent<Tile>().attackable)
-                    selectedUnit.GetComponent<Stats>().Attack(selectedTile.transform.GetChild(0).gameObject);
-            }
-            //if a unit is already selected and the player clicks on a tile that is not selectable, unselects the unit
-            else if (selectedUnit && (!selectedTile.GetComponent<Tile>().selectable || selectedTile.GetComponent<Tile>().current))
-            {
-                Debug.Log("Option 1");
-                selectedUnit.GetComponent<AllyMove>().selected = false;
-                selectedUnit.GetComponent<AllyMove>().RemoveSelectableTiles();
-                selectedUnit = null;
-            }
-
-            //If the tile has a player unit that hasn't moved yet, selects that unit
-            else if(selectedTile.transform.childCount == 1 && !selectedTile.transform.GetChild(0).GetComponent<AllyMove>().moved)
-            {
-                Debug.Log("Option 2");
-                //If there is already a selected unit, then that unit becomes unselected
-                if (selectedUnit)
-                    selectedUnit.GetComponent<AllyMove>().selected = false;
-
-                selectedUnit = selectedTile.transform.GetChild(0).gameObject; 
-                selectedUnit.GetComponent<AllyMove>().selected = true; 
-                Debug.Log("Selected " + selectedUnit.transform.name);
-            }
-        }
-        */
     }
 
-    /* Click
-    private GameObject GetTile()
-    {
-        GameObject tile = null;
-        Collider2D[] colliders = Physics2D.OverlapBoxAll((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.01f, 0.01f), 0);
-        foreach(Collider2D item in colliders)
-        {
-            if (item.tag == "Tile")
-            {
-                tile = item.gameObject;
-            }
-        }
-        return tile;
-    }
-    */
     //Checks and updates the value of unmovedAllyUnits
     private void CheckUnmovedUnits()
     {

@@ -13,6 +13,8 @@ public class MapUIInfo : MonoBehaviour
     private void Update()
     {
         hoveringUnit = cursor.GetComponent<Cursor>().GetCurrentUnit();
+        if (hoveringUnit && hoveringUnit.GetComponent<TileMove>().selected)
+            selectedAllyUnit = hoveringUnit;
         if (selectedAllyUnit && (!selectedAllyUnit.GetComponent<AllyMove>().selected || selectedAllyUnit.GetComponent<AllyMove>().finished))
             selectedAllyUnit = null;
     }
