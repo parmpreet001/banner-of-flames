@@ -47,6 +47,7 @@ public class MapInfoHUD : MonoBehaviour
             if (MapUIInfo.selectedAllyUnit && MapUIInfo.hoveringUnit && MapUIInfo.hoveringUnit.tag == "EnemyUnit")
             {
                 battleForecastUI.SetActive(true);
+                UpdateBattleFoecast(MapUIInfo.selectedAllyUnit, MapUIInfo.hoveringUnit);
             }
             else
             {
@@ -61,5 +62,18 @@ public class MapInfoHUD : MonoBehaviour
         UnitStatsUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = unitStats.level.ToString();
         UnitStatsUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = unitStats.hp + "/" + unitStats.maxHP;
         UnitStatsUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = unitStats.equippedWeapon.name;
+    }
+
+    private void UpdateBattleFoecast(GameObject playerUnit, GameObject enemyUnit)
+    {
+        GameObject allyUnitInfo = battleForecastUI.transform.GetChild(0).gameObject;
+        GameObject EnemyUnitInfo = battleForecastUI.transform.GetChild(1).gameObject;
+
+        allyUnitInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = playerUnit.name;
+        allyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = playerUnit.GetComponent<AllyStats>().equippedWeapon.name;
+        //GUH
+        allyUnitInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = (playerUnit.GetComponent<AllyStats>().GetHitrate(playerUnit)
+            - enemyUnit.GetComponent<EnemyStats>().GetAvoid(enemyUnit)).ToString(); 
+
     }
 }

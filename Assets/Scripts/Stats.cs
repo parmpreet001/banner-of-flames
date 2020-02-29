@@ -132,12 +132,12 @@ public class Stats : MonoBehaviour
         return dmg;
     }
 
-    private int GetHitrate(GameObject unit)
+    public int GetHitrate(GameObject unit)
     {
         return unit.GetComponent<Stats>().equippedWeapon.accuracy + (unit.GetComponent<Stats>().skl * 2);
     }
 
-    private int GetAvoid(GameObject unit)
+    public int GetAvoid(GameObject unit)
     {
         return unit.GetComponent<Stats>().spd * 2;
     }
