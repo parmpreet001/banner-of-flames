@@ -4,54 +4,47 @@ using UnityEngine;
 using TMPro;
 public class MapInfoHUD : MonoBehaviour
 {
-    private GameObject UIElements;
-    [SerializeField]
-    private GameObject selectedEnemyUnit;
-    public GameObject cursor;
-
     public GameObject allyUnitStatsUI;
     public GameObject enemyUnitStatsUI;
     public GameObject battleForecastUI;
+
+    private MapUIInfo MapUIInfo;
     // Start is called before the first frame update
     void Start()
     {
-        UIElements = transform.parent.gameObject;
+        MapUIInfo = GetComponentInParent<MapUIInfo>();
     }
 
     // Update is called once per frame
     void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow)
-        //    || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Z))
+    { 
         {
-            if (UIElements.GetComponent<MapUIInfo>().selectedAllyUnit)
+            if (MapUIInfo.selectedAllyUnit)
             {
                 allyUnitStatsUI.SetActive(true);
-                UpdateUnitStatsUI(allyUnitStatsUI, UIElements.GetComponent<MapUIInfo>().selectedAllyUnit);
+                UpdateUnitStatsUI(allyUnitStatsUI, MapUIInfo.selectedAllyUnit);
             }
-            else if(UIElements.GetComponent<MapUIInfo>().hoveringUnit && UIElements.GetComponent<MapUIInfo>().hoveringUnit.tag == "PlayerUnit")
+            else if(MapUIInfo.hoveringUnit && MapUIInfo.hoveringUnit.tag == "PlayerUnit")
             {
                 allyUnitStatsUI.SetActive(true);
-                UpdateUnitStatsUI(allyUnitStatsUI, UIElements.GetComponent<MapUIInfo>().hoveringUnit);
+                UpdateUnitStatsUI(allyUnitStatsUI, MapUIInfo.hoveringUnit);
             }
             else
             {
                 allyUnitStatsUI.SetActive(false);
             }
 
-            if(cursor.GetComponent<Cursor>().CurrentTileHasEnemyUnit())
+            if(MapUIInfo.hoveringUnit && MapUIInfo.hoveringUnit.tag == "EnemyUnit")
             {
-                selectedEnemyUnit = cursor.GetComponent<Cursor>().currentTile.transform.GetChild(0).gameObject;
                 enemyUnitStatsUI.SetActive(true);
-                UpdateUnitStatsUI(enemyUnitStatsUI, selectedEnemyUnit);
+                UpdateUnitStatsUI(enemyUnitStatsUI, MapUIInfo.hoveringUnit);
             }
             else
             {
                 enemyUnitStatsUI.SetActive(false);
-                selectedEnemyUnit = null;
             }
 
-            if (UIElements.GetComponent<MapUIInfo>().selectedAllyUnit && selectedEnemyUnit)
+            if (MapUIInfo.selectedAllyUnit && MapUIInfo.hoveringUnit && MapUIInfo.hoveringUnit.tag == "EnemyUnit")
             {
                 battleForecastUI.SetActive(true);
             }
@@ -59,17 +52,7 @@ public class MapInfoHUD : MonoBehaviour
             {
                 battleForecastUI.SetActive(false);
             }
-        }
-        //if (!selectedEnemyUnit)
-        //{
-        //    selectedEnemyUnit = null;
-        //    enemyUnitStatsUI.SetActive(false);
-        //}
-        //if (!UIElements.GetComponent<MapUIInfo>().selectedAllyUnit)
-        //{
-        //    allyUnitStatsUI.SetActive(false);
-        //}
-            
+        }   
     }
 
     private void UpdateUnitStatsUI(GameObject UnitStatsUI,GameObject unit)

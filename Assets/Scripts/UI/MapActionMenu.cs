@@ -4,26 +4,24 @@ using UnityEngine;
 
 public class MapActionMenu : MonoBehaviour
 {
-    private GameObject UIElements;
-    private GameObject selectedAllyUnit;
     private bool buttonsCreated = false;
     List<string> buttons = new List<string>();
 
     public int menuCursorPosition = 1;
     public GameObject menuCursor;
-    // Start is called before the first frame update
-    void Start()
+
+    private MapUIInfo MapUIInfo;
+
+    private void Start()
     {
-        UIElements = transform.parent.gameObject;    
+        MapUIInfo = GetComponentInParent<MapUIInfo>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        selectedAllyUnit = UIElements.GetComponent<MapUIInfo>().selectedAllyUnit;
-        if (selectedAllyUnit)
+        if (MapUIInfo.selectedAllyUnit)
         {
-            if (selectedAllyUnit.GetComponent<AllyMove>().actionMenu)
+            if (MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().actionMenu)
             {
                 if (!buttonsCreated)
                 {
@@ -32,7 +30,7 @@ public class MapActionMenu : MonoBehaviour
                 }
                 menuCursorInput();
             }
-            else if (!selectedAllyUnit.GetComponent<AllyMove>().actionMenu && buttonsCreated)
+            else if (!MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().actionMenu && buttonsCreated)
             {
                 ResetActionMenu(false);
             }
@@ -47,7 +45,7 @@ public class MapActionMenu : MonoBehaviour
     {
         buttonsCreated = true;
 
-        AllyMove am = selectedAllyUnit.GetComponent<AllyMove>();
+        AllyMove am = MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>();
 
         if (am.findingTarget)
             buttons.Add("Attack");
@@ -93,21 +91,21 @@ public class MapActionMenu : MonoBehaviour
 
     public void Wait()
     {
-        selectedAllyUnit.GetComponent<AllyMove>().UnselectUnit();
-        selectedAllyUnit.GetComponent<AllyMove>().finished = true;
+        MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().UnselectUnit();
+        MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().finished = true;
         ResetActionMenu(true);
     }
 
     public void Attack()
     {
-        selectedAllyUnit.GetComponent<AllyMove>().actionMenu = false;
+        MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().actionMenu = false;
         ResetActionMenu(false);
     }
 
     private void ResetActionMenu(bool removeSelectedAllyUnit)
     {
         if (removeSelectedAllyUnit)
-            selectedAllyUnit = null;
+            MapUIInfo.selectedAllyUnit = null;
         buttonsCreated = false;
         buttons.Clear();
         for (int i = 0; i < transform.childCount; i++)

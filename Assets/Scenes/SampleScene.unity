@@ -4676,7 +4676,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedAllyUnit: {fileID: 0}
-  hoveringUnit: {fileID: 0}
   cursor: {fileID: 1149305415}
 --- !u!1001 &1131476391
 PrefabInstance:
@@ -6528,8 +6527,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 532b1e89bc7da174ba8ad4e6ce4832ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedEnemyUnit: {fileID: 0}
-  cursor: {fileID: 1149305415}
+  selectedAllyUnit: {fileID: 0}
+  cursor: {fileID: 0}
   allyUnitStatsUI: {fileID: 187109494}
   enemyUnitStatsUI: {fileID: 920767169}
   battleForecastUI: {fileID: 627056664}
@@ -7402,6 +7401,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f27a7765ee456243aeec77b44495071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedAllyUnit: {fileID: 0}
+  cursor: {fileID: 0}
   menuCursorPosition: 1
   menuCursor: {fileID: 279081039}
 --- !u!1 &2044005908
