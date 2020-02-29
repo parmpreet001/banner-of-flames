@@ -19,22 +19,27 @@ public class MapActionMenu : MonoBehaviour
 
     void Update()
     {
+        //If an ally unit is selected
         if (MapUIInfo.selectedAllyUnit)
         {
+            //If they're in an action menu state
             if (MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().actionMenu)
             {
+                //If buttons have not been created, create buttons and display the menu cursor
                 if (!buttonsCreated)
                 {
                     CreateButtons();
-                    menuCursor.SetActive(true);
+                    //menuCursor.SetActive(true);
                 }
                 menuCursorInput();
             }
+            //else, if the ally unit is not in an action menu state, but buttons have been created, then reset buttons
             else if (!MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().actionMenu && buttonsCreated)
             {
                 ResetActionMenu(false);
             }
         }
+        //else, reset buttons
         else
         {
             ResetActionMenu(false);
@@ -44,6 +49,7 @@ public class MapActionMenu : MonoBehaviour
     private void CreateButtons()
     {
         buttonsCreated = true;
+        menuCursor.SetActive(true);
 
         AllyMove am = MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>();
 
