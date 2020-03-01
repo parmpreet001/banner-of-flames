@@ -72,8 +72,16 @@ public class MapInfoHUD : MonoBehaviour
         allyUnitInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = playerUnit.name;
         allyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = playerUnit.GetComponent<AllyStats>().equippedWeapon.name;
         //GUH
+        allyUnitInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = playerUnit.GetComponent<AllyStats>().GetDmg(playerUnit, enemyUnit).ToString();
         allyUnitInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = (playerUnit.GetComponent<AllyStats>().GetHitrate(playerUnit)
-            - enemyUnit.GetComponent<EnemyStats>().GetAvoid(enemyUnit)).ToString(); 
+            - enemyUnit.GetComponent<EnemyStats>().GetAvoid(enemyUnit)).ToString();
+
+        EnemyUnitInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = enemyUnit.name;
+        EnemyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyUnit.GetComponent<EnemyStats>().equippedWeapon.name;
+        EnemyUnitInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = enemyUnit.GetComponent<EnemyStats>().GetDmg(enemyUnit, playerUnit).ToString();
+        EnemyUnitInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = (enemyUnit.GetComponent<EnemyStats>().GetHitrate(enemyUnit)
+            - playerUnit.GetComponent<AllyStats>().GetAvoid(playerUnit)).ToString();
+
 
     }
 }

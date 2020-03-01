@@ -124,7 +124,7 @@ public class Stats : MonoBehaviour
         yield return null;
     }
 
-    private int GetDmg(GameObject unit, GameObject target)
+    public int GetDmg(GameObject unit, GameObject target)
     {
         int dmg = unit.GetComponent<Stats>().str + unit.GetComponent<Stats>().equippedWeapon.dmg - target.GetComponent<Stats>().def;
         if (dmg <= 0)

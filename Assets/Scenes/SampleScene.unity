@@ -3691,7 +3691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   baseHP: 20
-  baseSTR: 7
+  baseSTR: 13
   baseMAG: 9
   baseDEF: 5
   baseRES: 8
@@ -4676,6 +4676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedAllyUnit: {fileID: 0}
+  hoveringUnit: {fileID: 0}
   cursor: {fileID: 1149305415}
 --- !u!1001 &1131476391
 PrefabInstance:
@@ -6227,11 +6228,11 @@ MonoBehaviour:
   level: 1
   baseHP: 10
   baseSTR: 2
-  baseMAG: 10
-  baseDEF: 10
-  baseRES: 10
-  baseSKL: 10
-  baseSPD: 10
+  baseMAG: 8
+  baseDEF: 8
+  baseRES: 8
+  baseSKL: 8
+  baseSPD: 8
   hp: 0
   str: 0
   mag: 0
@@ -6527,8 +6528,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 532b1e89bc7da174ba8ad4e6ce4832ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedAllyUnit: {fileID: 0}
-  cursor: {fileID: 0}
   allyUnitStatsUI: {fileID: 187109494}
   enemyUnitStatsUI: {fileID: 920767169}
   battleForecastUI: {fileID: 627056664}
@@ -7401,8 +7400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f27a7765ee456243aeec77b44495071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedAllyUnit: {fileID: 0}
-  cursor: {fileID: 0}
   menuCursorPosition: 1
   menuCursor: {fileID: 279081039}
 --- !u!1 &2044005908
