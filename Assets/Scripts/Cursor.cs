@@ -13,6 +13,7 @@ public class Cursor : MonoBehaviour
         {
             transform.position = followTarget.position;
         }
+        
         else if(canMove)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -24,8 +25,9 @@ public class Cursor : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
                 transform.position = (Vector2)transform.position + Vector2.left;
             //if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
-                GetTile();
+                
         }
+        GetTile();
     }
 
     public void GetTile()
@@ -54,10 +56,10 @@ public class Cursor : MonoBehaviour
 
     public GameObject GetCurrentUnit()
     {
-        if(CurrentTileHasAllyUnit() || CurrentTileHasEnemyUnit())
-        {
+            
+        if (CurrentTileHasAllyUnit() || CurrentTileHasEnemyUnit())
             return currentTile.transform.GetChild(0).gameObject;
-        }
-        return null;
+        else
+            return null;
     }
 }
