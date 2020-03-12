@@ -142,7 +142,7 @@ public class Stats : MonoBehaviour
         return unit.GetComponent<Stats>().spd * 2;
     }
 
-    private bool HitOrMiss(int accuracy)
+    public bool HitOrMiss(int accuracy)
     {
         float rnd = Random.Range(0, 100);
         return rnd <= accuracy;
