@@ -123,7 +123,7 @@ public class Stats : MonoBehaviour
         GetComponent<TileMove>().RemoveSelectableTiles();
         yield return null;
     }
-
+    //Eventually, the following should be moved into BattleManager.cs. They will remain here for now because of some other dependencies 
     public int GetDmg(GameObject unit, GameObject target)
     {
         int dmg = unit.GetComponent<Stats>().str + unit.GetComponent<Stats>().equippedWeapon.dmg - target.GetComponent<Stats>().def;
@@ -147,4 +147,6 @@ public class Stats : MonoBehaviour
         float rnd = Random.Range(0, 100);
         return rnd <= accuracy;
     }
+
+    
 }
