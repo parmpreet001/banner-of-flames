@@ -28,6 +28,10 @@ public class BattleManager : MonoBehaviour
         bool DU_attackTwice = false;
 
         int AU_dmg = GetDmg(attackingUnitStats, defendingUnitStats);
+        int AU_accuracy = GetAccuracy(attackingUnitStats, defendingUnitStats);
+
+        int DU_dmg = GetDmg(defendingUnitStats, attackingUnitStats);
+        int DU_accuracy = GetAccuracy(defendingUnitStats, attackingUnitStats);
 
         if (attackingUnitStats.spd >= defendingUnitStats.spd + 5)
             AU_attackTwice = true;
@@ -36,6 +40,41 @@ public class BattleManager : MonoBehaviour
 
         attackingUnit.GetComponent<TileMove>().findingTarget = false;
         attackingUnit.GetComponent<TileMove>().attacking = true;
+
+        if(HitOrMiss(AU_accuracy))
+        {
+            Debug.Log(attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + AU_dmg + "damage");
+            defendingUnitStats.hp -= AU_dmg;
+        }
+        else
+        {
+            Debug.Log(transform.name + " missed!");
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        //TODO: Enemy attack
+
+        if (AU_attackTwice)
+        {
+            if (HitOrMiss(AU_accuracy))
+            {
+                Debug.Log(attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + AU_dmg + "damage");
+                defendingUnitStats.hp -= AU_dmg;
+            }
+            else
+            {
+                Debug.Log(transform.name + " missed!");
+            }
+            yield return new WaitForSeconds(1f);
+        }
+
+        //TODO: Enemy counter attack
+        Debug.Log("reached end of attack");
+
+        attackingUnit.GetComponent<TileMove>().attacking = false;
+        attackingUnit.GetComponent<TileMove>().finished = true;
+        attackingUnit.GetComponent<TileMove>().RemoveSelectableTiles();
 
         yield return null;
     }
