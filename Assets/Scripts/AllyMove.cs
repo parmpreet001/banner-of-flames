@@ -5,6 +5,7 @@ using UnityEngine;
 public class AllyMove :TileMove
 {
     public bool firstClick = true;
+    public bool attacked = false;
     [SerializeField]
     public GameObject selectedTile;
     private Tile startingTile; //The tile the unit started on
@@ -55,7 +56,10 @@ public class AllyMove :TileMove
                 cursor.GetComponent<Cursor>().GetTile();
                 selectedTile = cursor.GetComponent<Cursor>().currentTile.gameObject;
                 if (selectedTile.GetComponent<Tile>().attackable)
-                    GetComponent<Stats>().Attack(selectedTile.transform.GetChild(0).gameObject);
+                {
+                    //GetComponent<Stats>().Attack(selectedTile.transform.GetChild(0).gameObject);
+                    attacked = true;
+                }
             }
             else if(moved)
             {

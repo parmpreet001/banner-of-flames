@@ -9,17 +9,18 @@ public class BattleManager : MonoBehaviour
 
     private Stats attackingUnitStats;
     private Stats defendingUnitStats;
-    // Start is called before the first frame update
-    void Start()
-    {
-        attackingUnitStats = attackingUnit.GetComponent<Stats>();
-        defendingUnitStats = defendingUnit.GetComponent<Stats>();
-    }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void Attack()
+    {
+        attackingUnitStats = attackingUnit.GetComponent<Stats>();
+        defendingUnitStats = defendingUnit.GetComponent<Stats>();
+        StartCoroutine(AttackProcess());
     }
 
     IEnumerator AttackProcess()

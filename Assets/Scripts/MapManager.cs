@@ -59,6 +59,15 @@ public class MapManager : MonoBehaviour
                 unmovedAllyUnits -= 1;
                 Debug.Log("Number of unmoved ally units is " + unmovedAllyUnits);
             }
+            //If the unit just attacked an enemy
+            else if(selectedUnit.GetComponent<AllyMove>().attacked && selectedUnit.GetComponent<AllyMove>().attacked == true)
+            {
+                GetComponent<BattleManager>().attackingUnit = selectedUnit;
+                GetComponent<BattleManager>().defendingUnit = cursor.GetComponent<Cursor>().GetCurrentUnit();
+                GetComponent<BattleManager>().Attack();
+                selectedUnit.GetComponent<AllyMove>().attacked = false;
+                
+            }
             else if (!selectedUnit.GetComponent<AllyMove>().selected)
                 selectedUnit = null;
         }
@@ -159,7 +168,11 @@ public class MapManager : MonoBehaviour
             if(selectedUnit.GetComponent<EnemyMove>().closestTarget.transform.parent.GetComponent<Tile>().attackable)
             {
                 Debug.Log("Enemy attacked");
-                selectedUnit.GetComponent<Stats>().Attack(selectedUnit.GetComponent<EnemyMove>().closestTarget.gameObject);
+                GetComponent<BattleManager>().attackingUnit = selectedUnit;
+                GetComponent<BattleManager>().defendingUnit = selectedUnit.GetComponent<EnemyMove>().closestTarget;
+                GetComponent<BattleManager>().Attack();
+                //selectedUnit.GetComponent<Stats>().Attack(selectedUnit.GetComponent<EnemyMove>().closestTarget.gameObject);
+
             }
         }
         else if (!selectedUnit.GetComponent<EnemyMove>().finished && !selectedUnit.GetComponent<EnemyMove>().moving)

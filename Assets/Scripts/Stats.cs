@@ -60,6 +60,8 @@ public class Stats : MonoBehaviour
         StartCoroutine(AttackProcess(target));
     }
 
+    
+
     IEnumerator AttackProcess(GameObject target)
     {
         bool attackTwice = false;
