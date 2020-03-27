@@ -173,7 +173,7 @@ MonoBehaviour:
   baseMAG: 10
   baseDEF: 10
   baseRES: 10
-  baseSKL: 10
+  baseSKL: 30
   baseSPD: 10
   hp: 0
   str: 0
@@ -1660,6 +1660,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9349f4c047d3548b3f5fb8baadb44b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackingUnit: {fileID: 0}
+  defendingUnit: {fileID: 0}
 --- !u!1 &458007926
 GameObject:
   m_ObjectHideFlags: 0
@@ -2809,6 +2811,7 @@ MonoBehaviour:
   actionMenu: 0
   finished: 0
   firstClick: 1
+  attacked: 0
   selectedTile: {fileID: 0}
 --- !u!212 &616844895
 SpriteRenderer:
@@ -3663,6 +3666,7 @@ MonoBehaviour:
   actionMenu: 0
   finished: 0
   firstClick: 1
+  attacked: 0
   selectedTile: {fileID: 0}
 --- !u!61 &870737328
 BoxCollider2D:

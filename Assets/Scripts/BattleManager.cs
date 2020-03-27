@@ -65,7 +65,7 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                Debug.Log(transform.name + " missed!");
+                Debug.Log(attackingUnit.name + " missed!");
             }
             yield return new WaitForSeconds(1f);
         }

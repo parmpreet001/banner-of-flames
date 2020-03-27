@@ -60,7 +60,7 @@ public class MapManager : MonoBehaviour
                 Debug.Log("Number of unmoved ally units is " + unmovedAllyUnits);
             }
             //If the unit just attacked an enemy
-            else if(selectedUnit.GetComponent<AllyMove>().attacked && selectedUnit.GetComponent<AllyMove>().attacked == true)
+            else if(selectedUnit.GetComponent<AllyMove>().attacked)
             {
                 GetComponent<BattleManager>().attackingUnit = selectedUnit;
                 GetComponent<BattleManager>().defendingUnit = cursor.GetComponent<Cursor>().GetCurrentUnit();
