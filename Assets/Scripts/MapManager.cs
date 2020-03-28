@@ -62,6 +62,7 @@ public class MapManager : MonoBehaviour
             //If the unit just attacked an enemy
             else if(selectedUnit.GetComponent<AllyMove>().attacked)
             {
+                Debug.Log("Attacking");
                 GetComponent<BattleManager>().attackingUnit = selectedUnit;
                 GetComponent<BattleManager>().defendingUnit = cursor.GetComponent<Cursor>().GetCurrentUnit();
                 GetComponent<BattleManager>().Attack();

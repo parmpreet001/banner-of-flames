@@ -48,6 +48,12 @@ public class BattleManager : MonoBehaviour
         {
             battleLog += (attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + AU_dmg + " damage.\n");
             defendingUnitStats.hp -= AU_dmg;
+            if (checkDead(defendingUnitStats))
+            {
+                yield return new WaitForSeconds(1f);
+                endAttack();
+                yield break;
+            }
         }
         else
         {
@@ -57,13 +63,20 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         //TODO: Enemy attack
-
+        Debug.Log("checking second attack");
         if (AU_attackTwice)
         {
             if (HitOrMiss(AU_accuracy))
             {
                 battleLog += (attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + AU_dmg + " damage.\n");
                 defendingUnitStats.hp -= AU_dmg;
+                
+                if (checkDead(defendingUnitStats))
+                {
+                    yield return new WaitForSeconds(1f);
+                    endAttack();
+                    yield break;
+                }
             }
             else
             {
@@ -74,11 +87,8 @@ public class BattleManager : MonoBehaviour
 
         Debug.Log("reached end of attack");
         yield return new WaitForSeconds(1f);
-        battleLog = "";
 
-        attackingUnit.GetComponent<TileMove>().attacking = false;
-        attackingUnit.GetComponent<TileMove>().finished = true;
-        attackingUnit.GetComponent<TileMove>().RemoveSelectableTiles();
+        endAttack();
 
         yield return null;
     }
@@ -105,5 +115,27 @@ public class BattleManager : MonoBehaviour
     {
         float rnd = Random.Range(0, 100);
         return rnd <= accuracy;
+    }
+
+    //checks if a unit fucking died
+    private bool checkDead(Stats unit)
+    {
+        if(unit.hp <= 0)
+        {
+            Debug.Log(unit.name + "is kill");
+            Destroy(unit.gameObject);
+            battleLog += (unit.name + " is kill.");
+            return true;
+        }
+        return false;
+    }
+
+    private void endAttack()
+    {
+        battleLog = "";
+
+        attackingUnit.GetComponent<TileMove>().attacking = false;
+        attackingUnit.GetComponent<TileMove>().finished = true;
+        attackingUnit.GetComponent<TileMove>().RemoveSelectableTiles();
     }
 }
