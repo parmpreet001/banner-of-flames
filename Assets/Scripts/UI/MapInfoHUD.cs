@@ -44,7 +44,8 @@ public class MapInfoHUD : MonoBehaviour
                 enemyUnitStatsUI.SetActive(false);
             }
 
-            if (MapUIInfo.selectedAllyUnit && MapUIInfo.hoveringUnit && MapUIInfo.hoveringUnit.tag == "EnemyUnit")
+            if (MapUIInfo.selectedAllyUnit && MapUIInfo.hoveringUnit && MapUIInfo.hoveringUnit.tag == "EnemyUnit" && 
+                !MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().attacking)
             {
                 battleForecastUI.SetActive(true);
                 UpdateBattleFoecast(MapUIInfo.selectedAllyUnit, MapUIInfo.hoveringUnit);

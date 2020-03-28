@@ -10,6 +10,8 @@ public class BattleManager : MonoBehaviour
     private Stats attackingUnitStats;
     private Stats defendingUnitStats;
 
+    public string battleLog;
+
     // Update is called once per frame
     void Update()
     {
@@ -44,12 +46,12 @@ public class BattleManager : MonoBehaviour
 
         if(HitOrMiss(AU_accuracy))
         {
-            Debug.Log(attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + AU_dmg + "damage");
+            battleLog += (attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + AU_dmg + " damage.\n");
             defendingUnitStats.hp -= AU_dmg;
         }
         else
         {
-            Debug.Log(transform.name + " missed!");
+            battleLog += (attackingUnit.name + " tried to attack, but missed.\n");
         }
 
         yield return new WaitForSeconds(1f);
@@ -60,18 +62,19 @@ public class BattleManager : MonoBehaviour
         {
             if (HitOrMiss(AU_accuracy))
             {
-                Debug.Log(attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + AU_dmg + "damage");
+                battleLog += (attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + AU_dmg + " damage.\n");
                 defendingUnitStats.hp -= AU_dmg;
             }
             else
             {
-                Debug.Log(attackingUnit.name + " missed!");
+                battleLog += (attackingUnit.name + " tried to attack, but missed.\n");
             }
             yield return new WaitForSeconds(1f);
         }
 
-        //TODO: Enemy counter attack
         Debug.Log("reached end of attack");
+        yield return new WaitForSeconds(1f);
+        battleLog = "";
 
         attackingUnit.GetComponent<TileMove>().attacking = false;
         attackingUnit.GetComponent<TileMove>().finished = true;
