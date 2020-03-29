@@ -36,6 +36,8 @@ public class AllyMove :TileMove
             else
                 CheckInput();
         }
+        if (GetComponent<Stats>().isDead)
+            cursor.GetComponent<Cursor>().canMove = true;
     }
 
     private void CheckInput()
@@ -49,7 +51,6 @@ public class AllyMove :TileMove
             else if (attacking)
             {
                 cursor.GetComponent<Cursor>().canMove = true;
-                //Nothing here yet
             }
             else if (findingTarget)
             {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Stats : MonoBehaviour
 {
     public int level = 1;
+    public bool isDead = false;
 
     public int baseHP, baseSTR, baseMAG, baseDEF, baseRES, baseSKL, baseSPD; //The base stats of the unit. ie their stats at level 1
     public int hp, str, mag, def, res, skl, spd; //The units current stats

@@ -168,8 +168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  isDead: 0
   baseHP: 10
-  baseSTR: 40
+  baseSTR: 24
   baseMAG: 10
   baseDEF: 10
   baseRES: 10
@@ -2877,6 +2878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  isDead: 0
   baseHP: 15
   baseSTR: 8
   baseMAG: 4
@@ -3708,8 +3710,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  isDead: 0
   baseHP: 20
-  baseSTR: 15
+  baseSTR: 19
   baseMAG: 9
   baseDEF: 5
   baseRES: 8
@@ -6296,6 +6299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  isDead: 0
   baseHP: 10
   baseSTR: 2
   baseMAG: 8

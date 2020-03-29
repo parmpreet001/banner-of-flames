@@ -47,6 +47,7 @@ public class BattleManager : MonoBehaviour
         if(HitOrMiss(AU_accuracy))
         {
             battleLog += (attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + AU_dmg + " damage.\n");
+            yield return new WaitForSeconds(1f);
             defendingUnitStats.hp -= AU_dmg;
             if (checkDead(defendingUnitStats))
             {
@@ -58,6 +59,19 @@ public class BattleManager : MonoBehaviour
         else
         {
             battleLog += (attackingUnit.name + " tried to attack, but missed.\n");
+        }
+
+
+        if (HitOrMiss(DU_accuracy))
+        {
+            battleLog += (defendingUnit.name + " attacked " + attackingUnit.transform.name + " for " + DU_dmg + " damage.\n");
+            attackingUnitStats.hp -= DU_dmg;
+            if (checkDead(attackingUnitStats))
+            {
+                yield return new WaitForSeconds(1f);
+                endAttack();
+                yield break;
+            }
         }
 
         yield return new WaitForSeconds(1f);
@@ -122,8 +136,8 @@ public class BattleManager : MonoBehaviour
     {
         if(unit.hp <= 0)
         {
-            Debug.Log(unit.name + "is kill");
-            Destroy(unit.gameObject);
+            //Destroy(unit.gameObject);
+            unit.isDead = true;
             battleLog += (unit.name + " is kill.");
             return true;
         }
@@ -137,5 +151,10 @@ public class BattleManager : MonoBehaviour
         attackingUnit.GetComponent<TileMove>().attacking = false;
         attackingUnit.GetComponent<TileMove>().finished = true;
         attackingUnit.GetComponent<TileMove>().RemoveSelectableTiles();
+
+        //if (attackingUnitStats.isDead)
+        //    Destroy(attackingUnit);
+        //if (defendingUnitStats.isDead)
+        //    Destroy(defendingUnit);
     }
 }
