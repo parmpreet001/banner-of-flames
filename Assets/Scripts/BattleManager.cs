@@ -154,7 +154,7 @@ public class BattleManager : MonoBehaviour
 
         //if (attackingUnitStats.isDead)
         //    Destroy(attackingUnit);
-        //if (defendingUnitStats.isDead)
-        //    Destroy(defendingUnit);
+        if (defendingUnitStats.isDead)
+            Destroy(defendingUnit);
     }
 }

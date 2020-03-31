@@ -55,6 +55,8 @@ public class MapManager : MonoBehaviour
             if (selectedUnit.GetComponent<AllyMove>().finished)
             {
                 selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
+                if (selectedUnit.GetComponent<Stats>().isDead)
+                    Destroy(selectedUnit);
                 selectedUnit = null;
                 unmovedAllyUnits -= 1;
                 Debug.Log("Number of unmoved ally units is " + unmovedAllyUnits);
@@ -182,11 +184,17 @@ public class MapManager : MonoBehaviour
         else if(selectedUnit.GetComponent<EnemyMove>().finished)
         {
             enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().RemoveSelectableTiles();
-            Debug.Log("finished moving");
+            Debug.Log(selectedUnit.transform.name + " has finished moving");
             activeEnemyUnits -= 1;
+            
+            //If the enemy unit dies during a counter attack, delete
+            if (selectedUnit.GetComponent<Stats>().isDead)
+                Destroy(selectedUnit);
+
             if(activeEnemyUnits != 0)
-                selectedUnit = enemyUnits[activeEnemyUnits - 1];
-        }   
+                selectedUnit = enemyUnits[activeEnemyUnits - 1];    
+        }  
+
         //If all enemies have moved
         if(activeEnemyUnits == 0)
             StartPlayerPhase();

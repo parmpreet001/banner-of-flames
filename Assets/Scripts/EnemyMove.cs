@@ -40,7 +40,7 @@ public class EnemyMove : TileMove
         }
         //Debug.Log("Closest target to " + transform.name + " is " + closestTarget.transform.name);
         targetDistance = Vector2.Distance(transform.position, closestTarget.transform.position);
-        Debug.Log("Distance is " + targetDistance);
+        //Debug.Log("Distance is " + targetDistance);
 
         targetOutsideRange = (targetDistance > GetComponent<EnemyStats>().mov);
 
