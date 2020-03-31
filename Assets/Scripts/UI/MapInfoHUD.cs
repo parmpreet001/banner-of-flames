@@ -68,7 +68,7 @@ public class MapInfoHUD : MonoBehaviour
     private void UpdateBattleFoecast(GameObject playerUnit, GameObject enemyUnit)
     {
         GameObject allyUnitInfo = battleForecastUI.transform.GetChild(0).gameObject;
-        GameObject EnemyUnitInfo = battleForecastUI.transform.GetChild(1).gameObject;
+        GameObject enemyUnitInfo = battleForecastUI.transform.GetChild(1).gameObject;
 
         allyUnitInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = playerUnit.name;
         allyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = playerUnit.GetComponent<AllyStats>().equippedWeapon.name;
@@ -76,12 +76,14 @@ public class MapInfoHUD : MonoBehaviour
         allyUnitInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = playerUnit.GetComponent<AllyStats>().GetDmg(playerUnit, enemyUnit).ToString();
         allyUnitInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = (playerUnit.GetComponent<AllyStats>().GetHitrate(playerUnit)
             - enemyUnit.GetComponent<EnemyStats>().GetAvoid(enemyUnit)).ToString();
+        allyUnitInfo.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = playerUnit.GetComponent<AllyStats>().GetCritRate(playerUnit).ToString();
 
-        EnemyUnitInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = enemyUnit.name;
-        EnemyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyUnit.GetComponent<EnemyStats>().equippedWeapon.name;
-        EnemyUnitInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = enemyUnit.GetComponent<EnemyStats>().GetDmg(enemyUnit, playerUnit).ToString();
-        EnemyUnitInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = (enemyUnit.GetComponent<EnemyStats>().GetHitrate(enemyUnit)
+        enemyUnitInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = enemyUnit.name;
+        enemyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = enemyUnit.GetComponent<EnemyStats>().equippedWeapon.name;
+        enemyUnitInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = enemyUnit.GetComponent<EnemyStats>().GetDmg(enemyUnit, playerUnit).ToString();
+        enemyUnitInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = (enemyUnit.GetComponent<EnemyStats>().GetHitrate(enemyUnit)
             - playerUnit.GetComponent<AllyStats>().GetAvoid(playerUnit)).ToString();
+        enemyUnitInfo.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = enemyUnit.GetComponent<EnemyStats>().GetCritRate(enemyUnit).ToString();
 
 
     }

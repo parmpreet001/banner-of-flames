@@ -140,6 +140,14 @@ public class Stats : MonoBehaviour
         return unit.GetComponent<Stats>().equippedWeapon.accuracy + (unit.GetComponent<Stats>().skl * 2);
     }
 
+    public int GetCritRate(GameObject unit)
+    {
+        int critRate = (unit.GetComponent<Stats>().skl / 2);
+        if (critRate > 100)
+            critRate = 100;
+        return critRate;
+    }
+
     public int GetAvoid(GameObject unit)
     {
         return unit.GetComponent<Stats>().spd * 2;
