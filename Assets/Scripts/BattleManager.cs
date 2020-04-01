@@ -12,6 +12,11 @@ public class BattleManager : MonoBehaviour
 
     public string battleLog;
 
+    public int AU_dmg;
+    public int AU_accuracy;
+    public int DU_dmg;
+    public int DU_accuracy;
+
     // Update is called once per frame
     void Update()
     {
@@ -30,11 +35,11 @@ public class BattleManager : MonoBehaviour
         bool AU_attackTwice = false;
         bool DU_attackTwice = false;
 
-        int AU_dmg = GetDmg(attackingUnitStats, defendingUnitStats);
-        int AU_accuracy = GetAccuracy(attackingUnitStats, defendingUnitStats);
+        AU_dmg = GetDmg(attackingUnitStats, defendingUnitStats);
+        AU_accuracy = GetAccuracy(attackingUnitStats, defendingUnitStats);
 
-        int DU_dmg = GetDmg(defendingUnitStats, attackingUnitStats);
-        int DU_accuracy = GetAccuracy(defendingUnitStats, attackingUnitStats);
+        DU_dmg = GetDmg(defendingUnitStats, attackingUnitStats);
+        DU_accuracy = GetAccuracy(defendingUnitStats, attackingUnitStats);
 
         if (attackingUnitStats.spd >= defendingUnitStats.spd + 5)
             AU_attackTwice = true;
@@ -119,9 +124,11 @@ public class BattleManager : MonoBehaviour
     //returns accuracy of unit when attacking target
     private int GetAccuracy(Stats unit, Stats target)
     {
-        int unitHitRate = unit.equippedWeapon.accuracy + (unit.skl * 2);
-        int targetAvoid = target.spd * 2;
-        return unitHitRate - targetAvoid;
+        //Accuracy = UnitHitRate - TargetAvoidRate
+        int accuracy = unit.equippedWeapon.accuracy + (unit.skl * 2) - target.spd * 2;
+        if (accuracy > 100)
+            accuracy = 100;
+        return accuracy;
     }
 
     //Hit or miss, guess they never miss huh
