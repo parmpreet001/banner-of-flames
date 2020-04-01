@@ -14,8 +14,13 @@ public class BattleManager : MonoBehaviour
 
     public int AU_dmg;
     public int AU_accuracy;
+    public int AU_crit;
     public int DU_dmg;
     public int DU_accuracy;
+    public int DU_crit;
+
+    public bool AU_attackTwice;
+    public bool DU_attackTwice;
 
     // Update is called once per frame
     void Update()
@@ -25,26 +30,13 @@ public class BattleManager : MonoBehaviour
 
     public void Attack()
     {
-        attackingUnitStats = attackingUnit.GetComponent<Stats>();
-        defendingUnitStats = defendingUnit.GetComponent<Stats>();
+        UpdateStats();
         StartCoroutine(AttackProcess());
     }
 
     IEnumerator AttackProcess()
     {
-        bool AU_attackTwice = false;
-        bool DU_attackTwice = false;
-
-        AU_dmg = GetDmg(attackingUnitStats, defendingUnitStats);
-        AU_accuracy = GetAccuracy(attackingUnitStats, defendingUnitStats);
-
-        DU_dmg = GetDmg(defendingUnitStats, attackingUnitStats);
-        DU_accuracy = GetAccuracy(defendingUnitStats, attackingUnitStats);
-
-        if (attackingUnitStats.spd >= defendingUnitStats.spd + 5)
-            AU_attackTwice = true;
-        else if (defendingUnitStats.spd >= attackingUnitStats.spd + 5)
-            DU_attackTwice = true;
+        UpdateStats();
 
         attackingUnit.GetComponent<TileMove>().findingTarget = false;
         attackingUnit.GetComponent<TileMove>().attacking = true;
@@ -112,6 +104,28 @@ public class BattleManager : MonoBehaviour
         yield return null;
     }
 
+    public void UpdateStats()
+    {
+        attackingUnitStats = attackingUnit.GetComponent<Stats>();
+        defendingUnitStats = defendingUnit.GetComponent<Stats>();
+
+        AU_attackTwice = false;
+        DU_attackTwice = false;
+
+        AU_dmg = GetDmg(attackingUnitStats, defendingUnitStats);
+        AU_accuracy = GetAccuracy(attackingUnitStats, defendingUnitStats);
+        AU_crit = GetCrit(attackingUnitStats);
+
+        DU_dmg = GetDmg(defendingUnitStats, attackingUnitStats);
+        DU_accuracy = GetAccuracy(defendingUnitStats, attackingUnitStats);
+        DU_crit = GetCrit(defendingUnitStats);
+
+        if (attackingUnitStats.spd >= defendingUnitStats.spd + 5)
+            AU_attackTwice = true;
+        else if (defendingUnitStats.spd >= attackingUnitStats.spd + 5)
+            DU_attackTwice = true;
+    }
+
     //returns damage unit does to target
     private int GetDmg(Stats unit, Stats target)
     {
@@ -129,6 +143,11 @@ public class BattleManager : MonoBehaviour
         if (accuracy > 100)
             accuracy = 100;
         return accuracy;
+    }
+
+    private int GetCrit(Stats unit)
+    {
+        return unit.skl / 2;
     }
 
     //Hit or miss, guess they never miss huh

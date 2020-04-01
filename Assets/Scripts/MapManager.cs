@@ -71,6 +71,12 @@ public class MapManager : MonoBehaviour
                 selectedUnit.GetComponent<AllyMove>().attacked = false;
                 
             }
+            else if(selectedUnit.GetComponent<AllyMove>().findingTarget && cursor.GetComponent<Cursor>().CurrentTileHasEnemyUnit())
+            {
+                GetComponent<BattleManager>().attackingUnit = selectedUnit;
+                GetComponent<BattleManager>().defendingUnit = cursor.GetComponent<Cursor>().GetCurrentUnit();
+                GetComponent<BattleManager>().UpdateStats();
+            }
             else if (!selectedUnit.GetComponent<AllyMove>().selected)
                 selectedUnit = null;
         }
