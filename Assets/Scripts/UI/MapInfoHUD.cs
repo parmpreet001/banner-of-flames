@@ -48,7 +48,7 @@ public class MapInfoHUD : MonoBehaviour
                 !MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().attacking)
             {
                 battleForecastUI.SetActive(true);
-                UpdateBattleFoecast(MapUIInfo.selectedAllyUnit, MapUIInfo.hoveringUnit);
+                UpdateBattleFoecast();
             }
             else
             {
@@ -65,19 +65,19 @@ public class MapInfoHUD : MonoBehaviour
         UnitStatsUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = unitStats.equippedWeapon.name;
     }
 
-    private void UpdateBattleFoecast(GameObject playerUnit, GameObject enemyUnit)
+    private void UpdateBattleFoecast()
     {
         GameObject allyUnitInfo = battleForecastUI.transform.GetChild(0).gameObject;
         GameObject enemyUnitInfo = battleForecastUI.transform.GetChild(1).gameObject;
 
-        allyUnitInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().attackingUnit.name;
-        allyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().attackingUnit.GetComponent<AllyStats>().equippedWeapon.name;
+        allyUnitInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.name;
+        allyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().equippedWeapon.ToString();
         allyUnitInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_dmg.ToString();
         allyUnitInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_accuracy.ToString();
         allyUnitInfo.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_crit.ToString();
 
-        enemyUnitInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().defendingUnit.name;
-        enemyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().defendingUnit.GetComponent<EnemyStats>().equippedWeapon.name;
+        enemyUnitInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.name;
+        enemyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().equippedWeapon.ToString();
         enemyUnitInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_dmg.ToString();
         enemyUnitInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_accuracy.ToString();
         enemyUnitInfo.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_crit.ToString();
