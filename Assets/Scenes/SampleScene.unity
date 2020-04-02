@@ -170,12 +170,12 @@ MonoBehaviour:
   level: 1
   isDead: 0
   baseHP: 10
-  baseSTR: 24
+  baseSTR: 5
   baseMAG: 10
   baseDEF: 10
   baseRES: 10
   baseSKL: 30
-  baseSPD: 10
+  baseSPD: 1
   hp: 0
   str: 0
   mag: 0
@@ -2893,7 +2893,7 @@ MonoBehaviour:
   baseDEF: 6
   baseRES: 2
   baseSKL: 5
-  baseSPD: 6
+  baseSPD: 2
   hp: 0
   str: 0
   mag: 0
@@ -3720,7 +3720,7 @@ MonoBehaviour:
   level: 1
   isDead: 0
   baseHP: 20
-  baseSTR: 19
+  baseSTR: 7
   baseMAG: 9
   baseDEF: 5
   baseRES: 8
@@ -6315,7 +6315,7 @@ MonoBehaviour:
   baseDEF: 8
   baseRES: 8
   baseSKL: 8
-  baseSPD: 8
+  baseSPD: 20
   hp: 0
   str: 0
   mag: 0

@@ -44,8 +44,9 @@ public class BattleManager : MonoBehaviour
         if(HitOrMiss(AU_accuracy))
         {
             battleLog += (attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + AU_dmg + " damage.\n");
-            yield return new WaitForSeconds(1f);
             defendingUnitStats.hp -= AU_dmg;
+            yield return new WaitForSeconds(1f);
+            
             if (checkDead(defendingUnitStats))
             {
                 yield return new WaitForSeconds(1f);
@@ -56,6 +57,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             battleLog += (attackingUnit.name + " tried to attack, but missed.\n");
+            yield return new WaitForSeconds(1f);
         }
 
 
@@ -63,6 +65,8 @@ public class BattleManager : MonoBehaviour
         {
             battleLog += (defendingUnit.name + " attacked " + attackingUnit.transform.name + " for " + DU_dmg + " damage.\n");
             attackingUnitStats.hp -= DU_dmg;
+            yield return new WaitForSeconds(1f);
+
             if (checkDead(attackingUnitStats))
             {
                 yield return new WaitForSeconds(1f);
@@ -70,18 +74,20 @@ public class BattleManager : MonoBehaviour
                 yield break;
             }
         }
+        else
+        {
+            battleLog += (defendingUnit.name + " tried to attack, but missed.\n");
+            yield return new WaitForSeconds(1f);
+        }
 
-        yield return new WaitForSeconds(1f);
-
-        //TODO: Enemy attack
-        Debug.Log("checking second attack");
         if (AU_attackTwice)
         {
             if (HitOrMiss(AU_accuracy))
             {
                 battleLog += (attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + AU_dmg + " damage.\n");
                 defendingUnitStats.hp -= AU_dmg;
-                
+                yield return new WaitForSeconds(1f);
+
                 if (checkDead(defendingUnitStats))
                 {
                     yield return new WaitForSeconds(1f);
@@ -92,8 +98,30 @@ public class BattleManager : MonoBehaviour
             else
             {
                 battleLog += (attackingUnit.name + " tried to attack, but missed.\n");
+                yield return new WaitForSeconds(1f);
             }
-            yield return new WaitForSeconds(1f);
+        }
+
+        if(DU_attackTwice)
+        {
+            if (HitOrMiss(DU_accuracy))
+            {
+                battleLog += (defendingUnit.name + " attacked " + attackingUnit.transform.name + " for " + DU_dmg + " damage.\n");
+                attackingUnitStats.hp -= DU_dmg;
+                yield return new WaitForSeconds(1f);
+
+                if (checkDead(attackingUnitStats))
+                {
+                    yield return new WaitForSeconds(1f);
+                    endAttack();
+                    yield break;
+                }
+            }
+            else
+            {
+                battleLog += (defendingUnit.name + " tried to attack, but missed.\n");
+                yield return new WaitForSeconds(1f);
+            }
         }
 
         Debug.Log("reached end of attack");
