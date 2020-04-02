@@ -43,8 +43,15 @@ public class BattleManager : MonoBehaviour
 
         if(HitOrMiss(AU_accuracy))
         {
-            battleLog += (attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + AU_dmg + " damage.\n");
-            defendingUnitStats.hp -= AU_dmg;
+            int dmg = AU_dmg;
+            if(CritChance(AU_crit))
+            {
+                dmg *= 2;
+                battleLog += "Critical Hit! ";
+            }
+
+            battleLog += (attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + dmg + " damage.\n");
+            defendingUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
             
             if (checkDead(defendingUnitStats))
@@ -63,8 +70,14 @@ public class BattleManager : MonoBehaviour
 
         if (HitOrMiss(DU_accuracy))
         {
-            battleLog += (defendingUnit.name + " attacked " + attackingUnit.transform.name + " for " + DU_dmg + " damage.\n");
-            attackingUnitStats.hp -= DU_dmg;
+            int dmg = DU_dmg;
+            if (CritChance(DU_crit))
+            {
+                dmg *= 2;
+                battleLog += "Critical Hit! ";
+            }
+            battleLog += (defendingUnit.name + " attacked " + attackingUnit.transform.name + " for " + dmg + " damage.\n");
+            attackingUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
 
             if (checkDead(attackingUnitStats))
@@ -84,8 +97,15 @@ public class BattleManager : MonoBehaviour
         {
             if (HitOrMiss(AU_accuracy))
             {
-                battleLog += (attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + AU_dmg + " damage.\n");
-                defendingUnitStats.hp -= AU_dmg;
+                int dmg = AU_dmg;
+                if (CritChance(AU_crit))
+                {
+                    dmg *= 2;
+                    battleLog += "Critical Hit! ";
+                }
+
+                battleLog += (attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + dmg + " damage.\n");
+                defendingUnitStats.hp -= dmg;
                 yield return new WaitForSeconds(1f);
 
                 if (checkDead(defendingUnitStats))
@@ -106,8 +126,14 @@ public class BattleManager : MonoBehaviour
         {
             if (HitOrMiss(DU_accuracy))
             {
-                battleLog += (defendingUnit.name + " attacked " + attackingUnit.transform.name + " for " + DU_dmg + " damage.\n");
-                attackingUnitStats.hp -= DU_dmg;
+                int dmg = DU_dmg;
+                if (CritChance(DU_crit))
+                {
+                    dmg *= 2;
+                    battleLog += "Critical Hit! ";
+                }
+                battleLog += (defendingUnit.name + " attacked " + attackingUnit.transform.name + " for " + dmg + " damage.\n");
+                attackingUnitStats.hp -= dmg;
                 yield return new WaitForSeconds(1f);
 
                 if (checkDead(attackingUnitStats))
@@ -183,6 +209,12 @@ public class BattleManager : MonoBehaviour
     {
         float rnd = Random.Range(0, 100);
         return rnd <= accuracy;
+    }
+    
+    private bool CritChance(int critRate)
+    {
+        float rnd = Random.Range(0, 100);
+        return rnd <= critRate;
     }
 
     //checks if a unit fucking died

@@ -174,8 +174,8 @@ MonoBehaviour:
   baseMAG: 10
   baseDEF: 10
   baseRES: 10
-  baseSKL: 30
-  baseSPD: 1
+  baseSKL: 200
+  baseSPD: 31
   hp: 0
   str: 0
   mag: 0
@@ -3724,7 +3724,7 @@ MonoBehaviour:
   baseMAG: 9
   baseDEF: 5
   baseRES: 8
-  baseSKL: 5
+  baseSKL: 10
   baseSPD: 20
   hp: 0
   str: 0
