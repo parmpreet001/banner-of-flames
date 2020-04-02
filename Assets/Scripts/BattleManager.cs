@@ -37,6 +37,9 @@ public class BattleManager : MonoBehaviour
     IEnumerator AttackProcess()
     {
         UpdateStats();
+        CheckWeaponRange();
+        
+
 
         attackingUnit.GetComponent<TileMove>().findingTarget = false;
         attackingUnit.GetComponent<TileMove>().attacking = true;
@@ -54,7 +57,7 @@ public class BattleManager : MonoBehaviour
             defendingUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
             
-            if (checkDead(defendingUnitStats))
+            if (CheckDead(defendingUnitStats))
             {
                 yield return new WaitForSeconds(1f);
                 endAttack();
@@ -68,7 +71,8 @@ public class BattleManager : MonoBehaviour
         }
 
 
-        if (HitOrMiss(DU_accuracy))
+
+        if (CheckWeaponRange() && HitOrMiss(DU_accuracy))
         {
             int dmg = DU_dmg;
             if (CritChance(DU_crit))
@@ -80,14 +84,14 @@ public class BattleManager : MonoBehaviour
             attackingUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
 
-            if (checkDead(attackingUnitStats))
+            if (CheckDead(attackingUnitStats))
             {
                 yield return new WaitForSeconds(1f);
                 endAttack();
                 yield break;
             }
         }
-        else
+        else if(CheckWeaponRange())
         {
             battleLog += (defendingUnit.name + " tried to attack, but missed.\n");
             yield return new WaitForSeconds(1f);
@@ -108,7 +112,7 @@ public class BattleManager : MonoBehaviour
                 defendingUnitStats.hp -= dmg;
                 yield return new WaitForSeconds(1f);
 
-                if (checkDead(defendingUnitStats))
+                if (CheckDead(defendingUnitStats))
                 {
                     yield return new WaitForSeconds(1f);
                     endAttack();
@@ -124,7 +128,7 @@ public class BattleManager : MonoBehaviour
 
         if(DU_attackTwice)
         {
-            if (HitOrMiss(DU_accuracy))
+            if (CheckWeaponRange() && HitOrMiss(DU_accuracy))
             {
                 int dmg = DU_dmg;
                 if (CritChance(DU_crit))
@@ -136,14 +140,14 @@ public class BattleManager : MonoBehaviour
                 attackingUnitStats.hp -= dmg;
                 yield return new WaitForSeconds(1f);
 
-                if (checkDead(attackingUnitStats))
+                if (CheckDead(attackingUnitStats))
                 {
                     yield return new WaitForSeconds(1f);
                     endAttack();
                     yield break;
                 }
             }
-            else
+            else if(CheckWeaponRange())
             {
                 battleLog += (defendingUnit.name + " tried to attack, but missed.\n");
                 yield return new WaitForSeconds(1f);
@@ -217,8 +221,25 @@ public class BattleManager : MonoBehaviour
         return rnd <= critRate;
     }
 
+    private bool CheckWeaponRange()
+    {
+        float distance = Vector2.Distance(attackingUnit.transform.position, defendingUnit.transform.position);
+        distance = Mathf.Ceil(distance);
+        Debug.Log("Distance is " + distance);
+        if(distance >= defendingUnitStats.equippedWeapon.minRange && distance <= defendingUnitStats.equippedWeapon.maxRange)
+        {
+            Debug.Log("Defending unit can counter attack.");
+        }
+        else
+        {
+            Debug.Log("Defending unit can't counter attack.");
+        }
+
+        return (distance >= defendingUnitStats.equippedWeapon.minRange && distance <= defendingUnitStats.equippedWeapon.maxRange);
+    }
+
     //checks if a unit fucking died
-    private bool checkDead(Stats unit)
+    private bool CheckDead(Stats unit)
     {
         if(unit.hp <= 0)
         {
