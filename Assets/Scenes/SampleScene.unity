@@ -1666,8 +1666,12 @@ MonoBehaviour:
   battleLog: 
   AU_dmg: 0
   AU_accuracy: 0
+  AU_crit: 0
   DU_dmg: 0
   DU_accuracy: 0
+  DU_crit: 0
+  AU_attackTwice: 0
+  DU_attackTwice: 0
 --- !u!1 &458007926
 GameObject:
   m_ObjectHideFlags: 0
@@ -3720,7 +3724,7 @@ MonoBehaviour:
   baseMAG: 9
   baseDEF: 5
   baseRES: 8
-  baseSKL: 15
+  baseSKL: 5
   baseSPD: 20
   hp: 0
   str: 0
