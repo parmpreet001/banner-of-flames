@@ -47,9 +47,10 @@ public class EnemyMove : TileMove
         foreach (Tile tile in selectableTiles)
         {
             //Debug.Log("Distance between " + tile.transform.name + " and target is " + Vector2.Distance(tile.transform.position, closestTarget.transform.position));
-            if (Vector2.Distance(tile.transform.position, closestTarget.transform.position) < targetDistance)
+            if ((Vector2.Distance(tile.transform.position, closestTarget.transform.position) < targetDistance) || 
+                Mathf.Ceil(Vector2.Distance(tile.transform.position,closestTarget.transform.position)) >= GetComponent<Stats>().equippedWeapon.minRange)
             {
-                //Debug.Log("here");
+                Debug.Log("Passed first check");
                 if((Vector2.Distance(transform.position,closestTarget.transform.position) > GetComponent<Stats>().mov + GetComponent<Stats>().equippedWeapon.maxRange ||
                     (Vector2.Distance(tile.transform.position, closestTarget.transform.position) >= GetComponent<Stats>().equippedWeapon.minRange &&
                     Vector2.Distance(tile.transform.position, closestTarget.transform.position) <= GetComponent<Stats>().equippedWeapon.maxRange)) || targetOutsideRange)
