@@ -188,10 +188,36 @@ public class BattleManager : MonoBehaviour
     private int GetDmg(Stats unit, Stats target)
     {
         int dmg = unit.str + unit.equippedWeapon.dmg - target.def;
+
+        switch (unit.equippedWeapon.weaponType)
+        {
+            case WeaponType.SWORD:
+                {
+                    if (target.equippedWeapon.weaponType == WeaponType.AXE)
+                        dmg = (int)(dmg * 1.35);
+                    break;
+                }
+            case WeaponType.AXE:
+                {
+                    if (target.equippedWeapon.weaponType == WeaponType.LANCE)
+                        dmg = (int)(dmg * 1.35);
+                    break;
+                }
+            case WeaponType.LANCE:
+                {
+                    if (target.equippedWeapon.weaponType == WeaponType.SWORD)
+                        dmg = (int)(dmg * 1.35);
+                    break;
+                }
+            default:
+                break;
+        }
+
         if (dmg <= 0)
             dmg = 1;
         return dmg;
     }
+
 
     //returns accuracy of unit when attacking target
     private int GetAccuracy(Stats unit, Stats target)

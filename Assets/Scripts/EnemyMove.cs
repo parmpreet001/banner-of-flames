@@ -46,6 +46,7 @@ public class EnemyMove : TileMove
 
         foreach (Tile tile in selectableTiles)
         {
+            //TODO The way an enemy with a bow moves when standing next to an ally unit is weird. Fix later
             //Debug.Log("Distance between " + tile.transform.name + " and target is " + Vector2.Distance(tile.transform.position, closestTarget.transform.position));
             if ((Vector2.Distance(tile.transform.position, closestTarget.transform.position) < targetDistance) || 
                 Mathf.Ceil(Vector2.Distance(tile.transform.position,closestTarget.transform.position)) >= GetComponent<Stats>().equippedWeapon.minRange)

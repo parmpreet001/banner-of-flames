@@ -3720,7 +3720,7 @@ MonoBehaviour:
   level: 1
   isDead: 0
   baseHP: 20
-  baseSTR: 7
+  baseSTR: 10
   baseMAG: 9
   baseDEF: 5
   baseRES: 8
@@ -6334,7 +6334,7 @@ MonoBehaviour:
   mov: 4
   attackRangeMin: 0
   attackRangeMax: 0
-  equippedWeapon: {fileID: 11400000, guid: d1b6f9db3400b0243bbbb44efc20cc8f, type: 2}
+  equippedWeapon: {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
 --- !u!1001 &1574432285
 PrefabInstance:
   m_ObjectHideFlags: 0
