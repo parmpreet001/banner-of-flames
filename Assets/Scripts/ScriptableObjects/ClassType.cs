@@ -21,10 +21,13 @@ public class ClassType : ScriptableObject
     }
 
     public new string name;
+    [TextArea]
+    public string description;
     public int mov;
     public WeaponLevel[] weaponLevels;
     public int hpGrowth, strGrowth, magGrowth, defGrowth, resGrowth, sklGrowth, spdGrowth;
     public int maxHp, maxStr, maxMag, maxDef, maxRes, maxSkl, maxSpd;
+    
 
 
 

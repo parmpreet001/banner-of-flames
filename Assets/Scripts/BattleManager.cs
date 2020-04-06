@@ -336,18 +336,4 @@ public class BattleManager : MonoBehaviour
                 unit.weaponLevel[unitWeaponLevelIndex].weaponExperience = unit.classType.weaponLevels[unitClassTypeWeaponLevelIndex].maxLevel * 100;
         }
     }
-    private void addSwordExperience(Stats unit)
-    {
-        int index = 0;
-        for(int i = 0; i < unit.classType.weaponLevels.Length; i++)
-        {
-            if(unit.classType.weaponLevels[i].weaponType == WeaponType.SWORD)
-            {
-                if (unit.swordExperience < unit.classType.weaponLevels[i].maxLevel * 100)
-                {
-                    unit.swordExperience += 10;
-                }
-            }
-        }
-    }
 }
