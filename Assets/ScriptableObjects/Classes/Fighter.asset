@@ -29,6 +29,6 @@ MonoBehaviour:
   maxStr: 30
   maxMag: 10
   maxDef: 25
-  maxRes: 15
+  maxRes: 20
   maxSkl: 25
   maxSpd: 25

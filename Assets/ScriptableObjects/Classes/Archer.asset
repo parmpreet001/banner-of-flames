@@ -13,20 +13,22 @@ MonoBehaviour:
   m_Name: Archer
   m_EditorClassIdentifier: 
   name: 
-  description: 
-  mov: 0
-  weaponLevels: []
+  description: Pew
+  mov: 5
+  weaponLevels:
+  - weaponType: 3
+    maxLevel: 3
   hpGrowth: 0
-  strGrowth: 0
+  strGrowth: 5
   magGrowth: 0
   defGrowth: 0
-  resGrowth: 0
-  sklGrowth: 0
+  resGrowth: -5
+  sklGrowth: 5
   spdGrowth: 0
-  maxHp: 0
-  maxStr: 0
-  maxMag: 0
-  maxDef: 0
-  maxRes: 0
-  maxSkl: 0
-  maxSpd: 0
+  maxHp: 40
+  maxStr: 25
+  maxMag: 15
+  maxDef: 20
+  maxRes: 15
+  maxSkl: 30
+  maxSpd: 25
