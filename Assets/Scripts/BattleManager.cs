@@ -60,7 +60,7 @@ public class BattleManager : MonoBehaviour
             if (CheckDead(defendingUnitStats))
             {
                 yield return new WaitForSeconds(1f);
-                endAttack();
+                EndAttack();
                 yield break;
             }
         }
@@ -87,7 +87,7 @@ public class BattleManager : MonoBehaviour
             if (CheckDead(attackingUnitStats))
             {
                 yield return new WaitForSeconds(1f);
-                endAttack();
+                EndAttack();
                 yield break;
             }
         }
@@ -115,7 +115,7 @@ public class BattleManager : MonoBehaviour
                 if (CheckDead(defendingUnitStats))
                 {
                     yield return new WaitForSeconds(1f);
-                    endAttack();
+                    EndAttack();
                     yield break;
                 }
             }
@@ -143,7 +143,7 @@ public class BattleManager : MonoBehaviour
                 if (CheckDead(attackingUnitStats))
                 {
                     yield return new WaitForSeconds(1f);
-                    endAttack();
+                    EndAttack();
                     yield break;
                 }
             }
@@ -157,7 +157,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log("reached end of attack");
         yield return new WaitForSeconds(1f);
 
-        endAttack();
+        EndAttack();
 
         yield return null;
     }
@@ -277,7 +277,7 @@ public class BattleManager : MonoBehaviour
         return false;
     }
 
-    private void endAttack()
+    private void EndAttack()
     {
         battleLog = "";
 
@@ -307,19 +307,33 @@ public class BattleManager : MonoBehaviour
     }
     private void addWeaponExperience(Stats unit, WeaponType weaponType)
     {
+        int unitWeaponLevelIndex = 0;
+        int unitClassTypeWeaponLevelIndex = 0;
         //For loop that finds the WeaponLevel in the unit's stats script
         //Then, compare with the classType to see if the unit is allowed to gain more experience with that weapon
-        for(int i = 0; i < unit.weaponLevel.Count; i++)
+        for(int i = 0; i < unit.weaponLevel.Capacity; i++)
         {
-            if(unit.weaponLevel[i].weaponType == weaponType)
+            if (unit.weaponLevel[i].weaponType == weaponType)
             {
-                if(unit.weaponLevel[i].weaponExperience < unit.classType.weaponLevels[i].maxLevel * 100)
-                {
-                    unit.weaponLevel[i].weaponExperience += 10;
-                    if (unit.weaponLevel[i].weaponExperience > unit.classType.weaponLevels[i].maxLevel * 100)
-                        unit.weaponLevel[i].weaponExperience = unit.classType.weaponLevels[i].maxLevel * 100;
-                }
+                unitWeaponLevelIndex = i;
+                i = unit.weaponLevel.Capacity;
             }
+        }
+
+        for(int i = 0; i < unit.classType.weaponLevels.Length; i++)
+        {
+            if (unit.classType.weaponLevels[i].weaponType == weaponType)
+            {
+                unitClassTypeWeaponLevelIndex = i;
+                i = unit.classType.weaponLevels.Length;
+            }
+        }
+
+        if(unit.weaponLevel[unitWeaponLevelIndex].weaponExperience < unit.classType.weaponLevels[unitClassTypeWeaponLevelIndex].maxLevel * 100)
+        {
+            unit.weaponLevel[unitWeaponLevelIndex].weaponExperience += 10;
+            if (unit.weaponLevel[unitWeaponLevelIndex].weaponExperience > unit.classType.weaponLevels[unitClassTypeWeaponLevelIndex].maxLevel * 100)
+                unit.weaponLevel[unitWeaponLevelIndex].weaponExperience = unit.classType.weaponLevels[unitClassTypeWeaponLevelIndex].maxLevel * 100;
         }
     }
     private void addSwordExperience(Stats unit)

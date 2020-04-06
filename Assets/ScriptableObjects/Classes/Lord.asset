@@ -16,11 +16,7 @@ MonoBehaviour:
   mov: 5
   weaponLevels:
   - weaponType: 0
-    level: 3
-  - weaponType: 0
-    level: 0
-  - weaponType: 0
-    level: 0
+    maxLevel: 3
   hpGrowth: 100
   strGrowth: 20
   magGrowth: 0
