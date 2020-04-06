@@ -18,4 +18,5 @@ MonoBehaviour:
   critRate: 0
   minRange: 1
   maxRange: 1
+  experience: 10
   weaponType: 1

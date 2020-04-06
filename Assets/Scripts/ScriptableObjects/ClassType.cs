@@ -8,8 +8,8 @@ public class ClassType : ScriptableObject
     [System.Serializable]
     public class WeaponLevel
     {
-        public WeaponType weaponType;
-        public char level;
+        public WeaponType weaponType;   //The weapon this class can use
+        public char level;              //The max weapon level a unit with this class can reach
     }
 
     public new string name;
@@ -17,6 +17,7 @@ public class ClassType : ScriptableObject
     public WeaponLevel[] weaponLevels;
     public int hpGrowth, strGrowth, magGrowth, defGrowth, resGrowth, sklGrowth, spdGrowth;
     public int maxHp, maxStr, maxMag, maxDef, maxRes, maxSkl, maxSpd;
+
 
 
 }

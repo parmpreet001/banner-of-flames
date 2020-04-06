@@ -285,8 +285,23 @@ public class BattleManager : MonoBehaviour
         attackingUnit.GetComponent<TileMove>().finished = true;
         attackingUnit.GetComponent<TileMove>().RemoveSelectableTiles();
 
-        //if (attackingUnitStats.isDead)
-        //    Destroy(attackingUnit);
+        if (attackingUnit.tag == "PlayerUnit" && !attackingUnitStats.isDead)
+        {
+            switch (attackingUnitStats.equippedWeapon.weaponType)
+            {
+                case WeaponType.SWORD:
+                    attackingUnitStats.swordExperience += 10; break;
+                case WeaponType.AXE:
+                    attackingUnitStats.axeExperience += 10; break;
+                case WeaponType.LANCE:
+                    attackingUnitStats.lanceExperience += 10; break;
+                case WeaponType.BOW:
+                    attackingUnitStats.bowExperience += 10; break;
+                default:
+                    break;
+            }
+        }
+            
         if (defendingUnitStats.isDead)
             Destroy(defendingUnit);
     }

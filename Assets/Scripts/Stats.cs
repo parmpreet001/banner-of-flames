@@ -11,12 +11,13 @@ public class Stats : MonoBehaviour
     public int baseHP, baseSTR, baseMAG, baseDEF, baseRES, baseSKL, baseSPD; //The base stats of the unit. ie their stats at level 1
     public int hp, str, mag, def, res, skl, spd; //The units current stats
     public int hpGrowth, strGrowth, magGrowth, defGrowth, resGrowth, sklGrowth, spdGrowth; //Growth rates of the unit.
-
     public int maxHP;
-
     public int mov; //Movement speed of the unit
-    public int attackRangeMin; //mininum attack range of the unit
-    public int attackRangeMax; //maximum attack range of the unit
+
+    public int swordExperience, axeExperience, lanceExperience, bowExperience;
+
+    //public int attackRangeMin; //mininum attack range of the unit
+    //public int attackRangeMax; //maximum attack range of the unit
 
     //Equipped weapon
     public Weapon equippedWeapon;

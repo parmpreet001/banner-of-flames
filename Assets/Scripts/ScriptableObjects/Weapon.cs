@@ -11,5 +11,6 @@ public class Weapon : ScriptableObject
     public int critRate;
     public int minRange;
     public int maxRange;
+    public int experience;
     public WeaponType weaponType;
 }
