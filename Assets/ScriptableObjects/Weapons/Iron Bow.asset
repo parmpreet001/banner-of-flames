@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa6ccfbd859588a4389bc84445922f1f, type: 3}
   m_Name: Iron Bow
   m_EditorClassIdentifier: 
-  name: 
+  name: Iron Bow
   dmg: 3
   accuracy: 80
   critRate: 0

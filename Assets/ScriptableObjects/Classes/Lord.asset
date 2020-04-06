@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c94d562ac78819c4aa4dff1b48568471, type: 3}
+  m_Name: Lord
+  m_EditorClassIdentifier: 
+  name: Lord
+  mov: 5
+  weaponLevels:
+  - weaponType: 0
+    level: 0
+  - weaponType: 0
+    level: 0
+  - weaponType: 0
+    level: 0
+  hpGrowth: 100
+  strGrowth: 20
+  magGrowth: 0
+  defGrowth: 5
+  resGrowth: 0
+  sklGrowth: 10
+  spdGrowth: 10
+  maxHp: 60
+  maxStr: 60
+  maxMag: 60
+  maxDef: 60
+  maxRes: 60
+  maxSkl: 60
+  maxSpd: 60

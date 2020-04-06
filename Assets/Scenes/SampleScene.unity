@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  classType: {fileID: 0}
   isDead: 0
   baseHP: 10
   baseSTR: 5
@@ -2886,6 +2887,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  classType: {fileID: 0}
   isDead: 0
   baseHP: 15
   baseSTR: 8
@@ -2901,13 +2903,13 @@ MonoBehaviour:
   res: 0
   skl: 0
   spd: 0
-  hpGrowth: 100
+  hpGrowth: 0
   strGrowth: 0
-  magGrowth: 100
-  defGrowth: 100
-  resGrowth: 100
-  sklGrowth: 100
-  spdGrowth: 100
+  magGrowth: 0
+  defGrowth: 0
+  resGrowth: 0
+  sklGrowth: 0
+  spdGrowth: 0
   maxHP: 0
   mov: 4
   attackRangeMin: 0
@@ -3718,6 +3720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  classType: {fileID: 11400000, guid: 48ba0985ecd665c4393b372362873fc5, type: 2}
   isDead: 0
   baseHP: 20
   baseSTR: 10
@@ -3733,15 +3736,15 @@ MonoBehaviour:
   res: 0
   skl: 0
   spd: 0
-  hpGrowth: 100
+  hpGrowth: 0
   strGrowth: 0
-  magGrowth: 100
-  defGrowth: 100
-  resGrowth: 100
-  sklGrowth: 100
-  spdGrowth: 100
+  magGrowth: 0
+  defGrowth: 0
+  resGrowth: 0
+  sklGrowth: 0
+  spdGrowth: 0
   maxHP: 0
-  mov: 4
+  mov: 0
   attackRangeMin: 0
   attackRangeMax: 0
   equippedWeapon: {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
@@ -5971,7 +5974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1476046886
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6308,6 +6311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  classType: {fileID: 0}
   isDead: 0
   baseHP: 10
   baseSTR: 2
