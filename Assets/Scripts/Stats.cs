@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
+    [System.Serializable]
+    public class WeaponLevel
+    {
+        public WeaponType weaponType;
+        public int weaponExperience;
+
+        public WeaponLevel(WeaponType weaponType, int weaponExperience)
+        {
+            this.weaponType = weaponType;
+            this.weaponExperience = weaponExperience;
+        }
+    }
+    
+    public List<WeaponLevel> weaponLevel = new List<WeaponLevel>();
+
     public int level = 1;
     public ClassType classType;
     public bool isDead = false;
@@ -28,6 +43,11 @@ public class Stats : MonoBehaviour
         hp = baseHP; str = baseSTR; mag = baseMAG; def = baseDEF; res = baseRES; skl = baseSKL; spd = baseSPD;
         maxHP = hp;
         mov = classType.mov;
+
+        weaponLevel.Add(new WeaponLevel(WeaponType.SWORD, 0));
+        weaponLevel.Add(new WeaponLevel(WeaponType.AXE, 0));
+        weaponLevel.Add(new WeaponLevel(WeaponType.LANCE, 0));
+        weaponLevel.Add(new WeaponLevel(WeaponType.BOW, 0));
     }
 
     void Update()

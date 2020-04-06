@@ -16,7 +16,7 @@ MonoBehaviour:
   mov: 5
   weaponLevels:
   - weaponType: 0
-    level: 0
+    level: 3
   - weaponType: 0
     level: 0
   - weaponType: 0

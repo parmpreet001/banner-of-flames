@@ -290,7 +290,7 @@ public class BattleManager : MonoBehaviour
             switch (attackingUnitStats.equippedWeapon.weaponType)
             {
                 case WeaponType.SWORD:
-                    attackingUnitStats.swordExperience += 10; break;
+                    addWeaponExperience(attackingUnitStats, WeaponType.SWORD); break;
                 case WeaponType.AXE:
                     attackingUnitStats.axeExperience += 10; break;
                 case WeaponType.LANCE:
@@ -304,5 +304,36 @@ public class BattleManager : MonoBehaviour
             
         if (defendingUnitStats.isDead)
             Destroy(defendingUnit);
+    }
+    private void addWeaponExperience(Stats unit, WeaponType weaponType)
+    {
+        //For loop that finds the WeaponLevel in the unit's stats script
+        //Then, compare with the classType to see if the unit is allowed to gain more experience with that weapon
+        for(int i = 0; i < unit.weaponLevel.Count; i++)
+        {
+            if(unit.weaponLevel[i].weaponType == weaponType)
+            {
+                if(unit.weaponLevel[i].weaponExperience < unit.classType.weaponLevels[i].maxLevel * 100)
+                {
+                    unit.weaponLevel[i].weaponExperience += 10;
+                    if (unit.weaponLevel[i].weaponExperience > unit.classType.weaponLevels[i].maxLevel * 100)
+                        unit.weaponLevel[i].weaponExperience = unit.classType.weaponLevels[i].maxLevel * 100;
+                }
+            }
+        }
+    }
+    private void addSwordExperience(Stats unit)
+    {
+        int index = 0;
+        for(int i = 0; i < unit.classType.weaponLevels.Length; i++)
+        {
+            if(unit.classType.weaponLevels[i].weaponType == WeaponType.SWORD)
+            {
+                if (unit.swordExperience < unit.classType.weaponLevels[i].maxLevel * 100)
+                {
+                    unit.swordExperience += 10;
+                }
+            }
+        }
     }
 }
