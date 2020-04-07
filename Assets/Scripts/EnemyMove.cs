@@ -35,30 +35,33 @@ public class EnemyMove : TileMove
         foreach (GameObject target in targets)
         {
             if (Vector2.Distance(transform.position, target.transform.position) < Vector2.Distance(transform.position, closestTarget.transform.position))
-                closestTarget = target;
-            
+                closestTarget = target; 
         }
-        //Debug.Log("Closest target to " + transform.name + " is " + closestTarget.transform.name);
-        targetDistance = Vector2.Distance(transform.position, closestTarget.transform.position);
-        //Debug.Log("Distance is " + targetDistance);
+
+        targetDistance = GetDistanceBetweenTiles(transform.parent.gameObject,closestTarget.transform.parent.gameObject);
 
         targetOutsideRange = (targetDistance > (GetComponent<EnemyStats>().mov + GetComponent<EnemyStats>().equippedWeapon.maxRange));
         if (!targetOutsideRange)
         {
             int targetTileDistance = 0; //Distance between the target and the tile during iteration
+
             for (int i = selectableTiles.Count - 1; i >= 0; i--)
             {
-                targetTileDistance = (int)Mathf.Ceil(Vector2.Distance(closestTarget.transform.position, selectableTiles[i].transform.position));
+                targetTileDistance = GetDistanceBetweenTiles(closestTarget.transform.parent.gameObject, selectableTiles[i].gameObject);
                 if (targetTileDistance < GetComponent<Stats>().equippedWeapon.minRange || targetTileDistance > GetComponent<Stats>().equippedWeapon.maxRange)
-                {
-                    Debug.Log("Excluded tile " + selectableTiles[i].transform.name + "," + selectableTiles[i].gameObject.transform.parent.name);
                     selectableTiles.RemoveAt(i);
-                }
+            }
+            foreach(Tile tile in selectableTiles)
+            {
+                Debug.Log(tile.transform.name + "," + tile.transform.parent.name + ". Distance: "
+                    + Vector2.Distance(closestTarget.transform.position,tile.transform.position));
             }
             closestTileToTarget = selectableTiles[0];
         }
         else
         {
+            Debug.Log("Target is outside of range. Distance is " + targetDistance + ". Max range is" + GetComponent<EnemyStats>().mov +
+    GetComponent<EnemyStats>().equippedWeapon.maxRange);
             foreach (Tile tile in selectableTiles)
             {
                 //TODO The way an enemy with a bow moves when standing next to an ally unit is weird. Fix later

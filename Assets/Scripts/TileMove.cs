@@ -196,4 +196,11 @@ public class TileMove : MonoBehaviour
         else
             actionMenu = true;
     }
+
+    public int GetDistanceBetweenTiles(GameObject tile1, GameObject tile2)
+    {
+        int xDistance = (int)Mathf.Abs(tile1.transform.position.x - tile2.transform.position.x);
+        int yDistance = (int)Mathf.Abs(tile1.transform.position.y - tile2.transform.position.y);
+        return (xDistance + yDistance);
+    }
 }
