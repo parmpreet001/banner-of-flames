@@ -39,8 +39,8 @@ public class EnemyMove : TileMove
         }
 
         targetDistance = GetDistanceBetweenTiles(transform.parent.gameObject,closestTarget.transform.parent.gameObject);
-
         targetOutsideRange = (targetDistance > (GetComponent<EnemyStats>().mov + GetComponent<EnemyStats>().equippedWeapon.maxRange));
+
         if (!targetOutsideRange)
         {
             int targetTileDistance = 0; //Distance between the target and the tile during iteration
@@ -51,32 +51,20 @@ public class EnemyMove : TileMove
                 if (targetTileDistance < GetComponent<Stats>().equippedWeapon.minRange || targetTileDistance > GetComponent<Stats>().equippedWeapon.maxRange)
                     selectableTiles.RemoveAt(i);
             }
-            foreach(Tile tile in selectableTiles)
-            {
-                Debug.Log(tile.transform.name + "," + tile.transform.parent.name + ". Distance: "
-                    + Vector2.Distance(closestTarget.transform.position,tile.transform.position));
-            }
             closestTileToTarget = selectableTiles[0];
         }
+
         else
         {
-            Debug.Log("Target is outside of range. Distance is " + targetDistance + ". Max range is" + GetComponent<EnemyStats>().mov +
-    GetComponent<EnemyStats>().equippedWeapon.maxRange);
-            foreach (Tile tile in selectableTiles)
+            closestTileToTarget = selectableTiles[selectableTiles.Count-1];
+            int targetTileDistance = GetDistanceBetweenTiles(closestTarget.transform.parent.gameObject, closestTileToTarget.gameObject);
+
+            for (int i = selectableTiles.Count - 1; i >= 0; i--)
             {
-                //TODO The way an enemy with a bow moves when standing next to an ally unit is weird. Fix later
-                //Debug.Log("Distance between " + tile.transform.name + " and target is " + Vector2.Distance(tile.transform.position, closestTarget.transform.position));
-                if ((Vector2.Distance(tile.transform.position, closestTarget.transform.position) < targetDistance) ||
-                    Mathf.Ceil(Vector2.Distance(tile.transform.position, closestTarget.transform.position)) >= GetComponent<Stats>().equippedWeapon.minRange)
+                if(GetDistanceBetweenTiles(closestTarget.transform.parent.gameObject, selectableTiles[i].gameObject) < targetTileDistance)
                 {
-                    Debug.Log("Passed first check");
-                    if ((Vector2.Distance(transform.position, closestTarget.transform.position) > GetComponent<Stats>().mov + GetComponent<Stats>().equippedWeapon.maxRange ||
-                        (Vector2.Distance(tile.transform.position, closestTarget.transform.position) >= GetComponent<Stats>().equippedWeapon.minRange &&
-                        Vector2.Distance(tile.transform.position, closestTarget.transform.position) <= GetComponent<Stats>().equippedWeapon.maxRange)) || targetOutsideRange)
-                    {
-                        closestTileToTarget = tile;
-                        targetDistance = Vector2.Distance(closestTileToTarget.transform.position, closestTarget.transform.position);
-                    }
+                    closestTileToTarget = selectableTiles[i];
+                    targetTileDistance = GetDistanceBetweenTiles(closestTarget.transform.parent.gameObject, closestTileToTarget.gameObject);
                 }
             }
         }
