@@ -20,7 +20,7 @@ public class EnemyMove : TileMove
     }
     public void Move()
     {
-        FindSelectableTiles(GetComponent<EnemyStats>().mov, GetComponent<EnemyStats>().classType.walkableTerrain);
+        FindSelectableTiles(GetComponent<EnemyStats>().classType.mov, GetComponent<EnemyStats>().classType.walkableTerrain);
         GetClosestTarget();
     }
 
@@ -39,7 +39,7 @@ public class EnemyMove : TileMove
         }
 
         targetDistance = GetDistanceBetweenTiles(transform.parent.gameObject,closestTarget.transform.parent.gameObject);
-        targetOutsideRange = (targetDistance > (GetComponent<EnemyStats>().mov + GetComponent<EnemyStats>().equippedWeapon.maxRange));
+        targetOutsideRange = (targetDistance > (GetComponent<EnemyStats>().classType.mov + GetComponent<EnemyStats>().equippedWeapon.maxRange));
 
         if (!targetOutsideRange)
         {

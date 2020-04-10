@@ -106,7 +106,7 @@ public class AllyMove :TileMove
                 moved = false;
                 actionMenu = false;
                 findingTarget = false;
-                FindSelectableTiles(GetComponent<AllyStats>().mov, GetComponent<AllyStats>().classType.walkableTerrain);
+                FindSelectableTiles(GetComponent<AllyStats>().classType.mov, GetComponent<AllyStats>().classType.walkableTerrain);
             }
             else if(!attacking)
             {
@@ -120,7 +120,7 @@ public class AllyMove :TileMove
         else if(firstClick)
         {
             firstClick = false;
-            FindSelectableTiles(GetComponent<AllyStats>().mov, GetComponent<AllyStats>().classType.walkableTerrain);
+            FindSelectableTiles(GetComponent<AllyStats>().classType.mov, GetComponent<AllyStats>().classType.walkableTerrain);
             startingTile = currentTile;
             Debug.Log("Starting on " + startingTile.transform.name + "," + startingTile.transform.parent.name);
         }     

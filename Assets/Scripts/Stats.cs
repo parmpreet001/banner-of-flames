@@ -27,7 +27,6 @@ public class Stats : MonoBehaviour
     public int hp, str, mag, def, res, skl, spd; //The units current stats
     public int hpGrowth, strGrowth, magGrowth, defGrowth, resGrowth, sklGrowth, spdGrowth; //Growth rates of the unit.
     public int maxHP;
-    public int mov; //Movement speed of the unit
 
     public int swordExperience, axeExperience, lanceExperience, bowExperience;
 
@@ -42,7 +41,6 @@ public class Stats : MonoBehaviour
     {
         hp = baseHP; str = baseSTR; mag = baseMAG; def = baseDEF; res = baseRES; skl = baseSKL; spd = baseSPD;
         maxHP = hp;
-        mov = classType.mov;
 
         weaponLevel.Add(new WeaponLevel(WeaponType.SWORD, 0));
         weaponLevel.Add(new WeaponLevel(WeaponType.AXE, 0));
