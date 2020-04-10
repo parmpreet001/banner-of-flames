@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class TileMove : MonoBehaviour
 {
@@ -57,7 +58,7 @@ public class TileMove : MonoBehaviour
         }
     }
 
-    public void FindSelectableTiles(int moveRange)
+    public void FindSelectableTiles(int moveRange, TerrainType[] terrain)
     {
         ComputeAdjacentLists(true);
         GetCurrentTile();
@@ -81,10 +82,20 @@ public class TileMove : MonoBehaviour
                 {
                     if (!tile.visited) //True if the tile has not already been visited by the search
                     {
-                        tile.parent = t; //The parent of the adjacent tile is the current tile
-                        tile.visited = true; //The tile is marked as visited
-                        tile.distance = 1 + t.distance; //The distance of the is equal to the distance of the parent tile plus one
-                        process.Enqueue(tile); //The tile gets added to the proces queue
+                        bool validTerrain = false;
+                        for(int i = 0; i < terrain.Length; i++)
+                        {
+                            if (terrain[i] == tile.terrainType)
+                                validTerrain = true;
+                        }
+                        if(validTerrain)
+                        {
+                            tile.parent = t; //The parent of the adjacent tile is the current tile
+                            tile.visited = true; //The tile is marked as visited
+                            tile.distance = 1 + t.distance; //The distance of the is equal to the distance of the parent tile plus one
+                            process.Enqueue(tile); //The tile gets added to the proces queue
+                        }
+
                     }
                 }
             }
