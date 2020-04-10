@@ -10,6 +10,8 @@ public class Tile : MonoBehaviour
     public bool selectable = false; //Tiles that the ally or enemy can go to/click on
     public bool attackable = false;
 
+    public TerrainType terrainType;
+
     public List<Tile> adjacentTiles = new List<Tile>(); //Adjacent tiles
 
     //BFS
