@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   description: Pew
-  mov: 5
+  walkableTerrain: 00000000
   weaponLevels:
   - weaponType: 3
     maxLevel: 3
@@ -32,3 +32,4 @@ MonoBehaviour:
   maxRes: 15
   maxSkl: 30
   maxSpd: 25
+  mov: 5

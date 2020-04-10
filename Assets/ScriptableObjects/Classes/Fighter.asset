@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Fighter
   description: Uses an axe to strike down foes with great power.
-  mov: 5
+  walkableTerrain: 00000000
   weaponLevels:
   - weaponType: 1
     maxLevel: 3
@@ -32,3 +32,4 @@ MonoBehaviour:
   maxRes: 20
   maxSkl: 25
   maxSpd: 25
+  mov: 5

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Myrmidon
   description: Proficient at delivering fast and accurate attacks with the sword.
-  mov: 5
+  walkableTerrain: 00000000
   weaponLevels:
   - weaponType: 0
     maxLevel: 3
@@ -32,3 +32,4 @@ MonoBehaviour:
   maxRes: 20
   maxSkl: 30
   maxSpd: 30
+  mov: 5

@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Lord
   description: A member of the royal blood, allowing for above average resillency
     and aptitude for magic. Despite that, prefers to use swords.
-  mov: 5
+  walkableTerrain: 00000000
   weaponLevels:
   - weaponType: 0
     maxLevel: 3
@@ -33,3 +33,4 @@ MonoBehaviour:
   maxRes: 30
   maxSkl: 35
   maxSpd: 35
+  mov: 5
