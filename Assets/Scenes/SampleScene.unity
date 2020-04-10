@@ -169,7 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponLevel: []
   level: 1
-  classType: {fileID: 0}
+  classType: {fileID: 11400000, guid: 5bab89c8ef73f684a8bd5f9860831557, type: 2}
   isDead: 0
   baseHP: 10
   baseSTR: 5
@@ -2811,7 +2811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponLevel: []
   level: 1
-  classType: {fileID: 0}
+  classType: {fileID: 11400000, guid: d34c1dbf4afed40498e92df8bbfd9bb0, type: 2}
   isDead: 0
   baseHP: 15
   baseSTR: 8
@@ -6372,7 +6372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponLevel: []
   level: 1
-  classType: {fileID: 0}
+  classType: {fileID: 11400000, guid: d34c1dbf4afed40498e92df8bbfd9bb0, type: 2}
   isDead: 0
   baseHP: 10
   baseSTR: 2
