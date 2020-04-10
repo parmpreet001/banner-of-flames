@@ -9,7 +9,7 @@ public class ClassType : ScriptableObject
     public class WeaponLevel
     {
         public WeaponType weaponType;   //The weapon this class can use
-        public TerrainType[] walkableTerrain; //The terrain this class can walk therough
+        
         public int maxLevel;              //The max weapon level a unit with this class can reach
         /* Level    Letter Rank
          * 1        E
@@ -20,15 +20,15 @@ public class ClassType : ScriptableObject
          * 6        S
          */
     }
-
+    
     public new string name;
     [TextArea]
     public string description;
-    public int mov;
+    public TerrainType[] walkableTerrain; //The terrain this class can walk therough
     public WeaponLevel[] weaponLevels;
     public int hpGrowth, strGrowth, magGrowth, defGrowth, resGrowth, sklGrowth, spdGrowth;
     public int maxHp, maxStr, maxMag, maxDef, maxRes, maxSkl, maxSpd;
-    
+    public int mov;
 
 
 
