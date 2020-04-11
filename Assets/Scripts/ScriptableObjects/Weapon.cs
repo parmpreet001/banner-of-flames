@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class Weapon : ScriptableObject
+public class Weapon : Item
 {
-    public new string name;
     public int dmg;
     public int accuracy;
     public int critRate;
