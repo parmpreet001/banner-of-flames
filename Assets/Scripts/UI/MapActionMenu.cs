@@ -29,7 +29,6 @@ public class MapActionMenu : MonoBehaviour
                 if (!buttonsCreated)
                 {
                     CreateButtons();
-                    //menuCursor.SetActive(true);
                 }
                 menuCursorInput();
             }
@@ -55,6 +54,7 @@ public class MapActionMenu : MonoBehaviour
 
         if (am.findingTarget)
             buttons.Add("Attack");
+        buttons.Add("Item");
         buttons.Add("Wait");
 
         for (int i = 0; i < buttons.Count; i++)
@@ -63,6 +63,11 @@ public class MapActionMenu : MonoBehaviour
             {
                 transform.Find("AttackButton").gameObject.SetActive(true);
                 transform.Find("AttackButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
+            }
+            else if(buttons[i] == "Item")
+            {
+                transform.Find("ItemButton").gameObject.SetActive(true);
+                transform.Find("ItemButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
             }
             else if (buttons[i] == "Wait")
             {
