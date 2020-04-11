@@ -193,12 +193,17 @@ MonoBehaviour:
   sklGrowth: 0
   spdGrowth: 0
   maxHP: 0
-  mov: 4
   swordExperience: 0
   axeExperience: 0
   lanceExperience: 0
   bowExperience: 0
   equippedWeapon: {fileID: 11400000, guid: d1b6f9db3400b0243bbbb44efc20cc8f, type: 2}
+  inventory:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &9538727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2835,12 +2840,17 @@ MonoBehaviour:
   sklGrowth: 0
   spdGrowth: 0
   maxHP: 0
-  mov: 4
   swordExperience: 0
   axeExperience: 0
   lanceExperience: 0
   bowExperience: 0
   equippedWeapon: {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
+  inventory:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &627056664
 GameObject:
   m_ObjectHideFlags: 0
@@ -3802,12 +3812,17 @@ MonoBehaviour:
   sklGrowth: 0
   spdGrowth: 0
   maxHP: 0
-  mov: 0
   swordExperience: 0
   axeExperience: 0
   lanceExperience: 0
   bowExperience: 0
   equippedWeapon: {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
+  inventory:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &894256319
 GameObject:
   m_ObjectHideFlags: 0
@@ -6396,12 +6411,17 @@ MonoBehaviour:
   sklGrowth: 0
   spdGrowth: 0
   maxHP: 0
-  mov: 4
   swordExperience: 0
   axeExperience: 0
   lanceExperience: 0
   bowExperience: 0
   equippedWeapon: {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
+  inventory:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1001 &1574432285
 PrefabInstance:
   m_ObjectHideFlags: 0

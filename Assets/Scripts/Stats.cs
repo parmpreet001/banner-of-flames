@@ -16,6 +16,8 @@ public class Stats : MonoBehaviour
             this.weaponExperience = weaponExperience;
         }
     }
+
+    private const int maxInventorySize = 5;
     
     public List<WeaponLevel> weaponLevel = new List<WeaponLevel>();
 
@@ -36,6 +38,7 @@ public class Stats : MonoBehaviour
     //Equipped weapon
     public Weapon equippedWeapon;
 
+    public Item[] inventory = new Item[maxInventorySize];
 
     public void Init()
     {
