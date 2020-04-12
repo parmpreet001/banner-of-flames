@@ -22,6 +22,8 @@ public class BattleManager : MonoBehaviour
     public bool AU_attackTwice;
     public bool DU_attackTwice;
 
+    public bool DU_inRange;
+
     // Update is called once per frame
     void Update()
     {
@@ -37,9 +39,6 @@ public class BattleManager : MonoBehaviour
     IEnumerator AttackProcess()
     {
         UpdateStats();
-        CheckWeaponRange();
-        
-
 
         attackingUnit.GetComponent<TileMove>().findingTarget = false;
         attackingUnit.GetComponent<TileMove>().attacking = true;
@@ -72,7 +71,7 @@ public class BattleManager : MonoBehaviour
 
 
 
-        if (CheckWeaponRange() && HitOrMiss(DU_accuracy))
+        if (DU_inRange && HitOrMiss(DU_accuracy))
         {
             int dmg = DU_dmg;
             if (CritChance(DU_crit))
@@ -91,7 +90,7 @@ public class BattleManager : MonoBehaviour
                 yield break;
             }
         }
-        else if(CheckWeaponRange())
+        else if(DU_inRange)
         {
             battleLog += (defendingUnit.name + " tried to attack, but missed.\n");
             yield return new WaitForSeconds(1f);
@@ -128,7 +127,7 @@ public class BattleManager : MonoBehaviour
 
         if(DU_attackTwice)
         {
-            if (CheckWeaponRange() && HitOrMiss(DU_accuracy))
+            if (DU_inRange && HitOrMiss(DU_accuracy))
             {
                 int dmg = DU_dmg;
                 if (CritChance(DU_crit))
@@ -147,7 +146,7 @@ public class BattleManager : MonoBehaviour
                     yield break;
                 }
             }
-            else if(CheckWeaponRange())
+            else if(DU_inRange)
             {
                 battleLog += (defendingUnit.name + " tried to attack, but missed.\n");
                 yield return new WaitForSeconds(1f);
@@ -182,6 +181,8 @@ public class BattleManager : MonoBehaviour
             AU_attackTwice = true;
         else if (defendingUnitStats.spd >= attackingUnitStats.spd + 5)
             DU_attackTwice = true;
+
+        DU_inRange = CheckWeaponRange();
     }
 
     //returns damage unit does to target
@@ -252,14 +253,6 @@ public class BattleManager : MonoBehaviour
         float distance = Vector2.Distance(attackingUnit.transform.position, defendingUnit.transform.position);
         distance = Mathf.Ceil(distance);
         Debug.Log("Distance is " + distance);
-        if(distance >= defendingUnitStats.equippedWeapon.minRange && distance <= defendingUnitStats.equippedWeapon.maxRange)
-        {
-            Debug.Log("Defending unit can counter attack.");
-        }
-        else
-        {
-            Debug.Log("Defending unit can't counter attack.");
-        }
 
         return (distance >= defendingUnitStats.equippedWeapon.minRange && distance <= defendingUnitStats.equippedWeapon.maxRange);
     }
