@@ -82,13 +82,23 @@ public class MapInfoHUD : MonoBehaviour
 
         enemyUnitInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.name;
         enemyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().equippedWeapon.name.ToString();
-        enemyUnitInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_dmg.ToString();
-        enemyUnitInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_accuracy.ToString();
-        enemyUnitInfo.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_crit.ToString();
-        if (MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_attackTwice)
-            enemyUnitInfo.transform.GetChild(5).gameObject.SetActive(true);
+        if(MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_inRange)
+        {
+            enemyUnitInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_dmg.ToString();
+            enemyUnitInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_accuracy.ToString();
+            enemyUnitInfo.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_crit.ToString();
+            if (MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_attackTwice)
+                enemyUnitInfo.transform.GetChild(5).gameObject.SetActive(true);
+            else
+                enemyUnitInfo.transform.GetChild(5).gameObject.SetActive(false);
+        }
         else
-            enemyUnitInfo.transform.GetChild(5).gameObject.SetActive(false);
+        {
+            enemyUnitInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "-";
+            enemyUnitInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "-";
+            enemyUnitInfo.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "-";
+        }
+
 
 
     }
