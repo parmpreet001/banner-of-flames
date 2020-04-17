@@ -113,6 +113,11 @@ public class MapActionMenu : MonoBehaviour
         ResetActionMenu(false);
     }
 
+    public void Item()
+    {
+        transform.Find("ItemMenu").gameObject.SetActive(true);
+    }
+
     private void ResetActionMenu(bool removeSelectedAllyUnit)
     {
         if (removeSelectedAllyUnit)
