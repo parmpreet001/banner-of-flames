@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class MapActionMenu : MonoBehaviour
 {
-    private bool buttonsCreated = false;
-    List<string> buttons = new List<string>();
+    private MapUIInfo MapUIInfo; 
 
-    public int menuCursorPosition = 1;
-    public GameObject menuCursor;
+    private bool buttonsCreated = false; //Whether or not buttons have beencreated
+    List<string> buttons = new List<string>(); //List of buttons
+    
+    public GameObject menuCursor; 
+    private int menuCursorPosition = 1; //Position of the cursor, where 1 is at the top
+    
+    private bool selectingItems = false; //If true, player has selected the Items button and is now going through the list of items
 
-    private MapUIInfo MapUIInfo;
-    private bool selectingItems = false;
+    private RectTransform menuCursorRT; //menuCursor RectTransform
 
     private void Start()
     {
         MapUIInfo = GetComponentInParent<MapUIInfo>();
+        menuCursorRT = menuCursor.GetComponent<RectTransform>();
     }
 
     void Update()
@@ -48,6 +52,7 @@ public class MapActionMenu : MonoBehaviour
 
     private void CreateButtons()
     {
+        menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x, -35 * (menuCursorPosition - 1)); 
         buttonsCreated = true;
         menuCursor.SetActive(true);
 
@@ -86,17 +91,22 @@ public class MapActionMenu : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.DownArrow))
             {
                 if (menuCursorPosition < buttons.Count)
+                {
                     menuCursorPosition++;
+                    moveCursor(0, -35);
+                }      
             }
             if(Input.GetKeyDown(KeyCode.UpArrow))
             {
                 if (menuCursorPosition > 1)
+                {
                     menuCursorPosition--;
+                    moveCursor(0, 35);
+                }
+                    
             }
-            menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(menuCursor.GetComponent<RectTransform>().anchoredPosition.x, -35 * (menuCursorPosition - 1));
             if(Input.GetKeyDown(KeyCode.Z))
             {
-                //Debug.Log(transform.Find(buttons[menuCursorPosition-1] + "Button").ToString());
                 string methodName = buttons[menuCursorPosition - 1];
                 Invoke(methodName, 0);
             }
@@ -108,8 +118,7 @@ public class MapActionMenu : MonoBehaviour
                 if(menuCursorPosition <= 4)
                 {
                     menuCursorPosition++;
-                    menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(menuCursor.GetComponent<RectTransform>().anchoredPosition.x, 
-                    menuCursor.GetComponent<RectTransform>().anchoredPosition.y - 24);
+                    moveCursor(0, -24);
                 }
 
             }
@@ -118,11 +127,9 @@ public class MapActionMenu : MonoBehaviour
                 if(menuCursorPosition >= 2)
                 {
                     menuCursorPosition--;
-                    menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(menuCursor.GetComponent<RectTransform>().anchoredPosition.x,
-                    menuCursor.GetComponent<RectTransform>().anchoredPosition.y + 24);
+                    moveCursor(0, 24);
                 }
             }
-
         }
     }
 
@@ -141,9 +148,8 @@ public class MapActionMenu : MonoBehaviour
 
     public void Item()
     {
-        menuCursor.GetComponent<RectTransform>().anchoredPosition = transform.Find("ItemMenu").GetComponent<RectTransform>().anchoredPosition;
-        menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(menuCursor.GetComponent<RectTransform>().anchoredPosition.x + 180,
-            menuCursor.GetComponent<RectTransform>().anchoredPosition.y + 36);
+        menuCursorRT.anchoredPosition = transform.Find("ItemMenu").GetComponent<RectTransform>().anchoredPosition;
+        menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x + 180, menuCursorRT.anchoredPosition.y + 36);
         selectingItems = true;
         transform.Find("ItemMenu").gameObject.SetActive(true);
         menuCursorPosition = 1;
@@ -151,19 +157,29 @@ public class MapActionMenu : MonoBehaviour
 
     private void ResetActionMenu(bool removeSelectedAllyUnit)
     {
+        selectingItems = false;
+        buttonsCreated = false;
+        menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x, 0);
+        menuCursorPosition = 1;
+
         if (removeSelectedAllyUnit)
             MapUIInfo.selectedAllyUnit = null;
-        buttonsCreated = false;
+        
         buttons.Clear();
+
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).gameObject.activeInHierarchy)
                 transform.GetChild(i).gameObject.SetActive(false);
         }
-        menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(menuCursor.GetComponent<RectTransform>().anchoredPosition.x, 0);
-        menuCursorPosition = 1;
-        menuCursor.GetComponent<Transform>().position = new Vector2(GameObject.Find("ActionMenu").transform.position.x + 100, 
+
+        menuCursor.GetComponent<Transform>().position = new Vector2(GameObject.Find("ActionMenu").transform.position.x + 100,
             menuCursor.GetComponent<RectTransform>().anchoredPosition.y);
-        selectingItems = false;
+        
+    }
+
+    private void moveCursor(float x, float y)
+    {
+        menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x + x, menuCursorRT.anchoredPosition.y + y);
     }
 }
