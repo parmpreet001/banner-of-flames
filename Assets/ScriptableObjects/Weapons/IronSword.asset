@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: IronSword
   m_EditorClassIdentifier: 
   name: Iron Sword
+  currentUse: 40
+  maxUse: 40
   dmg: 5
   accuracy: 80
   critRate: 0

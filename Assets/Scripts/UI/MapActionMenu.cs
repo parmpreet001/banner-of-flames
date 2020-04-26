@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MapActionMenu : MonoBehaviour
 {
-    private MapUIInfo MapUIInfo; 
+    private MapUIInfo MapUIInfo;
+    private GameObject ItemMenu;
 
     private bool buttonsCreated = false; //Whether or not buttons have beencreated
     List<string> buttons = new List<string>(); //List of buttons
@@ -19,6 +21,7 @@ public class MapActionMenu : MonoBehaviour
     private void Start()
     {
         MapUIInfo = GetComponentInParent<MapUIInfo>();
+        ItemMenu = GameObject.Find("ItemMenu");
         menuCursorRT = menuCursor.GetComponent<RectTransform>();
     }
 
@@ -148,11 +151,15 @@ public class MapActionMenu : MonoBehaviour
 
     public void Item()
     {
-        menuCursorRT.anchoredPosition = transform.Find("ItemMenu").GetComponent<RectTransform>().anchoredPosition;
+        menuCursorRT.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
         menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x + 180, menuCursorRT.anchoredPosition.y + 36);
         selectingItems = true;
-        transform.Find("ItemMenu").gameObject.SetActive(true);
+        ItemMenu.SetActive(true);
         menuCursorPosition = 1;
+
+        ItemMenu.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[0].name;
+        ItemMenu.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[0].currentUse +
+            "/" + MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[0].maxUse;
     }
 
     private void ResetActionMenu(bool removeSelectedAllyUnit)

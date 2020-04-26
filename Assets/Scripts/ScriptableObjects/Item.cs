@@ -5,4 +5,7 @@ using UnityEngine;
 public abstract class Item : ScriptableObject
 {
     public new string name;
+    public int currentUse;
+    public int maxUse;
+
 }
