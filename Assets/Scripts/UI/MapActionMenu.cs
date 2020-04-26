@@ -99,8 +99,30 @@ public class MapActionMenu : MonoBehaviour
                 //Debug.Log(transform.Find(buttons[menuCursorPosition-1] + "Button").ToString());
                 string methodName = buttons[menuCursorPosition - 1];
                 Invoke(methodName, 0);
+            }
+        }
+        else
+        {
+            if(Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if(menuCursorPosition <= 4)
+                {
+                    menuCursorPosition++;
+                    menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(menuCursor.GetComponent<RectTransform>().anchoredPosition.x, 
+                    menuCursor.GetComponent<RectTransform>().anchoredPosition.y - 24);
+                }
 
             }
+            if(Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if(menuCursorPosition >= 2)
+                {
+                    menuCursorPosition--;
+                    menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(menuCursor.GetComponent<RectTransform>().anchoredPosition.x,
+                    menuCursor.GetComponent<RectTransform>().anchoredPosition.y + 24);
+                }
+            }
+
         }
     }
 
@@ -124,6 +146,7 @@ public class MapActionMenu : MonoBehaviour
             menuCursor.GetComponent<RectTransform>().anchoredPosition.y + 36);
         selectingItems = true;
         transform.Find("ItemMenu").gameObject.SetActive(true);
+        menuCursorPosition = 1;
     }
 
     private void ResetActionMenu(bool removeSelectedAllyUnit)
@@ -139,6 +162,8 @@ public class MapActionMenu : MonoBehaviour
         }
         menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(menuCursor.GetComponent<RectTransform>().anchoredPosition.x, 0);
         menuCursorPosition = 1;
+        menuCursor.GetComponent<Transform>().position = new Vector2(GameObject.Find("ActionMenu").transform.position.x + 100, 
+            menuCursor.GetComponent<RectTransform>().anchoredPosition.y);
         selectingItems = false;
     }
 }
