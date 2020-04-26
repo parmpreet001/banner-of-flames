@@ -11,6 +11,7 @@ public class MapActionMenu : MonoBehaviour
     public GameObject menuCursor;
 
     private MapUIInfo MapUIInfo;
+    private bool selectingItems = false;
 
     private void Start()
     {
@@ -80,23 +81,26 @@ public class MapActionMenu : MonoBehaviour
 
     private void menuCursorInput()
     {
-        if(Input.GetKeyDown(KeyCode.DownArrow))
+        if(!selectingItems)
         {
-            if (menuCursorPosition < buttons.Count)
-                menuCursorPosition++;
-        }
-        if(Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (menuCursorPosition > 1)
-                menuCursorPosition--;
-        }
-        menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(menuCursor.GetComponent<RectTransform>().anchoredPosition.x, -35 * (menuCursorPosition - 1));
-        if(Input.GetKeyDown(KeyCode.Z))
-        {
-            //Debug.Log(transform.Find(buttons[menuCursorPosition-1] + "Button").ToString());
-            string methodName = buttons[menuCursorPosition - 1];
-            Invoke(methodName, 0);
+            if(Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if (menuCursorPosition < buttons.Count)
+                    menuCursorPosition++;
+            }
+            if(Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if (menuCursorPosition > 1)
+                    menuCursorPosition--;
+            }
+            menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(menuCursor.GetComponent<RectTransform>().anchoredPosition.x, -35 * (menuCursorPosition - 1));
+            if(Input.GetKeyDown(KeyCode.Z))
+            {
+                //Debug.Log(transform.Find(buttons[menuCursorPosition-1] + "Button").ToString());
+                string methodName = buttons[menuCursorPosition - 1];
+                Invoke(methodName, 0);
 
+            }
         }
     }
 
@@ -115,6 +119,10 @@ public class MapActionMenu : MonoBehaviour
 
     public void Item()
     {
+        menuCursor.GetComponent<RectTransform>().anchoredPosition = transform.Find("ItemMenu").GetComponent<RectTransform>().anchoredPosition;
+        menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(menuCursor.GetComponent<RectTransform>().anchoredPosition.x + 180,
+            menuCursor.GetComponent<RectTransform>().anchoredPosition.y + 36);
+        selectingItems = true;
         transform.Find("ItemMenu").gameObject.SetActive(true);
     }
 
@@ -131,5 +139,6 @@ public class MapActionMenu : MonoBehaviour
         }
         menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(menuCursor.GetComponent<RectTransform>().anchoredPosition.x, 0);
         menuCursorPosition = 1;
+        selectingItems = false;
     }
 }
