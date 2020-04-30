@@ -163,9 +163,22 @@ public class MapActionMenu : MonoBehaviour
         ItemMenu.SetActive(true);
         menuCursorPosition = 1;
 
-        ItemMenu.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[0].name;
-        ItemMenu.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[0].currentUse +
-            "/" + MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[0].maxUse;
+
+        for(int i = 0; i < 5; i++)
+        {
+
+            if(MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[i] != null)
+            {
+                ItemMenu.transform.GetChild(i).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[i].name;
+                ItemMenu.transform.GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[i].currentUse +
+                    "/" + MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[i].maxUse;
+            }
+            else
+            {
+                ItemMenu.transform.GetChild(i).GetComponent<TextMeshProUGUI>().text = "";
+                ItemMenu.transform.GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+            }
+        }
     }
 
     private void selectItem()
