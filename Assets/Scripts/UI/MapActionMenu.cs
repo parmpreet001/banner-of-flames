@@ -12,6 +12,7 @@ public class MapActionMenu : MonoBehaviour
     List<string> buttons = new List<string>(); //List of buttons
     
     public GameObject menuCursor; 
+    [SerializeField]
     private int menuCursorPosition = 1; //Position of the cursor, where 1 is at the top
     
     private bool selectingItems = false; //If true, player has selected the Items button and is now going through the list of items
@@ -133,6 +134,11 @@ public class MapActionMenu : MonoBehaviour
                     moveCursor(0, 24);
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                selectItem();
+            }
         }
     }
 
@@ -160,6 +166,14 @@ public class MapActionMenu : MonoBehaviour
         ItemMenu.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[0].name;
         ItemMenu.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[0].currentUse +
             "/" + MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[0].maxUse;
+    }
+
+    private void selectItem()
+    {
+        if(MapUIInfo.selectedAllyUnit.GetComponent<Stats>().inventory[menuCursorPosition-1].GetType().ToString() == "Weapon")
+        {
+            Debug.Log("Item is a weapon");
+        }
     }
 
     private void ResetActionMenu(bool removeSelectedAllyUnit)
