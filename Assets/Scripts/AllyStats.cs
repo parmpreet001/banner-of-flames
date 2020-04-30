@@ -8,5 +8,7 @@ public class AllyStats : Stats
     void Start()
     {
         Init();
+
+        equippedWeapon = ((Weapon)inventory[0]);
     }
 }

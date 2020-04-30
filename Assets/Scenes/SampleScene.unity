@@ -3306,9 +3306,9 @@ MonoBehaviour:
   axeExperience: 0
   lanceExperience: 0
   bowExperience: 0
-  equippedWeapon: {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
+  equippedWeapon: {fileID: 0}
   inventory:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -4580,9 +4580,9 @@ MonoBehaviour:
   axeExperience: 0
   lanceExperience: 0
   bowExperience: 0
-  equippedWeapon: {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
+  equippedWeapon: {fileID: 0}
   inventory:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -9864,6 +9864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuCursor: {fileID: 279081039}
+  menuCursorPosition: 1
 --- !u!1 &2044005908
 GameObject:
   m_ObjectHideFlags: 0

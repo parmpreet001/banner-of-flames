@@ -170,9 +170,12 @@ public class MapActionMenu : MonoBehaviour
 
     private void selectItem()
     {
-        if(MapUIInfo.selectedAllyUnit.GetComponent<Stats>().inventory[menuCursorPosition-1].GetType().ToString() == "Weapon")
+        Item  []unitInventory = MapUIInfo.selectedAllyUnit.GetComponent<Stats>().inventory;
+        if(unitInventory[menuCursorPosition-1].GetType() == typeof(Weapon))
         {
-            Debug.Log("Item is a weapon");
+            ((Weapon)unitInventory[menuCursorPosition-1]).equipped = true;
+            MapUIInfo.selectedAllyUnit.GetComponent<Stats>().equippedWeapon = ((Weapon)unitInventory[menuCursorPosition - 1]);
+            Debug.Log("Equpped " + unitInventory[menuCursorPosition - 1].name);
         }
     }
 

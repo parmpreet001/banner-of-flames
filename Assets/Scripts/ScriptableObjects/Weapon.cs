@@ -12,4 +12,6 @@ public class Weapon : Item
     public int maxRange;
     public int experience;
     public WeaponType weaponType;
+
+    public bool equipped = false;
 }
