@@ -197,9 +197,9 @@ MonoBehaviour:
   axeExperience: 0
   lanceExperience: 0
   bowExperience: 0
-  equippedWeapon: {fileID: 11400000, guid: d1b6f9db3400b0243bbbb44efc20cc8f, type: 2}
+  equippedWeapon: {fileID: 0}
   inventory:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: d1b6f9db3400b0243bbbb44efc20cc8f, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -4554,7 +4554,7 @@ MonoBehaviour:
   level: 1
   classType: {fileID: 11400000, guid: 48ba0985ecd665c4393b372362873fc5, type: 2}
   isDead: 0
-  baseHP: 20
+  baseHP: 41
   baseSTR: 10
   baseMAG: 9
   baseDEF: 5
@@ -7805,9 +7805,9 @@ MonoBehaviour:
   axeExperience: 0
   lanceExperience: 0
   bowExperience: 0
-  equippedWeapon: {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
+  equippedWeapon: {fileID: 0}
   inventory:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

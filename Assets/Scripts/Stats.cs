@@ -49,6 +49,13 @@ public class Stats : MonoBehaviour
         weaponLevel.Add(new WeaponLevel(WeaponType.AXE, 0));
         weaponLevel.Add(new WeaponLevel(WeaponType.LANCE, 0));
         weaponLevel.Add(new WeaponLevel(WeaponType.BOW, 0));
+
+        for(int i = 0; i < 5; i++)
+        {
+            if(inventory[i] != null)
+                inventory[i] = Instantiate(inventory[i]);
+        }
+        equippedWeapon = ((Weapon)inventory[0]);
     }
 
     void Update()

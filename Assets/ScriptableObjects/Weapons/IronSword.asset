@@ -22,3 +22,4 @@ MonoBehaviour:
   maxRange: 1
   experience: 10
   weaponType: 0
+  equipped: 0
