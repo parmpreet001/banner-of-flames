@@ -43,6 +43,7 @@ public class BattleManager : MonoBehaviour
         attackingUnit.GetComponent<TileMove>().findingTarget = false;
         attackingUnit.GetComponent<TileMove>().attacking = true;
 
+        //Attacking Unit First Attack
         if(HitOrMiss(AU_accuracy))
         {
             int dmg = AU_dmg;
@@ -55,13 +56,16 @@ public class BattleManager : MonoBehaviour
             battleLog += (attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + dmg + " damage.\n");
             defendingUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
-            
+
+            attackingUnit.GetComponent<Stats>().equippedWeapon.currentUse--;
+
             if (CheckDead(defendingUnitStats))
             {
                 yield return new WaitForSeconds(1f);
                 EndAttack();
                 yield break;
             }
+            
         }
         else
         {
@@ -70,7 +74,7 @@ public class BattleManager : MonoBehaviour
         }
 
 
-
+        //Defending Unit First Attack
         if (DU_inRange && HitOrMiss(DU_accuracy))
         {
             int dmg = DU_dmg;
@@ -83,12 +87,15 @@ public class BattleManager : MonoBehaviour
             attackingUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
 
+            defendingUnit.GetComponent<Stats>().equippedWeapon.currentUse--;
+
             if (CheckDead(attackingUnitStats))
             {
                 yield return new WaitForSeconds(1f);
                 EndAttack();
                 yield break;
             }
+            
         }
         else if(DU_inRange)
         {
@@ -96,6 +103,7 @@ public class BattleManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
+        //Attacking Unit Second Attack
         if (AU_attackTwice)
         {
             if (HitOrMiss(AU_accuracy))
@@ -111,6 +119,8 @@ public class BattleManager : MonoBehaviour
                 defendingUnitStats.hp -= dmg;
                 yield return new WaitForSeconds(1f);
 
+                attackingUnit.GetComponent<Stats>().equippedWeapon.currentUse--;
+
                 if (CheckDead(defendingUnitStats))
                 {
                     yield return new WaitForSeconds(1f);
@@ -125,6 +135,7 @@ public class BattleManager : MonoBehaviour
             }
         }
 
+        //Defending Unit Attack Twice
         if(DU_attackTwice)
         {
             if (DU_inRange && HitOrMiss(DU_accuracy))
@@ -138,6 +149,8 @@ public class BattleManager : MonoBehaviour
                 battleLog += (defendingUnit.name + " attacked " + attackingUnit.transform.name + " for " + dmg + " damage.\n");
                 attackingUnitStats.hp -= dmg;
                 yield return new WaitForSeconds(1f);
+
+                defendingUnit.GetComponent<Stats>().equippedWeapon.currentUse--;
 
                 if (CheckDead(attackingUnitStats))
                 {
