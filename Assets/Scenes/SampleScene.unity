@@ -4583,7 +4583,7 @@ MonoBehaviour:
   equippedWeapon: {fileID: 0}
   inventory:
   - {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

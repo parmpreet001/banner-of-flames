@@ -172,6 +172,15 @@ public class MapActionMenu : MonoBehaviour
                 ItemMenu.transform.GetChild(i).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[i].name;
                 ItemMenu.transform.GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[i].currentUse +
                     "/" + MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[i].maxUse;
+                if(MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[i].GetType() == typeof(Weapon) 
+                    && ((Weapon)MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[i]).equipped)
+                {
+                    ItemMenu.transform.GetChild(i).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
+                }
+                else
+                {
+                    ItemMenu.transform.GetChild(i).GetComponent<TextMeshProUGUI>().color = Color.black;
+                }
             }
             else
             {
@@ -184,9 +193,10 @@ public class MapActionMenu : MonoBehaviour
     private void selectItem()
     {
         Item  []unitInventory = MapUIInfo.selectedAllyUnit.GetComponent<Stats>().inventory;
-        if(unitInventory[menuCursorPosition-1].GetType() == typeof(Weapon))
+        if(unitInventory[menuCursorPosition-1].GetType() == typeof(Weapon) && !((Weapon)unitInventory[menuCursorPosition-1]).equipped)
         {
             ((Weapon)unitInventory[menuCursorPosition-1]).equipped = true;
+            MapUIInfo.selectedAllyUnit.GetComponent<Stats>().equippedWeapon.equipped = false;
             MapUIInfo.selectedAllyUnit.GetComponent<Stats>().equippedWeapon = ((Weapon)unitInventory[menuCursorPosition - 1]);
             Debug.Log("Equpped " + unitInventory[menuCursorPosition - 1].name);
         }

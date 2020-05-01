@@ -55,6 +55,7 @@ public class Stats : MonoBehaviour
             if(inventory[i] != null)
                 inventory[i] = Instantiate(inventory[i]);
         }
+        ((Weapon)inventory[0]).equipped = true;
         equippedWeapon = ((Weapon)inventory[0]);
     }
 
