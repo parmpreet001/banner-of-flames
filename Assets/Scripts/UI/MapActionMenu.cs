@@ -7,17 +7,13 @@ public class MapActionMenu : MonoBehaviour
 {
     private MapUIInfo MapUIInfo;
     private GameObject ItemMenu;
-
+    public GameObject menuCursor; 
+    private RectTransform menuCursorRT; //menuCursor RectTransform
+    
     private bool buttonsCreated = false; //Whether or not buttons have beencreated
     List<string> buttons = new List<string>(); //List of buttons
-    
-    public GameObject menuCursor; 
-    [SerializeField]
     private int menuCursorPosition = 1; //Position of the cursor, where 1 is at the top
-    
     private bool selectingItems = false; //If true, player has selected the Items button and is now going through the list of items
-
-    private RectTransform menuCursorRT; //menuCursor RectTransform
 
     private void Start()
     {
@@ -195,9 +191,18 @@ public class MapActionMenu : MonoBehaviour
         Item  []unitInventory = MapUIInfo.selectedAllyUnit.GetComponent<Stats>().inventory;
         if(unitInventory[menuCursorPosition-1].GetType() == typeof(Weapon) && !((Weapon)unitInventory[menuCursorPosition-1]).equipped)
         {
+            for(int i = 0; i < 5; i++)
+            {
+                if(unitInventory[i] != null && unitInventory[i] == MapUIInfo.selectedAllyUnit.GetComponent<Stats>().equippedWeapon)
+                {
+                    ItemMenu.transform.GetChild(i).GetComponent<TextMeshProUGUI>().color = Color.black;
+                    i = 5;
+                }
+            }
             ((Weapon)unitInventory[menuCursorPosition-1]).equipped = true;
             MapUIInfo.selectedAllyUnit.GetComponent<Stats>().equippedWeapon.equipped = false;
             MapUIInfo.selectedAllyUnit.GetComponent<Stats>().equippedWeapon = ((Weapon)unitInventory[menuCursorPosition - 1]);
+            ItemMenu.transform.GetChild(menuCursorPosition-1).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
             Debug.Log("Equpped " + unitInventory[menuCursorPosition - 1].name);
         }
     }
