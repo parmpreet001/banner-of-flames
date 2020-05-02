@@ -5,15 +5,20 @@ using TMPro;
 
 public class MapActionMenu : MonoBehaviour
 {
+    //References to other shit
     private MapUIInfo MapUIInfo;
     private GameObject ItemMenu;
     public GameObject menuCursor; 
     private RectTransform menuCursorRT; //menuCursor RectTransform
     
+    //Local variables
     private bool buttonsCreated = false; //Whether or not buttons have beencreated
     List<string> buttons = new List<string>(); //List of buttons
     private int menuCursorPosition = 1; //Position of the cursor, where 1 is at the top
     private bool selectingItems = false; //If true, player has selected the Items button and is now going through the list of items
+
+    //Shorthand variables to make this shit more fucking readable
+    Item[] unitInventory; //inventory of the currently selected unit
 
     private void Start()
     {
@@ -36,6 +41,7 @@ public class MapActionMenu : MonoBehaviour
                     CreateButtons();
                 }
                 menuCursorInput();
+                unitInventory = MapUIInfo.selectedAllyUnit.GetComponent<Stats>().inventory;
             }
             //else, if the ally unit is not in an action menu state, but buttons have been created, then reset buttons
             else if (!MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().actionMenu && buttonsCreated)
@@ -52,11 +58,12 @@ public class MapActionMenu : MonoBehaviour
 
     private void CreateButtons()
     {
-        menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x, -35 * (menuCursorPosition - 1)); 
-        buttonsCreated = true;
-        menuCursor.SetActive(true);
-
+        //Method variables
         AllyMove am = MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>();
+        
+        buttonsCreated = true;
+        menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x, -35 * (menuCursorPosition - 1)); 
+        menuCursor.SetActive(true);
 
         if (am.findingTarget)
             buttons.Add("Attack");
@@ -151,6 +158,7 @@ public class MapActionMenu : MonoBehaviour
         ResetActionMenu(false);
     }
 
+    //Opens the item menu
     public void Item()
     {
         menuCursorRT.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
@@ -159,52 +167,59 @@ public class MapActionMenu : MonoBehaviour
         ItemMenu.SetActive(true);
         menuCursorPosition = 1;
 
-
+        //Updates every item in the inventory to match the currently selected unit's inventory
         for(int i = 0; i < 5; i++)
         {
-
-            if(MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[i] != null)
+            //If the unit's inventory slot is not empty, update name, durability, and text color
+            if(unitInventory[i] != null)
             {
-                ItemMenu.transform.GetChild(i).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[i].name;
-                ItemMenu.transform.GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[i].currentUse +
-                    "/" + MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[i].maxUse;
-                if(MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[i].GetType() == typeof(Weapon) 
-                    && ((Weapon)MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().inventory[i]).equipped)
+                GetInventorySlot(i).GetComponent<TextMeshProUGUI>().text = unitInventory[i].name;
+                GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = unitInventory[i].currentUse + "/" + unitInventory[i].maxUse;
+                if(unitInventory[i].GetType() == typeof(Weapon) && ((Weapon)unitInventory[i]).equipped)
                 {
-                    ItemMenu.transform.GetChild(i).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
+                    GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
                 }
                 else
                 {
-                    ItemMenu.transform.GetChild(i).GetComponent<TextMeshProUGUI>().color = Color.black;
+                    GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.black;
                 }
             }
+            //else, set blank values
             else
             {
-                ItemMenu.transform.GetChild(i).GetComponent<TextMeshProUGUI>().text = "";
-                ItemMenu.transform.GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+                GetInventorySlot(i).GetComponent<TextMeshProUGUI>().text = "";
+                GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
             }
         }
     }
 
     private void selectItem()
     {
-        Item  []unitInventory = MapUIInfo.selectedAllyUnit.GetComponent<Stats>().inventory;
-        if(unitInventory[menuCursorPosition-1].GetType() == typeof(Weapon) && !((Weapon)unitInventory[menuCursorPosition-1]).equipped)
+        //If the selected item was a weapon, and the unit doesn't already have it equipped
+        if(unitInventory[menuCursorPosition - 1] != null && unitInventory[menuCursorPosition-1].GetType() == typeof(Weapon)
+            && !((Weapon)unitInventory[menuCursorPosition-1]).equipped)
         {
-            for(int i = 0; i < 5; i++)
-            {
-                if(unitInventory[i] != null && unitInventory[i] == MapUIInfo.selectedAllyUnit.GetComponent<Stats>().equippedWeapon)
-                {
-                    ItemMenu.transform.GetChild(i).GetComponent<TextMeshProUGUI>().color = Color.black;
-                    i = 5;
-                }
-            }
-            ((Weapon)unitInventory[menuCursorPosition-1]).equipped = true;
-            MapUIInfo.selectedAllyUnit.GetComponent<Stats>().equippedWeapon.equipped = false;
-            MapUIInfo.selectedAllyUnit.GetComponent<Stats>().equippedWeapon = ((Weapon)unitInventory[menuCursorPosition - 1]);
-            ItemMenu.transform.GetChild(menuCursorPosition-1).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
-            Debug.Log("Equpped " + unitInventory[menuCursorPosition - 1].name);
+            EquipWeapon();
         }
+    }
+
+    private void EquipWeapon()
+    {
+        //Iterates through each inventory slot
+        for (int i = 0; i < 5; i++)
+        {
+            //If the item is not null and equal to the equipped weapon
+            if (unitInventory[i] != null && unitInventory[i] == MapUIInfo.selectedAllyUnit.GetComponent<Stats>().equippedWeapon)
+            {
+                GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.black;
+                i = 5;
+            }
+        }
+        ((Weapon)unitInventory[menuCursorPosition - 1]).equipped = true;
+        MapUIInfo.selectedAllyUnit.GetComponent<Stats>().equippedWeapon.equipped = false;
+        MapUIInfo.selectedAllyUnit.GetComponent<Stats>().equippedWeapon = ((Weapon)unitInventory[menuCursorPosition - 1]);
+        GetInventorySlot(menuCursorPosition - 1).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
+        Debug.Log("Equpped " + unitInventory[menuCursorPosition - 1].name);
     }
 
     private void ResetActionMenu(bool removeSelectedAllyUnit)
@@ -233,5 +248,13 @@ public class MapActionMenu : MonoBehaviour
     private void moveCursor(float x, float y)
     {
         menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x + x, menuCursorRT.anchoredPosition.y + y);
+    }
+
+    //Getter methods
+    
+    //returns Transform of the nth inventory slot
+    private Transform GetInventorySlot(int n)
+    {
+        return ItemMenu.transform.GetChild(n);
     }
 }
