@@ -11,9 +11,10 @@ public class MapManager : MonoBehaviour
     private List<GameObject> allyUnits = new List<GameObject>(); //List of all alive ally units on the map
     private List<GameObject> enemyUnits = new List<GameObject>(); //List of all alive enemy units on the map
     public GameObject selectedUnit; //The currently selected unit. Can be either a ally unit or an enemy unit.
-    public GameObject actionMenu;
+    private BattleManager battleManager; //BattleManager script
     GameObject selectedTile;
     public GameObject cursor;
+
 
     void Start()
     {
@@ -29,6 +30,8 @@ public class MapManager : MonoBehaviour
             activeEnemyUnits += 1;
             enemyUnits.Add(enemyUnit);
         }
+
+        battleManager = GetComponent<BattleManager>();
     }
     void Update()
     {
@@ -65,28 +68,28 @@ public class MapManager : MonoBehaviour
             else if(selectedUnit.GetComponent<AllyMove>().attacked)
             {
                 Debug.Log("Attacking");
-                GetComponent<BattleManager>().attackingUnit = selectedUnit;
-                GetComponent<BattleManager>().defendingUnit = cursor.GetComponent<Cursor>().GetCurrentUnit();
-                GetComponent<BattleManager>().Attack();
+                battleManager.attackingUnit = selectedUnit;
+                battleManager.defendingUnit = cursor.GetComponent<Cursor>().GetCurrentUnit();
+                battleManager.Attack();
                 selectedUnit.GetComponent<AllyMove>().attacked = false;
                 
             }
+            //if the player is selecting a target and is hovering over a tile with an enemy on it
             else if(selectedUnit.GetComponent<AllyMove>().findingTarget && cursor.GetComponent<Cursor>().CurrentTileHasEnemyUnit())
             {
-                GetComponent<BattleManager>().attackingUnit = selectedUnit;
-                GetComponent<BattleManager>().defendingUnit = cursor.GetComponent<Cursor>().GetCurrentUnit();
-                GetComponent<BattleManager>().UpdateStats();
+                battleManager.attackingUnit = selectedUnit;
+                battleManager.defendingUnit = cursor.GetComponent<Cursor>().GetCurrentUnit();
+                battleManager.UpdateStats();
             }
             else if (!selectedUnit.GetComponent<AllyMove>().selected)
                 selectedUnit = null;
         }
-        //If left mouse button is pressed
         if (Input.GetKeyUp(KeyCode.Z))
         {
             //If a unit is not selected
             if (!selectedUnit)
             {
-                selectedTile = cursor.GetComponent<Cursor>().currentTile.gameObject; //Gets the tile the player clicked
+                selectedTile = cursor.GetComponent<Cursor>().currentTile.gameObject; 
                 //If selectedTile is not null, meaning that the player didnt click outside the map
                 if(selectedTile)
                 {
@@ -120,8 +123,8 @@ public class MapManager : MonoBehaviour
     private void StartEnemyPhase()
     {
         playerPhase = false;
-
         List<GameObject> enemyUnitsTemp = new List<GameObject>();
+        
         //Removes dead enemies from enemyUnits list
         foreach (GameObject enemyUnit in enemyUnits)
         {
@@ -158,6 +161,7 @@ public class MapManager : MonoBehaviour
             allyUnit.GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
+
         cursor.GetComponent<Cursor>().canMove = true;
         cursor.GetComponent<Cursor>().followTarget = null;
     }
@@ -167,21 +171,19 @@ public class MapManager : MonoBehaviour
     {
         //If the enemy has not moved and is not currently moving, they move (wow this sounds fucking stupid)
 
-        if(selectedUnit.GetComponent<EnemyMove>().attacking)
-        {
+        //if(selectedUnit.GetComponent<EnemyMove>().attacking)
+        //{
 
-        }
+        //}
         //Enemy attacking phase. Will attack a target if there is one avaliable
-        else if(selectedUnit.GetComponent<EnemyMove>().findingTarget)
+        if(selectedUnit.GetComponent<EnemyMove>().findingTarget)
         {
             if(selectedUnit.GetComponent<EnemyMove>().closestTarget.transform.parent.GetComponent<Tile>().attackable)
             {
                 Debug.Log("Enemy attacked");
-                GetComponent<BattleManager>().attackingUnit = selectedUnit;
-                GetComponent<BattleManager>().defendingUnit = selectedUnit.GetComponent<EnemyMove>().closestTarget;
-                GetComponent<BattleManager>().Attack();
-                //selectedUnit.GetComponent<Stats>().Attack(selectedUnit.GetComponent<EnemyMove>().closestTarget.gameObject);
-
+                battleManager.attackingUnit = selectedUnit;
+                battleManager.defendingUnit = selectedUnit.GetComponent<EnemyMove>().closestTarget;
+                battleManager.Attack();
             }
         }
         else if (!selectedUnit.GetComponent<EnemyMove>().finished && !selectedUnit.GetComponent<EnemyMove>().moving)

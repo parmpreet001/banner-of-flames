@@ -24,12 +24,6 @@ public class BattleManager : MonoBehaviour
 
     public bool DU_inRange;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Attack()
     {
         UpdateStats();
@@ -313,6 +307,7 @@ public class BattleManager : MonoBehaviour
     }
     private void addWeaponExperience(Stats unit, WeaponType weaponType)
     {
+        Debug.Log("addWeaponExperience()");
         int unitWeaponLevelIndex = 0;
         int unitClassTypeWeaponLevelIndex = 0;
         //For loop that finds the WeaponLevel in the unit's stats script
