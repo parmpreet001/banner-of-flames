@@ -292,11 +292,11 @@ public class BattleManager : MonoBehaviour
                 case WeaponType.SWORD:
                     addWeaponExperience(attackingUnitStats, WeaponType.SWORD); break;
                 case WeaponType.AXE:
-                    attackingUnitStats.axeExperience += 10; break;
+                    addWeaponExperience(attackingUnitStats, WeaponType.AXE); break;
                 case WeaponType.LANCE:
-                    attackingUnitStats.lanceExperience += 10; break;
+                    addWeaponExperience(attackingUnitStats, WeaponType.LANCE); break;
                 case WeaponType.BOW:
-                    attackingUnitStats.bowExperience += 10; break;
+                    addWeaponExperience(attackingUnitStats, WeaponType.BOW); break;
                 default:
                     break;
             }
