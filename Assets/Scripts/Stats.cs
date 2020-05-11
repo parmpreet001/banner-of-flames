@@ -30,8 +30,6 @@ public class Stats : MonoBehaviour
     public int hpGrowth, strGrowth, magGrowth, defGrowth, resGrowth, sklGrowth, spdGrowth; //Growth rates of the unit.
     public int maxHP;
 
-    public int swordExperience, axeExperience, lanceExperience, bowExperience;
-
     //public int attackRangeMin; //mininum attack range of the unit
     //public int attackRangeMax; //maximum attack range of the unit
 
