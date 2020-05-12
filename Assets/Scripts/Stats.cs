@@ -91,5 +91,12 @@ public class Stats : MonoBehaviour
             levels--;
         }
         maxHP = hp;
-    }   
+    }
+
+    public void EquipWeapon(int index)
+    {
+        ((Weapon)inventory[index]).equipped = true;
+        equippedWeapon.equipped = false;
+        equippedWeapon = ((Weapon)inventory[index]);
+    }
 }

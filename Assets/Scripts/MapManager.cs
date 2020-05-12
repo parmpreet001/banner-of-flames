@@ -77,6 +77,10 @@ public class MapManager : MonoBehaviour
             //if the player is selecting a target and is hovering over a tile with an enemy on it
             else if(selectedUnit.GetComponent<AllyMove>().findingTarget && cursor.GetComponent<Cursor>().CurrentTileHasEnemyUnit())
             {
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    Debug.Log("Pressed A");
+                }
                 battleManager.attackingUnit = selectedUnit;
                 battleManager.defendingUnit = cursor.GetComponent<Cursor>().GetCurrentUnit();
                 battleManager.UpdateStats();
