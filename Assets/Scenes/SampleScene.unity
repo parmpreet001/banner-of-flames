@@ -193,10 +193,6 @@ MonoBehaviour:
   sklGrowth: 0
   spdGrowth: 0
   maxHP: 0
-  swordExperience: 0
-  axeExperience: 0
-  lanceExperience: 0
-  bowExperience: 0
   equippedWeapon: {fileID: 0}
   inventory:
   - {fileID: 11400000, guid: d1b6f9db3400b0243bbbb44efc20cc8f, type: 2}
@@ -3128,6 +3124,79 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &605918524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 605918525}
+  - component: {fileID: 605918527}
+  - component: {fileID: 605918526}
+  m_Layer: 5
+  m_Name: RightArrow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &605918525
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605918524}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 627056665}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -8, y: 163}
+  m_SizeDelta: {x: 24, y: 24}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &605918526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605918524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 916269c564002804bac8e39193265bb7, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &605918527
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605918524}
+  m_CullTransparentMesh: 0
 --- !u!1 &616844891
 GameObject:
   m_ObjectHideFlags: 0
@@ -3301,10 +3370,6 @@ MonoBehaviour:
   sklGrowth: 0
   spdGrowth: 0
   maxHP: 0
-  swordExperience: 0
-  axeExperience: 0
-  lanceExperience: 0
-  bowExperience: 0
   equippedWeapon: {fileID: 0}
   inventory:
   - {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
@@ -3343,6 +3408,8 @@ RectTransform:
   m_Children:
   - {fileID: 1074349318}
   - {fileID: 1759849417}
+  - {fileID: 1009791981}
+  - {fileID: 605918525}
   m_Father: {fileID: 1615191709}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4146,6 +4213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c0566091227e644e9f4ca5b9d66d271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  avgFrameRate: 0
 --- !u!4 &799076091
 Transform:
   m_ObjectHideFlags: 0
@@ -4618,10 +4686,6 @@ MonoBehaviour:
   sklGrowth: 0
   spdGrowth: 0
   maxHP: 0
-  swordExperience: 0
-  axeExperience: 0
-  lanceExperience: 0
-  bowExperience: 0
   equippedWeapon: {fileID: 0}
   inventory:
   - {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
@@ -5207,6 +5271,79 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1002106414}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1009791980
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1009791981}
+  - component: {fileID: 1009791983}
+  - component: {fileID: 1009791982}
+  m_Layer: 5
+  m_Name: LeftArrow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1009791981
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009791980}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 627056665}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -242, y: 163}
+  m_SizeDelta: {x: 24, y: 24}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1009791982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009791980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 916269c564002804bac8e39193265bb7, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1009791983
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009791980}
+  m_CullTransparentMesh: 0
 --- !u!1 &1026379924
 GameObject:
   m_ObjectHideFlags: 0
@@ -7325,7 +7462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1476046886
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7843,10 +7980,6 @@ MonoBehaviour:
   sklGrowth: 0
   spdGrowth: 0
   maxHP: 0
-  swordExperience: 0
-  axeExperience: 0
-  lanceExperience: 0
-  bowExperience: 0
   equippedWeapon: {fileID: 0}
   inventory:
   - {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}

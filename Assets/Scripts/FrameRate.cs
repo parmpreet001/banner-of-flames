@@ -11,7 +11,7 @@ public class FrameRate : MonoBehaviour
     {
 
 
-        Application.targetFrameRate = 120;
+        //Application.targetFrameRate = 120;
         
     }
 
