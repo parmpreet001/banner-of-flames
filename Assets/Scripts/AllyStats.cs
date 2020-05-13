@@ -80,4 +80,40 @@ public class AllyStats : Stats
             }
         }
     }
+
+    public void EquipNextWeapon()
+    {
+        int indexEquippedWeapon = 0; //index of the weapon currently equipped
+        bool weaponFound = false;
+        for (int i = 0; i < maxInventorySize; i++)
+        {
+            if (inventory[i] != null && inventory[i].GetType() == typeof(Weapon) && ((Weapon)inventory[i]).equipped)
+            {
+                indexEquippedWeapon = i;
+                i = maxInventorySize;
+            }
+        }
+
+        for (int i = indexEquippedWeapon + 1; i <= maxInventorySize-1; i++)
+        {
+            if (inventory[i] != null && inventory[i].GetType() == typeof(Weapon))
+            {
+                EquipWeapon(i);
+                i = maxInventorySize;
+                weaponFound = true;
+            }
+        }
+
+        if (!weaponFound)
+        {
+            for (int i = 0; i <= maxInventorySize-1; i++)
+            {
+                if (inventory[i] != null && inventory[i].GetType() == typeof(Weapon))
+                {
+                    EquipWeapon(i);
+                    i = maxInventorySize;
+                }
+            }
+        }
+    }
 }

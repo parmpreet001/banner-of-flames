@@ -52,6 +52,11 @@ public class MapInfoHUD : MonoBehaviour
                     Debug.Log("Pressed A");
                     MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipPreviousWeapon();
                 }
+                else if(Input.GetKeyDown(KeyCode.S))
+                {
+                    Debug.Log("Pressed S");
+                    MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipNextWeapon();
+                }
                 battleForecastUI.SetActive(true);
                 UpdateBattleFoecast();
             }
