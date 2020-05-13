@@ -171,12 +171,12 @@ public class MapManager : MonoBehaviour
     {
         //If the enemy has not moved and is not currently moving, they move (wow this sounds fucking stupid)
 
-        //if(selectedUnit.GetComponent<EnemyMove>().attacking)
-        //{
+        if(selectedUnit.GetComponent<EnemyMove>().attacking)
+        {
 
-        //}
+        }
         //Enemy attacking phase. Will attack a target if there is one avaliable
-        if(selectedUnit.GetComponent<EnemyMove>().findingTarget)
+        else if(selectedUnit.GetComponent<EnemyMove>().findingTarget)
         {
             if(selectedUnit.GetComponent<EnemyMove>().closestTarget.transform.parent.GetComponent<Tile>().attackable)
             {
