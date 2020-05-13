@@ -94,7 +94,11 @@ public class AllyMove :TileMove
         }
         else if(Input.GetKeyUp(KeyCode.X))
         {
-            if(findingTarget && !actionMenu)
+            if(moving)
+            {
+
+            }
+            else if(findingTarget && !actionMenu)
             {
                 actionMenu = true;
             }
