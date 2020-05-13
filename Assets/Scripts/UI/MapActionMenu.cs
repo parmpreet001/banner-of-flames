@@ -216,7 +216,7 @@ public class MapActionMenu : MonoBehaviour
             }
         }
 
-        MapUIInfo.selectedAllyUnit.GetComponent<Stats>().EquipWeapon(menuCursorPosition - 1);
+        MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipWeapon(menuCursorPosition - 1);
 
         GetInventorySlot(menuCursorPosition - 1).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
         Debug.Log("Equpped " + unitInventory[menuCursorPosition - 1].name);

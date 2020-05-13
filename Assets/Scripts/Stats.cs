@@ -17,7 +17,7 @@ public class Stats : MonoBehaviour
         }
     }
 
-    private const int maxInventorySize = 5;
+    protected const int maxInventorySize = 5;
     
     public List<WeaponLevel> weaponLevel = new List<WeaponLevel>();
 
