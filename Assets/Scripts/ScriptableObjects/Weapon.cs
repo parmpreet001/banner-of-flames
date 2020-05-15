@@ -10,7 +10,6 @@ public class Weapon : Item
     public int critRate;
     public int minRange;
     public int maxRange;
-    public int experience;
     public WeaponType weaponType;
 
     public bool equipped = false;
