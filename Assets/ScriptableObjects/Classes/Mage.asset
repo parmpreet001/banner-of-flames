@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c94d562ac78819c4aa4dff1b48568471, type: 3}
-  m_Name: Archer
+  m_Name: Mage
   m_EditorClassIdentifier: 
   name: 
-  description: Pew
+  description: 
   walkableTerrain: 00000000
-  weaponLevels:
-  - weaponType: 3
-    maxLevel: 3
-  magicLevels: []
+  weaponLevels: []
+  magicLevels:
+  - magicType: 0
+    maxLevel: 2
   hpGrowth: 0
-  strGrowth: 5
-  magGrowth: 0
+  strGrowth: -5
+  magGrowth: 10
   defGrowth: 0
-  resGrowth: -5
-  sklGrowth: 5
+  resGrowth: 5
+  sklGrowth: 0
   spdGrowth: 0
-  maxHp: 35
-  maxStr: 25
-  maxMag: 15
-  maxDef: 20
-  maxRes: 15
-  maxSkl: 30
+  maxHp: 30
+  maxStr: 15
+  maxMag: 25
+  maxDef: 15
+  maxRes: 25
+  maxSkl: 20
   maxSpd: 25
   mov: 5
