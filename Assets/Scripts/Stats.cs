@@ -17,9 +17,22 @@ public class Stats : MonoBehaviour
         }
     }
 
+    public class MagicLevel
+    {
+        public MagicType magicType;
+        public int magicExperience;
+
+        public MagicLevel(MagicType magicType, int magicExperience)
+        {
+            this.magicType = magicType;
+            this.magicExperience = magicExperience;
+        }
+    }
+
     protected const int maxInventorySize = 5;
     
     public List<WeaponLevel> weaponLevel = new List<WeaponLevel>();
+    public List<MagicLevel> magicLevel = new List<MagicLevel>();
 
     public int level = 1;
     public ClassType classType;
@@ -37,6 +50,7 @@ public class Stats : MonoBehaviour
     public Weapon equippedWeapon;
 
     public Item[] inventory = new Item[maxInventorySize];
+    public List<Magic> magicList = new List<Magic>(); //List of spells this unit can potentionally learn
 
     public void Init()
     {
@@ -47,6 +61,10 @@ public class Stats : MonoBehaviour
         weaponLevel.Add(new WeaponLevel(WeaponType.AXE, 0));
         weaponLevel.Add(new WeaponLevel(WeaponType.LANCE, 0));
         weaponLevel.Add(new WeaponLevel(WeaponType.BOW, 0));
+        
+        magicLevel.Add(new MagicLevel(MagicType.BLACK, 0));
+        magicLevel.Add(new MagicLevel(MagicType.WHITE, 0));
+
 
         for(int i = 0; i < 5; i++)
         {
