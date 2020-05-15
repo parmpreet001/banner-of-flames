@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MagicAttribute 
+public enum MagicElement
 {
-    FIRE, THUNDER, WIND, HEAL
+    FIRE, THUNDER, WIND
 }
