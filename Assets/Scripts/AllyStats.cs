@@ -75,7 +75,7 @@ public class AllyStats : Stats
 
         for(int i = indexEquippedWeapon-1; i >= 0; i--)
         {
-            if(inventory[i] != null && inventory[i].GetType() == typeof(Weapon))
+            if(inventory[i] != null && inventory[i].GetType() == typeof(Weapon) && CanUseWeapon(i))
             {
                 EquipWeapon(i);
                 i = -1;
@@ -87,7 +87,7 @@ public class AllyStats : Stats
         {
             for (int i = maxInventorySize-1; i >= 0; i--)
             {
-                if (inventory[i] != null && inventory[i].GetType() == typeof(Weapon))
+                if (inventory[i] != null && inventory[i].GetType() == typeof(Weapon) && CanUseWeapon(i))
                 {
                     EquipWeapon(i);
                     i = -1;
@@ -111,7 +111,7 @@ public class AllyStats : Stats
 
         for (int i = indexEquippedWeapon + 1; i <= maxInventorySize-1; i++)
         {
-            if (inventory[i] != null && inventory[i].GetType() == typeof(Weapon))
+            if (inventory[i] != null && inventory[i].GetType() == typeof(Weapon) && CanUseWeapon(i))
             {
                 EquipWeapon(i);
                 i = maxInventorySize;
@@ -123,7 +123,7 @@ public class AllyStats : Stats
         {
             for (int i = 0; i <= maxInventorySize-1; i++)
             {
-                if (inventory[i] != null && inventory[i].GetType() == typeof(Weapon))
+                if (inventory[i] != null && inventory[i].GetType() == typeof(Weapon) && CanUseWeapon(i))
                 {
                     EquipWeapon(i);
                     i = maxInventorySize;
