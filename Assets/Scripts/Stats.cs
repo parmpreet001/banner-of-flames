@@ -13,7 +13,9 @@ public class Stats : MonoBehaviour
     public Weapon equippedWeapon;
     
     public Item[] inventory = new Item[maxInventorySize];
-    public List<Magic> magicList = new List<Magic>(); 
+    public List<Magic> magicList = new List<Magic>(); //List of magic skills this unit can potentionally learn
+
+    public List<Magic> blackMagic = new List<Magic>(); //List of black magic skills the unit currently knows
 
     public int baseHP, baseSTR, baseMAG, baseDEF, baseRES, baseSKL, baseSPD; //The base stats of the unit. ie their stats at level 1
     public int hp, str, mag, def, res, skl, spd; //The units current stats
@@ -37,6 +39,20 @@ public class Stats : MonoBehaviour
         {
             ((Weapon)inventory[0]).equipped = true;
             equippedWeapon = ((Weapon)inventory[0]);
+        }
+
+        for(int i = magicList.Count-1;i >= 0; i--)
+        {
+            if(magicList[i].magicType == MagicType.BLACK)
+            {
+                if(magicList[i].minRequirement <= skillLevels.magicLevels[(int)MagicType.BLACK])
+                {
+                    Debug.Log("Added " + magicList[i].name);
+                    blackMagic.Add(magicList[i]);
+                    magicList.RemoveAt(i);
+                    
+                }
+            }
         }
     }
 }

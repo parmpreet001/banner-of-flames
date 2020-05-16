@@ -72,7 +72,10 @@ public class MapInfoHUD : MonoBehaviour
         Stats unitStats = unit.GetComponent<Stats>();
         UnitStatsUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = unitStats.level.ToString();
         UnitStatsUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = unitStats.hp + "/" + unitStats.maxHP;
-        UnitStatsUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = unitStats.equippedWeapon.name;
+        if (unitStats.equippedWeapon != null)
+            UnitStatsUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = unitStats.equippedWeapon.name;
+        else
+            UnitStatsUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "-";
     }
 
     private void UpdateBattleFoecast()
