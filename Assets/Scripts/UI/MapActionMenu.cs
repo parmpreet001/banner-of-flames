@@ -179,6 +179,10 @@ public class MapActionMenu : MonoBehaviour
                 {
                     GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
                 }
+                else if(unitInventory[i].GetType() == typeof(Weapon) && !MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().CanUseWeapon(i))
+                {
+                    GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.gray;
+                }
                 else
                 {
                     GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.black;
@@ -196,7 +200,8 @@ public class MapActionMenu : MonoBehaviour
     private void selectItem()
     {
         //If the selected item was a weapon, and the unit doesn't already have it equipped
-        if(unitInventory[menuCursorPosition - 1] != null && unitInventory[menuCursorPosition-1].GetType() == typeof(Weapon)
+        if(unitInventory[menuCursorPosition - 1] != null && MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().CanUseWeapon(menuCursorPosition-1)
+            && unitInventory[menuCursorPosition-1].GetType() == typeof(Weapon)
             && !((Weapon)unitInventory[menuCursorPosition-1]).equipped)
         {
             EquipWeapon();

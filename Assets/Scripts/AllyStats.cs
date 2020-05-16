@@ -41,8 +41,16 @@ public class AllyStats : Stats
     //Checks to see if the unit can equip a weapon, based on the weapons their class can use, and the skill level requirement for the weapon
     public bool CanUseWeapon(int index)
     {
+        
+        Weapon weapon = ((Weapon)inventory[index]);
 
-        return true;
+        if(classType.skillLevels.weaponLevels[(int)weapon.weaponType] >= weapon.minRequirement &&
+            skillLevels.weaponLevels[(int)weapon.weaponType] >= weapon.minRequirement)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void EquipWeapon(int index)
