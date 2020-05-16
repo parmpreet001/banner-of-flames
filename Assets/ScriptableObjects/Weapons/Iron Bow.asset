@@ -15,10 +15,11 @@ MonoBehaviour:
   name: Iron Bow
   currentUse: 35
   maxUse: 35
-  dmg: 3
+  dmg: 4
   accuracy: 80
   critRate: 0
   minRange: 2
   maxRange: 3
-  experience: 10
+  minRequirement: 1
   weaponType: 3
+  equipped: 0

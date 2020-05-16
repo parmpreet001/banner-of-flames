@@ -38,6 +38,13 @@ public class AllyStats : Stats
         maxHP = hp;
     }
 
+    //Checks to see if the unit can equip a weapon, based on the weapons their class can use, and the skill level requirement for the weapon
+    public bool CanUseWeapon(int index)
+    {
+
+        return true;
+    }
+
     public void EquipWeapon(int index)
     {
         ((Weapon)inventory[index]).equipped = true;
