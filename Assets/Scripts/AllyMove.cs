@@ -85,7 +85,8 @@ public class AllyMove :TileMove
                     {
                         actionMenu = true;
                         RemoveSelectableTiles();
-                        FindAttackableTiles(GetComponent<AllyStats>().equippedWeapon.minRange,GetComponent<AllyStats>().equippedWeapon.maxRange);
+                        if(GetComponent<Stats>().equippedWeapon)
+                            FindAttackableTiles(GetComponent<AllyStats>().equippedWeapon.minRange,GetComponent<AllyStats>().equippedWeapon.maxRange);
                         //UnselectUnit();
                     }
                         
