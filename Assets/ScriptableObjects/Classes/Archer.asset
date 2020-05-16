@@ -15,10 +15,11 @@ MonoBehaviour:
   name: 
   description: Pew
   walkableTerrain: 00000000
-  weaponLevels:
-  - weaponType: 3
-    maxLevel: 3
-  magicLevels: []
+  skillLevels:
+    weaponLevels: 00000000000000000000000002000000
+    weaponLevelsExperience: 00000000000000000000000000000000
+    magicLevels: 0100000001000000
+    magicLevelsExperience: 00000000000000000000000000000000
   hpGrowth: 0
   strGrowth: 5
   magGrowth: 0

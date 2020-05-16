@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Soldier
   m_EditorClassIdentifier: 
   name: Soldier
-  description: 'Uses both a sword and lance for offensive and defensive combat. '
+  description: 'Uses both a axe and lance for offensive and defensive combat. '
   walkableTerrain: 00000000
-  weaponLevels:
-  - weaponType: 0
-    maxLevel: 3
-  - weaponType: 2
-    maxLevel: 2
+  skillLevels:
+    weaponLevels: 00000000010000000100000000000000
+    weaponLevelsExperience: 00000000000000000000000000000000
+    magicLevels: 0000000000000000
+    magicLevelsExperience: 00000000000000000000000000000000
   hpGrowth: 0
   strGrowth: 5
   magGrowth: -5

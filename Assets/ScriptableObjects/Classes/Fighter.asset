@@ -15,9 +15,11 @@ MonoBehaviour:
   name: Fighter
   description: Uses an axe to strike down foes with great power.
   walkableTerrain: 00000000
-  weaponLevels:
-  - weaponType: 1
-    maxLevel: 3
+  skillLevels:
+    weaponLevels: 00000000020000000000000000000000
+    weaponLevelsExperience: 00000000000000000000000000000000
+    magicLevels: 0000000000000000
+    magicLevelsExperience: 00000000000000000000000000000000
   hpGrowth: 0
   strGrowth: 10
   magGrowth: 0

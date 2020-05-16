@@ -16,9 +16,11 @@ MonoBehaviour:
   description: A member of the royal blood, allowing for above average resillency
     and aptitude for magic. Despite that, prefers to use swords.
   walkableTerrain: 00000000
-  weaponLevels:
-  - weaponType: 0
-    maxLevel: 3
+  skillLevels:
+    weaponLevels: 02000000000000000000000000000000
+    weaponLevelsExperience: 00000000000000000000000000000000
+    magicLevels: 0000000000000000
+    magicLevelsExperience: 00000000000000000000000000000000
   hpGrowth: 10
   strGrowth: 20
   magGrowth: 10

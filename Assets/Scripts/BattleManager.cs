@@ -307,34 +307,17 @@ public class BattleManager : MonoBehaviour
     }
     private void addWeaponExperience(Stats unit, WeaponType weaponType)
     {
-        Debug.Log("addWeaponExperience()");
-        int unitWeaponLevelIndex = 0;
-        int unitClassTypeWeaponLevelIndex = 0;
-        //For loop that finds the WeaponLevel in the unit's stats script
-        //Then, compare with the classType to see if the unit is allowed to gain more experience with that weapon
-        for(int i = 0; i < unit.weaponLevel.Capacity; i++)
-        {
-            if (unit.weaponLevel[i].weaponType == weaponType)
-            {
-                unitWeaponLevelIndex = i;
-                i = unit.weaponLevel.Capacity;
-            }
-        }
+        int weaponTypeIndex = (int)weaponType; //index of the weapon type the unit used during this attack
 
-        for(int i = 0; i < unit.classType.weaponLevels.Length; i++)
-        {
-            if (unit.classType.weaponLevels[i].weaponType == weaponType)
-            {
-                unitClassTypeWeaponLevelIndex = i;
-                i = unit.classType.weaponLevels.Length;
-            }
-        }
+        //if the unit hasn't already reached the max skill level possible for their respective class, they gain 10 exp in that skill level
+        if(unit.skillLevels.weaponLevels[weaponTypeIndex] < unit.classType.skillLevels.weaponLevels[weaponTypeIndex])
+            unit.skillLevels.weaponLevelsExperience[weaponTypeIndex] += 10;
 
-        if(unit.weaponLevel[unitWeaponLevelIndex].weaponExperience < unit.classType.weaponLevels[unitClassTypeWeaponLevelIndex].maxLevel * 100)
+        //If the unit's skill level experience is equal to or more than 100, set experience to 0 and raise the skill level by one
+        if(unit.skillLevels.weaponLevelsExperience[weaponTypeIndex] >= 100)
         {
-            unit.weaponLevel[unitWeaponLevelIndex].weaponExperience += 10;
-            if (unit.weaponLevel[unitWeaponLevelIndex].weaponExperience > unit.classType.weaponLevels[unitClassTypeWeaponLevelIndex].maxLevel * 100)
-                unit.weaponLevel[unitWeaponLevelIndex].weaponExperience = unit.classType.weaponLevels[unitClassTypeWeaponLevelIndex].maxLevel * 100;
+            unit.skillLevels.weaponLevelsExperience[weaponTypeIndex] = 0;
+            unit.skillLevels.weaponLevels[weaponTypeIndex]++;
         }
     }
 }

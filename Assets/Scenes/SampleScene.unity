@@ -167,9 +167,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be469bbe5d8fff24990ec943e047900c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponLevel: []
   level: 1
   classType: {fileID: 11400000, guid: 5bab89c8ef73f684a8bd5f9860831557, type: 2}
+  skillLevels:
+    weaponLevels: 01000000010000000100000001000000
+    weaponLevelsExperience: 00000000000000000000000000000000
+    magicLevels: 0100000001000000
+    magicLevelsExperience: 00000000000000000000000000000000
   isDead: 0
   baseHP: 10
   baseSTR: 5
@@ -755,9 +759,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8bed4279fc70d4898a9a46e57e6e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponLevel: []
   level: 1
   classType: {fileID: 11400000, guid: 2aa3a595410abc74dacc7c3bdc2169d0, type: 2}
+  skillLevels:
+    weaponLevels: 01000000010000000100000001000000
+    weaponLevelsExperience: 00000000000000000000000000000000
+    magicLevels: 0100000001000000
+    magicLevelsExperience: 00000000000000000000000000000000
   isDead: 0
   baseHP: 31
   baseSTR: 6
@@ -3527,9 +3535,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8bed4279fc70d4898a9a46e57e6e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponLevel: []
   level: 1
   classType: {fileID: 11400000, guid: d34c1dbf4afed40498e92df8bbfd9bb0, type: 2}
+  skillLevels:
+    weaponLevels: 01000000010000000100000001000000
+    weaponLevelsExperience: 00000000000000000000000000000000
+    magicLevels: 0100000001000000
+    magicLevelsExperience: 00000000000000000000000000000000
   isDead: 0
   baseHP: 15
   baseSTR: 8
@@ -4844,9 +4856,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8bed4279fc70d4898a9a46e57e6e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponLevel: []
   level: 1
   classType: {fileID: 11400000, guid: 48ba0985ecd665c4393b372362873fc5, type: 2}
+  skillLevels:
+    weaponLevels: 01000000010000000100000001000000
+    weaponLevelsExperience: 00000000000000000000000000000000
+    magicLevels: 0100000001000000
+    magicLevelsExperience: 00000000000000000000000000000000
   isDead: 0
   baseHP: 41
   baseSTR: 10
@@ -8139,9 +8155,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be469bbe5d8fff24990ec943e047900c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponLevel: []
   level: 1
   classType: {fileID: 11400000, guid: d34c1dbf4afed40498e92df8bbfd9bb0, type: 2}
+  skillLevels:
+    weaponLevels: 01000000010000000100000001000000
+    weaponLevelsExperience: 00000000000000000000000000000000
+    magicLevels: 0100000001000000
+    magicLevelsExperience: 00000000000000000000000000000000
   isDead: 0
   baseHP: 10
   baseSTR: 2

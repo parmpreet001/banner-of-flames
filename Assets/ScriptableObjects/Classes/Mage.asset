@@ -15,10 +15,11 @@ MonoBehaviour:
   name: 
   description: 
   walkableTerrain: 00000000
-  weaponLevels: []
-  magicLevels:
-  - magicType: 0
-    maxLevel: 2
+  skillLevels:
+    weaponLevels: 00000000000000000000000000000000
+    weaponLevelsExperience: 00000000000000000000000000000000
+    magicLevels: 0200000000000000
+    magicLevelsExperience: 00000000000000000000000000000000
   hpGrowth: 0
   strGrowth: -5
   magGrowth: 10
