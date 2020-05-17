@@ -51,7 +51,8 @@ public class BattleManager : MonoBehaviour
             defendingUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
 
-            attackingUnit.GetComponent<Stats>().equippedWeapon.currentUse--;
+            if(attackingUnitStats.equippedWeapon)
+                attackingUnit.GetComponent<Stats>().equippedWeapon.currentUse--;
 
             if (CheckDead(defendingUnitStats))
             {
@@ -197,41 +198,47 @@ public class BattleManager : MonoBehaviour
     private int GetDmg(Stats unit, Stats target)
     {
         int dmg = 0;
-        if (unit.equppedBlackMagic.GetType() == typeof(OffensiveMagic))
+        if (unit.equppedBlackMagic != null && unit.equppedBlackMagic.GetType() == typeof(OffensiveMagic))
         {
+            Debug.Log(unit.equppedBlackMagic);
+            Debug.Log(unit.equppedBlackMagic.GetType() == typeof(OffensiveMagic));
             dmg = unit.mag + ((OffensiveMagic)unit.equppedBlackMagic).dmg - target.res;
             return dmg;
         }
-     
+        
         dmg = unit.str + unit.equippedWeapon.dmg - target.def;
-
-        switch (unit.equippedWeapon.weaponType)
+        
+        if(unit.equippedWeapon && target.equippedWeapon)
         {
-            case WeaponType.SWORD:
-                {
-                    if (target.equippedWeapon.weaponType == WeaponType.AXE)
-                        dmg = (int)(dmg * 1.35);
+            switch (unit.equippedWeapon.weaponType)
+            {
+                case WeaponType.SWORD:
+                    {
+                        if (target.equippedWeapon.weaponType == WeaponType.AXE)
+                            dmg = (int)(dmg * 1.35);
+                        break;
+                    }
+                case WeaponType.AXE:
+                    {
+                        if (target.equippedWeapon.weaponType == WeaponType.LANCE)
+                            dmg = (int)(dmg * 1.35);
+                        break;
+                    }
+                case WeaponType.LANCE:
+                    {
+                        if (target.equippedWeapon.weaponType == WeaponType.SWORD)
+                            dmg = (int)(dmg * 1.35);
+                        break;
+                    }
+                default:
                     break;
-                }
-            case WeaponType.AXE:
-                {
-                    if (target.equippedWeapon.weaponType == WeaponType.LANCE)
-                        dmg = (int)(dmg * 1.35);
-                    break;
-                }
-            case WeaponType.LANCE:
-                {
-                    if (target.equippedWeapon.weaponType == WeaponType.SWORD)
-                        dmg = (int)(dmg * 1.35);
-                    break;
-                }
-            default:
-                break;
-        }
+            }
 
-        if (dmg <= 0)
-            dmg = 1;
-        return dmg;
+            if (dmg <= 0)
+                dmg = 1;
+           
+        }
+         return dmg;
     }
 
     //returns accuracy of unit when attacking target
@@ -300,7 +307,7 @@ public class BattleManager : MonoBehaviour
         attackingUnit.GetComponent<TileMove>().finished = true;
         attackingUnit.GetComponent<TileMove>().RemoveSelectableTiles();
 
-        if (attackingUnit.tag == "PlayerUnit" && !attackingUnitStats.isDead)
+        if (attackingUnit.tag == "PlayerUnit" && !attackingUnitStats.isDead && !attackingUnitStats.usingBlackMagic)
         {
             switch (attackingUnitStats.equippedWeapon.weaponType)
             {

@@ -16,9 +16,10 @@ MonoBehaviour:
   minRequirement: 1
   numberOfUses: 06000000080000000a0000000c0000001000000014000000
   targetType: 1
+  magicType: 0
   minRange: 1
   maxRange: 2
   rangeScale: 0
   accuracy: 85
   magicElement: 0
-  dmg: 6
+  dmg: 10
