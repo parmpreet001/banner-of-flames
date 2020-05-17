@@ -11,6 +11,7 @@ public class Stats : MonoBehaviour
     public ClassType classType;
     public SkillLevels skillLevels;    
     public Weapon equippedWeapon;
+    public Magic equppedBlackMagic;
     
     public Item[] inventory = new Item[maxInventorySize];
     public List<Magic> magicList = new List<Magic>(); //List of magic skills this unit can potentionally learn
@@ -20,7 +21,9 @@ public class Stats : MonoBehaviour
     public int baseHP, baseSTR, baseMAG, baseDEF, baseRES, baseSKL, baseSPD; //The base stats of the unit. ie their stats at level 1
     public int hp, str, mag, def, res, skl, spd; //The units current stats
     public int hpGrowth, strGrowth, magGrowth, defGrowth, resGrowth, sklGrowth, spdGrowth; //Growth rates of the unit.
-    public int maxHP;  
+    public int maxHP;
+
+    public bool usingBlackMagic;
     
     public void Init()
     {
@@ -53,6 +56,10 @@ public class Stats : MonoBehaviour
                     
                 }
             }
+        }
+        if(blackMagic.Count > 0)
+        {
+            equppedBlackMagic = blackMagic[0];
         }
     }
 }

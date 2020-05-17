@@ -207,6 +207,8 @@ public class MapActionMenu : MonoBehaviour
     private void BlackMagic()
     {
         Debug.Log("Pressed black magic button");
+        MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().usingBlackMagic = true;
+        Attack();
     }
 
     private void selectItem()

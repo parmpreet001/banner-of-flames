@@ -180,6 +180,7 @@ public class BattleManager : MonoBehaviour
         AU_accuracy = GetAccuracy(attackingUnitStats, defendingUnitStats);
         AU_crit = GetCrit(attackingUnitStats);
 
+
         DU_dmg = GetDmg(defendingUnitStats, attackingUnitStats);
         DU_accuracy = GetAccuracy(defendingUnitStats, attackingUnitStats);
         DU_crit = GetCrit(defendingUnitStats);
@@ -195,7 +196,14 @@ public class BattleManager : MonoBehaviour
     //returns damage unit does to target
     private int GetDmg(Stats unit, Stats target)
     {
-        int dmg = unit.str + unit.equippedWeapon.dmg - target.def;
+        int dmg = 0;
+        if (unit.equppedBlackMagic.GetType() == typeof(OffensiveMagic))
+        {
+            dmg = unit.mag + ((OffensiveMagic)unit.equppedBlackMagic).dmg - target.res;
+            return dmg;
+        }
+     
+        dmg = unit.str + unit.equippedWeapon.dmg - target.def;
 
         switch (unit.equippedWeapon.weaponType)
         {
@@ -226,12 +234,16 @@ public class BattleManager : MonoBehaviour
         return dmg;
     }
 
-
     //returns accuracy of unit when attacking target
     private int GetAccuracy(Stats unit, Stats target)
     {
+        int accuracy = 0;
         //Accuracy = UnitHitRate - TargetAvoidRate
-        int accuracy = unit.equippedWeapon.accuracy + (unit.skl * 2) - target.spd * 2;
+        if (unit.usingBlackMagic)
+            accuracy = unit.equppedBlackMagic.accuracy + (unit.skl * 2) - target.spd * 2;
+        else
+            accuracy = unit.equippedWeapon.accuracy + (unit.skl * 2) - target.spd * 2;
+
         if (accuracy > 100)
             accuracy = 100;
         return accuracy;
@@ -239,7 +251,10 @@ public class BattleManager : MonoBehaviour
 
     private int GetCrit(Stats unit)
     {
-        return unit.skl / 2;
+        if (unit.usingBlackMagic)
+            return 0;
+        else
+            return unit.skl / 2;
     }
 
     //Hit or miss, guess they never miss huh
