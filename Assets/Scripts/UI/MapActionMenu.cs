@@ -59,14 +59,16 @@ public class MapActionMenu : MonoBehaviour
     private void CreateButtons()
     {
         //Method variables
-        AllyMove am = MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>();
+        
         
         buttonsCreated = true;
         menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x, -35 * (menuCursorPosition - 1)); 
         menuCursor.SetActive(true);
 
-        if (am.findingTarget)
+        if (MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().findingTarget)
             buttons.Add("Attack");
+        if (MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().blackMagic.Count > 0)
+            buttons.Add("BlackMagic");
         buttons.Add("Item");
         buttons.Add("Wait");
 
@@ -76,6 +78,11 @@ public class MapActionMenu : MonoBehaviour
             {
                 transform.Find("AttackButton").gameObject.SetActive(true);
                 transform.Find("AttackButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
+            }
+            else if(buttons[i] == "BlackMagic")
+            {
+                transform.Find("BlackMagicButton").gameObject.SetActive(true);
+                transform.Find("BlackMagicButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
             }
             else if(buttons[i] == "Item")
             {
@@ -195,6 +202,11 @@ public class MapActionMenu : MonoBehaviour
                 GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
             }
         }
+    }
+
+    private void BlackMagic()
+    {
+        Debug.Log("Pressed black magic button");
     }
 
     private void selectItem()
