@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59aa154b21063a94eaab64400ae76a6c, type: 3}
-  m_Name: Fire
+  m_Name: Thunder
   m_EditorClassIdentifier: 
-  name: Fire
+  name: Thunder
   minRequirement: 1
-  numberOfUses: 06000000080000000a0000000c0000001000000014000000
+  numberOfUses: 000000000000000000000000000000000000000000000000
   durability: 0
   targetType: 1
   magicType: 0
-  minRange: 1
-  maxRange: 2
+  minRange: 2
+  maxRange: 3
   rangeScale: 0
-  accuracy: 85
-  magicElement: 0
-  dmg: 6
+  accuracy: 75
+  magicElement: 1
+  dmg: 8

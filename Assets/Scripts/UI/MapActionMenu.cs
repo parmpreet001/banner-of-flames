@@ -67,7 +67,7 @@ public class MapActionMenu : MonoBehaviour
 
         if (MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().findingTarget && MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().classType.usesPhysicalAttacks)
             buttons.Add("Attack");
-        if (MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().blackMagic.Count > 0)
+        if (MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().blackMagic.Count > 0 && MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().classType.usesBlackMagic)
             buttons.Add("BlackMagic");
         buttons.Add("Item");
         buttons.Add("Wait");
