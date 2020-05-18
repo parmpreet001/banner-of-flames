@@ -36,3 +36,6 @@ MonoBehaviour:
   maxSkl: 35
   maxSpd: 35
   mov: 5
+  usesPhysicalAttacks: 1
+  usesBlackMagic: 0
+  usesWhiteMagic: 0

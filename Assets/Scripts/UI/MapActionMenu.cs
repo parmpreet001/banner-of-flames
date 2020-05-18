@@ -65,7 +65,7 @@ public class MapActionMenu : MonoBehaviour
         menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x, -35 * (menuCursorPosition - 1)); 
         menuCursor.SetActive(true);
 
-        if (MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().findingTarget)
+        if (MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().findingTarget && MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().classType.usesPhysicalAttacks)
             buttons.Add("Attack");
         if (MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().blackMagic.Count > 0)
             buttons.Add("BlackMagic");
