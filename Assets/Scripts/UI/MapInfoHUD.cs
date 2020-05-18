@@ -47,24 +47,41 @@ public class MapInfoHUD : MonoBehaviour
             if (MapUIInfo.selectedAllyUnit && MapUIInfo.hoveringUnit && MapUIInfo.hoveringUnit.tag == "EnemyUnit" && 
                 !MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().attacking)
             {
-                if(Input.GetKeyDown(KeyCode.A))
+                if(MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().usingBlackMagic)
                 {
-                    Debug.Log("Pressed A");
-                    MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipPreviousWeapon();
+                    ChangeBlackMagic();
                 }
-                else if(Input.GetKeyDown(KeyCode.S))
+                else
                 {
-                    Debug.Log("Pressed S");
-                    MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipNextWeapon();
+                    ChangeWeapons();
                 }
-                battleForecastUI.SetActive(true);
-                UpdateBattleFoecast();
             }
             else
             {
                 battleForecastUI.SetActive(false);
             }
         }   
+    }
+
+    private void ChangeWeapons()
+    {
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            Debug.Log("Pressed A");
+            MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipPreviousWeapon();
+        }
+        else if(Input.GetKeyDown(KeyCode.S))
+        {
+            Debug.Log("Pressed S");
+            MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipNextWeapon();
+        }
+        battleForecastUI.SetActive(true);
+        UpdateBattleFoecast();
+    }
+
+    private void ChangeBlackMagic()
+    {
+
     }
 
     private void UpdateUnitStatsUI(GameObject UnitStatsUI,GameObject unit)
