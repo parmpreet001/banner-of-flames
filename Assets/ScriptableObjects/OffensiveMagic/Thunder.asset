@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Thunder
   minRequirement: 1
-  numberOfUses: 000000000000000000000000000000000000000000000000
+  numberOfUses: 040000000500000006000000080000000a0000000c000000
   durability: 0
   targetType: 1
   magicType: 0

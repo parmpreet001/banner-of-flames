@@ -44,13 +44,20 @@ public class Stats : MonoBehaviour
             equippedWeapon = ((Weapon)inventory[0]);
         }
 
+        for(int i = 0; i < magicList.Count; i++)
+        {
+            magicList[i] = Instantiate(magicList[i]);
+        }
+
         for(int i = magicList.Count-1;i >= 0; i--)
         {
             if(magicList[i].magicType == MagicType.BLACK)
             {
                 if(magicList[i].minRequirement <= skillLevels.magicLevels[(int)MagicType.BLACK])
                 {
-                    Debug.Log("Added " + magicList[i].name);
+                    
+                    magicList[i].durability = magicList[i].numberOfUses[skillLevels.magicLevels[(int)MagicType.BLACK]];
+                    Debug.Log("Added " + magicList[i].name + ". Durability: " + magicList[i].durability);
                     blackMagic.Add(magicList[i]);
                     magicList.RemoveAt(i);
                     
