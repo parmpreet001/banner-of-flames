@@ -245,9 +245,9 @@ public class BattleManager : MonoBehaviour
         int accuracy = 0;
         //Accuracy = UnitHitRate - TargetAvoidRate
         if (unit.usingBlackMagic)
-            accuracy = unit.equippedBlackMagic.accuracy + (unit.skl * 2) - target.spd * 2;
+            accuracy = unit.equippedBlackMagic.hitRate + (unit.skl * 2) - target.spd * 2;
         else
-            accuracy = unit.equippedWeapon.accuracy + (unit.skl * 2) - target.spd * 2;
+            accuracy = unit.equippedWeapon.hitRate + (unit.skl * 2) - target.spd * 2;
 
         if (accuracy > 100)
             accuracy = 100;
