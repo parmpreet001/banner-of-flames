@@ -68,20 +68,17 @@ public class MapInfoHUD : MonoBehaviour
     private void ChangeWeapons()
     {
         if(Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.Log("Pressed A");
             MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipPreviousWeapon();
-        }
         else if(Input.GetKeyDown(KeyCode.S))
-        {
-            Debug.Log("Pressed S");
             MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipNextWeapon();
-        }
     }
 
     private void ChangeBlackMagic()
     {
-
+        if (Input.GetKeyDown(KeyCode.A))
+            MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipPreviousBlackMagic();
+        else if (Input.GetKeyDown(KeyCode.S))
+            MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipNextBlackMagic();
     }
 
     private void UpdateUnitStatsUI(GameObject UnitStatsUI,GameObject unit)
@@ -102,7 +99,7 @@ public class MapInfoHUD : MonoBehaviour
 
         allyUnitInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.name;
         if(MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().usingBlackMagic)
-            allyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().equppedBlackMagic.name.ToString();
+            allyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().equippedBlackMagic.name.ToString();
         else
             allyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().equippedWeapon.name.ToString();
         allyUnitInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_dmg.ToString();

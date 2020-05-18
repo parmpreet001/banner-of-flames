@@ -140,7 +140,25 @@ public class AllyStats : Stats
     {
         if(blackMagic.Count > 1)
         {
-            //int indexOfEquippedMagic = blackMagic.Find(equppedBlackMagic);
+            int indexOfEquippedMagic = blackMagic.IndexOf(equippedBlackMagic);
+
+            if(indexOfEquippedMagic == 0)
+                equippedBlackMagic = blackMagic[blackMagic.Count - 1];
+            else
+                equippedBlackMagic = blackMagic[indexOfEquippedMagic-1];
+        }
+    }
+
+    public void EquipNextBlackMagic()
+    {
+        if (blackMagic.Count > 1)
+        {
+            int indexOfEquippedMagic = blackMagic.IndexOf(equippedBlackMagic);
+
+            if (indexOfEquippedMagic == blackMagic.Count-1)
+                equippedBlackMagic = blackMagic[0];
+            else
+                equippedBlackMagic = blackMagic[indexOfEquippedMagic + 1];
         }
     }
 }

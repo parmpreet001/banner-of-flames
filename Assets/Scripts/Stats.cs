@@ -11,7 +11,7 @@ public class Stats : MonoBehaviour
     public ClassType classType;
     public SkillLevels skillLevels;    
     public Weapon equippedWeapon;
-    public Magic equppedBlackMagic;
+    public Magic equippedBlackMagic;
     
     public Item[] inventory = new Item[maxInventorySize];
     public List<Magic> magicList = new List<Magic>(); //List of magic skills this unit can potentionally learn
@@ -66,7 +66,7 @@ public class Stats : MonoBehaviour
         }
         if(blackMagic.Count > 0)
         {
-            equppedBlackMagic = blackMagic[0];
+            equippedBlackMagic = blackMagic[0];
         }
     }
 }

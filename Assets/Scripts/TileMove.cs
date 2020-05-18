@@ -152,8 +152,8 @@ public class TileMove : MonoBehaviour
         Debug.Log(transform.name + "has reached end of coroutine");
         if (GetComponent<Stats>().equippedWeapon)
             FindAttackableTiles(GetComponent<Stats>().equippedWeapon.minRange, GetComponent<Stats>().equippedWeapon.maxRange);
-        else if (GetComponent<Stats>().equppedBlackMagic)
-            FindAttackableTiles(GetComponent<Stats>().equppedBlackMagic.minRange, GetComponent<Stats>().equppedBlackMagic.maxRange);
+        else if (GetComponent<Stats>().equippedBlackMagic)
+            FindAttackableTiles(GetComponent<Stats>().equippedBlackMagic.minRange, GetComponent<Stats>().equippedBlackMagic.maxRange);
         else
             actionMenu = true;
         yield return null;

@@ -198,11 +198,9 @@ public class BattleManager : MonoBehaviour
     private int GetDmg(Stats unit, Stats target)
     {
         int dmg = 0;
-        if (unit.equppedBlackMagic != null && unit.equppedBlackMagic.GetType() == typeof(OffensiveMagic))
+        if (unit.equippedBlackMagic != null && unit.equippedBlackMagic.GetType() == typeof(OffensiveMagic))
         {
-            Debug.Log(unit.equppedBlackMagic);
-            Debug.Log(unit.equppedBlackMagic.GetType() == typeof(OffensiveMagic));
-            dmg = unit.mag + ((OffensiveMagic)unit.equppedBlackMagic).dmg - target.res;
+            dmg = unit.mag + ((OffensiveMagic)unit.equippedBlackMagic).dmg - target.res;
             return dmg;
         }
         
@@ -247,7 +245,7 @@ public class BattleManager : MonoBehaviour
         int accuracy = 0;
         //Accuracy = UnitHitRate - TargetAvoidRate
         if (unit.usingBlackMagic)
-            accuracy = unit.equppedBlackMagic.accuracy + (unit.skl * 2) - target.spd * 2;
+            accuracy = unit.equippedBlackMagic.accuracy + (unit.skl * 2) - target.spd * 2;
         else
             accuracy = unit.equippedWeapon.accuracy + (unit.skl * 2) - target.spd * 2;
 
@@ -281,7 +279,6 @@ public class BattleManager : MonoBehaviour
     {
         float distance = Vector2.Distance(attackingUnit.transform.position, defendingUnit.transform.position);
         distance = Mathf.Ceil(distance);
-        Debug.Log("Distance is " + distance);
 
         return (distance >= defendingUnitStats.equippedWeapon.minRange && distance <= defendingUnitStats.equippedWeapon.maxRange);
     }
