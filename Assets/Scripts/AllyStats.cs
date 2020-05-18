@@ -99,7 +99,9 @@ public class AllyStats : Stats
     public void EquipNextWeapon()
     {
         int indexEquippedWeapon = 0; //index of the weapon currently equipped
-        bool weaponFound = false;
+        bool weaponFound = false; 
+
+        //Finds index of weapon currently equipped
         for (int i = 0; i < maxInventorySize; i++)
         {
             if (inventory[i] != null && inventory[i].GetType() == typeof(Weapon) && ((Weapon)inventory[i]).equipped)
@@ -109,6 +111,7 @@ public class AllyStats : Stats
             }
         }
 
+        //Starting from the index of the equipped method, goes through every item in the array after that, and equipps the first weapon if found
         for (int i = indexEquippedWeapon + 1; i <= maxInventorySize-1; i++)
         {
             if (inventory[i] != null && inventory[i].GetType() == typeof(Weapon) && CanUseWeapon(i))
@@ -119,6 +122,7 @@ public class AllyStats : Stats
             }
         }
 
+        //if the weapon has not been found, then search again, but this time go through every item in the array before the index of the equipped weapon
         if (!weaponFound)
         {
             for (int i = 0; i <= maxInventorySize-1; i++)
@@ -129,6 +133,14 @@ public class AllyStats : Stats
                     i = maxInventorySize;
                 }
             }
+        }
+    }
+
+    public void EquipPreviousBlackMagic()
+    {
+        if(blackMagic.Count > 1)
+        {
+
         }
     }
 }
