@@ -14,4 +14,6 @@ public class ClassType : ScriptableObject
     public int hpGrowth, strGrowth, magGrowth, defGrowth, resGrowth, sklGrowth, spdGrowth;
     public int maxHp, maxStr, maxMag, maxDef, maxRes, maxSkl, maxSpd;
     public int mov;
+
+    public bool usesPhysicalAttacks, usesBlackMagic, usesWhiteMagic;
 }
