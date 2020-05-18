@@ -47,7 +47,9 @@ public class MapInfoHUD : MonoBehaviour
             if (MapUIInfo.selectedAllyUnit && MapUIInfo.hoveringUnit && MapUIInfo.hoveringUnit.tag == "EnemyUnit" && 
                 !MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().attacking)
             {
-                if(MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().usingBlackMagic)
+                battleForecastUI.SetActive(true);
+                UpdateBattleFoecast();
+                if (MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().usingBlackMagic)
                 {
                     ChangeBlackMagic();
                 }
@@ -75,8 +77,6 @@ public class MapInfoHUD : MonoBehaviour
             Debug.Log("Pressed S");
             MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipNextWeapon();
         }
-        battleForecastUI.SetActive(true);
-        UpdateBattleFoecast();
     }
 
     private void ChangeBlackMagic()

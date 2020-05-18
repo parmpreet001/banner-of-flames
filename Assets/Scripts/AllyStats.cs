@@ -140,7 +140,7 @@ public class AllyStats : Stats
     {
         if(blackMagic.Count > 1)
         {
-            int indexOfEquippedMagic = blackMagic.Find(equppedBlackMagic);
+            //int indexOfEquippedMagic = blackMagic.Find(equppedBlackMagic);
         }
     }
 }
