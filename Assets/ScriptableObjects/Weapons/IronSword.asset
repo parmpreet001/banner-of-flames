@@ -16,10 +16,11 @@ MonoBehaviour:
   currentUse: 40
   maxUse: 40
   dmg: 5
-  accuracy: 80
-  critRate: 0
+  hitRate: 85
+  critRate: 5
   minRange: 1
   maxRange: 1
   minRequirement: 1
   weaponType: 0
+  spdModifier: 0
   equipped: 0

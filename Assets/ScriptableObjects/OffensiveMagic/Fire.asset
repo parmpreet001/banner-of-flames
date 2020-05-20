@@ -21,6 +21,6 @@ MonoBehaviour:
   minRange: 1
   maxRange: 2
   rangeScale: 0
-  accuracy: 85
+  hitRate: 85
   magicElement: 0
   dmg: 6
