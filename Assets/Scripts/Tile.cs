@@ -28,16 +28,7 @@ public class Tile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (current)
-            GetComponent<SpriteRenderer>().color = Color.magenta;
-        else if (target)
-            GetComponent<SpriteRenderer>().color = Color.green;
-        else if (selectable)
-            GetComponent<SpriteRenderer>().color = Color.blue;
-        else if (attackable)
-            GetComponent<SpriteRenderer>().color = Color.red;
-        else
-            GetComponent<SpriteRenderer>().color = Color.white;
+
     }
 
     public void Reset()
@@ -85,5 +76,19 @@ public class Tile : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void updateColors()
+    {
+        if (current)
+            GetComponent<SpriteRenderer>().color = Color.magenta;
+        else if (target)
+            GetComponent<SpriteRenderer>().color = Color.green;
+        else if (selectable)
+            GetComponent<SpriteRenderer>().color = Color.blue;
+        else if (attackable)
+            GetComponent<SpriteRenderer>().color = Color.red;
+        else
+            GetComponent<SpriteRenderer>().color = Color.white;
     }
 }

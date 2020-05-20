@@ -75,6 +75,7 @@ public class TileMove : MonoBehaviour
 
             selectableTiles.Add(t); //The tile is added to the list of selectable tiles
             t.selectable = true; //The tile is marked as selectable
+            t.updateColors();
 
             if (t.distance < moveRange) //True if the tile is within the unit's move range
             {
@@ -90,6 +91,7 @@ public class TileMove : MonoBehaviour
                         }
                         if(validTerrain)
                         {
+                            
                             tile.parent = t; //The parent of the adjacent tile is the current tile
                             tile.visited = true; //The tile is marked as visited
                             tile.distance = 1 + t.distance; //The distance of the is equal to the distance of the parent tile plus one
@@ -129,6 +131,7 @@ public class TileMove : MonoBehaviour
         foreach(Tile tile in selectableTiles)
         {
             tile.Reset();
+            tile.updateColors();
         }
 
         selectableTiles.Clear();
@@ -182,6 +185,7 @@ public class TileMove : MonoBehaviour
                 {
                     selectableTiles.Add(t); //The tile is added to the list of selectable tiles
                     t.attackable = true; //The tile is marked as selectable
+                    t.updateColors();
                 }
             }
 
