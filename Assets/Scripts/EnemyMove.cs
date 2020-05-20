@@ -20,7 +20,7 @@ public class EnemyMove : TileMove
     }
     public void Move()
     {
-        FindSelectableTiles(GetComponent<EnemyStats>().classType.mov, GetComponent<EnemyStats>().classType.walkableTerrain);
+        FindSelectableTiles(GetComponent<EnemyStats>().classType.mov, GetComponent<EnemyStats>().classType.walkableTerrain, false);
         GetClosestTarget();
     }
 

@@ -58,7 +58,7 @@ public class TileMove : MonoBehaviour
         }
     }
 
-    public void FindSelectableTiles(int moveRange, TerrainType[] terrain)
+    public void FindSelectableTiles(int moveRange, TerrainType[] terrain, bool updateTTileColors)
     {
         ComputeAdjacentLists(true);
         GetCurrentTile();
@@ -75,7 +75,8 @@ public class TileMove : MonoBehaviour
 
             selectableTiles.Add(t); //The tile is added to the list of selectable tiles
             t.selectable = true; //The tile is marked as selectable
-            t.updateColors();
+            if(updateTTileColors)
+                t.updateColors();
 
             if (t.distance < moveRange) //True if the tile is within the unit's move range
             {
