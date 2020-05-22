@@ -212,6 +212,7 @@ public class TileMove : MonoBehaviour
         {
             selected = false;
             finished = true;
+            GetComponent<AllyStats>().usingBlackMagic = false;
             RemoveSelectableTiles();
         }
         else
