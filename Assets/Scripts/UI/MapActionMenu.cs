@@ -235,9 +235,44 @@ public class MapActionMenu : MonoBehaviour
 
     private void BlackMagic()
     {
-        Debug.Log("Pressed black magic button");
         MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().usingBlackMagic = true;
-        Attack();
+        //Attack();
+        menuCursorRT.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
+        menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x + 180, menuCursorRT.anchoredPosition.y + 36);
+        selectingItems = true;
+        ItemMenu.SetActive(true);
+        menuCursorPosition = 1;
+
+        //Updates every item in the inventory to match the currently selected unit's inventory
+        for (int i = 0; i < 5; i++)
+        {
+            //If the unit's inventory slot is not empty, update name, durability, and text color
+            if (MapUIInfo.selectedAllyUnit.GetComponent<Stats>().blackMagic[i] != null)
+            {
+                GetInventorySlot(i).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<Stats>().blackMagic[i].name;
+                GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<Stats>().blackMagic[i].durability + "/";
+                /*
+                if (unitInventory[i].GetType() == typeof(Weapon) && ((Weapon)unitInventory[i]).equipped)
+                {
+                    GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
+                }
+                else if (unitInventory[i].GetType() == typeof(Weapon) && !MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().CanUseWeapon(i))
+                {
+                    GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.gray;
+                }
+                else
+                {
+                    GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.black;
+                }
+                */
+            }
+            //else, set blank values
+            else
+            {
+                //GetInventorySlot(i).GetComponent<TextMeshProUGUI>().text = "";
+                //GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+            }
+        }
     }
 
     private void selectItem()
