@@ -94,6 +94,8 @@ public class MapInfoHUD : MonoBehaviour
 
     private void UpdateBattleFoecast()
     {
+        //MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().UpdateStats();
+
         Transform allyUnitInfo = battleForecastUI.transform.GetChild(0).transform;
         Transform enemyUnitInfo = battleForecastUI.transform.GetChild(1).transform;
 
