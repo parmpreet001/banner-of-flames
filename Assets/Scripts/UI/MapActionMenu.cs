@@ -8,6 +8,7 @@ public class MapActionMenu : MonoBehaviour
     //References to other shit
     private MapUIInfo MapUIInfo;
     private GameObject ItemMenu;
+    private Transform WeaponInfo;
     public GameObject menuCursor; 
     private RectTransform menuCursorRT; //menuCursor RectTransform
     
@@ -24,6 +25,7 @@ public class MapActionMenu : MonoBehaviour
     {
         MapUIInfo = GetComponentInParent<MapUIInfo>();
         ItemMenu = GameObject.Find("ItemMenu");
+        WeaponInfo = GameObject.Find("WeaponInfo").transform;
         menuCursorRT = menuCursor.GetComponent<RectTransform>();
     }
 
@@ -145,6 +147,8 @@ public class MapActionMenu : MonoBehaviour
                 }
             }
 
+            UpdateWeaponInfo(menuCursorPosition-1);
+
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 selectItem();
@@ -202,6 +206,31 @@ public class MapActionMenu : MonoBehaviour
                 GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
             }
         }
+    }
+
+    private void UpdateWeaponInfo(int index)
+    {
+        Weapon tempWeapon = ((Weapon)unitInventory[index]);
+
+
+        if(tempWeapon != null)
+        {
+            WeaponInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = tempWeapon.dmg.ToString();
+            WeaponInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = tempWeapon.hitRate.ToString();
+            WeaponInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = tempWeapon.critRate.ToString();
+            if (tempWeapon.minRange == tempWeapon.maxRange)
+                WeaponInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = tempWeapon.minRange.ToString();
+            else
+                WeaponInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = tempWeapon.minRange + " - " + tempWeapon.maxRange;
+        }
+        else
+        {
+            for(int i = 0; i <= 3; i++)
+            {
+                WeaponInfo.transform.GetChild(i).GetComponent<TextMeshProUGUI>().text = "-";
+            }
+        }
+
     }
 
     private void BlackMagic()

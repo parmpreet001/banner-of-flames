@@ -702,7 +702,7 @@ GameObject:
   - component: {fileID: 137540692}
   - component: {fileID: 137540691}
   m_Layer: 5
-  m_Name: CritRate (1)
+  m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
