@@ -198,7 +198,7 @@ public class BattleManager : MonoBehaviour
     private int GetDmg(Stats unit, Stats target)
     {
         int dmg = 0;
-        if (unit.equippedBlackMagic != null && unit.equippedBlackMagic.GetType() == typeof(OffensiveMagic))
+        if (unit.equippedBlackMagic && unit.equippedBlackMagic.GetType() == typeof(OffensiveMagic))
         {
             dmg = unit.mag + ((OffensiveMagic)unit.equippedBlackMagic).dmg - target.res;
             return dmg;
