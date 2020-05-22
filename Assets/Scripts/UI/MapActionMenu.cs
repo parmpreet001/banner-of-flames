@@ -288,7 +288,8 @@ public class MapActionMenu : MonoBehaviour
         }
         else if(MapUIInfo.selectedAllyUnitStats.usingBlackMagic && (menuCursorPosition-1) < MapUIInfo.selectedAllyUnitStats.blackMagic.Count)
         {
-            Debug.Log("e");
+            MapUIInfo.selectedAllyUnitStats.equippedBlackMagic = MapUIInfo.selectedAllyUnitStats.blackMagic[menuCursorPosition - 1];
+            Attack();
         }
     }
 
