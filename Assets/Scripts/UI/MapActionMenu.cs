@@ -286,6 +286,10 @@ public class MapActionMenu : MonoBehaviour
         {
             EquipWeapon();
         }
+        else if(MapUIInfo.selectedAllyUnitStats.usingBlackMagic && (menuCursorPosition-1) < MapUIInfo.selectedAllyUnitStats.blackMagic.Count)
+        {
+            Debug.Log("e");
+        }
     }
 
     private void EquipWeapon()
