@@ -11,7 +11,8 @@ public class MapUIInfo : MonoBehaviour
     public GameObject hoveringUnit;
     public GameObject cursor;
 
-    public AllyStats selectedAllyUnitStats;
+    public AllyStats selectedAllyUnit_AllyStats;
+    public AllyMove selectedAllyUnit_AllyMove;
     // Update is called once per frame
     private void Update()
     {
@@ -19,7 +20,8 @@ public class MapUIInfo : MonoBehaviour
         if (hoveringUnit && hoveringUnit.GetComponent<TileMove>().selected)
         {
             selectedAllyUnit = hoveringUnit;
-            selectedAllyUnitStats = selectedAllyUnit.GetComponent<AllyStats>();
+            selectedAllyUnit_AllyStats = selectedAllyUnit.GetComponent<AllyStats>();
+            selectedAllyUnit_AllyMove = selectedAllyUnit.GetComponent<AllyMove>();
         }
             
         if (selectedAllyUnit && (!selectedAllyUnit.GetComponent<AllyMove>().selected || selectedAllyUnit.GetComponent<AllyMove>().finished))

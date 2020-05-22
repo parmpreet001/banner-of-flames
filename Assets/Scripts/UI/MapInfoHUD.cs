@@ -45,11 +45,11 @@ public class MapInfoHUD : MonoBehaviour
             }
 
             if (MapUIInfo.selectedAllyUnit && MapUIInfo.hoveringUnit && MapUIInfo.hoveringUnit.tag == "EnemyUnit" && 
-                !MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().attacking)
+                !MapUIInfo.selectedAllyUnit_AllyMove.attacking)
             {
                 battleForecastUI.SetActive(true);
                 UpdateBattleFoecast();
-                if (MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().usingBlackMagic)
+                if (MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic)
                 {
                     ChangeBlackMagic();
                 }
@@ -68,17 +68,17 @@ public class MapInfoHUD : MonoBehaviour
     private void ChangeWeapons()
     {
         if(Input.GetKeyDown(KeyCode.A))
-            MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipPreviousWeapon();
+            MapUIInfo.selectedAllyUnit_AllyStats.EquipPreviousWeapon();
         else if(Input.GetKeyDown(KeyCode.S))
-            MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipNextWeapon();
+            MapUIInfo.selectedAllyUnit_AllyStats.EquipNextWeapon();
     }
 
     private void ChangeBlackMagic()
     {
         if (Input.GetKeyDown(KeyCode.A))
-            MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipPreviousBlackMagic();
+            MapUIInfo.selectedAllyUnit_AllyStats.EquipPreviousBlackMagic();
         else if (Input.GetKeyDown(KeyCode.S))
-            MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().EquipNextBlackMagic();
+            MapUIInfo.selectedAllyUnit_AllyStats.EquipNextBlackMagic();
     }
 
     private void UpdateUnitStatsUI(GameObject UnitStatsUI,GameObject unit)
@@ -94,42 +94,39 @@ public class MapInfoHUD : MonoBehaviour
 
     private void UpdateBattleFoecast()
     {
-        GameObject allyUnitInfo = battleForecastUI.transform.GetChild(0).gameObject;
-        GameObject enemyUnitInfo = battleForecastUI.transform.GetChild(1).gameObject;
+        Transform allyUnitInfo = battleForecastUI.transform.GetChild(0).transform;
+        Transform enemyUnitInfo = battleForecastUI.transform.GetChild(1).transform;
 
-        allyUnitInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.name;
-        if(MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().usingBlackMagic)
-            allyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().equippedBlackMagic.name.ToString();
+        allyUnitInfo.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.name;
+        if(MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic)
+            allyUnitInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.name.ToString();
         else
-            allyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.GetComponent<AllyStats>().equippedWeapon.name.ToString();
-        allyUnitInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_dmg.ToString();
-        allyUnitInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_accuracy.ToString();
-        allyUnitInfo.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_crit.ToString();
+            allyUnitInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.equippedWeapon.name.ToString();
+        allyUnitInfo.GetChild(2).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_dmg.ToString();
+        allyUnitInfo.GetChild(3).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_accuracy.ToString();
+        allyUnitInfo.GetChild(4).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_crit.ToString();
         if (MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_attackTwice)
-            allyUnitInfo.transform.GetChild(5).gameObject.SetActive(true);
+            allyUnitInfo.GetChild(5).gameObject.SetActive(true);
         else
-            allyUnitInfo.transform.GetChild(5).gameObject.SetActive(false);
+            allyUnitInfo.GetChild(5).gameObject.SetActive(false);
 
-        enemyUnitInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.name;
-        enemyUnitInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().equippedWeapon.name.ToString();
+       enemyUnitInfo.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.name;
+       enemyUnitInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().equippedWeapon.name.ToString();
         if(MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_inRange)
         {
-            enemyUnitInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_dmg.ToString();
-            enemyUnitInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_accuracy.ToString();
-            enemyUnitInfo.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_crit.ToString();
+           enemyUnitInfo.GetChild(2).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_dmg.ToString();
+           enemyUnitInfo.GetChild(3).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_accuracy.ToString();
+           enemyUnitInfo.GetChild(4).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_crit.ToString();
             if (MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_attackTwice)
-                enemyUnitInfo.transform.GetChild(5).gameObject.SetActive(true);
+               enemyUnitInfo.GetChild(5).gameObject.SetActive(true);
             else
-                enemyUnitInfo.transform.GetChild(5).gameObject.SetActive(false);
+               enemyUnitInfo.GetChild(5).gameObject.SetActive(false);
         }
         else
         {
-            enemyUnitInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "-";
-            enemyUnitInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "-";
-            enemyUnitInfo.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "-";
+           enemyUnitInfo.GetChild(2).GetComponent<TextMeshProUGUI>().text = "-";
+           enemyUnitInfo.GetChild(3).GetComponent<TextMeshProUGUI>().text = "-";
+           enemyUnitInfo.GetChild(4).GetComponent<TextMeshProUGUI>().text = "-";
         }
-
-
-
     }
 }

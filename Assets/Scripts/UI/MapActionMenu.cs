@@ -7,7 +7,7 @@ public class MapActionMenu : MonoBehaviour
 {
     //References to other shit
     private MapUIInfo MapUIInfo;
-    private GameObject ItemMenu;
+    private GameObject ItemMenu; 
     private Transform WeaponInfo;
     public GameObject menuCursor; 
     private RectTransform menuCursorRT; //menuCursor RectTransform
@@ -35,7 +35,7 @@ public class MapActionMenu : MonoBehaviour
         if (MapUIInfo.selectedAllyUnit)
         {
             //If they're in an action menu state
-            if (MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().actionMenu)
+            if (MapUIInfo.selectedAllyUnit_AllyMove.actionMenu)
             {
                 //If buttons have not been created, create buttons and display the menu cursor
                 if (!buttonsCreated)
@@ -43,10 +43,10 @@ public class MapActionMenu : MonoBehaviour
                     CreateButtons();
                 }
                 menuCursorInput();
-                unitInventory = MapUIInfo.selectedAllyUnit.GetComponent<Stats>().inventory;
+                unitInventory = MapUIInfo.selectedAllyUnit_AllyStats.inventory;
             }
             //else, if the ally unit is not in an action menu state, but buttons have been created, then reset buttons
-            else if (!MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().actionMenu && buttonsCreated)
+            else if (!MapUIInfo.selectedAllyUnit_AllyMove.actionMenu && buttonsCreated)
             {
                 ResetActionMenu(false);
             }
@@ -60,16 +60,13 @@ public class MapActionMenu : MonoBehaviour
 
     private void CreateButtons()
     {
-        //Method variables
-        
-        
         buttonsCreated = true;
         menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x, -35 * (menuCursorPosition - 1)); 
         menuCursor.SetActive(true);
 
-        if (MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().findingTarget && MapUIInfo.selectedAllyUnitStats.classType.usesPhysicalAttacks)
+        if (MapUIInfo.selectedAllyUnit_AllyMove.findingTarget && MapUIInfo.selectedAllyUnit_AllyStats.classType.usesPhysicalAttacks)
             buttons.Add("Attack");
-        if (MapUIInfo.selectedAllyUnitStats.blackMagic.Count > 0 && MapUIInfo.selectedAllyUnitStats.classType.usesBlackMagic)
+        if (MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count > 0 && MapUIInfo.selectedAllyUnit_AllyStats.classType.usesBlackMagic)
             buttons.Add("BlackMagic");
         buttons.Add("Item");
         buttons.Add("Wait");
@@ -158,14 +155,14 @@ public class MapActionMenu : MonoBehaviour
 
     public void Wait()
     {
-        MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().UnselectUnit();
-        MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().finished = true;
+        MapUIInfo.selectedAllyUnit_AllyMove.UnselectUnit();
+        MapUIInfo.selectedAllyUnit_AllyMove.finished = true;
         ResetActionMenu(true);
     }
 
     public void Attack()
     {
-        MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().actionMenu = false;
+        MapUIInfo.selectedAllyUnit_AllyMove.actionMenu = false;
         ResetActionMenu(false);
     }
 
@@ -190,7 +187,7 @@ public class MapActionMenu : MonoBehaviour
                 {
                     GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
                 }
-                else if(unitInventory[i].GetType() == typeof(Weapon) && !MapUIInfo.selectedAllyUnitStats.CanUseWeapon(i))
+                else if(unitInventory[i].GetType() == typeof(Weapon) && !MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(i))
                 {
                     GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.gray;
                 }
@@ -213,11 +210,11 @@ public class MapActionMenu : MonoBehaviour
         Weapon tempWeapon = ((Weapon)unitInventory[index]);
         OffensiveMagic tempBlackMagic = null;
 
-        if(MapUIInfo.selectedAllyUnitStats.usingBlackMagic)
+        if(MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic)
         {
-            if(index < MapUIInfo.selectedAllyUnitStats.blackMagic.Count)
+            if(index < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
             {
-                tempBlackMagic = ((OffensiveMagic)MapUIInfo.selectedAllyUnitStats.blackMagic[index]);
+                tempBlackMagic = ((OffensiveMagic)MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[index]);
                 WeaponInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = tempBlackMagic.dmg.ToString();
                 WeaponInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = tempBlackMagic.hitRate.ToString();
                 WeaponInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "0";
@@ -249,7 +246,7 @@ public class MapActionMenu : MonoBehaviour
 
     private void BlackMagic()
     {
-        MapUIInfo.selectedAllyUnitStats.usingBlackMagic = true;
+        MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic = true;
         //Attack();
         menuCursorRT.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
         menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x + 180, menuCursorRT.anchoredPosition.y + 36);
@@ -261,11 +258,11 @@ public class MapActionMenu : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             //If the unit's inventory slot is not empty, update name, durability, and text color
-            if (i < MapUIInfo.selectedAllyUnitStats.blackMagic.Count)
+            if (i < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
             {
-                GetInventorySlot(i).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnitStats.blackMagic[i].name;
-                GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnitStats.blackMagic[i].durability + "/"
-                    + MapUIInfo.selectedAllyUnitStats.blackMagic[i].numberOfUses[MapUIInfo.selectedAllyUnitStats.skillLevels.magicLevels[(int)MagicType.BLACK]];
+                GetInventorySlot(i).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].name;
+                GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].durability + "/"
+                    + MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].numberOfUses[MapUIInfo.selectedAllyUnit_AllyStats.skillLevels.magicLevels[(int)MagicType.BLACK]];
                 GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.black;
             }
             //else, set blank values
@@ -280,15 +277,15 @@ public class MapActionMenu : MonoBehaviour
     private void selectItem()
     {
         //If the selected item was a weapon, and the unit doesn't already have it equipped
-        if(unitInventory[menuCursorPosition - 1] != null && MapUIInfo.selectedAllyUnitStats.CanUseWeapon(menuCursorPosition-1)
+        if(unitInventory[menuCursorPosition - 1] != null && MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(menuCursorPosition-1)
             && unitInventory[menuCursorPosition-1].GetType() == typeof(Weapon)
             && !((Weapon)unitInventory[menuCursorPosition-1]).equipped)
         {
             EquipWeapon();
         }
-        else if(MapUIInfo.selectedAllyUnitStats.usingBlackMagic && (menuCursorPosition-1) < MapUIInfo.selectedAllyUnitStats.blackMagic.Count)
+        else if(MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic && (menuCursorPosition-1) < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
         {
-            MapUIInfo.selectedAllyUnitStats.equippedBlackMagic = MapUIInfo.selectedAllyUnitStats.blackMagic[menuCursorPosition - 1];
+            MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic = MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[menuCursorPosition - 1];
             Attack();
         }
     }
@@ -299,14 +296,14 @@ public class MapActionMenu : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             //If the item is not null and equal to the equipped weapon
-            if (unitInventory[i] != null && unitInventory[i] == MapUIInfo.selectedAllyUnit.GetComponent<Stats>().equippedWeapon)
+            if (unitInventory[i] != null && unitInventory[i] == MapUIInfo.selectedAllyUnit_AllyStats.equippedWeapon)
             {
                 GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.black;
                 i = 5;
             }
         }
 
-        MapUIInfo.selectedAllyUnitStats.EquipWeapon(menuCursorPosition - 1);
+        MapUIInfo.selectedAllyUnit_AllyStats.EquipWeapon(menuCursorPosition - 1);
 
         GetInventorySlot(menuCursorPosition - 1).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
         Debug.Log("Equpped " + unitInventory[menuCursorPosition - 1].name);
