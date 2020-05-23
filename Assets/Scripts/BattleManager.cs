@@ -114,7 +114,9 @@ public class BattleManager : MonoBehaviour
                 defendingUnitStats.hp -= dmg;
                 yield return new WaitForSeconds(1f);
 
-                attackingUnit.GetComponent<Stats>().equippedWeapon.currentUse--;
+
+                //TODO Remove durability
+                //attackingUnit.GetComponent<Stats>().equippedWeapon.currentUse--;
 
                 if (CheckDead(defendingUnitStats))
                 {
@@ -191,7 +193,7 @@ public class BattleManager : MonoBehaviour
         else if (defendingUnitStats.spd >= attackingUnitStats.spd + 5)
             DU_attackTwice = true;
 
-        DU_inRange = CheckWeaponRange();
+        DU_inRange = CheckWeaponRange(attackingUnitStats,defendingUnitStats);
     }
 
     //returns damage unit does to target
@@ -275,12 +277,13 @@ public class BattleManager : MonoBehaviour
         return rnd <= critRate;
     }
 
-    private bool CheckWeaponRange()
+    //returns true if unit1 is within unit2's weapon range
+    private bool CheckWeaponRange(Stats unit1, Stats unit2)
     {
-        float distance = Vector2.Distance(attackingUnit.transform.position, defendingUnit.transform.position);
+        float distance = Vector2.Distance(unit1.transform.position, unit2.transform.position); //Distance between unit 1 and 2
         distance = Mathf.Ceil(distance);
 
-        return (distance >= defendingUnitStats.equippedWeapon.minRange && distance <= defendingUnitStats.equippedWeapon.maxRange);
+        return (distance >= unit2.equippedWeapon.minRange && distance <= unit2.equippedWeapon.maxRange);
     }
 
     //checks if a unit fucking died
