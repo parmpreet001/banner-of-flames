@@ -27,7 +27,10 @@ public class BattleManager : MonoBehaviour
     public void Attack()
     {
         UpdateStats();
-        StartCoroutine(AttackProcess());
+        if (CheckWeaponRange(defendingUnitStats, attackingUnitStats))
+            StartCoroutine(AttackProcess());
+        else
+            Debug.Log("This attack cannot reach the enemy");
     }
 
     IEnumerator AttackProcess()
@@ -277,13 +280,16 @@ public class BattleManager : MonoBehaviour
         return rnd <= critRate;
     }
 
-    //returns true if unit1 is within unit2's weapon range
+    //returns true if unit1 is within unit2's weapon range. In otherwords, returns true if unit2 can attack
     private bool CheckWeaponRange(Stats unit1, Stats unit2)
     {
         float distance = Vector2.Distance(unit1.transform.position, unit2.transform.position); //Distance between unit 1 and 2
         distance = Mathf.Ceil(distance);
 
-        return (distance >= unit2.equippedWeapon.minRange && distance <= unit2.equippedWeapon.maxRange);
+        if(unit2.usingBlackMagic)
+            return (distance >= unit2.equippedBlackMagic.minRange && distance <= unit2.equippedBlackMagic.maxRange);
+        else
+            return (distance >= unit2.equippedWeapon.minRange && distance <= unit2.equippedWeapon.maxRange);
     }
 
     //checks if a unit fucking died
