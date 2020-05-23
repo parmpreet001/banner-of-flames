@@ -29,8 +29,6 @@ public class BattleManager : MonoBehaviour
         UpdateStats();
         if (CheckWeaponRange(defendingUnitStats, attackingUnitStats))
             StartCoroutine(AttackProcess());
-        else
-            Debug.Log("This attack cannot reach the enemy");
     }
 
     IEnumerator AttackProcess()
@@ -283,8 +281,9 @@ public class BattleManager : MonoBehaviour
     //returns true if unit1 is within unit2's weapon range. In otherwords, returns true if unit2 can attack
     private bool CheckWeaponRange(Stats unit1, Stats unit2)
     {
-        float distance = Vector2.Distance(unit1.transform.position, unit2.transform.position); //Distance between unit 1 and 2
-        distance = Mathf.Ceil(distance);
+        int distance = unit1.GetComponent<TileMove>().GetDistanceBetweenTiles(unit1.transform.parent.gameObject, unit2.transform.parent.gameObject);
+        //float distance = Vector2.Distance(unit1.transform.position, unit2.transform.position); //Distance between unit 1 and 2
+        //distance = Mathf.Ceil(distance);
 
         if(unit2.usingBlackMagic)
             return (distance >= unit2.equippedBlackMagic.minRange && distance <= unit2.equippedBlackMagic.maxRange);

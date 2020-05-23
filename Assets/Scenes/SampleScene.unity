@@ -5499,7 +5499,7 @@ MonoBehaviour:
   inventory:
   - {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
   - {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: d1b6f9db3400b0243bbbb44efc20cc8f, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   magicList: []
@@ -7071,6 +7071,8 @@ MonoBehaviour:
   selectedAllyUnit: {fileID: 0}
   hoveringUnit: {fileID: 0}
   cursor: {fileID: 1149305415}
+  selectedAllyUnit_AllyStats: {fileID: 0}
+  selectedAllyUnit_AllyMove: {fileID: 0}
 --- !u!1001 &1131476391
 PrefabInstance:
   m_ObjectHideFlags: 0
