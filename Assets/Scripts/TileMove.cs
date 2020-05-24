@@ -219,6 +219,45 @@ public class TileMove : MonoBehaviour
             actionMenu = true;
     }
 
+    public void ShowWeaponRange(int minRange, int maxRange)
+    {
+        ComputeAdjacentLists(false);
+        GetCurrentTile();
+
+        Queue<Tile> process = new Queue<Tile>();
+
+        process.Enqueue(currentTile); //Adds the tile the unit is standing on to the process Queue
+        currentTile.visited = true;
+
+        //Loop runs while process has tiles in it. Adds all tiles within unit's move range to the process queue. 
+        while (process.Count > 0)
+        {
+            Tile t = process.Dequeue(); //Removes the tile from process and assigns it to Tile t
+
+            //If the tile is within the unit's attack range
+            if (t.distance >= minRange && t.distance <= maxRange)
+            {
+                selectableTiles.Add(t); //The tile is added to the list of selectable tiles
+                t.attackable = true;
+                t.updateColors();
+            }
+
+            if (t.distance < maxRange) //True if the tile is within the unit's move range
+            {
+                foreach (Tile tile in t.adjacentTiles) //For each tile adjacent to the current tile
+                {
+                    if (!tile.visited) //True if the tile has not already been visited by the search
+                    {
+                        tile.parent = t; //The parent of the adjacent tile is the current tile
+                        tile.visited = true; //The tile is marked as visited
+                        tile.distance = 1 + t.distance; //The distance of the is equal to the distance of the parent tile plus one
+                        process.Enqueue(tile); //The tile gets added to the proces queue
+                    }
+                }
+            }
+        }
+    }
+
     public int GetDistanceBetweenTiles(GameObject tile1, GameObject tile2)
     {
         int xDistance = (int)Mathf.Abs(tile1.transform.position.x - tile2.transform.position.x);

@@ -207,6 +207,7 @@ public class MapActionMenu : MonoBehaviour
 
     private void UpdateWeaponInfo(int index)
     {
+        MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
         Weapon tempWeapon = ((Weapon)unitInventory[index]);
         OffensiveMagic tempBlackMagic = null;
 
@@ -222,11 +223,12 @@ public class MapActionMenu : MonoBehaviour
                     WeaponInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = tempBlackMagic.minRange.ToString();
                 else
                     WeaponInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = tempBlackMagic.minRange + " - " + tempBlackMagic.maxRange;
+
+                MapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(tempBlackMagic.minRange, tempBlackMagic.maxRange);
             }
             else
                 for (int i = 0; i <= 3; i++)
-                    WeaponInfo.transform.GetChild(i).GetComponent<TextMeshProUGUI>().text = "-";
-            
+                    WeaponInfo.transform.GetChild(i).GetComponent<TextMeshProUGUI>().text = "-";    
         }
 
         else if(tempWeapon != null)
@@ -238,6 +240,8 @@ public class MapActionMenu : MonoBehaviour
                 WeaponInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = tempWeapon.minRange.ToString();
             else
                 WeaponInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = tempWeapon.minRange + " - " + tempWeapon.maxRange;
+
+            MapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(tempWeapon.minRange, tempWeapon.maxRange);
         }
         else
             for(int i = 0; i <= 3; i++)
