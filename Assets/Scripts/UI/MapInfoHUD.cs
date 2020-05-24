@@ -95,15 +95,25 @@ public class MapInfoHUD : MonoBehaviour
     private void UpdateBattleFoecast()
     {
         //MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().UpdateStats();
+        MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
 
         Transform allyUnitInfo = battleForecastUI.transform.GetChild(0).transform;
         Transform enemyUnitInfo = battleForecastUI.transform.GetChild(1).transform;
 
         allyUnitInfo.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.name;
         if(MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic)
+        {
             allyUnitInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.name.ToString();
+            MapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange,
+                MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
+        }   
         else
+        {
             allyUnitInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.equippedWeapon.name.ToString();
+            MapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(MapUIInfo.selectedAllyUnit_AllyStats.equippedWeapon.minRange,
+    MapUIInfo.selectedAllyUnit_AllyStats.equippedWeapon.maxRange);
+        }
+            
         allyUnitInfo.GetChild(2).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_dmg.ToString();
         allyUnitInfo.GetChild(3).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_accuracy.ToString();
         allyUnitInfo.GetChild(4).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_crit.ToString();
