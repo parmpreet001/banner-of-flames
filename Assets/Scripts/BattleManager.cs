@@ -52,8 +52,10 @@ public class BattleManager : MonoBehaviour
             defendingUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
 
-            if(attackingUnitStats.equippedWeapon)
-                attackingUnit.GetComponent<Stats>().equippedWeapon.currentUse--;
+            if (attackingUnitStats.equippedWeapon)
+                attackingUnitStats.equippedWeapon.currentUse--;
+            else if (attackingUnitStats.equippedBlackMagic)
+                attackingUnitStats.equippedBlackMagic.durability--;
 
             if (CheckDead(defendingUnitStats))
             {
@@ -83,7 +85,10 @@ public class BattleManager : MonoBehaviour
             attackingUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
 
-            //defendingUnit.GetComponent<Stats>().equippedWeapon.currentUse--;
+            if (defendingUnitStats.equippedWeapon)
+                defendingUnitStats.equippedWeapon.currentUse--;
+            else if (defendingUnitStats.equippedBlackMagic)
+                defendingUnitStats.equippedBlackMagic.durability--;
 
             if (CheckDead(attackingUnitStats))
             {
@@ -115,9 +120,10 @@ public class BattleManager : MonoBehaviour
                 defendingUnitStats.hp -= dmg;
                 yield return new WaitForSeconds(1f);
 
-
-                //TODO Remove durability
-                //attackingUnit.GetComponent<Stats>().equippedWeapon.currentUse--;
+                if (attackingUnitStats.equippedWeapon)
+                    attackingUnitStats.equippedWeapon.currentUse--;
+                else if (attackingUnitStats.equippedBlackMagic)
+                    attackingUnitStats.equippedBlackMagic.durability--;
 
                 if (CheckDead(defendingUnitStats))
                 {
@@ -148,7 +154,10 @@ public class BattleManager : MonoBehaviour
                 attackingUnitStats.hp -= dmg;
                 yield return new WaitForSeconds(1f);
 
-                defendingUnit.GetComponent<Stats>().equippedWeapon.currentUse--;
+                if (defendingUnitStats.equippedWeapon)
+                    defendingUnitStats.equippedWeapon.currentUse--;
+                else if (defendingUnitStats.equippedBlackMagic)
+                    defendingUnitStats.equippedBlackMagic.durability--;
 
                 if (CheckDead(attackingUnitStats))
                 {
