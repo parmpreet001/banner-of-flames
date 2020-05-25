@@ -15,4 +15,6 @@ public abstract class Magic : ScriptableObject
     public int maxRange;
     public int rangeScale; //How much the max range scales with the magic stat. 0 means there is no scaling. If set to 2, max range increases by one for every 2 points in magic
     public int hitRate;
+
+    public bool equipped;
 }

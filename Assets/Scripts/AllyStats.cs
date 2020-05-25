@@ -136,6 +136,12 @@ public class AllyStats : Stats
         }
     }
 
+    public void EquipBlackMagic(int index)
+    {
+        equippedBlackMagic = blackMagic[index];
+        equippedBlackMagic.equipped = true;
+    }
+
     public void EquipPreviousBlackMagic()
     {
         if(blackMagic.Count > 1)
@@ -143,9 +149,9 @@ public class AllyStats : Stats
             int indexOfEquippedMagic = blackMagic.IndexOf(equippedBlackMagic);
 
             if(indexOfEquippedMagic == 0)
-                equippedBlackMagic = blackMagic[blackMagic.Count - 1];
+                EquipBlackMagic(blackMagic.Count - 1);
             else
-                equippedBlackMagic = blackMagic[indexOfEquippedMagic-1];
+                EquipBlackMagic(indexOfEquippedMagic-1);
         }
     }
 
@@ -155,10 +161,10 @@ public class AllyStats : Stats
         {
             int indexOfEquippedMagic = blackMagic.IndexOf(equippedBlackMagic);
 
-            if (indexOfEquippedMagic == blackMagic.Count-1)
-                equippedBlackMagic = blackMagic[0];
+            if (indexOfEquippedMagic == blackMagic.Count - 1)
+                EquipBlackMagic(0);
             else
-                equippedBlackMagic = blackMagic[indexOfEquippedMagic + 1];
+                EquipBlackMagic(indexOfEquippedMagic + 1);
         }
     }
 }
