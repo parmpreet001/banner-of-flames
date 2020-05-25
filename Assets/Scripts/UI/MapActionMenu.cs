@@ -251,7 +251,6 @@ public class MapActionMenu : MonoBehaviour
     private void BlackMagic()
     {
         MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic = true;
-        //Attack();
         menuCursorRT.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
         menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x + 180, menuCursorRT.anchoredPosition.y + 36);
         selectingItems = true;
@@ -267,7 +266,11 @@ public class MapActionMenu : MonoBehaviour
                 GetInventorySlot(i).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].name;
                 GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].durability + "/"
                     + MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].numberOfUses[MapUIInfo.selectedAllyUnit_AllyStats.skillLevels.magicLevels[(int)MagicType.BLACK]];
-                GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.black;
+
+                if(MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i] == MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic)
+                    GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
+                else
+                    GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.black;
             }
             //else, set blank values
             else
