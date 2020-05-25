@@ -267,7 +267,7 @@ public class MapActionMenu : MonoBehaviour
                 GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].durability + "/"
                     + MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].numberOfUses[MapUIInfo.selectedAllyUnit_AllyStats.skillLevels.magicLevels[(int)MagicType.BLACK]];
 
-                if(MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i] == MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic)
+                if(MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].equipped)
                     GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
                 else
                     GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.black;

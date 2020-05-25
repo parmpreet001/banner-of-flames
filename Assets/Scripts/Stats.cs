@@ -67,6 +67,7 @@ public class Stats : MonoBehaviour
         if(blackMagic.Count > 0)
         {
             equippedBlackMagic = blackMagic[0];
+            blackMagic[0].equipped = true;
         }
     }
 }
