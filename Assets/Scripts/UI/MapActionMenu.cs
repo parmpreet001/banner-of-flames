@@ -292,7 +292,7 @@ public class MapActionMenu : MonoBehaviour
         }
         else if(MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic && (menuCursorPosition-1) < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
         {
-            MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic = MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[menuCursorPosition - 1];
+            MapUIInfo.selectedAllyUnit_AllyStats.EquipBlackMagic(menuCursorPosition - 1);
             Attack();
         }
     }

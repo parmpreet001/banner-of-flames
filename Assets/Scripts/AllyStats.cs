@@ -138,6 +138,7 @@ public class AllyStats : Stats
 
     public void EquipBlackMagic(int index)
     {
+        equippedBlackMagic.equipped = false;
         equippedBlackMagic = blackMagic[index];
         equippedBlackMagic.equipped = true;
     }
