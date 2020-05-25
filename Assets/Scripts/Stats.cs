@@ -56,8 +56,8 @@ public class Stats : MonoBehaviour
                 if(magicList[i].minRequirement <= skillLevels.magicLevels[(int)MagicType.BLACK])
                 {
                     
-                    magicList[i].durability = magicList[i].numberOfUses[skillLevels.magicLevels[(int)MagicType.BLACK]];
-                    Debug.Log("Added " + magicList[i].name + ". Durability: " + magicList[i].durability);
+                    magicList[i].currentUses = magicList[i].maxUses[skillLevels.magicLevels[(int)MagicType.BLACK]];
+                    Debug.Log("Added " + magicList[i].name + ". Durability: " + magicList[i].currentUses);
                     blackMagic.Add(magicList[i]);
                     magicList.RemoveAt(i);
                     

@@ -182,7 +182,7 @@ public class MapActionMenu : MonoBehaviour
             if(unitInventory[i] != null)
             {
                 GetInventorySlot(i).GetComponent<TextMeshProUGUI>().text = unitInventory[i].name;
-                GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = unitInventory[i].currentUse + "/" + unitInventory[i].maxUse;
+                GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = unitInventory[i].currentUses + "/" + unitInventory[i].maxUses;
                 if(unitInventory[i].GetType() == typeof(Weapon) && ((Weapon)unitInventory[i]).equipped)
                 {
                     GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
@@ -264,8 +264,8 @@ public class MapActionMenu : MonoBehaviour
             if (i < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
             {
                 GetInventorySlot(i).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].name;
-                GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].durability + "/"
-                    + MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].numberOfUses[MapUIInfo.selectedAllyUnit_AllyStats.skillLevels.magicLevels[(int)MagicType.BLACK]];
+                GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].currentUses + "/"
+                    + MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].maxUses[MapUIInfo.selectedAllyUnit_AllyStats.skillLevels.magicLevels[(int)MagicType.BLACK]];
 
                 if(MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].equipped)
                     GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
