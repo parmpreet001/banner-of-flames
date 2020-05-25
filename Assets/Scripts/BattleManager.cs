@@ -83,7 +83,7 @@ public class BattleManager : MonoBehaviour
             attackingUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
 
-            defendingUnit.GetComponent<Stats>().equippedWeapon.currentUse--;
+            //defendingUnit.GetComponent<Stats>().equippedWeapon.currentUse--;
 
             if (CheckDead(attackingUnitStats))
             {
@@ -201,56 +201,60 @@ public class BattleManager : MonoBehaviour
     private int GetDmg(Stats unit, Stats target)
     {
         int dmg = 0;
-        if (unit.equippedBlackMagic && unit.equippedBlackMagic.GetType() == typeof(OffensiveMagic))
+        //if unit is attacking with physical weapon
+        if(unit.equippedWeapon)
         {
-            dmg = unit.mag + ((OffensiveMagic)unit.equippedBlackMagic).dmg - target.res;
-            return dmg;
-        }
-        
-        dmg = unit.str + unit.equippedWeapon.dmg - target.def;
-        
-        if(unit.equippedWeapon && target.equippedWeapon)
-        {
-            switch (unit.equippedWeapon.weaponType)
+            dmg = unit.str + unit.equippedWeapon.dmg - target.def;
+            //if target is also attacking with physical weapon 
+            if(target.equippedWeapon)
             {
-                case WeaponType.SWORD:
+                switch (unit.equippedWeapon.weaponType)
+                {
+                    case WeaponType.SWORD:
                     {
                         if (target.equippedWeapon.weaponType == WeaponType.AXE)
                             dmg = (int)(dmg * 1.35);
                         break;
                     }
-                case WeaponType.AXE:
+                    case WeaponType.AXE:
                     {
                         if (target.equippedWeapon.weaponType == WeaponType.LANCE)
                             dmg = (int)(dmg * 1.35);
                         break;
                     }
-                case WeaponType.LANCE:
+                    case WeaponType.LANCE:
                     {
                         if (target.equippedWeapon.weaponType == WeaponType.SWORD)
                             dmg = (int)(dmg * 1.35);
                         break;
                     }
-                default:
-                    break;
+                    default:
+                        break;
+                }
+                if (dmg <= 0)
+                    dmg = 1;
             }
-
-            if (dmg <= 0)
-                dmg = 1;
-           
         }
-         return dmg;
+
+        //else if unit is attacking with black magic
+        else if (unit.equippedBlackMagic && unit.equippedBlackMagic.GetType() == typeof(OffensiveMagic))
+        {
+            dmg = unit.mag + ((OffensiveMagic)unit.equippedBlackMagic).dmg - target.res;
+        }
+
+        return dmg;
     }
 
     //returns accuracy of unit when attacking target
     private int GetAccuracy(Stats unit, Stats target)
     {
         int accuracy = 0;
-        //Accuracy = UnitHitRate - TargetAvoidRate
-        if (unit.usingBlackMagic)
-            accuracy = unit.equippedBlackMagic.hitRate + (unit.skl * 2) - target.spd * 2;
-        else
+
+        if(unit.equippedWeapon)
             accuracy = unit.equippedWeapon.hitRate + (unit.skl * 2) - target.spd * 2;
+
+        else if (unit.equippedBlackMagic)
+            accuracy = unit.equippedBlackMagic.hitRate + (unit.skl * 2) - target.spd * 2;        
 
         if (accuracy > 100)
             accuracy = 100;
@@ -259,10 +263,12 @@ public class BattleManager : MonoBehaviour
 
     private int GetCrit(Stats unit)
     {
-        if (unit.usingBlackMagic)
-            return 0;
-        else
+        if (unit.equippedWeapon)
             return unit.skl / 2;
+        else if (unit.equippedBlackMagic)
+            return 0;
+
+        return 0;
     }
 
     //Hit or miss, guess they never miss huh
@@ -285,10 +291,12 @@ public class BattleManager : MonoBehaviour
         //float distance = Vector2.Distance(unit1.transform.position, unit2.transform.position); //Distance between unit 1 and 2
         //distance = Mathf.Ceil(distance);
 
-        if(unit2.usingBlackMagic)
-            return (distance >= unit2.equippedBlackMagic.minRange && distance <= unit2.equippedBlackMagic.maxRange);
-        else
+        if(unit2.equippedWeapon)
             return (distance >= unit2.equippedWeapon.minRange && distance <= unit2.equippedWeapon.maxRange);
+        else if(unit2.equippedBlackMagic)
+            return (distance >= unit2.equippedBlackMagic.minRange && distance <= unit2.equippedBlackMagic.maxRange);
+
+        return true;
     }
 
     //checks if a unit fucking died
@@ -317,13 +325,13 @@ public class BattleManager : MonoBehaviour
             switch (attackingUnitStats.equippedWeapon.weaponType)
             {
                 case WeaponType.SWORD:
-                    addWeaponExperience(attackingUnitStats, WeaponType.SWORD); break;
+                    AddWeaponExperience(attackingUnitStats, WeaponType.SWORD); break;
                 case WeaponType.AXE:
-                    addWeaponExperience(attackingUnitStats, WeaponType.AXE); break;
+                    AddWeaponExperience(attackingUnitStats, WeaponType.AXE); break;
                 case WeaponType.LANCE:
-                    addWeaponExperience(attackingUnitStats, WeaponType.LANCE); break;
+                    AddWeaponExperience(attackingUnitStats, WeaponType.LANCE); break;
                 case WeaponType.BOW:
-                    addWeaponExperience(attackingUnitStats, WeaponType.BOW); break;
+                    AddWeaponExperience(attackingUnitStats, WeaponType.BOW); break;
                 default:
                     break;
             }
@@ -332,7 +340,7 @@ public class BattleManager : MonoBehaviour
         if (defendingUnitStats.isDead)
             Destroy(defendingUnit);
     }
-    private void addWeaponExperience(Stats unit, WeaponType weaponType)
+    private void AddWeaponExperience(Stats unit, WeaponType weaponType)
     {
         int weaponTypeIndex = (int)weaponType; //index of the weapon type the unit used during this attack
 
