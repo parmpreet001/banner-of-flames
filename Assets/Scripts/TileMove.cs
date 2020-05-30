@@ -76,7 +76,7 @@ public class TileMove : MonoBehaviour
             selectableTiles.Add(t); //The tile is added to the list of selectable tiles
             t.selectable = true; //The tile is marked as selectable
             if(updateTTileColors)
-                t.updateColors();
+                t.UpdateColors();
 
             if (t.distance < moveRange) //True if the tile is within the unit's move range
             {
@@ -132,7 +132,7 @@ public class TileMove : MonoBehaviour
         foreach(Tile tile in selectableTiles)
         {
             tile.Reset();
-            tile.updateColors();
+            tile.UpdateColors();
         }
 
         selectableTiles.Clear();
@@ -186,7 +186,7 @@ public class TileMove : MonoBehaviour
                 {
                     selectableTiles.Add(t); //The tile is added to the list of selectable tiles
                     t.attackable = true; //The tile is marked as selectable
-                    t.updateColors();
+                    t.UpdateColors();
                 }
             }
 
@@ -239,7 +239,7 @@ public class TileMove : MonoBehaviour
             {
                 selectableTiles.Add(t); //The tile is added to the list of selectable tiles
                 t.attackable = true;
-                t.updateColors();
+                t.UpdateColors();
             }
 
             if (t.distance < maxRange) //True if the tile is within the unit's move range

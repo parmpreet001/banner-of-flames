@@ -17,18 +17,11 @@ public class Tile : MonoBehaviour
     //BFS
     public bool visited = false; //TIle has been visited by BFS
     public Tile parent = null; //Starting tile
-    public int distance = 0; //How far a tile can be from the starting tile. Movement range
+    public int distance = 0; //How far a tile is from the starting tile. Movement range
 
-    // Start is called before the first frame update
     void Start()
     {
         FindNeighbors(true);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void Reset()
@@ -45,6 +38,7 @@ public class Tile : MonoBehaviour
         distance = 0;
     }
 
+    //Find adjacent tiles
     public void FindNeighbors(bool ignoreOccupied)
     {
         Reset();
@@ -54,7 +48,7 @@ public class Tile : MonoBehaviour
         CheckTile(Vector2.left, ignoreOccupied);
     }
 
-    //Checks tiles in direction
+    //Checks to see if there is a tile in the specified direction
     public void CheckTile(Vector2 direction, bool ignoreOccupied)
     {
         Collider2D[] colliders = Physics2D.OverlapBoxAll((Vector2)transform.position + direction, new Vector2(0.5f, 0.5f),0);
@@ -63,22 +57,25 @@ public class Tile : MonoBehaviour
         foreach(Collider2D item in colliders)
         {
             Tile tile = item.GetComponent<Tile>();
+
             //If a tile is found and it has no child objects, meaning that nothing is standing on top of the tile, it gets added to the adjacenctTiles list
             if (tile != null && tile.walkable)
             {
-                if(tile.transform.childCount == 0)
-                {
+                if(!tile.HasUnit())
                     adjacentTiles.Add(tile);
-                }
-                else if(tile.transform.childCount == 1 && ignoreOccupied == false)
-                {
+                else if(tile.HasUnit() && ignoreOccupied == false)
                     adjacentTiles.Add(tile);
-                }
             }
         }
     }
 
-    public void updateColors()
+    //Returns true if the child has a unit, otherwise returns false
+    public bool HasUnit()
+    {
+        return (transform.childCount == 1);
+    }
+
+    public void UpdateColors()
     {
         if (current)
             GetComponent<SpriteRenderer>().color = Color.magenta;
