@@ -7,9 +7,11 @@ public class AllyMove :TileMove
     public bool firstClick = true;
     public bool attacked = false;
     [SerializeField]
-    public GameObject selectedTile;
+    public Tile selectedTile;
     private Tile startingTile; //The tile the unit started on
     private Tile movedTile; //The tile the unit moved to
+
+    private AllyStats _allyStats; //AllyStats component of the unit this script is attached to
     
     // Start is called before the first frame update
     void Start()
@@ -36,17 +38,18 @@ public class AllyMove :TileMove
             else
                 CheckInput();
         }
-        if (GetComponent<Stats>().isDead)
+        if (_allyStats.isDead)
             cursor.GetComponent<Cursor>().canMove = true;
     }
 
     private void CheckInput()
     {
+        //If the Z key is pressed
         if (Input.GetKeyUp(KeyCode.Z) && !firstClick)
         {
             if (actionMenu)
             {
-                Debug.Log("Action menu");
+                
             }
             else if (attacking)
             {
@@ -55,10 +58,9 @@ public class AllyMove :TileMove
             else if (findingTarget)
             {
                 cursor.GetComponent<Cursor>().GetTile();
-                selectedTile = cursor.GetComponent<Cursor>().currentTile.gameObject;
-                if (selectedTile.GetComponent<Tile>().attackable)
+                selectedTile = cursor.GetComponent<Cursor>().currentTile;
+                if (selectedTile.attackable)
                 {
-                    //GetComponent<Stats>().Attack(selectedTile.transform.GetChild(0).gameObject);
                     attacked = true;
                 }
             }
@@ -69,50 +71,50 @@ public class AllyMove :TileMove
             //If unit is not moving
             else if (!moving)
             {
-                selectedTile = cursor.GetComponent<Cursor>().currentTile.gameObject;
+                selectedTile = cursor.GetComponent<Cursor>().currentTile;
 
                 if (selectedTile)
                 {
-                    //If the selectedTile is selectable and is not the same one the unit is standing on
-                    if (selectedTile.GetComponent<Tile>().selectable && !selectedTile.GetComponent<Tile>().current)
+                    if (selectedTile.selectable && !selectedTile.current)
                     {
-                        MovetToTile(selectedTile.GetComponent<Tile>());
-                        movedTile = selectedTile.GetComponent<Tile>();
+                        MovetToTile(selectedTile);
+                        movedTile = selectedTile;
                     }
                       
-                    else if(selectedTile.GetComponent<Tile>().current)
-                    //else if ((!selectedTile.GetComponent<Tile>().selectable || selectedTile.GetComponent<Tile>().current) && selectedTile.GetComponent<Tile>().transform.childCount == 0)
+                    else if(selectedTile.current)
                     {
                         actionMenu = true;
                         RemoveSelectableTiles();
-                        if(GetComponent<Stats>().equippedWeapon)
-                            FindAttackableTiles(GetComponent<AllyStats>().equippedWeapon.minRange,GetComponent<AllyStats>().equippedWeapon.maxRange);
-                        //UnselectUnit();
-                    }
-                        
+                        if(_allyStats.equippedWeapon)
+                            FindAttackableTiles(_allyStats.equippedWeapon.minRange, _allyStats.equippedWeapon.maxRange);
+                    }      
                 }
             }
         }
         else if(Input.GetKeyUp(KeyCode.X))
         {
-            GetComponent<Stats>().usingBlackMagic = false;
+            _allyStats.usingBlackMagic = false;
             if(moving)
             {
 
             }
-            else if(findingTarget && !actionMenu)
+            else if(findingTarget)
             {
-                actionMenu = true;
+                if(!actionMenu)
+                    actionMenu = true;
             }
-            else if(moved && !attacking)
+            else if(moved)
             {
-                transform.SetParent(startingTile.transform);
-                transform.position = startingTile.transform.position;
-                RemoveSelectableTiles();
-                moved = false;
-                actionMenu = false;
-                findingTarget = false;
-                FindSelectableTiles(GetComponent<AllyStats>().classType.mov, GetComponent<AllyStats>().classType.walkableTerrain, true);
+                if(!attacking)
+                {
+                    transform.SetParent(startingTile.transform);
+                    transform.position = startingTile.transform.position;
+                    RemoveSelectableTiles();
+                    moved = false;
+                    actionMenu = false;
+                    findingTarget = false;
+                    FindSelectableTiles(_allyStats.classType.mov, _allyStats.classType.walkableTerrain, true);
+                }
             }
             else if(!attacking)
             {
@@ -125,8 +127,9 @@ public class AllyMove :TileMove
         }
         else if(firstClick)
         {
+            _allyStats = GetComponent<AllyStats>();
             firstClick = false;
-            FindSelectableTiles(GetComponent<AllyStats>().classType.mov, GetComponent<AllyStats>().classType.walkableTerrain, true);
+            FindSelectableTiles(_allyStats.classType.mov, _allyStats.classType.walkableTerrain, true);
             startingTile = currentTile;
             Debug.Log("Starting on " + startingTile.transform.name + "," + startingTile.transform.parent.name);
         }     
@@ -152,26 +155,5 @@ public class AllyMove :TileMove
         cursor.GetComponent<Cursor>().canMove = true;
         cursor.GetComponent<Cursor>().followTarget = null;
         RemoveSelectableTiles();
-
-    }
-
-
-    private GameObject GetTile()
-    {
-        GameObject tile = null;
-        Collider2D[] colliders = Physics2D.OverlapBoxAll((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0.01f, 0.01f), 0);
-        foreach(Collider2D item in colliders)
-        {
-            if (item.tag == "Tile")
-            {
-                tile = item.gameObject;
-            }
-        }
-        return tile;
-    }
-
-    private void ShowMenu()
-    {
-        actionMenu = true;
     }
 }
