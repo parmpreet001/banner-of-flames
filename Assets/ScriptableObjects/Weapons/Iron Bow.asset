@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Iron Bow
   m_EditorClassIdentifier: 
   name: Iron Bow
-  currentUse: 35
-  maxUse: 35
+  currentUses: 0
+  maxUses: 40
   dmg: 4
   hitRate: 80
   critRate: 10

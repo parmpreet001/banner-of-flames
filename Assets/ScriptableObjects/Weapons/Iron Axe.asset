@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Iron Axe
   m_EditorClassIdentifier: 
   name: Iron Axe
-  currentUse: 30
-  maxUse: 30
+  currentUses: 0
+  maxUses: 40
   dmg: 6
   hitRate: 75
   critRate: 15
