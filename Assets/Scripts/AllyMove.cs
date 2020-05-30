@@ -11,11 +11,12 @@ public class AllyMove :TileMove
     private Tile startingTile; //The tile the unit started on
     private Tile movedTile; //The tile the unit moved to
 
-    private AllyStats _allyStats; //AllyStats component of the unit this script is attached to
+    private AllyStats _AllyStats; //AllyStats component of the unit this script is attached to
     
     // Start is called before the first frame update
     void Start()
     {
+        _AllyStats = GetComponent<AllyStats>();
         Init();
     }
 
@@ -38,7 +39,7 @@ public class AllyMove :TileMove
             else
                 CheckInput();
         }
-        if (_allyStats.isDead)
+        if (_AllyStats.isDead)
             cursor.GetComponent<Cursor>().canMove = true;
     }
 
@@ -85,15 +86,15 @@ public class AllyMove :TileMove
                     {
                         actionMenu = true;
                         RemoveSelectableTiles();
-                        if(_allyStats.equippedWeapon)
-                            FindAttackableTiles(_allyStats.equippedWeapon.minRange, _allyStats.equippedWeapon.maxRange);
+                        if(_AllyStats.equippedWeapon)
+                            FindAttackableTiles(_AllyStats.equippedWeapon.minRange, _AllyStats.equippedWeapon.maxRange);
                     }      
                 }
             }
         }
         else if(Input.GetKeyUp(KeyCode.X))
         {
-            _allyStats.usingBlackMagic = false;
+            _AllyStats.usingBlackMagic = false;
             if(moving)
             {
 
@@ -113,7 +114,7 @@ public class AllyMove :TileMove
                     moved = false;
                     actionMenu = false;
                     findingTarget = false;
-                    FindSelectableTiles(_allyStats.classType.mov, _allyStats.classType.walkableTerrain, true);
+                    FindSelectableTiles(_AllyStats.classType.mov, _AllyStats.classType.walkableTerrain, true);
                 }
             }
             else if(!attacking)
@@ -127,9 +128,8 @@ public class AllyMove :TileMove
         }
         else if(firstClick)
         {
-            _allyStats = GetComponent<AllyStats>();
             firstClick = false;
-            FindSelectableTiles(_allyStats.classType.mov, _allyStats.classType.walkableTerrain, true);
+            FindSelectableTiles(_AllyStats.classType.mov, _AllyStats.classType.walkableTerrain, true);
             startingTile = currentTile;
             Debug.Log("Starting on " + startingTile.transform.name + "," + startingTile.transform.parent.name);
         }     
