@@ -46,12 +46,12 @@ public class Cursor : MonoBehaviour
 
     public bool CurrentTileHasAllyUnit()
     {
-        return (currentTile && currentTile.transform.childCount == 1 && currentTile.transform.GetChild(0).tag == "PlayerUnit");
+        return (currentTile && currentTile.HasAllyUnit());
     }
 
     public bool CurrentTileHasEnemyUnit()
     {
-        return (currentTile && currentTile.transform.childCount == 1 && currentTile.transform.GetChild(0).tag == "EnemyUnit");
+        return (currentTile && currentTile.HasEnemyUnit());
     }
 
     public GameObject GetCurrentUnit()

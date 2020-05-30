@@ -180,7 +180,7 @@ public class TileMove : MonoBehaviour
             Tile t = process.Dequeue(); //Removes the tile from process and assigns it to Tile t
 
             //If the tile is within the unit's attack range, and it has an attackable unit on it, then that tile gets added to the list of selectableTiles
-            if(t.distance >= minRange && t.distance <= maxRange && t.transform.childCount == 1)
+            if(t.distance >= minRange && t.distance <= maxRange && t.HasUnit())
             {
                 if(tag != t.transform.GetChild(0).tag)
                 {

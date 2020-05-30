@@ -94,8 +94,7 @@ public class MapManager : MonoBehaviour
                 if(selectedTile)
                 {
                     //If a player unit is standing on the tile and has not moved
-                    if(selectedTile.transform.childCount == 1 && selectedTile.transform.GetChild(0).tag == "PlayerUnit" &&
-                        !selectedTile.transform.GetChild(0).GetComponent<AllyMove>().finished)
+                    if(selectedTile.GetComponent<Tile>().HasAllyUnit() && !selectedTile.transform.GetChild(0).GetComponent<AllyMove>().finished)
                     {
                         selectedUnit = selectedTile.transform.GetChild(0).gameObject;
                         selectedUnit.GetComponent<AllyMove>().selected = true;

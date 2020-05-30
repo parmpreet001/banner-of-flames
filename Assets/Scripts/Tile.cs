@@ -74,6 +74,15 @@ public class Tile : MonoBehaviour
     {
         return (transform.childCount == 1);
     }
+    public bool HasAllyUnit()
+    {
+        return (HasUnit() && transform.GetChild(0).tag == "PlayerUnit");
+    }
+
+    public bool HasEnemyUnit()
+    {
+        return (HasUnit() && transform.GetChild(0).tag == "EnemyUnit");
+    }
 
     public void UpdateColors()
     {
