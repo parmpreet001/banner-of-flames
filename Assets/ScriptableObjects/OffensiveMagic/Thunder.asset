@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Thunder
   minRequirement: 1
-  numberOfUses: 040000000500000006000000080000000a0000000c000000
-  durability: 0
+  maxUses: 0400000006000000080000000a0000000c00000010000000
+  currentUses: 0
   targetType: 1
   magicType: 0
   minRange: 2
   maxRange: 3
   rangeScale: 0
   hitRate: 75
+  equipped: 0
   magicElement: 1
   dmg: 8

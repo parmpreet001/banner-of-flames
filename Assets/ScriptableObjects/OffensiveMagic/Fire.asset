@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Fire
   minRequirement: 1
-  numberOfUses: 06000000080000000a0000000c0000001000000014000000
-  durability: 0
+  maxUses: 06000000080000000a0000000c0000001000000014000000
+  currentUses: 0
   targetType: 1
   magicType: 0
   minRange: 1
   maxRange: 2
   rangeScale: 0
   hitRate: 85
+  equipped: 0
   magicElement: 0
   dmg: 6
