@@ -103,6 +103,17 @@ public class AllyMove :TileMove
             {
                 if(!actionMenu)
                     actionMenu = true;
+                else if(moved && !attacking)
+                {
+                    transform.SetParent(startingTile.transform);
+                    transform.position = startingTile.transform.position;
+                    RemoveSelectableTiles();
+                    moved = false;
+                    actionMenu = false;
+                    findingTarget = false;
+                    FindSelectableTiles(_AllyStats.classType.mov, _AllyStats.classType.walkableTerrain, true);
+                }
+
             }
             else if(moved)
             {
