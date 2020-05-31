@@ -15,7 +15,7 @@ public class EnemyMove : TileMove
     {
         if (moving)
         {
-            cursor.GetComponent<Cursor>().followTarget = transform;
+            cursor.followTarget = transform;
         }
     }
     public void Move()

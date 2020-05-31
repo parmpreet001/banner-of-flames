@@ -27,11 +27,11 @@ public class AllyMove :TileMove
         {
             if(moving)
             {
-                cursor.GetComponent<Cursor>().followTarget = transform;
+                cursor.followTarget = transform;
             }
             else
             {
-                cursor.GetComponent<Cursor>().followTarget = null;
+                cursor.followTarget = null;
             }
             CheckCursor();
             if (finished)
@@ -40,7 +40,7 @@ public class AllyMove :TileMove
                 CheckInput();
         }
         if (_AllyStats.isDead)
-            cursor.GetComponent<Cursor>().canMove = true;
+            cursor.canMove = true;
     }
 
     private void CheckInput()
@@ -54,12 +54,12 @@ public class AllyMove :TileMove
             }
             else if (attacking)
             {
-                cursor.GetComponent<Cursor>().canMove = true;
+                cursor.canMove = true;
             }
             else if (findingTarget)
             {
-                cursor.GetComponent<Cursor>().GetTile();
-                selectedTile = cursor.GetComponent<Cursor>().currentTile;
+                cursor.GetTile();
+                selectedTile = cursor.currentTile;
                 if (selectedTile.attackable)
                 {
                     attacked = true;
@@ -72,7 +72,7 @@ public class AllyMove :TileMove
             //If unit is not moving
             else if (!moving)
             {
-                selectedTile = cursor.GetComponent<Cursor>().currentTile;
+                selectedTile = cursor.currentTile;
 
                 if (selectedTile)
                 {
@@ -138,9 +138,9 @@ public class AllyMove :TileMove
     private void CheckCursor()
     {
         if (attacking || actionMenu)
-            cursor.GetComponent<Cursor>().canMove = false;
+            cursor.canMove = false;
         else
-            cursor.GetComponent<Cursor>().canMove = true;
+            cursor.canMove = true;
     }
 
     public void UnselectUnit()
@@ -152,8 +152,8 @@ public class AllyMove :TileMove
         firstClick = true;
         moved = false;
         actionMenu = false;
-        cursor.GetComponent<Cursor>().canMove = true;
-        cursor.GetComponent<Cursor>().followTarget = null;
+        cursor.canMove = true;
+        cursor.followTarget = null;
         RemoveSelectableTiles();
     }
 }

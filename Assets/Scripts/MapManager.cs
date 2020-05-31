@@ -13,7 +13,7 @@ public class MapManager : MonoBehaviour
     public GameObject selectedUnit; //The currently selected unit. Can be either a ally unit or an enemy unit.
     private BattleManager battleManager; //BattleManager script
     GameObject selectedTile;
-    public GameObject cursor;
+    public Cursor cursor;
 
 
     void Start()
@@ -31,6 +31,7 @@ public class MapManager : MonoBehaviour
             enemyUnits.Add(enemyUnit);
         }
 
+        cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
         battleManager = GetComponent<BattleManager>();
     }
     void Update()
@@ -69,16 +70,16 @@ public class MapManager : MonoBehaviour
             {
                 Debug.Log("Attacking");
                 battleManager.attackingUnit = selectedUnit;
-                battleManager.defendingUnit = cursor.GetComponent<Cursor>().GetCurrentUnit();
+                battleManager.defendingUnit = cursor.GetCurrentUnit();
                 battleManager.Attack();
                 selectedUnit.GetComponent<AllyMove>().attacked = false;
                 
             }
             //if the player is selecting a target and is hovering over a tile with an enemy on it
-            else if(selectedUnit.GetComponent<AllyMove>().selected && cursor.GetComponent<Cursor>().CurrentTileHasEnemyUnit())
+            else if(selectedUnit.GetComponent<AllyMove>().selected && cursor.CurrentTileHasEnemyUnit())
             {
                 battleManager.attackingUnit = selectedUnit;
-                battleManager.defendingUnit = cursor.GetComponent<Cursor>().GetCurrentUnit();
+                battleManager.defendingUnit = cursor.GetCurrentUnit();
                 battleManager.UpdateStats();
             }
             else if (!selectedUnit.GetComponent<AllyMove>().selected)
@@ -89,7 +90,7 @@ public class MapManager : MonoBehaviour
             //If a unit is not selected
             if (!selectedUnit)
             {
-                selectedTile = cursor.GetComponent<Cursor>().currentTile.gameObject; 
+                selectedTile = cursor.currentTile.gameObject; 
                 //If selectedTile is not null, meaning that the player didnt click outside the map
                 if(selectedTile)
                 {
@@ -139,7 +140,7 @@ public class MapManager : MonoBehaviour
         }
         activeEnemyUnits = enemyUnits.Count;
         selectedUnit = enemyUnits[activeEnemyUnits - 1];
-        cursor.GetComponent<Cursor>().canMove = false;
+        cursor.canMove = false;
     }
 
     //Starts the player phase
@@ -161,8 +162,8 @@ public class MapManager : MonoBehaviour
             }
         }
 
-        cursor.GetComponent<Cursor>().canMove = true;
-        cursor.GetComponent<Cursor>().followTarget = null;
+        cursor.canMove = true;
+        cursor.followTarget = null;
     }
 
     //Enemy Phase
