@@ -5,22 +5,23 @@ using UnityEngine;
 public class EnemyMove : TileMove
 {
     public GameObject closestTarget;
-    private bool targetOutsideRange;
+
+    private EnemyStats _EnemyStats;
     void Start()
     {
-        Init();   
+        Init();
+        _EnemyStats = GetComponent<EnemyStats>();
     }
 
     void Update()
     {
         if (moving)
-        {
             cursor.followTarget = transform;
-        }
     }
+
     public void Move()
     {
-        FindSelectableTiles(GetComponent<EnemyStats>().classType.mov, GetComponent<EnemyStats>().classType.walkableTerrain, false);
+        FindSelectableTiles(_EnemyStats.classType.mov, _EnemyStats.classType.walkableTerrain, false);
         GetClosestTarget();
     }
 
@@ -30,6 +31,7 @@ public class EnemyMove : TileMove
         closestTarget = targets[0]; //Closest target. 
         double targetDistance = 0; //Distance to the closestTarget
         Tile closestTileToTarget = selectableTiles[0]; //Tile closest to the target. Default value is the tile the enemy is currently standing on
+        bool targetOutsideRange; //Whether or not the target is outside of this unit's attack range
 
         //Finds closest target
         foreach (GameObject target in targets)
@@ -39,26 +41,30 @@ public class EnemyMove : TileMove
         }
 
         targetDistance = GetDistanceBetweenTiles(transform.parent.gameObject,closestTarget.transform.parent.gameObject);
-        targetOutsideRange = (targetDistance > (GetComponent<EnemyStats>().classType.mov + GetComponent<EnemyStats>().equippedWeapon.maxRange));
+        targetOutsideRange = (targetDistance > (_EnemyStats.classType.mov + _EnemyStats.equippedWeapon.maxRange));
 
+        //If the target is within attack range
         if (!targetOutsideRange)
         {
             int targetTileDistance = 0; //Distance between the target and the tile during iteration
 
+            //Find closest tile that this unit can attack from
             for (int i = selectableTiles.Count - 1; i >= 0; i--)
             {
                 targetTileDistance = GetDistanceBetweenTiles(closestTarget.transform.parent.gameObject, selectableTiles[i].gameObject);
-                if (targetTileDistance < GetComponent<Stats>().equippedWeapon.minRange || targetTileDistance > GetComponent<Stats>().equippedWeapon.maxRange)
+                if (targetTileDistance < _EnemyStats.equippedWeapon.minRange || targetTileDistance > _EnemyStats.equippedWeapon.maxRange)
                     selectableTiles.RemoveAt(i);
             }
             closestTileToTarget = selectableTiles[0];
         }
-
+        
+        //Else, target is not within range
         else
         {
             closestTileToTarget = selectableTiles[selectableTiles.Count-1];
             int targetTileDistance = GetDistanceBetweenTiles(closestTarget.transform.parent.gameObject, closestTileToTarget.gameObject);
 
+            //Find tile closest to target
             for (int i = selectableTiles.Count - 1; i >= 0; i--)
             {
                 if(GetDistanceBetweenTiles(closestTarget.transform.parent.gameObject, selectableTiles[i].gameObject) < targetTileDistance)
@@ -68,7 +74,7 @@ public class EnemyMove : TileMove
                 }
             }
         }
-        Debug.Log("Cloest tile to target is " + closestTileToTarget.transform.name + " with a distance of " + targetDistance);
+        //Debug.Log("Cloest tile to target is " + closestTileToTarget.transform.name + " with a distance of " + targetDistance);
         MovetToTile(closestTileToTarget);
     }
 }
