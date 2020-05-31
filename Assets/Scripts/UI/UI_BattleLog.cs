@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class BattleHUD : MonoBehaviour
+public class UI_BattleLog : MonoBehaviour
 {
     public GameObject BattleManager;
     public GameObject BattleLogText;

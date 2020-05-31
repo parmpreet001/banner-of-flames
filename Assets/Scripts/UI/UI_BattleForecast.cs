@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class MapInfoHUD : MonoBehaviour
+public class UI_BattleForecast : MonoBehaviour
 {
     public GameObject allyUnitStatsUI;
     public GameObject enemyUnitStatsUI;

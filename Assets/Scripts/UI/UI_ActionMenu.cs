@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class MapActionMenu : MonoBehaviour
+public class UI_ActionMenu : MonoBehaviour
 {
     //References to other shit
-    private MapUIInfo MapUIInfo;
-    private GameObject ItemMenu; 
-    private Transform WeaponInfo;
-    public GameObject menuCursor; 
+    private MapUIInfo MapUIInfo; 
+    private GameObject ItemMenu; //Holds and displays items
+    private Transform WeaponInfo; //Displays info about the highlighted weapon 
+    public GameObject menuCursor; //Cursor used for selecting items
     private RectTransform menuCursor_RectTransform; //menuCursor RectTransform
     
     //Local variables
@@ -61,7 +61,8 @@ public class MapActionMenu : MonoBehaviour
     private void CreateButtons()
     {
         buttonsCreated = true;
-        menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x, -35 * (menuCursorPosition - 1)); 
+        //menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x, -35 * (menuCursorPosition - 1));
+        SetCursor(menuCursor_RectTransform.anchoredPosition.x, -35 * (menuCursorPosition - 1));
         menuCursor.SetActive(true);
 
         if (MapUIInfo.selectedAllyUnit_AllyMove.findingTarget && MapUIInfo.selectedAllyUnit_AllyStats.classType.usesPhysicalAttacks)
@@ -170,7 +171,8 @@ public class MapActionMenu : MonoBehaviour
     public void Item()
     {
         menuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
-        menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x + 180, menuCursor_RectTransform.anchoredPosition.y + 36);
+        moveCursor(180, 36);
+        //menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x + 180, menuCursor_RectTransform.anchoredPosition.y + 36);
         selectingItems = true;
         ItemMenu.SetActive(true);
         menuCursorPosition = 1;
@@ -259,7 +261,8 @@ public class MapActionMenu : MonoBehaviour
     {
         MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic = true;
         menuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
-        menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x + 180, menuCursor_RectTransform.anchoredPosition.y + 36);
+        moveCursor(180, 36);
+        //menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x + 180, menuCursor_RectTransform.anchoredPosition.y + 36);
         selectingItems = true;
         ItemMenu.SetActive(true);
         menuCursorPosition = 1;
@@ -327,7 +330,8 @@ public class MapActionMenu : MonoBehaviour
     {
         selectingItems = false;
         buttonsCreated = false;
-        menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x, 0);
+        SetCursor(menuCursor_RectTransform.anchoredPosition.x, 0);
+        //menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x, 0);
         menuCursorPosition = 1;
 
         if (removeSelectedAllyUnit)
@@ -349,6 +353,11 @@ public class MapActionMenu : MonoBehaviour
     private void moveCursor(float x, float y)
     {
         menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x + x, menuCursor_RectTransform.anchoredPosition.y + y);
+    }
+
+    private void SetCursor(float x, float y)
+    {
+        menuCursor_RectTransform.anchoredPosition = new Vector2(x, y);
     }
 
     //Getter methods
