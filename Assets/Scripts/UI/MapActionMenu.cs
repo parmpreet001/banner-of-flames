@@ -10,7 +10,7 @@ public class MapActionMenu : MonoBehaviour
     private GameObject ItemMenu; 
     private Transform WeaponInfo;
     public GameObject menuCursor; 
-    private RectTransform menuCursorRT; //menuCursor RectTransform
+    private RectTransform menuCursor_RectTransform; //menuCursor RectTransform
     
     //Local variables
     private bool buttonsCreated = false; //Whether or not buttons have beencreated
@@ -26,7 +26,7 @@ public class MapActionMenu : MonoBehaviour
         MapUIInfo = GetComponentInParent<MapUIInfo>();
         ItemMenu = GameObject.Find("ItemMenu");
         WeaponInfo = GameObject.Find("WeaponInfo").transform;
-        menuCursorRT = menuCursor.GetComponent<RectTransform>();
+        menuCursor_RectTransform = menuCursor.GetComponent<RectTransform>();
     }
 
     void Update()
@@ -61,7 +61,7 @@ public class MapActionMenu : MonoBehaviour
     private void CreateButtons()
     {
         buttonsCreated = true;
-        menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x, -35 * (menuCursorPosition - 1)); 
+        menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x, -35 * (menuCursorPosition - 1)); 
         menuCursor.SetActive(true);
 
         if (MapUIInfo.selectedAllyUnit_AllyMove.findingTarget && MapUIInfo.selectedAllyUnit_AllyStats.classType.usesPhysicalAttacks)
@@ -169,8 +169,8 @@ public class MapActionMenu : MonoBehaviour
     //Opens the item menu
     public void Item()
     {
-        menuCursorRT.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
-        menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x + 180, menuCursorRT.anchoredPosition.y + 36);
+        menuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
+        menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x + 180, menuCursor_RectTransform.anchoredPosition.y + 36);
         selectingItems = true;
         ItemMenu.SetActive(true);
         menuCursorPosition = 1;
@@ -208,51 +208,58 @@ public class MapActionMenu : MonoBehaviour
     private void UpdateWeaponInfo(int index)
     {
         MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
-        Weapon tempWeapon = ((Weapon)unitInventory[index]);
+        Weapon tempWeapon = null;
         OffensiveMagic tempBlackMagic = null;
 
-        if(MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic)
+        if (MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic)
         {
-            if(index < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
+            if (index < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
             {
                 tempBlackMagic = ((OffensiveMagic)MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[index]);
-                WeaponInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = tempBlackMagic.dmg.ToString();
-                WeaponInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = tempBlackMagic.hitRate.ToString();
-                WeaponInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "0";
-                if (tempBlackMagic.minRange == tempBlackMagic.maxRange)
-                    WeaponInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = tempBlackMagic.minRange.ToString();
-                else
-                    WeaponInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = tempBlackMagic.minRange + " - " + tempBlackMagic.maxRange;
+                string range;
 
+                if (tempBlackMagic.minRange == tempBlackMagic.maxRange)
+                    range = tempBlackMagic.minRange.ToString();
+                else
+                    range = tempBlackMagic.minRange + " - " + tempBlackMagic.maxRange;
+
+                UpdateWeaponInfoText(tempBlackMagic.dmg.ToString(), tempBlackMagic.hitRate.ToString(), "0", range);
                 MapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(tempBlackMagic.minRange, tempBlackMagic.maxRange);
             }
             else
-                for (int i = 0; i <= 3; i++)
-                    WeaponInfo.transform.GetChild(i).GetComponent<TextMeshProUGUI>().text = "-";    
+                UpdateWeaponInfoText("-", "-", "-", "-");
         }
 
-        else if(tempWeapon != null)
+        else if (tempWeapon != null)
         {
-            WeaponInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = tempWeapon.dmg.ToString();
-            WeaponInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = tempWeapon.hitRate.ToString();
-            WeaponInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = tempWeapon.critRate.ToString();
-            if (tempWeapon.minRange == tempWeapon.maxRange)
-                WeaponInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = tempWeapon.minRange.ToString();
-            else
-                WeaponInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = tempWeapon.minRange + " - " + tempWeapon.maxRange;
+            tempWeapon = ((Weapon)unitInventory[index]);
+            string range;
 
+            if (tempWeapon.minRange == tempWeapon.maxRange)
+                range = tempWeapon.minRange.ToString();
+            else
+                range = tempWeapon.minRange + " - " + tempWeapon.maxRange;
+
+            UpdateWeaponInfoText(tempWeapon.dmg.ToString(), tempWeapon.hitRate.ToString(), tempWeapon.critRate.ToString(), range);
             MapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(tempWeapon.minRange, tempWeapon.maxRange);
         }
         else
-            for(int i = 0; i <= 3; i++)
-                WeaponInfo.transform.GetChild(i).GetComponent<TextMeshProUGUI>().text = "-";
+            UpdateWeaponInfoText("-", "-", "-", "-");
+    }
+
+    private void UpdateWeaponInfoText(string dmg, string hitRate, string critRate, string range)
+    {
+        WeaponInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dmg;
+        WeaponInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = hitRate;
+        WeaponInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = critRate;
+        WeaponInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = range;
     }
 
     private void BlackMagic()
     {
         MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic = true;
-        menuCursorRT.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
-        menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x + 180, menuCursorRT.anchoredPosition.y + 36);
+        menuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
+        menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x + 180, menuCursor_RectTransform.anchoredPosition.y + 36);
         selectingItems = true;
         ItemMenu.SetActive(true);
         menuCursorPosition = 1;
@@ -320,7 +327,7 @@ public class MapActionMenu : MonoBehaviour
     {
         selectingItems = false;
         buttonsCreated = false;
-        menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x, 0);
+        menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x, 0);
         menuCursorPosition = 1;
 
         if (removeSelectedAllyUnit)
@@ -341,7 +348,7 @@ public class MapActionMenu : MonoBehaviour
 
     private void moveCursor(float x, float y)
     {
-        menuCursorRT.anchoredPosition = new Vector2(menuCursorRT.anchoredPosition.x + x, menuCursorRT.anchoredPosition.y + y);
+        menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x + x, menuCursor_RectTransform.anchoredPosition.y + y);
     }
 
     //Getter methods
