@@ -329,7 +329,7 @@ public class BattleManager : MonoBehaviour
         attackingUnit.GetComponent<TileMove>().finished = true;
         attackingUnit.GetComponent<TileMove>().RemoveSelectableTiles();
 
-        if (attackingUnit.tag == "PlayerUnit" && !attackingUnitStats.isDead && !attackingUnitStats.UsingOffensiveMagic())
+        if (attackingUnit.CompareTag("PlayerUnit") && !attackingUnitStats.isDead && attackingUnitStats.UsingPhysicalWeapon())
         {
             switch (attackingUnitStats.equippedWeapon.weaponType)
             {
@@ -344,6 +344,14 @@ public class BattleManager : MonoBehaviour
                 default:
                     break;
             }
+        }
+
+        else if(attackingUnit.CompareTag("PlayerUnit") && !attackingUnitStats.isDead && attackingUnitStats.UsingOffensiveMagic())
+        {
+            if (attackingUnitStats.equippedBlackMagic.magicType == MagicType.BLACK)
+                AddWeaponExperience(attackingUnitStats, MagicType.BLACK);
+            else if (attackingUnitStats.equippedBlackMagic.magicType == MagicType.WHITE)
+                AddWeaponExperience(attackingUnitStats, MagicType.WHITE);
         }
             
         if (defendingUnitStats.isDead)
@@ -362,6 +370,22 @@ public class BattleManager : MonoBehaviour
         {
             unit.skillLevels.weaponLevelsExperience[weaponTypeIndex] = 0;
             unit.skillLevels.weaponLevels[weaponTypeIndex]++;
+        }
+    }
+
+    private void AddWeaponExperience(Stats unit, MagicType magicType)
+    {
+        int magicTypeIndex = (int)magicType; //index of the weapon type the unit used during this attack
+
+        //if the unit hasn't already reached the max skill level possible for their respective class, they gain 10 exp in that skill level
+        if (unit.skillLevels.magicLevels[magicTypeIndex] < unit.classType.skillLevels.magicLevels[magicTypeIndex])
+            unit.skillLevels.magicLevelsExperience[magicTypeIndex] += 10;
+
+        //If the unit's skill level experience is equal to or more than 100, set experience to 0 and raise the skill level by one
+        if (unit.skillLevels.magicLevelsExperience[magicTypeIndex] >= 100)
+        {
+            unit.skillLevels.magicLevelsExperience[magicTypeIndex] = 0;
+            unit.skillLevels.magicLevels[magicTypeIndex]++;
         }
     }
 }
