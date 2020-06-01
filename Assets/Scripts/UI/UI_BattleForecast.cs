@@ -94,11 +94,12 @@ public class UI_BattleForecast : MonoBehaviour
 
     private void UpdateBattleFoecast()
     {
-        //MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().UpdateStats();
-        MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
+        MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles(); //Don't delete this
 
         Transform allyUnitInfo = battleForecastUI.transform.GetChild(0).transform;
         Transform enemyUnitInfo = battleForecastUI.transform.GetChild(1).transform;
+
+
 
         allyUnitInfo.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.name;
         if(MapUIInfo.selectedAllyUnit_AllyStats.UsingOffensiveMagic())
