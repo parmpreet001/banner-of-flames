@@ -210,7 +210,7 @@ public class UI_ActionMenu : MonoBehaviour
     private void UpdateWeaponInfo(int index)
     {
         MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
-        Weapon tempWeapon = null;
+        Weapon tempWeapon = (Weapon)(unitInventory[index]);
         OffensiveMagic tempBlackMagic = null;
 
         if (MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic)
@@ -234,7 +234,6 @@ public class UI_ActionMenu : MonoBehaviour
 
         else if (tempWeapon != null)
         {
-            tempWeapon = ((Weapon)unitInventory[index]);
             string range;
 
             if (tempWeapon.minRange == tempWeapon.maxRange)
