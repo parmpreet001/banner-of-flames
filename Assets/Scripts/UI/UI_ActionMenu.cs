@@ -60,9 +60,9 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void CreateButtons()
     {
+        menuCursor.SetActive(true);
         buttonsCreated = true;
         SetCursorPosition(menuCursor_RectTransform.anchoredPosition.x, -35 * (menuCursorPosition - 1));
-        menuCursor.SetActive(true);
 
         //If unit is finding a target and can use physical attacks
         if (MapUIInfo.selectedAllyUnit_AllyMove.findingTarget && MapUIInfo.selectedAllyUnit_AllyStats.classType.usesPhysicalAttacks)
@@ -76,25 +76,22 @@ public class UI_ActionMenu : MonoBehaviour
         //Activates buttons and positions them in descending order
         for (int i = 0; i < buttons.Count; i++)
         {
-            if (buttons[i] == "Attack")
+            switch (buttons[i])
             {
-                transform.Find("AttackButton").gameObject.SetActive(true);
-                transform.Find("AttackButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
-            }
-            else if (buttons[i] == "BlackMagic")
-            {
-                transform.Find("BlackMagicButton").gameObject.SetActive(true);
-                transform.Find("BlackMagicButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
-            }
-            else if (buttons[i] == "Item")
-            {
-                transform.Find("ItemButton").gameObject.SetActive(true);
-                transform.Find("ItemButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
-            }
-            else if (buttons[i] == "Wait")
-            {
-                transform.Find("WaitButton").gameObject.SetActive(true);
-                transform.Find("WaitButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
+                case "Attack":
+                    transform.Find("AttackButton").gameObject.SetActive(true);
+                    transform.Find("AttackButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i); break;
+                case "BlackMagic":
+                    transform.Find("BlackMagicButton").gameObject.SetActive(true);
+                    transform.Find("BlackMagicButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i); break;
+                case "Item":
+                    transform.Find("ItemButton").gameObject.SetActive(true);
+                    transform.Find("ItemButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i); break;
+                case "Wait":
+                    transform.Find("WaitButton").gameObject.SetActive(true);
+                    transform.Find("WaitButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i); break;
+                default:
+                    break;
             }
         }
         GetComponent<RectTransform>().anchoredPosition = new Vector2(GetComponent<RectTransform>().anchoredPosition.x, 17.5f * (buttons.Count - 1));
