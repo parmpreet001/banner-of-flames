@@ -213,7 +213,7 @@ public class UI_ActionMenu : MonoBehaviour
         Weapon tempWeapon = (Weapon)(unitInventory[index]);
         OffensiveMagic tempBlackMagic = null;
 
-        if (MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic)
+        if (MapUIInfo.selectedAllyUnit_AllyStats.UsingOffensiveMagic())
         {
             if (index < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
             {
@@ -258,7 +258,6 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void BlackMagic()
     {
-        MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic = true;
         menuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
         moveCursor(180, 36);
         //menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x + 180, menuCursor_RectTransform.anchoredPosition.y + 36);
@@ -299,7 +298,7 @@ public class UI_ActionMenu : MonoBehaviour
         {
             EquipWeapon();
         }
-        else if(MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic && (menuCursorPosition-1) < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
+        else if(MapUIInfo.selectedAllyUnit_AllyStats.UsingOffensiveMagic() && (menuCursorPosition-1) < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
         {
             MapUIInfo.selectedAllyUnit_AllyStats.EquipBlackMagic(menuCursorPosition - 1);
             Attack();

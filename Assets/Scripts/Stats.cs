@@ -23,7 +23,6 @@ public class Stats : MonoBehaviour
     public int hpGrowth, strGrowth, magGrowth, defGrowth, resGrowth, sklGrowth, spdGrowth; //Growth rates of the unit.
     public int maxHP;
 
-    public bool usingBlackMagic;
     public AttackMethod attackMethod;
     
     public void Init()

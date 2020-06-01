@@ -49,7 +49,7 @@ public class UI_BattleForecast : MonoBehaviour
             {
                 battleForecastUI.SetActive(true);
                 UpdateBattleFoecast();
-                if (MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic)
+                if (MapUIInfo.selectedAllyUnit_AllyStats.UsingOffensiveMagic())
                 {
                     ChangeBlackMagic();
                 }
@@ -101,7 +101,7 @@ public class UI_BattleForecast : MonoBehaviour
         Transform enemyUnitInfo = battleForecastUI.transform.GetChild(1).transform;
 
         allyUnitInfo.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.name;
-        if(MapUIInfo.selectedAllyUnit_AllyStats.usingBlackMagic)
+        if(MapUIInfo.selectedAllyUnit_AllyStats.UsingOffensiveMagic())
         {
             allyUnitInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.name.ToString();
             MapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange,

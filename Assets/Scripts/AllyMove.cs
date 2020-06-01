@@ -94,7 +94,6 @@ public class AllyMove :TileMove
         }
         else if(Input.GetKeyUp(KeyCode.X))
         {
-            _AllyStats.usingBlackMagic = false;
             if(moving)
             {
 
