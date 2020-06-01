@@ -42,7 +42,7 @@ public class UI_ActionMenu : MonoBehaviour
                 {
                     CreateButtons();
                 }
-                menuCursorInput();
+                MenuCursorInput();
                 unitInventory = MapUIInfo.selectedAllyUnit_AllyStats.inventory;
             }
             //else, if the ally unit is not in an action menu state, but buttons have been created, then reset buttons
@@ -61,17 +61,19 @@ public class UI_ActionMenu : MonoBehaviour
     private void CreateButtons()
     {
         buttonsCreated = true;
-        //menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x, -35 * (menuCursorPosition - 1));
-        SetCursor(menuCursor_RectTransform.anchoredPosition.x, -35 * (menuCursorPosition - 1));
+        SetCursorPosition(menuCursor_RectTransform.anchoredPosition.x, -35 * (menuCursorPosition - 1));
         menuCursor.SetActive(true);
 
+        //If unit is finding a target and can use physical attacks
         if (MapUIInfo.selectedAllyUnit_AllyMove.findingTarget && MapUIInfo.selectedAllyUnit_AllyStats.classType.usesPhysicalAttacks)
             buttons.Add("Attack");
+        //if unit can use black magic
         if (MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count > 0 && MapUIInfo.selectedAllyUnit_AllyStats.classType.usesBlackMagic)
             buttons.Add("BlackMagic");
         buttons.Add("Item");
         buttons.Add("Wait");
 
+        //Activates buttons and positions them in descending order
         for (int i = 0; i < buttons.Count; i++)
         {
             if (buttons[i] == "Attack")
@@ -98,58 +100,58 @@ public class UI_ActionMenu : MonoBehaviour
         GetComponent<RectTransform>().anchoredPosition = new Vector2(GetComponent<RectTransform>().anchoredPosition.x, 17.5f * (buttons.Count - 1));
     }
 
-    private void menuCursorInput()
+    private void MenuCursorInput()
     {
-        if(!selectingItems)
+        if(selectingItems)
         {
-            if(Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                if (menuCursorPosition < buttons.Count)
+                if (menuCursorPosition <= 4)
                 {
                     menuCursorPosition++;
-                    moveCursor(0, -35);
-                }      
-            }
-            if(Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                if (menuCursorPosition > 1)
-                {
-                    menuCursorPosition--;
-                    moveCursor(0, 35);
-                }
-                    
-            }
-            if(Input.GetKeyDown(KeyCode.Z))
-            {
-                string methodName = buttons[menuCursorPosition - 1];
-                Invoke(methodName, 0);
-            }
-        }
-        else
-        {
-            if(Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                if(menuCursorPosition <= 4)
-                {
-                    menuCursorPosition++;
-                    moveCursor(0, -24);
+                    MoveCursor(0, -24);
                 }
 
             }
-            if(Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                if(menuCursorPosition >= 2)
+                if (menuCursorPosition >= 2)
                 {
                     menuCursorPosition--;
-                    moveCursor(0, 24);
+                    MoveCursor(0, 24);
                 }
             }
 
-            UpdateWeaponInfo(menuCursorPosition-1);
+            UpdateWeaponInfo(menuCursorPosition - 1);
 
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 selectItem();
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if (menuCursorPosition < buttons.Count)
+                {
+                    menuCursorPosition++;
+                    MoveCursor(0, -35);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if (menuCursorPosition > 1)
+                {
+                    menuCursorPosition--;
+                    MoveCursor(0, 35);
+                }
+
+            }
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                string methodName = buttons[menuCursorPosition - 1];
+                Invoke(methodName, 0);
             }
         }
     }
@@ -171,8 +173,7 @@ public class UI_ActionMenu : MonoBehaviour
     public void Item()
     {
         menuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
-        moveCursor(180, 36);
-        //menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x + 180, menuCursor_RectTransform.anchoredPosition.y + 36);
+        MoveCursor(180, 36);
         selectingItems = true;
         ItemMenu.SetActive(true);
         menuCursorPosition = 1;
@@ -259,7 +260,7 @@ public class UI_ActionMenu : MonoBehaviour
     private void BlackMagic()
     {
         menuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
-        moveCursor(180, 36);
+        MoveCursor(180, 36);
         //menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x + 180, menuCursor_RectTransform.anchoredPosition.y + 36);
         selectingItems = true;
         ItemMenu.SetActive(true);
@@ -328,7 +329,7 @@ public class UI_ActionMenu : MonoBehaviour
     {
         selectingItems = false;
         buttonsCreated = false;
-        SetCursor(menuCursor_RectTransform.anchoredPosition.x, 0);
+        SetCursorPosition(menuCursor_RectTransform.anchoredPosition.x, 0);
         //menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x, 0);
         menuCursorPosition = 1;
 
@@ -348,12 +349,12 @@ public class UI_ActionMenu : MonoBehaviour
         
     }
 
-    private void moveCursor(float x, float y)
+    private void MoveCursor(float x, float y)
     {
         menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x + x, menuCursor_RectTransform.anchoredPosition.y + y);
     }
 
-    private void SetCursor(float x, float y)
+    private void SetCursorPosition(float x, float y)
     {
         menuCursor_RectTransform.anchoredPosition = new Vector2(x, y);
     }

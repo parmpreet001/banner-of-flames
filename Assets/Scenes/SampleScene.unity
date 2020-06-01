@@ -207,7 +207,7 @@ MonoBehaviour:
   sklGrowth: 0
   spdGrowth: 0
   maxHP: 0
-  usingBlackMagic: 0
+  attackMethod: 0
 --- !u!114 &9538727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -959,7 +959,7 @@ MonoBehaviour:
   sklGrowth: 0
   spdGrowth: 0
   maxHP: 0
-  usingBlackMagic: 0
+  attackMethod: 0
 --- !u!114 &139194058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2467,7 +2467,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPhase: 1
   selectedUnit: {fileID: 0}
-  cursor: {fileID: 1149305415}
+  cursor: {fileID: 0}
 --- !u!114 &415727092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4047,7 +4047,7 @@ MonoBehaviour:
   sklGrowth: 0
   spdGrowth: 0
   maxHP: 0
-  usingBlackMagic: 0
+  attackMethod: 0
 --- !u!1 &627056664
 GameObject:
   m_ObjectHideFlags: 0
@@ -5526,7 +5526,7 @@ MonoBehaviour:
   sklGrowth: 0
   spdGrowth: 0
   maxHP: 0
-  usingBlackMagic: 0
+  attackMethod: 0
 --- !u!1 &885784375
 GameObject:
   m_ObjectHideFlags: 0
@@ -7070,7 +7070,6 @@ MonoBehaviour:
   mapAndBattleManager: {fileID: 415727089}
   selectedAllyUnit: {fileID: 0}
   hoveringUnit: {fileID: 0}
-  cursor: {fileID: 1149305415}
   selectedAllyUnit_AllyStats: {fileID: 0}
   selectedAllyUnit_AllyMove: {fileID: 0}
 --- !u!1001 &1131476391
@@ -7304,12 +7303,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1138362680}
   m_CullTransparentMesh: 0
---- !u!1 &1149305415 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 973728495329108481, guid: cc82704cefa57c544ac8be21824635c8,
-    type: 3}
-  m_PrefabInstance: {fileID: 1097669063}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1149305418 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 973728495329108482, guid: cc82704cefa57c544ac8be21824635c8,
@@ -9568,7 +9561,7 @@ MonoBehaviour:
   sklGrowth: 0
   spdGrowth: 0
   maxHP: 0
-  usingBlackMagic: 0
+  attackMethod: 0
 --- !u!1001 &1574432285
 PrefabInstance:
   m_ObjectHideFlags: 0
