@@ -9905,7 +9905,7 @@ GameObject:
   - component: {fileID: 1553497267}
   - component: {fileID: 1553497270}
   m_Layer: 0
-  m_Name: Enemy2 (2)
+  m_Name: MagicDude
   m_TagString: EnemyUnit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10038,7 +10038,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   level: 1
-  classType: {fileID: 11400000, guid: d34c1dbf4afed40498e92df8bbfd9bb0, type: 2}
+  classType: {fileID: 11400000, guid: 2aa3a595410abc74dacc7c3bdc2169d0, type: 2}
   skillLevels:
     weaponLevels: 01000000010000000100000001000000
     weaponLevelsExperience: 00000000000000000000000000000000
@@ -10047,12 +10047,13 @@ MonoBehaviour:
   equippedWeapon: {fileID: 0}
   equippedBlackMagic: {fileID: 0}
   inventory:
-  - {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  magicList: []
+  - {fileID: 0}
+  magicList:
+  - {fileID: 11400000, guid: 626ea19599721f148b426e271f69de3e, type: 2}
   blackMagic: []
   baseHP: 10
   baseSTR: 2

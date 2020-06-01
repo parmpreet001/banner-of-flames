@@ -122,8 +122,16 @@ public class UI_BattleForecast : MonoBehaviour
         else
             allyUnitInfo.GetChild(5).gameObject.SetActive(false);
 
-       enemyUnitInfo.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.name;
-       enemyUnitInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().equippedWeapon.name.ToString();
+        enemyUnitInfo.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.name;
+        if(MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().UsingPhysicalWeapon())
+        {
+            enemyUnitInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().equippedWeapon.name;
+        }
+        else
+        {
+            enemyUnitInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().equippedBlackMagic.name;
+        }
+       
         if(MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_inRange)
         {
            enemyUnitInfo.GetChild(2).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_dmg.ToString();
