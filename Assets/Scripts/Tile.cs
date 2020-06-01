@@ -84,6 +84,11 @@ public class Tile : MonoBehaviour
         return (HasUnit() && transform.GetChild(0).tag == "EnemyUnit");
     }
 
+    public GameObject GetUnit()
+    {
+        return transform.GetChild(0).gameObject;
+    }
+
     public void UpdateColors()
     {
         if (current)

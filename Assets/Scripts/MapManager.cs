@@ -12,7 +12,7 @@ public class MapManager : MonoBehaviour
     private List<GameObject> enemyUnits = new List<GameObject>(); //List of all alive enemy units on the map
     public GameObject selectedUnit; //The currently selected unit. Can be either a ally unit or an enemy unit.
     private BattleManager battleManager; //BattleManager script
-    GameObject selectedTile;
+    Tile selectedTile;
     public Cursor cursor;
 
 
@@ -49,7 +49,6 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    //Checks where the player clicked
     private void PlayerPhase()
     {
         //If a unit is selected
@@ -90,14 +89,14 @@ public class MapManager : MonoBehaviour
             //If a unit is not selected
             if (!selectedUnit)
             {
-                selectedTile = cursor.currentTile.gameObject; 
+                selectedTile = cursor.currentTile; 
                 //If selectedTile is not null, meaning that the player didnt click outside the map
                 if(selectedTile)
                 {
                     //If a player unit is standing on the tile and has not moved
-                    if(selectedTile.GetComponent<Tile>().HasAllyUnit() && !selectedTile.transform.GetChild(0).GetComponent<AllyMove>().finished)
+                    if(selectedTile.HasAllyUnit() && !selectedTile.GetUnit().GetComponent<AllyMove>().finished)
                     {
-                        selectedUnit = selectedTile.transform.GetChild(0).gameObject;
+                        selectedUnit = selectedTile.GetUnit();
                         selectedUnit.GetComponent<AllyMove>().selected = true;
                     }
                 }
