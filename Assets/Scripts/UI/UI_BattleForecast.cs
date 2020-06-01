@@ -9,6 +9,9 @@ public class UI_BattleForecast : MonoBehaviour
     public GameObject battleForecastUI;
 
     private MapUIInfo MapUIInfo;
+
+    private UI_BattleForecastText battleForecastText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -99,8 +102,10 @@ public class UI_BattleForecast : MonoBehaviour
         Transform allyUnitInfo = battleForecastUI.transform.GetChild(0).transform;
         Transform enemyUnitInfo = battleForecastUI.transform.GetChild(1).transform;
 
+        string allyUnitName = MapUIInfo.selectedAllyUnit.name;
+        
 
-
+        /*
         allyUnitInfo.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.name;
         if(MapUIInfo.selectedAllyUnit_AllyStats.UsingOffensiveMagic())
         {
@@ -122,6 +127,7 @@ public class UI_BattleForecast : MonoBehaviour
             allyUnitInfo.GetChild(5).gameObject.SetActive(true);
         else
             allyUnitInfo.GetChild(5).gameObject.SetActive(false);
+        */
 
         enemyUnitInfo.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.name;
         if(MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().UsingPhysicalWeapon())
