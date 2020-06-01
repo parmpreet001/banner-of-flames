@@ -31,7 +31,22 @@ public class EnemyMove : TileMove
         closestTarget = targets[0]; //Closest target. 
         double targetDistance = 0; //Distance to the closestTarget
         Tile closestTileToTarget = selectableTiles[0]; //Tile closest to the target. Default value is the tile the enemy is currently standing on
+        int minRange = 0; //minrange of whatever weapon/spell the unit is using to attack
+        int maxRange = 0; //maxRange of whatever weapon/spell the unit is using to attack
         bool targetOutsideRange; //Whether or not the target is outside of this unit's attack range
+        
+        if (_EnemyStats.attackMethod == AttackMethod.PHYSICAL)
+        {
+            minRange = _EnemyStats.equippedWeapon.minRange;
+            maxRange = _EnemyStats.equippedWeapon.maxRange;
+        }
+            
+        else
+        {
+            minRange = _EnemyStats.equippedBlackMagic.minRange;
+            maxRange = _EnemyStats.equippedBlackMagic.maxRange;
+        }
+            
 
         //Finds closest target
         foreach (GameObject target in targets)
@@ -41,7 +56,7 @@ public class EnemyMove : TileMove
         }
 
         targetDistance = GetDistanceBetweenTiles(transform.parent.gameObject,closestTarget.transform.parent.gameObject);
-        targetOutsideRange = (targetDistance > (_EnemyStats.classType.mov + _EnemyStats.equippedWeapon.maxRange));
+        targetOutsideRange = (targetDistance > (_EnemyStats.classType.mov) + maxRange);
 
         //If the target is within attack range
         if (!targetOutsideRange)
@@ -52,7 +67,7 @@ public class EnemyMove : TileMove
             for (int i = selectableTiles.Count - 1; i >= 0; i--)
             {
                 targetTileDistance = GetDistanceBetweenTiles(closestTarget.transform.parent.gameObject, selectableTiles[i].gameObject);
-                if (targetTileDistance < _EnemyStats.equippedWeapon.minRange || targetTileDistance > _EnemyStats.equippedWeapon.maxRange)
+                if (targetTileDistance < minRange || targetTileDistance >maxRange)
                     selectableTiles.RemoveAt(i);
             }
             closestTileToTarget = selectableTiles[0];
@@ -74,7 +89,6 @@ public class EnemyMove : TileMove
                 }
             }
         }
-        //Debug.Log("Cloest tile to target is " + closestTileToTarget.transform.name + " with a distance of " + targetDistance);
         MovetToTile(closestTileToTarget);
     }
 }
