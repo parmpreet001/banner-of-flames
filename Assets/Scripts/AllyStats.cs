@@ -58,6 +58,8 @@ public class AllyStats : Stats
         ((Weapon)inventory[index]).equipped = true;
         equippedWeapon.equipped = false;
         equippedWeapon = ((Weapon)inventory[index]);
+
+        attackMethod = AttackMethod.PHYSICAL;
     }
 
     public void EquipPreviousWeapon()
@@ -141,6 +143,8 @@ public class AllyStats : Stats
         equippedBlackMagic.equipped = false;
         equippedBlackMagic = blackMagic[index];
         equippedBlackMagic.equipped = true;
+
+        attackMethod = AttackMethod.OFFENSIVE_MAGIC;
     }
 
     public void EquipPreviousBlackMagic()

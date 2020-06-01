@@ -24,6 +24,7 @@ public class Stats : MonoBehaviour
     public int maxHP;
 
     public bool usingBlackMagic;
+    public AttackMethod attackMethod;
     
     public void Init()
     {
@@ -69,5 +70,10 @@ public class Stats : MonoBehaviour
             equippedBlackMagic = blackMagic[0];
             blackMagic[0].equipped = true;
         }
+
+        if (equippedWeapon != null)
+            attackMethod = AttackMethod.PHYSICAL;
+        else if (equippedBlackMagic != null)
+            attackMethod = AttackMethod.OFFENSIVE_MAGIC;
     }
 }
