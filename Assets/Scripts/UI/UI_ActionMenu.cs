@@ -6,12 +6,12 @@ using TMPro;
 public class UI_ActionMenu : MonoBehaviour
 {
     //References to other shit
-    private MapUIInfo MapUIInfo; 
+    private MapUIInfo MapUIInfo;
     private GameObject ItemMenu; //Holds and displays items
     private Transform WeaponInfo; //Displays info about the highlighted weapon 
     public GameObject menuCursor; //Cursor used for selecting items
     private RectTransform menuCursor_RectTransform; //menuCursor RectTransform
-    
+
     //Local variables
     private bool buttonsCreated = false; //Whether or not buttons have beencreated
     List<string> buttons = new List<string>(); //List of buttons
@@ -81,12 +81,12 @@ public class UI_ActionMenu : MonoBehaviour
                 transform.Find("AttackButton").gameObject.SetActive(true);
                 transform.Find("AttackButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
             }
-            else if(buttons[i] == "BlackMagic")
+            else if (buttons[i] == "BlackMagic")
             {
                 transform.Find("BlackMagicButton").gameObject.SetActive(true);
                 transform.Find("BlackMagicButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
             }
-            else if(buttons[i] == "Item")
+            else if (buttons[i] == "Item")
             {
                 transform.Find("ItemButton").gameObject.SetActive(true);
                 transform.Find("ItemButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i);
@@ -102,7 +102,7 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void MenuCursorInput()
     {
-        if(selectingItems)
+        if (selectingItems)
         {
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
@@ -126,7 +126,7 @@ public class UI_ActionMenu : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                selectItem();
+                SelectItem();
             }
         }
         else
@@ -179,38 +179,29 @@ public class UI_ActionMenu : MonoBehaviour
         menuCursorPosition = 1;
 
         //Updates every item in the inventory to match the currently selected unit's inventory
-        for(int i = 0; i < 5; i++)
+        for (int i = 0; i < 5; i++)
         {
             //If the unit's inventory slot is not empty, update name, durability, and text color
-            if(unitInventory[i] != null)
+            if (unitInventory[i] != null)
             {
-                GetInventorySlot(i).GetComponent<TextMeshProUGUI>().text = unitInventory[i].name;
-                GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = unitInventory[i].currentUses + "/" + unitInventory[i].maxUses;
-                if(unitInventory[i].GetType() == typeof(Weapon) && ((Weapon)unitInventory[i]).equipped)
-                {
-                    GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
-                }
-                else if(unitInventory[i].GetType() == typeof(Weapon) && !MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(i))
-                {
-                    GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.gray;
-                }
+                UpdateInventorySlot(i, unitInventory[i].name, unitInventory[i].currentUses, unitInventory[i].maxUses);
+
+                if (unitInventory[i].GetType() == typeof(Weapon) && ((Weapon)unitInventory[i]).equipped)
+                    SetItemNameColor(i, new Color32(34, 170, 160, 255));
+                else if (unitInventory[i].GetType() == typeof(Weapon) && !MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(i))
+                    SetItemNameColor(i, Color.gray);
                 else
-                {
-                    GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.black;
-                }
+                    SetItemNameColor(i, Color.black);
             }
             //else, set blank values
             else
-            {
-                GetInventorySlot(i).GetComponent<TextMeshProUGUI>().text = "";
-                GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
-            }
+                UpdateInventorySlot(i, "", 0, 0);
         }
     }
 
     private void UpdateWeaponInfo(int index)
-    {
-        MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
+    {     
+        MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles(); //TODO figure out why the fuck this is here
         Weapon tempWeapon = (Weapon)(unitInventory[index]);
         OffensiveMagic tempBlackMagic = null;
 
@@ -261,7 +252,6 @@ public class UI_ActionMenu : MonoBehaviour
     {
         menuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
         MoveCursor(180, 36);
-        //menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x + 180, menuCursor_RectTransform.anchoredPosition.y + 36);
         selectingItems = true;
         ItemMenu.SetActive(true);
         menuCursorPosition = 1;
@@ -272,40 +262,39 @@ public class UI_ActionMenu : MonoBehaviour
             //If the unit's inventory slot is not empty, update name, durability, and text color
             if (i < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
             {
-                GetInventorySlot(i).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].name;
-                GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].currentUses + "/"
-                    + MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].maxUses[MapUIInfo.selectedAllyUnit_AllyStats.skillLevels.magicLevels[(int)MagicType.BLACK]];
+                UpdateInventorySlot(i, MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].name, MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].currentUses,
+                    MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].maxUses[MapUIInfo.selectedAllyUnit_AllyStats.skillLevels.magicLevels[(int)MagicType.BLACK]]);
 
-                if(MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].equipped)
-                    GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
+                if (MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].equipped)
+                    SetItemNameColor(i, new Color32(34, 170, 160, 255));
                 else
-                    GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.black;
+                    SetItemNameColor(i, Color.black);
             }
             //else, set blank values
             else
             {
-                GetInventorySlot(i).GetComponent<TextMeshProUGUI>().text = "";
-                GetInventorySlot(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+                UpdateInventorySlot(i, "", 0, 0);
             }
         }
     }
 
-    private void selectItem()
+    private void SelectItem()
     {
         //If the selected item was a weapon, and the unit doesn't already have it equipped
-        if(unitInventory[menuCursorPosition - 1] != null && MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(menuCursorPosition-1)
-            && unitInventory[menuCursorPosition-1].GetType() == typeof(Weapon)
-            && !((Weapon)unitInventory[menuCursorPosition-1]).equipped)
+        if (unitInventory[menuCursorPosition - 1] != null && MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(menuCursorPosition - 1)
+            && unitInventory[menuCursorPosition - 1].GetType() == typeof(Weapon)
+            && !((Weapon)unitInventory[menuCursorPosition - 1]).equipped)
         {
             EquipWeapon();
         }
-        else if(MapUIInfo.selectedAllyUnit_AllyStats.UsingOffensiveMagic() && (menuCursorPosition-1) < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
+        else if (MapUIInfo.selectedAllyUnit_AllyStats.UsingOffensiveMagic() && (menuCursorPosition - 1) < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
         {
             MapUIInfo.selectedAllyUnit_AllyStats.EquipBlackMagic(menuCursorPosition - 1);
             Attack();
         }
     }
 
+    //Equips the current highlighted weapon in the inventory
     private void EquipWeapon()
     {
         //Iterates through each inventory slot
@@ -314,14 +303,14 @@ public class UI_ActionMenu : MonoBehaviour
             //If the item is not null and equal to the equipped weapon
             if (unitInventory[i] != null && unitInventory[i] == MapUIInfo.selectedAllyUnit_AllyStats.equippedWeapon)
             {
-                GetInventorySlot(i).GetComponent<TextMeshProUGUI>().color = Color.black;
+                SetItemNameColor(i, Color.black);
                 i = 5;
             }
         }
 
         MapUIInfo.selectedAllyUnit_AllyStats.EquipWeapon(menuCursorPosition - 1);
 
-        GetInventorySlot(menuCursorPosition - 1).GetComponent<TextMeshProUGUI>().color = new Color32(34, 170, 160, 255);
+        SetItemNameColor(menuCursorPosition - 1, new Color32(34, 170, 160, 255));
         Debug.Log("Equpped " + unitInventory[menuCursorPosition - 1].name);
     }
 
@@ -330,12 +319,11 @@ public class UI_ActionMenu : MonoBehaviour
         selectingItems = false;
         buttonsCreated = false;
         SetCursorPosition(menuCursor_RectTransform.anchoredPosition.x, 0);
-        //menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x, 0);
         menuCursorPosition = 1;
 
         if (removeSelectedAllyUnit)
             MapUIInfo.selectedAllyUnit = null;
-        
+
         buttons.Clear();
 
         for (int i = 0; i < transform.childCount; i++)
@@ -346,24 +334,40 @@ public class UI_ActionMenu : MonoBehaviour
 
         menuCursor.GetComponent<Transform>().position = new Vector2(GameObject.Find("ActionMenu").transform.position.x + 100,
             menuCursor.GetComponent<RectTransform>().anchoredPosition.y);
-        
+
     }
 
+    //moves the menu cursor
     private void MoveCursor(float x, float y)
     {
         menuCursor_RectTransform.anchoredPosition = new Vector2(menuCursor_RectTransform.anchoredPosition.x + x, menuCursor_RectTransform.anchoredPosition.y + y);
     }
 
+    //Sets position of the menu cursor
     private void SetCursorPosition(float x, float y)
     {
         menuCursor_RectTransform.anchoredPosition = new Vector2(x, y);
     }
 
-    //Getter methods
-    
     //returns Transform of the nth inventory slot
     private Transform GetInventorySlot(int n)
     {
         return ItemMenu.transform.GetChild(n);
     }
+    //Updates name and uses of item at inventory slot n
+    private void UpdateInventorySlot(int n, string name, int uses, int maxUses)
+    {
+        GetInventorySlot(n).GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
+        if (maxUses == 0)
+            GetInventorySlot(n).GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+        else
+            GetInventorySlot(n).GetChild(1).GetComponent<TextMeshProUGUI>().text = uses + "/" + maxUses;
+    }
+    //Updates color of the item's name at inventory slot n
+    private void SetItemNameColor(int n, Color color)
+    {
+        GetInventorySlot(n).GetChild(0).GetComponent<TextMeshProUGUI>().color = color;
+    }
+
+
 }
