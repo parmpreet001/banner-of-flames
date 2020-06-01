@@ -76,4 +76,14 @@ public class Stats : MonoBehaviour
         else if (equippedBlackMagic != null)
             attackMethod = AttackMethod.OFFENSIVE_MAGIC;
     }
+
+    public bool UsingPhysicalWeapon()
+    {
+        return attackMethod == AttackMethod.PHYSICAL;
+    }
+
+    public bool UsingOffensiveMagic()
+    {
+        return attackMethod == AttackMethod.OFFENSIVE_MAGIC;
+    }
 }

@@ -52,9 +52,9 @@ public class BattleManager : MonoBehaviour
             defendingUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
 
-            if (attackingUnitStats.equippedWeapon)
+            if (attackingUnitStats.UsingPhysicalWeapon())
                 attackingUnitStats.equippedWeapon.currentUses--;
-            else if (attackingUnitStats.equippedBlackMagic)
+            else if (attackingUnitStats.UsingOffensiveMagic())
                 attackingUnitStats.equippedBlackMagic.currentUses--;
 
             if (CheckDead(defendingUnitStats))
@@ -85,9 +85,9 @@ public class BattleManager : MonoBehaviour
             attackingUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
 
-            if (defendingUnitStats.equippedWeapon)
+            if (defendingUnitStats.UsingPhysicalWeapon())
                 defendingUnitStats.equippedWeapon.currentUses--;
-            else if (defendingUnitStats.equippedBlackMagic)
+            else if (defendingUnitStats.UsingOffensiveMagic())
                 defendingUnitStats.equippedBlackMagic.currentUses--;
 
             if (CheckDead(attackingUnitStats))
@@ -120,9 +120,9 @@ public class BattleManager : MonoBehaviour
                 defendingUnitStats.hp -= dmg;
                 yield return new WaitForSeconds(1f);
 
-                if (attackingUnitStats.equippedWeapon)
+                if (attackingUnitStats.UsingPhysicalWeapon())
                     attackingUnitStats.equippedWeapon.currentUses--;
-                else if (attackingUnitStats.equippedBlackMagic)
+                else if (attackingUnitStats.UsingOffensiveMagic())
                     attackingUnitStats.equippedBlackMagic.currentUses--;
 
                 if (CheckDead(defendingUnitStats))
@@ -154,9 +154,9 @@ public class BattleManager : MonoBehaviour
                 attackingUnitStats.hp -= dmg;
                 yield return new WaitForSeconds(1f);
 
-                if (defendingUnitStats.equippedWeapon)
+                if (defendingUnitStats.UsingPhysicalWeapon())
                     defendingUnitStats.equippedWeapon.currentUses--;
-                else if (defendingUnitStats.equippedBlackMagic)
+                else if (defendingUnitStats.UsingOffensiveMagic())
                     defendingUnitStats.equippedBlackMagic.currentUses--;
 
                 if (CheckDead(attackingUnitStats))
@@ -211,11 +211,11 @@ public class BattleManager : MonoBehaviour
     {
         int dmg = 0;
         //if unit is attacking with physical weapon
-        if(unit.equippedWeapon)
+        if(unit.UsingPhysicalWeapon())
         {
             dmg = unit.str + unit.equippedWeapon.dmg - target.def;
             //if target is also attacking with physical weapon 
-            if(target.equippedWeapon)
+            if(target.UsingPhysicalWeapon())
             {
                 switch (unit.equippedWeapon.weaponType)
                 {
@@ -246,7 +246,7 @@ public class BattleManager : MonoBehaviour
         }
 
         //else if unit is attacking with black magic
-        else if (unit.equippedBlackMagic && unit.equippedBlackMagic.GetType() == typeof(OffensiveMagic))
+        else if (unit.UsingOffensiveMagic())
         {
             dmg = unit.mag + ((OffensiveMagic)unit.equippedBlackMagic).dmg - target.res;
         }
@@ -259,10 +259,10 @@ public class BattleManager : MonoBehaviour
     {
         int accuracy = 0;
 
-        if(unit.equippedWeapon)
+        if(unit.UsingPhysicalWeapon())
             accuracy = unit.equippedWeapon.hitRate + (unit.skl * 2) - target.spd * 2;
 
-        else if (unit.equippedBlackMagic)
+        else if (unit.UsingOffensiveMagic())
             accuracy = unit.equippedBlackMagic.hitRate + (unit.skl * 2) - target.spd * 2;        
 
         if (accuracy > 100)
@@ -272,9 +272,9 @@ public class BattleManager : MonoBehaviour
 
     private int GetCrit(Stats unit)
     {
-        if (unit.equippedWeapon)
+        if (unit.UsingPhysicalWeapon())
             return unit.skl / 2;
-        else if (unit.equippedBlackMagic)
+        else if (unit.UsingOffensiveMagic())
             return 0;
 
         return 0;
@@ -300,9 +300,9 @@ public class BattleManager : MonoBehaviour
         //float distance = Vector2.Distance(unit1.transform.position, unit2.transform.position); //Distance between unit 1 and 2
         //distance = Mathf.Ceil(distance);
 
-        if(unit2.equippedWeapon)
+        if(unit2.UsingPhysicalWeapon())
             return (distance >= unit2.equippedWeapon.minRange && distance <= unit2.equippedWeapon.maxRange);
-        else if(unit2.equippedBlackMagic)
+        else if(unit2.UsingOffensiveMagic())
             return (distance >= unit2.equippedBlackMagic.minRange && distance <= unit2.equippedBlackMagic.maxRange);
 
         return true;
@@ -329,7 +329,7 @@ public class BattleManager : MonoBehaviour
         attackingUnit.GetComponent<TileMove>().finished = true;
         attackingUnit.GetComponent<TileMove>().RemoveSelectableTiles();
 
-        if (attackingUnit.tag == "PlayerUnit" && !attackingUnitStats.isDead && !attackingUnitStats.usingBlackMagic)
+        if (attackingUnit.tag == "PlayerUnit" && !attackingUnitStats.isDead && !attackingUnitStats.UsingOffensiveMagic())
         {
             switch (attackingUnitStats.equippedWeapon.weaponType)
             {
