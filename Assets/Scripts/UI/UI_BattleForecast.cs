@@ -16,6 +16,7 @@ public class UI_BattleForecast : MonoBehaviour
     void Start()
     {
         MapUIInfo = GetComponentInParent<MapUIInfo>();
+        battleForecastText = GameObject.Find("BattleForecast").GetComponent<UI_BattleForecastText>();
     }
 
     // Update is called once per frame
@@ -97,63 +98,53 @@ public class UI_BattleForecast : MonoBehaviour
 
     private void UpdateBattleFoecast()
     {
-        MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles(); //Don't delete this
+        string name, weaponName = "", damage, hitRate, critRate;
+        int minRange = 0, maxRange = 0;
 
-        Transform allyUnitInfo = battleForecastUI.transform.GetChild(0).transform;
-        Transform enemyUnitInfo = battleForecastUI.transform.GetChild(1).transform;
-
-        string allyUnitName = MapUIInfo.selectedAllyUnit.name;
-        
-
-        /*
-        allyUnitInfo.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit.name;
-        if(MapUIInfo.selectedAllyUnit_AllyStats.UsingOffensiveMagic())
+        //Updating values for ally unit
+        name = MapUIInfo.selectedAllyUnit.name;
+        if (MapUIInfo.selectedAllyUnit_AllyStats.attackMethod == AttackMethod.PHYSICAL)
         {
-            allyUnitInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.name.ToString();
+            weaponName = MapUIInfo.selectedAllyUnit_AllyStats.equippedWeapon.name;
+            minRange = MapUIInfo.selectedAllyUnit_AllyStats.equippedWeapon.minRange;
+            maxRange = MapUIInfo.selectedAllyUnit_AllyStats.equippedWeapon.maxRange;
+        }    
+        else if (MapUIInfo.selectedAllyUnit_AllyStats.attackMethod == AttackMethod.OFFENSIVE_MAGIC)
+        {
+            weaponName = MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.name;
+            minRange = MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange;
+            maxRange = MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange;
             MapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange,
-                MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
-        }   
-        else
-        {
-            allyUnitInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.selectedAllyUnit_AllyStats.equippedWeapon.name.ToString();
-            MapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(MapUIInfo.selectedAllyUnit_AllyStats.equippedWeapon.minRange,
-    MapUIInfo.selectedAllyUnit_AllyStats.equippedWeapon.maxRange);
+            MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
         }
             
-        allyUnitInfo.GetChild(2).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_dmg.ToString();
-        allyUnitInfo.GetChild(3).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_accuracy.ToString();
-        allyUnitInfo.GetChild(4).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_crit.ToString();
-        if (MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_attackTwice)
-            allyUnitInfo.GetChild(5).gameObject.SetActive(true);
-        else
-            allyUnitInfo.GetChild(5).gameObject.SetActive(false);
-        */
+        damage = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_dmg.ToString();
+        hitRate = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_accuracy.ToString();
+        critRate = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_crit.ToString();
 
-        enemyUnitInfo.GetChild(0).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.name;
-        if(MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().UsingPhysicalWeapon())
-        {
-            enemyUnitInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().equippedWeapon.name;
-        }
-        else
-        {
-            enemyUnitInfo.GetChild(1).GetComponent<TextMeshProUGUI>().text = MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().equippedBlackMagic.name;
-        }
-       
+        battleForecastText.UpdateAllyUnitInfoText(name, weaponName, damage, hitRate, critRate);
+        battleForecastText.SetAllyUnitX2(MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_attackTwice);
+
+        MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
+        MapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(minRange, maxRange);
+
+        //Updating values forenemy Unit
+        name = MapUIInfo.hoveringUnit.name;
+        if (MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().attackMethod == AttackMethod.PHYSICAL)
+            weaponName = MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().equippedWeapon.name;
+        else if (MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().attackMethod == AttackMethod.OFFENSIVE_MAGIC)
+            weaponName = MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().equippedBlackMagic.name;
+
         if(MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_inRange)
         {
-           enemyUnitInfo.GetChild(2).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_dmg.ToString();
-           enemyUnitInfo.GetChild(3).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_accuracy.ToString();
-           enemyUnitInfo.GetChild(4).GetComponent<TextMeshProUGUI>().text = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_crit.ToString();
-            if (MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_attackTwice)
-               enemyUnitInfo.GetChild(5).gameObject.SetActive(true);
-            else
-               enemyUnitInfo.GetChild(5).gameObject.SetActive(false);
+            damage = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_dmg.ToString();
+            hitRate = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_accuracy.ToString();
+            critRate = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_crit.ToString();
         }
         else
-        {
-           enemyUnitInfo.GetChild(2).GetComponent<TextMeshProUGUI>().text = "-";
-           enemyUnitInfo.GetChild(3).GetComponent<TextMeshProUGUI>().text = "-";
-           enemyUnitInfo.GetChild(4).GetComponent<TextMeshProUGUI>().text = "-";
-        }
+            damage = hitRate = critRate = "-";
+
+        battleForecastText.UpdateEnemyInfoText(name, weaponName, damage, hitRate, critRate);
+        battleForecastText.SetAllyUnitX2(MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_attackTwice);
     }
 }
