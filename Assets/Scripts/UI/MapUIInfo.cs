@@ -10,13 +10,15 @@ public class MapUIInfo : MonoBehaviour
     public GameObject selectedAllyUnit;
     public GameObject hoveringUnit;
     private Cursor cursor;
+    public BattleManager _BattleManager;
 
     public AllyStats selectedAllyUnit_AllyStats;
     public AllyMove selectedAllyUnit_AllyMove;
 
     private void Start()
     {
-        cursor = GameObject.Find("Cursor").GetComponent<Cursor>();    
+        cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
+        _BattleManager = mapAndBattleManager.GetComponent<BattleManager>();
     }
 
     private void Update()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class UI_BattleForecast : MonoBehaviour
+public class UI_BattleForecastColor : MonoBehaviour
 {
     public GameObject allyUnitStatsUI;
     public GameObject enemyUnitStatsUI;
@@ -10,13 +10,13 @@ public class UI_BattleForecast : MonoBehaviour
 
     private MapUIInfo MapUIInfo;
 
-    private UI_BattleForecastText battleForecastText;
+    private UI_BattleForecastDisplay BattleForecastDisplay;
 
     // Start is called before the first frame update
     void Start()
     {
         MapUIInfo = GetComponentInParent<MapUIInfo>();
-        battleForecastText = GameObject.Find("BattleForecast").GetComponent<UI_BattleForecastText>();
+        BattleForecastDisplay = GameObject.Find("BattleForecast").GetComponent<UI_BattleForecastDisplay>();
     }
 
     // Update is called once per frame
@@ -98,6 +98,7 @@ public class UI_BattleForecast : MonoBehaviour
 
     private void UpdateBattleFoecast()
     {
+        EnemyStats hoveringUnit_enemyStats = MapUIInfo.hoveringUnit.GetComponent<EnemyStats>();
         string name, weaponName = "", damage, hitRate, critRate;
         int minRange = 0, maxRange = 0;
 
@@ -118,33 +119,33 @@ public class UI_BattleForecast : MonoBehaviour
             MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
         }
             
-        damage = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_dmg.ToString();
-        hitRate = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_accuracy.ToString();
-        critRate = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_crit.ToString();
+        damage = MapUIInfo._BattleManager.AU_dmg.ToString();
+        hitRate = MapUIInfo._BattleManager.AU_accuracy.ToString();
+        critRate = MapUIInfo._BattleManager.AU_crit.ToString();
 
-        battleForecastText.UpdateAllyUnitInfoText(name, weaponName, damage, hitRate, critRate);
-        battleForecastText.SetAllyUnitX2(MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().AU_attackTwice);
+        BattleForecastDisplay.UpdateAllyUnitInfoText(name, weaponName, damage, hitRate, critRate);
+        BattleForecastDisplay.SetAllyUnitX2(MapUIInfo._BattleManager.AU_attackTwice);
 
         MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
         MapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(minRange, maxRange);
 
         //Updating values forenemy Unit
         name = MapUIInfo.hoveringUnit.name;
-        if (MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().attackMethod == AttackMethod.PHYSICAL)
-            weaponName = MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().equippedWeapon.name;
-        else if (MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().attackMethod == AttackMethod.OFFENSIVE_MAGIC)
-            weaponName = MapUIInfo.hoveringUnit.GetComponent<EnemyStats>().equippedBlackMagic.name;
+        if (hoveringUnit_enemyStats.attackMethod == AttackMethod.PHYSICAL)
+            weaponName = hoveringUnit_enemyStats.equippedWeapon.name;
+        else if (hoveringUnit_enemyStats.attackMethod == AttackMethod.OFFENSIVE_MAGIC)
+            weaponName = hoveringUnit_enemyStats.equippedBlackMagic.name;
 
-        if(MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_inRange)
+        if(MapUIInfo._BattleManager.DU_inRange)
         {
-            damage = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_dmg.ToString();
-            hitRate = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_accuracy.ToString();
-            critRate = MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_crit.ToString();
+            damage = MapUIInfo._BattleManager.DU_dmg.ToString();
+            hitRate = MapUIInfo._BattleManager.DU_accuracy.ToString();
+            critRate = MapUIInfo._BattleManager.DU_crit.ToString();
         }
         else
             damage = hitRate = critRate = "-";
 
-        battleForecastText.UpdateEnemyInfoText(name, weaponName, damage, hitRate, critRate);
-        battleForecastText.SetAllyUnitX2(MapUIInfo.mapAndBattleManager.GetComponent<BattleManager>().DU_attackTwice);
+        BattleForecastDisplay.UpdateEnemyInfoText(name, weaponName, damage, hitRate, critRate);
+        BattleForecastDisplay.SetEnemyUnitX2(MapUIInfo._BattleManager.DU_attackTwice);
     }
 }

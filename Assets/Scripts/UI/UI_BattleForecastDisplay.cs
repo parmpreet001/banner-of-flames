@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UI_BattleForecastText : MonoBehaviour
+public class UI_BattleForecastDisplay : MonoBehaviour
 {
     //Name, Weapon, Damage, HitRate, Crit
-    private TextMeshProUGUI[] allyUnitInfoText = new TextMeshProUGUI[5];
-    private TextMeshProUGUI[] enemyUnitInfoText = new TextMeshProUGUI[5];
+    private TextMeshProUGUI[] AllyUnitInfoText = new TextMeshProUGUI[5];
+    private TextMeshProUGUI[] EnemyUnitInfoText = new TextMeshProUGUI[5];
     private GameObject allyUnitX2;
     private GameObject enemyUnitX2;
 
@@ -18,8 +18,8 @@ public class UI_BattleForecastText : MonoBehaviour
         
         for(int i = 0; i < 5; i++)
         {
-            allyUnitInfoText[i] = allyUnitInfo.GetChild(i).GetComponent<TextMeshProUGUI>();
-            enemyUnitInfoText[i] = enemyUnitInfo.GetChild(i).GetComponent<TextMeshProUGUI>();
+            AllyUnitInfoText[i] = allyUnitInfo.GetChild(i).GetComponent<TextMeshProUGUI>();
+            EnemyUnitInfoText[i] = enemyUnitInfo.GetChild(i).GetComponent<TextMeshProUGUI>();
         }
 
         allyUnitX2 = allyUnitInfo.GetChild(5).gameObject;
@@ -28,20 +28,20 @@ public class UI_BattleForecastText : MonoBehaviour
 
     public void UpdateAllyUnitInfoText(string name, string weapon, string damage, string hitRate, string crit)
     {
-        allyUnitInfoText[0].text = name;
-        allyUnitInfoText[1].text = weapon;
-        allyUnitInfoText[2].text = damage;
-        allyUnitInfoText[3].text = hitRate;
-        allyUnitInfoText[4].text = crit;
+        AllyUnitInfoText[0].text = name;
+        AllyUnitInfoText[1].text = weapon;
+        AllyUnitInfoText[2].text = damage;
+        AllyUnitInfoText[3].text = hitRate;
+        AllyUnitInfoText[4].text = crit;
     }
 
     public void UpdateEnemyInfoText(string name, string weapon, string damage, string hitRate, string crit)
     {
-        enemyUnitInfoText[0].text = name;
-        enemyUnitInfoText[1].text = weapon;
-        enemyUnitInfoText[2].text = damage;
-        enemyUnitInfoText[3].text = hitRate;
-        enemyUnitInfoText[4].text = crit;
+        EnemyUnitInfoText[0].text = name;
+        EnemyUnitInfoText[1].text = weapon;
+        EnemyUnitInfoText[2].text = damage;
+        EnemyUnitInfoText[3].text = hitRate;
+        EnemyUnitInfoText[4].text = crit;
     }
 
     public void SetAllyUnitX2(bool active)
