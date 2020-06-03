@@ -6,32 +6,32 @@ using UnityEngine.UI;
 //This script contains basic info that will be used by other elements of 
 public class MapUIInfo : MonoBehaviour
 {
-    public GameObject mapAndBattleManager;
-    public GameObject selectedAllyUnit;
-    public GameObject hoveringUnit;
-    private Cursor cursor;
-    public BattleManager _BattleManager;
+    public GameObject MapAndBattleManager;
+    public GameObject SelectedAllyUnit;
+    public GameObject HoveringUnit;
+    private Cursor Cursor;
+    public BattleManager BattleManager;
 
-    public AllyStats selectedAllyUnit_AllyStats;
-    public AllyMove selectedAllyUnit_AllyMove;
+    public AllyStats SelectedAllyUnit_AllyStats;
+    public AllyMove SelectedAllyUnit_AllyMove;
 
     private void Start()
     {
-        cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
-        _BattleManager = mapAndBattleManager.GetComponent<BattleManager>();
+        Cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
+        BattleManager = MapAndBattleManager.GetComponent<BattleManager>();
     }
 
     private void Update()
     {
-        hoveringUnit = cursor.GetCurrentUnit();
-        if (hoveringUnit && hoveringUnit.GetComponent<TileMove>().selected)
+        HoveringUnit = Cursor.GetCurrentUnit();
+        if (HoveringUnit && HoveringUnit.GetComponent<TileMove>().selected)
         {
-            selectedAllyUnit = hoveringUnit;
-            selectedAllyUnit_AllyStats = selectedAllyUnit.GetComponent<AllyStats>();
-            selectedAllyUnit_AllyMove = selectedAllyUnit.GetComponent<AllyMove>();
+            SelectedAllyUnit = HoveringUnit;
+            SelectedAllyUnit_AllyStats = SelectedAllyUnit.GetComponent<AllyStats>();
+            SelectedAllyUnit_AllyMove = SelectedAllyUnit.GetComponent<AllyMove>();
         }
             
-        if (selectedAllyUnit && (!selectedAllyUnit.GetComponent<AllyMove>().selected || selectedAllyUnit.GetComponent<AllyMove>().finished))
-            selectedAllyUnit = null;
+        if (SelectedAllyUnit && (!SelectedAllyUnit.GetComponent<AllyMove>().selected || SelectedAllyUnit.GetComponent<AllyMove>().finished))
+            SelectedAllyUnit = null;
     }
 }

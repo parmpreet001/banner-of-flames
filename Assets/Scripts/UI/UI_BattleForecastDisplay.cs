@@ -8,8 +8,8 @@ public class UI_BattleForecastDisplay : MonoBehaviour
     //Name, Weapon, Damage, HitRate, Crit
     private TextMeshProUGUI[] AllyUnitInfoText = new TextMeshProUGUI[5];
     private TextMeshProUGUI[] EnemyUnitInfoText = new TextMeshProUGUI[5];
-    private GameObject allyUnitX2;
-    private GameObject enemyUnitX2;
+    private GameObject AllyUnitX2;
+    private GameObject EnemyUnitX2;
 
     void Start()
     {
@@ -22,8 +22,8 @@ public class UI_BattleForecastDisplay : MonoBehaviour
             EnemyUnitInfoText[i] = enemyUnitInfo.GetChild(i).GetComponent<TextMeshProUGUI>();
         }
 
-        allyUnitX2 = allyUnitInfo.GetChild(5).gameObject;
-        enemyUnitX2 = enemyUnitInfo.GetChild(5).gameObject;
+        AllyUnitX2 = allyUnitInfo.GetChild(5).gameObject;
+        EnemyUnitX2 = enemyUnitInfo.GetChild(5).gameObject;
     }
 
     public void UpdateAllyUnitInfoText(string name, string weapon, string damage, string hitRate, string crit)
@@ -46,11 +46,11 @@ public class UI_BattleForecastDisplay : MonoBehaviour
 
     public void SetAllyUnitX2(bool active)
     {
-        allyUnitX2.SetActive(active);
+        AllyUnitX2.SetActive(active);
     }
 
     public void SetEnemyUnitX2(bool active)
     {
-        enemyUnitX2.SetActive(active);
+        EnemyUnitX2.SetActive(active);
     }
 }
