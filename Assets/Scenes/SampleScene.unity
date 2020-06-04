@@ -4760,7 +4760,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 627056664}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c27f8472f17ffae468888fc0cea5edee, type: 3}
+  m_Script: {fileID: 11500000, guid: 92eb76471916ea145a9288a530621c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &638670245
@@ -7706,11 +7706,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64f6785930330a44c91405d7ebfc0cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapAndBattleManager: {fileID: 415727089}
   selectedAllyUnit: {fileID: 0}
   hoveringUnit: {fileID: 0}
-  selectedAllyUnit_AllyStats: {fileID: 0}
-  selectedAllyUnit_AllyMove: {fileID: 0}
+  battleManager: {fileID: 0}
+  SelectedAllyUnit_AllyStats: {fileID: 0}
+  SelectedAllyUnit_AllyMove: {fileID: 0}
 --- !u!1001 &1131476391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12314,7 +12314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f27a7765ee456243aeec77b44495071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuCursor: {fileID: 279081039}
+  MenuCursor: {fileID: 0}
 --- !u!1 &2044005908
 GameObject:
   m_ObjectHideFlags: 0

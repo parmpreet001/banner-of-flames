@@ -22,6 +22,7 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void Start()
     {
+        MenuCursor = transform.Find("ActionMenuCursor").gameObject;
         MapUIInfo = GetComponentInParent<MapUIInfo>();
         ItemMenu = GameObject.Find("ItemMenu");
         WeaponInfo = GameObject.Find("WeaponInfo").transform;
@@ -31,7 +32,7 @@ public class UI_ActionMenu : MonoBehaviour
     void Update()
     {
         //If an ally unit is selected
-        if (MapUIInfo.SelectedAllyUnit)
+        if (MapUIInfo.selectedAllyUnit)
         {
             //If they're in an action menu state
             if (MapUIInfo.SelectedAllyUnit_AllyMove.actionMenu)
@@ -318,7 +319,7 @@ public class UI_ActionMenu : MonoBehaviour
         menuCursorPosition = 1;
 
         if (removeSelectedAllyUnit)
-            MapUIInfo.SelectedAllyUnit = null;
+            MapUIInfo.selectedAllyUnit = null;
 
         buttons.Clear();
 

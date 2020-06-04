@@ -6,32 +6,31 @@ using UnityEngine.UI;
 //This script contains basic info that will be used by other elements of 
 public class MapUIInfo : MonoBehaviour
 {
-    public GameObject MapAndBattleManager;
-    public GameObject SelectedAllyUnit;
-    public GameObject HoveringUnit;
-    private Cursor Cursor;
-    public BattleManager BattleManager;
+    public GameObject selectedAllyUnit;
+    public GameObject hoveringUnit;
+    private Cursor cursor;
+    public BattleManager battleManager;
 
     public AllyStats SelectedAllyUnit_AllyStats;
     public AllyMove SelectedAllyUnit_AllyMove;
 
     private void Start()
     {
-        Cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
-        BattleManager = MapAndBattleManager.GetComponent<BattleManager>();
+        cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
+        battleManager = GameObject.Find("MapAndBattleManager").GetComponent<BattleManager>();
     }
 
     private void Update()
     {
-        HoveringUnit = Cursor.GetCurrentUnit();
-        if (HoveringUnit && HoveringUnit.GetComponent<TileMove>().selected)
+        hoveringUnit = cursor.GetCurrentUnit();
+        if (hoveringUnit && hoveringUnit.GetComponent<TileMove>().selected)
         {
-            SelectedAllyUnit = HoveringUnit;
-            SelectedAllyUnit_AllyStats = SelectedAllyUnit.GetComponent<AllyStats>();
-            SelectedAllyUnit_AllyMove = SelectedAllyUnit.GetComponent<AllyMove>();
+            selectedAllyUnit = hoveringUnit;
+            SelectedAllyUnit_AllyStats = selectedAllyUnit.GetComponent<AllyStats>();
+            SelectedAllyUnit_AllyMove = selectedAllyUnit.GetComponent<AllyMove>();
         }
             
-        if (SelectedAllyUnit && (!SelectedAllyUnit.GetComponent<AllyMove>().selected || SelectedAllyUnit.GetComponent<AllyMove>().finished))
-            SelectedAllyUnit = null;
+        if (selectedAllyUnit && (!selectedAllyUnit.GetComponent<AllyMove>().selected || selectedAllyUnit.GetComponent<AllyMove>().finished))
+            selectedAllyUnit = null;
     }
 }

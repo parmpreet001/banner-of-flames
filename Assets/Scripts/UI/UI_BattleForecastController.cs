@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class UI_BattleForecastColor : MonoBehaviour
+public class UI_BattleForecastController : MonoBehaviour
 {
     public GameObject allyUnitStatsUI;
     public GameObject enemyUnitStatsUI;
@@ -23,32 +23,32 @@ public class UI_BattleForecastColor : MonoBehaviour
     void Update()
     { 
         {
-            if (MapUIInfo.SelectedAllyUnit)
+            if (MapUIInfo.selectedAllyUnit)
             {
                 allyUnitStatsUI.SetActive(true);
-                UpdateUnitStatsUI(allyUnitStatsUI, MapUIInfo.SelectedAllyUnit);
+                UpdateUnitStatsUI(allyUnitStatsUI, MapUIInfo.selectedAllyUnit);
             }
-            else if(MapUIInfo.HoveringUnit && MapUIInfo.HoveringUnit.tag == "PlayerUnit")
+            else if(MapUIInfo.hoveringUnit && MapUIInfo.hoveringUnit.tag == "PlayerUnit")
             {
                 allyUnitStatsUI.SetActive(true);
-                UpdateUnitStatsUI(allyUnitStatsUI, MapUIInfo.HoveringUnit);
+                UpdateUnitStatsUI(allyUnitStatsUI, MapUIInfo.hoveringUnit);
             }
             else
             {
                 allyUnitStatsUI.SetActive(false);
             }
 
-            if(MapUIInfo.HoveringUnit && MapUIInfo.HoveringUnit.tag == "EnemyUnit")
+            if(MapUIInfo.hoveringUnit && MapUIInfo.hoveringUnit.tag == "EnemyUnit")
             {
                 enemyUnitStatsUI.SetActive(true);
-                UpdateUnitStatsUI(enemyUnitStatsUI, MapUIInfo.HoveringUnit);
+                UpdateUnitStatsUI(enemyUnitStatsUI, MapUIInfo.hoveringUnit);
             }
             else
             {
                 enemyUnitStatsUI.SetActive(false);
             }
 
-            if (MapUIInfo.SelectedAllyUnit && MapUIInfo.HoveringUnit && MapUIInfo.HoveringUnit.tag == "EnemyUnit" && 
+            if (MapUIInfo.selectedAllyUnit && MapUIInfo.hoveringUnit && MapUIInfo.hoveringUnit.tag == "EnemyUnit" && 
                 !MapUIInfo.SelectedAllyUnit_AllyMove.attacking)
             {
                 battleForecastUI.SetActive(true);
@@ -98,12 +98,12 @@ public class UI_BattleForecastColor : MonoBehaviour
 
     private void UpdateBattleFoecast()
     {
-        EnemyStats hoveringUnit_enemyStats = MapUIInfo.HoveringUnit.GetComponent<EnemyStats>();
+        EnemyStats hoveringUnit_enemyStats = MapUIInfo.hoveringUnit.GetComponent<EnemyStats>();
         string name, weaponName = "", damage, hitRate, critRate;
         int minRange = 0, maxRange = 0;
 
         //Updating values for ally unit
-        name = MapUIInfo.SelectedAllyUnit.name;
+        name = MapUIInfo.selectedAllyUnit.name;
         if (MapUIInfo.SelectedAllyUnit_AllyStats.attackMethod == AttackMethod.PHYSICAL)
         {
             weaponName = MapUIInfo.SelectedAllyUnit_AllyStats.equippedWeapon.name;
@@ -119,33 +119,33 @@ public class UI_BattleForecastColor : MonoBehaviour
             MapUIInfo.SelectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
         }
             
-        damage = MapUIInfo.BattleManager.AU_dmg.ToString();
-        hitRate = MapUIInfo.BattleManager.AU_accuracy.ToString();
-        critRate = MapUIInfo.BattleManager.AU_crit.ToString();
+        damage = MapUIInfo.battleManager.AU_dmg.ToString();
+        hitRate = MapUIInfo.battleManager.AU_accuracy.ToString();
+        critRate = MapUIInfo.battleManager.AU_crit.ToString();
 
         BattleForecastDisplay.UpdateAllyUnitInfoText(name, weaponName, damage, hitRate, critRate);
-        BattleForecastDisplay.SetAllyUnitX2(MapUIInfo.BattleManager.AU_attackTwice);
+        BattleForecastDisplay.SetAllyUnitX2(MapUIInfo.battleManager.AU_attackTwice);
 
         MapUIInfo.SelectedAllyUnit_AllyMove.RemoveSelectableTiles();
         MapUIInfo.SelectedAllyUnit_AllyMove.ShowWeaponRange(minRange, maxRange);
 
         //Updating values forenemy Unit
-        name = MapUIInfo.HoveringUnit.name;
+        name = MapUIInfo.hoveringUnit.name;
         if (hoveringUnit_enemyStats.attackMethod == AttackMethod.PHYSICAL)
             weaponName = hoveringUnit_enemyStats.equippedWeapon.name;
         else if (hoveringUnit_enemyStats.attackMethod == AttackMethod.OFFENSIVE_MAGIC)
             weaponName = hoveringUnit_enemyStats.equippedBlackMagic.name;
 
-        if(MapUIInfo.BattleManager.DU_inRange)
+        if(MapUIInfo.battleManager.DU_inRange)
         {
-            damage = MapUIInfo.BattleManager.DU_dmg.ToString();
-            hitRate = MapUIInfo.BattleManager.DU_accuracy.ToString();
-            critRate = MapUIInfo.BattleManager.DU_crit.ToString();
+            damage = MapUIInfo.battleManager.DU_dmg.ToString();
+            hitRate = MapUIInfo.battleManager.DU_accuracy.ToString();
+            critRate = MapUIInfo.battleManager.DU_crit.ToString();
         }
         else
             damage = hitRate = critRate = "-";
 
         BattleForecastDisplay.UpdateEnemyInfoText(name, weaponName, damage, hitRate, critRate);
-        BattleForecastDisplay.SetEnemyUnitX2(MapUIInfo.BattleManager.DU_attackTwice);
+        BattleForecastDisplay.SetEnemyUnitX2(MapUIInfo.battleManager.DU_attackTwice);
     }
 }
