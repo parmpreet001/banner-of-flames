@@ -7,25 +7,25 @@ using UnityEngine.UI;
 public class MapUIInfo : MonoBehaviour
 {
     public GameObject selectedAllyUnit;
-    public GameObject hoveringUnit;
-    private Cursor cursor;
-    public BattleManager battleManager;
+    public GameObject HoveringUnit;
+    private Cursor Cursor;
+    public BattleManager BattleManager;
 
     public AllyStats SelectedAllyUnit_AllyStats;
     public AllyMove SelectedAllyUnit_AllyMove;
 
     private void Start()
     {
-        cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
-        battleManager = GameObject.Find("MapAndBattleManager").GetComponent<BattleManager>();
+        Cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
+        BattleManager = GameObject.Find("MapAndBattleManager").GetComponent<BattleManager>();
     }
 
     private void Update()
     {
-        hoveringUnit = cursor.GetCurrentUnit();
-        if (hoveringUnit && hoveringUnit.GetComponent<TileMove>().selected)
+        HoveringUnit = Cursor.GetCurrentUnit();
+        if (HoveringUnit && HoveringUnit.GetComponent<TileMove>().selected)
         {
-            selectedAllyUnit = hoveringUnit;
+            selectedAllyUnit = HoveringUnit;
             SelectedAllyUnit_AllyStats = selectedAllyUnit.GetComponent<AllyStats>();
             SelectedAllyUnit_AllyMove = selectedAllyUnit.GetComponent<AllyMove>();
         }
