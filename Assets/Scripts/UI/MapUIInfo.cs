@@ -7,27 +7,27 @@ using UnityEngine.UI;
 public class MapUIInfo : MonoBehaviour
 {
     public GameObject selectedAllyUnit;
-    public GameObject HoveringUnit;
-    private Cursor Cursor;
-    public BattleManager BattleManager;
+    public GameObject hoveringUnit;
+    private Cursor cursor;
+    public BattleManager battleManager;
 
-    public AllyStats SelectedAllyUnit_AllyStats;
-    public AllyMove SelectedAllyUnit_AllyMove;
+    public AllyStats selectedAllyUnit_AllyStats;
+    public AllyMove selectedAllyUnit_AllyMove;
 
     private void Start()
     {
-        Cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
-        BattleManager = GameObject.Find("MapAndBattleManager").GetComponent<BattleManager>();
+        cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
+        battleManager = GameObject.Find("MapAndBattleManager").GetComponent<BattleManager>();
     }
 
     private void Update()
     {
-        HoveringUnit = Cursor.GetCurrentUnit();
-        if (HoveringUnit && HoveringUnit.GetComponent<TileMove>().selected)
+        hoveringUnit = cursor.GetCurrentUnit();
+        if (hoveringUnit && hoveringUnit.GetComponent<TileMove>().selected)
         {
-            selectedAllyUnit = HoveringUnit;
-            SelectedAllyUnit_AllyStats = selectedAllyUnit.GetComponent<AllyStats>();
-            SelectedAllyUnit_AllyMove = selectedAllyUnit.GetComponent<AllyMove>();
+            selectedAllyUnit = hoveringUnit;
+            selectedAllyUnit_AllyStats = selectedAllyUnit.GetComponent<AllyStats>();
+            selectedAllyUnit_AllyMove = selectedAllyUnit.GetComponent<AllyMove>();
         }
             
         if (selectedAllyUnit && (!selectedAllyUnit.GetComponent<AllyMove>().selected || selectedAllyUnit.GetComponent<AllyMove>().finished))

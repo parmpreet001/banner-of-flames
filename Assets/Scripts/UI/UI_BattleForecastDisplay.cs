@@ -44,12 +44,12 @@ public class UI_BattleForecastDisplay : MonoBehaviour
         EnemyUnitInfoText[4].text = crit;
     }
 
-    public void SetAllyUnitX2(bool active)
+    public void SetAllyUnitX2Active(bool active)
     {
         AllyUnitX2.SetActive(active);
     }
 
-    public void SetEnemyUnitX2(bool active)
+    public void SetEnemyUnitX2Active(bool active)
     {
         EnemyUnitX2.SetActive(active);
     }
