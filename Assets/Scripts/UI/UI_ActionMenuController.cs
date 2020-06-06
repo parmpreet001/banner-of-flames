@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-public class UI_ActionMenu : MonoBehaviour
+public class UI_ActionMenuController : MonoBehaviour
 {
     //References to other shit
     private MapUIInfo MapUIInfo;
