@@ -1458,7 +1458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &187109495
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7865,8 +7865,8 @@ MonoBehaviour:
   selectedAllyUnit: {fileID: 0}
   hoveringUnit: {fileID: 0}
   battleManager: {fileID: 0}
-  selectedAllyUnit_AllyStats: {fileID: 0}
-  selectedAllyUnit_AllyMove: {fileID: 0}
+  SelectedAllyUnit_AllyStats: {fileID: 0}
+  SelectedAllyUnit_AllyMove: {fileID: 0}
 --- !u!1001 &1131476391
 PrefabInstance:
   m_ObjectHideFlags: 0
