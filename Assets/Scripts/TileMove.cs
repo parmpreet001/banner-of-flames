@@ -62,45 +62,26 @@ public class TileMove : MonoBehaviour
     {
         ComputeAdjacentLists(true);
         GetCurrentTile();
-
-        Queue<Tile> process = new Queue<Tile>();
-
-        process.Enqueue(currentTile); //Adds the tile the unit is standing on to the process Queue
-        currentTile.visited = true;
-        
-        //Loop runs while process has tiles in it. Adds all tiles within unit's move range to the process queue. 
-        while(process.Count > 0)
+        FindTilesWithinDistance(0, moveRange);
+        bool validTerrain = false;
+        for(int i = selectableTiles.Count-1; i >= 0; i--)
         {
-            Tile t = process.Dequeue(); //Removes the tile from process and assigns it to Tile t
-
-            selectableTiles.Add(t); //The tile is added to the list of selectable tiles
-            t.selectable = true; //The tile is marked as selectable
-            if(updateTTileColors)
-                t.UpdateColors();
-
-            if (t.distance < moveRange) //True if the tile is within the unit's move range
+            Tile tile = selectableTiles[i];
+            for(int j = 0; j < terrain.Length; j++)
             {
-                foreach(Tile tile in t.adjacentTiles) //For each tile adjacent to the current tile
-                {
-                    if (!tile.visited) //True if the tile has not already been visited by the search
-                    {
-                        bool validTerrain = false;
-                        for(int i = 0; i < terrain.Length; i++)
-                        {
-                            if (terrain[i] == tile.terrainType)
-                                validTerrain = true;
-                        }
-                        if(validTerrain)
-                        {
-                            
-                            tile.parent = t; //The parent of the adjacent tile is the current tile
-                            tile.visited = true; //The tile is marked as visited
-                            tile.distance = 1 + t.distance; //The distance of the is equal to the distance of the parent tile plus one
-                            process.Enqueue(tile); //The tile gets added to the proces queue
-                        }
-
-                    }
-                }
+                validTerrain = false;
+                if (terrain[j] == tile.terrainType)
+                    validTerrain = true;
+            }
+            if(validTerrain)
+            {
+                tile.selectable = true;
+                if(updateTTileColors)
+                    tile.UpdateColors();
+            }
+            else
+            {
+                selectableTiles.RemoveAt(i);
             }
         }
     }
@@ -168,46 +149,27 @@ public class TileMove : MonoBehaviour
     {
         ComputeAdjacentLists(false);
         GetCurrentTile();
+        FindTilesWithinDistance(minRange, maxRange);
 
-        Queue<Tile> process = new Queue<Tile>();
-
-        process.Enqueue(currentTile); //Adds the tile the unit is standing on to the process Queue
-        currentTile.visited = true;
-
-        //Loop runs while process has tiles in it. Adds all tiles within unit's move range to the process queue. 
-        while (process.Count > 0)
+        for(int i = selectableTiles.Count-1; i >= 0; i--)
         {
-            Tile t = process.Dequeue(); //Removes the tile from process and assigns it to Tile t
-
-            //If the tile is within the unit's attack range, and it has an attackable unit on it, then that tile gets added to the list of selectableTiles
-            if(t.distance >= minRange && t.distance <= maxRange && t.HasUnit())
+            Tile tile = selectableTiles[i];
+            if (tile.HasUnit() && tag != tile.transform.GetChild(0).tag)
             {
-                if(tag != t.transform.GetChild(0).tag)
-                {
-                    selectableTiles.Add(t); //The tile is added to the list of selectable tiles
-                    t.attackable = true; //The tile is marked as selectable
-                    t.UpdateColors();
-                }
+                tile.attackable = true; //The tile is marked as selectable
+                tile.UpdateColors();
             }
-
-            if (t.distance < maxRange) //True if the tile is within the unit's move range
+            else
             {
-                foreach (Tile tile in t.adjacentTiles) //For each tile adjacent to the current tile
-                {
-                    if (!tile.visited) //True if the tile has not already been visited by the search
-                    {
-                        tile.parent = t; //The parent of the adjacent tile is the current tile
-                        tile.visited = true; //The tile is marked as visited
-                        tile.distance = 1 + t.distance; //The distance of the is equal to the distance of the parent tile plus one
-                        process.Enqueue(tile); //The tile gets added to the proces queue
-                    }
-                }
+                selectableTiles.RemoveAt(i);
             }
         }
+
         if(selectableTiles.Count != 0)
         {
             findingTarget = true;
         }
+
         if (transform.tag == "EnemyUnit" && findingTarget == false)
         {
             selected = false;
@@ -222,7 +184,17 @@ public class TileMove : MonoBehaviour
     {
         ComputeAdjacentLists(false);
         GetCurrentTile();
+        FindTilesWithinDistance(minRange, maxRange);
 
+        foreach (Tile tile in selectableTiles)
+        {
+            tile.attackable = true;
+            tile.UpdateColors();
+        }
+    }
+
+    private void FindTilesWithinDistance(int min, int max)
+    {
         Queue<Tile> process = new Queue<Tile>();
 
         process.Enqueue(currentTile); //Adds the tile the unit is standing on to the process Queue
@@ -234,14 +206,12 @@ public class TileMove : MonoBehaviour
             Tile t = process.Dequeue(); //Removes the tile from process and assigns it to Tile t
 
             //If the tile is within the unit's attack range
-            if (t.distance >= minRange && t.distance <= maxRange)
+            if (t.distance >= min && t.distance <= max)
             {
                 selectableTiles.Add(t); //The tile is added to the list of selectable tiles
-                t.attackable = true;
-                t.UpdateColors();
             }
 
-            if (t.distance < maxRange) //True if the tile is within the unit's move range
+            if (t.distance < max) //True if the tile is within the unit's move range
             {
                 foreach (Tile tile in t.adjacentTiles) //For each tile adjacent to the current tile
                 {
