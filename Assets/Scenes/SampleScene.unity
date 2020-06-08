@@ -12314,6 +12314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1940039613}
   - component: {fileID: 1940039614}
+  - component: {fileID: 1940039615}
   m_Layer: 5
   m_Name: ActionMenu
   m_TagString: Untagged
@@ -12359,6 +12360,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MenuCursor: {fileID: 0}
+--- !u!114 &1940039615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940039612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5f0d9807bb4a6b4dbbd79d731ad826f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitButton: {fileID: 0}
+  attackButton: {fileID: 0}
+  itemButton: {fileID: 0}
+  blackMagicButton: {fileID: 0}
+  actionMenuCursor: {fileID: 0}
+  itemMenu: {fileID: 0}
+  itemSlots:
+  - gameObject: {fileID: 0}
+    name: {fileID: 0}
+    usage: {fileID: 0}
+  - gameObject: {fileID: 0}
+    name: {fileID: 0}
+    usage: {fileID: 0}
+  - gameObject: {fileID: 0}
+    name: {fileID: 0}
+    usage: {fileID: 0}
+  - gameObject: {fileID: 0}
+    name: {fileID: 0}
+    usage: {fileID: 0}
+  - gameObject: {fileID: 0}
+    name: {fileID: 0}
+    usage: {fileID: 0}
+  weaponInfo:
+    gameObject: {fileID: 0}
+    damage: {fileID: 0}
+    hitRate: {fileID: 0}
+    critRate: {fileID: 0}
+    range: {fileID: 0}
+  actionMenuPosition: 0
 --- !u!1 &2044005908
 GameObject:
   m_ObjectHideFlags: 0
