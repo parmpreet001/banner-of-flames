@@ -62,26 +62,15 @@ public class TileMove : MonoBehaviour
     {
         ComputeAdjacentLists(true);
         GetCurrentTile();
-        FindTilesWithinDistance(0, moveRange);
-        bool validTerrain = false;
+        FindTilesWithinDistance(0, moveRange, terrain);
         for(int i = selectableTiles.Count-1; i >= 0; i--)
         {
-            Tile tile = selectableTiles[i];
-            for(int j = 0; j < terrain.Length; j++)
-            {
-                validTerrain = false;
-                if (terrain[j] == tile.terrainType)
-                    validTerrain = true;
-            }
-            if(validTerrain)
-            {
-                tile.selectable = true;
-                if(updateTTileColors)
-                    tile.UpdateColors();
-            }
-            else
-            {
+            if (selectableTiles[i].HasUnit())
                 selectableTiles.RemoveAt(i);
+            else if(tag != "EnemyUnit")
+            {
+                selectableTiles[i].selectable = true;
+                selectableTiles[i].UpdateColors();
             }
         }
     }
@@ -149,7 +138,7 @@ public class TileMove : MonoBehaviour
     {
         ComputeAdjacentLists(false);
         GetCurrentTile();
-        FindTilesWithinDistance(minRange, maxRange);
+        FindTilesWithinDistance(minRange, maxRange, null);
 
         for(int i = selectableTiles.Count-1; i >= 0; i--)
         {
@@ -185,7 +174,7 @@ public class TileMove : MonoBehaviour
     {
         ComputeAdjacentLists(false);
         GetCurrentTile();
-        FindTilesWithinDistance(minRange, maxRange);
+        FindTilesWithinDistance(minRange, maxRange, null);
 
         foreach (Tile tile in selectableTiles)
         {
@@ -194,7 +183,7 @@ public class TileMove : MonoBehaviour
         }
     }
 
-    private void FindTilesWithinDistance(int min, int max)
+    private void FindTilesWithinDistance(int min, int max, TerrainType[] terrain)
     {
         Queue<Tile> process = new Queue<Tile>();
 
@@ -209,14 +198,15 @@ public class TileMove : MonoBehaviour
             //If the tile is within the unit's attack range
             if (t.distance >= min && t.distance <= max)
             {
-                selectableTiles.Add(t); //The tile is added to the list of selectable tiles
+                if (CheckTileTerrain(t, terrain))
+                    selectableTiles.Add(t); //The tile is added to the list of selectable tiles
             }
 
             if (t.distance < max) //True if the tile is within the unit's move range
             {
                 foreach (Tile tile in t.adjacentTiles) //For each tile adjacent to the current tile
                 {
-                    if (!tile.visited) //True if the tile has not already been visited by the search
+                    if (!tile.visited && CheckTileTerrain(tile, terrain)) //True if the tile has not already been visited by the search
                     {
                         tile.parent = t; //The parent of the adjacent tile is the current tile
                         tile.visited = true; //The tile is marked as visited
@@ -226,6 +216,20 @@ public class TileMove : MonoBehaviour
                 }
             }
         }
+    }
+
+    //Returns true if tile's terrain type can be found in terrain[]
+    private bool CheckTileTerrain(Tile tile, TerrainType[] terrain)
+    {
+        if (terrain == null)
+            return true;
+        bool validTerrain = false;
+        foreach(TerrainType terrainType in terrain)
+        {
+            if (tile.terrainType == terrainType)
+                validTerrain = true;
+        }
+        return validTerrain;
     }
 
     public int GetDistanceBetweenTiles(GameObject tile1, GameObject tile2)
