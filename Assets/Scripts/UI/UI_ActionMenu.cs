@@ -70,6 +70,8 @@ public class UI_ActionMenu : MonoBehaviour
         //if unit can use black magic
         if (MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count > 0 && MapUIInfo.selectedAllyUnit_AllyStats.classType.usesBlackMagic)
             buttons.Add("BlackMagic");
+        if (MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic.Count > 0 && MapUIInfo.selectedAllyUnit_AllyStats.classType.usesWhiteMagic)
+            buttons.Add("WhiteMagic");
         buttons.Add("Item");
         buttons.Add("Wait");
 
@@ -84,6 +86,9 @@ public class UI_ActionMenu : MonoBehaviour
                 case "BlackMagic":
                     transform.Find("BlackMagicButton").gameObject.SetActive(true);
                     transform.Find("BlackMagicButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i); break;
+                case "WhiteMagic":
+                    transform.Find("WhiteMagicButton").gameObject.SetActive(true);
+                    transform.Find("WhiteMagicButton").gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i); break;
                 case "Item":
                     transform.Find("ItemButton").gameObject.SetActive(true);
                     transform.Find("ItemButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i); break;

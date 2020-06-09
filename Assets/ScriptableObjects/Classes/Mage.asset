@@ -37,4 +37,4 @@ MonoBehaviour:
   mov: 5
   usesPhysicalAttacks: 0
   usesBlackMagic: 1
-  usesWhiteMagic: 0
+  usesWhiteMagic: 1
