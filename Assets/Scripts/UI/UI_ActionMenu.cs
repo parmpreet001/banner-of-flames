@@ -280,6 +280,36 @@ public class UI_ActionMenu : MonoBehaviour
         }
     }
 
+    private void WhiteMagic()
+    {
+        Debug.Log("selected white magic");
+        MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
+        MoveCursor(180, 36);
+        selectingItems = true;
+        ItemMenu.SetActive(true);
+        menuCursorPosition = 1;
+
+        for (int i = 0; i < 5; i++)
+        {
+            //If the unit's inventory slot is not empty, update name, durability, and text color
+            if (i < MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic.Count)
+            {
+                UpdateInventorySlot(i, MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[i].name, MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[i].currentUses,
+                    MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[i].maxUses[MapUIInfo.selectedAllyUnit_AllyStats.skillLevels.magicLevels[(int)MagicType.WHITE]]);
+
+                if (MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[i].equipped)
+                    SetItemNameColor(i, new Color32(34, 170, 160, 255));
+                else
+                    SetItemNameColor(i, Color.black);
+            }
+            //else, set blank values
+            else
+            {
+                UpdateInventorySlot(i, "", 0, 0);
+            }
+        }
+    }
+
     private void SelectItem()
     {
         //If the selected item was a weapon, and the unit doesn't already have it equipped
