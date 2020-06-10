@@ -16,6 +16,7 @@ public class UI_ActionMenu : MonoBehaviour
     List<string> buttons = new List<string>(); //List of buttons
     private int menuCursorPosition = 1; //Position of the cursor, where 1 is at the top
     private bool selectingItems = false; //If true, player has selected the Items button and is now going through the list of items
+    private UI_ActionMenuDisplay actionMenuDisplay;
 
     //Shorthand variables to make this shit more fucking readable
     Item[] unitInventory; //inventory of the currently selected unit
@@ -27,6 +28,7 @@ public class UI_ActionMenu : MonoBehaviour
         ItemMenu = GameObject.Find("ItemMenu");
         WeaponInfo = GameObject.Find("WeaponInfo").transform;
         MenuCursor_RectTransform = MenuCursor.GetComponent<RectTransform>();
+        actionMenuDisplay = GetComponent<UI_ActionMenuDisplay>();
     }
 
     void Update()
@@ -78,26 +80,8 @@ public class UI_ActionMenu : MonoBehaviour
         //Activates buttons and positions them in descending order
         for (int i = 0; i < buttons.Count; i++)
         {
-            switch (buttons[i])
-            {
-                case "Attack":
-                    transform.Find("AttackButton").gameObject.SetActive(true);
-                    transform.Find("AttackButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i); break;
-                case "BlackMagic":
-                    transform.Find("BlackMagicButton").gameObject.SetActive(true);
-                    transform.Find("BlackMagicButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i); break;
-                case "WhiteMagic":
-                    transform.Find("WhiteMagicButton").gameObject.SetActive(true);
-                    transform.Find("WhiteMagicButton").gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i); break;
-                case "Item":
-                    transform.Find("ItemButton").gameObject.SetActive(true);
-                    transform.Find("ItemButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i); break;
-                case "Wait":
-                    transform.Find("WaitButton").gameObject.SetActive(true);
-                    transform.Find("WaitButton").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -35 * i); break;
-                default:
-                    break;
-            }
+            actionMenuDisplay.SetButtonActive(buttons[i], true);
+            actionMenuDisplay.SetButtonRectTransform(buttons[i], 0, -35 * i);
         }
         GetComponent<RectTransform>().anchoredPosition = new Vector2(GetComponent<RectTransform>().anchoredPosition.x, 17.5f * (buttons.Count - 1));
     }
@@ -186,7 +170,7 @@ public class UI_ActionMenu : MonoBehaviour
             //If the unit's inventory slot is not empty, update name, durability, and text color
             if (unitInventory[i] != null)
             {
-                UpdateInventorySlot(i, unitInventory[i].name, unitInventory[i].currentUses, unitInventory[i].maxUses);
+                UpdateItemSlot(i, unitInventory[i].name, unitInventory[i].currentUses, unitInventory[i].maxUses);
 
                 if (unitInventory[i].GetType() == typeof(Weapon) && ((Weapon)unitInventory[i]).equipped)
                     SetItemNameColor(i, new Color32(34, 170, 160, 255));
@@ -197,7 +181,7 @@ public class UI_ActionMenu : MonoBehaviour
             }
             //else, set blank values
             else
-                UpdateInventorySlot(i, "", 0, 0);
+                UpdateItemSlot(i, "", 0, 0);
         }
     }
 
@@ -264,7 +248,7 @@ public class UI_ActionMenu : MonoBehaviour
             //If the unit's inventory slot is not empty, update name, durability, and text color
             if (i < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
             {
-                UpdateInventorySlot(i, MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].name, MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].currentUses,
+                UpdateItemSlot(i, MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].name, MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].currentUses,
                     MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].maxUses[MapUIInfo.selectedAllyUnit_AllyStats.skillLevels.magicLevels[(int)MagicType.BLACK]]);
 
                 if (MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].equipped)
@@ -275,7 +259,7 @@ public class UI_ActionMenu : MonoBehaviour
             //else, set blank values
             else
             {
-                UpdateInventorySlot(i, "", 0, 0);
+                UpdateItemSlot(i, "", 0, 0);
             }
         }
     }
@@ -294,7 +278,7 @@ public class UI_ActionMenu : MonoBehaviour
             //If the unit's inventory slot is not empty, update name, durability, and text color
             if (i < MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic.Count)
             {
-                UpdateInventorySlot(i, MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[i].name, MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[i].currentUses,
+                UpdateItemSlot(i, MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[i].name, MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[i].currentUses,
                     MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[i].maxUses[MapUIInfo.selectedAllyUnit_AllyStats.skillLevels.magicLevels[(int)MagicType.WHITE]]);
 
                 if (MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[i].equipped)
@@ -305,7 +289,7 @@ public class UI_ActionMenu : MonoBehaviour
             //else, set blank values
             else
             {
-                UpdateInventorySlot(i, "", 0, 0);
+                UpdateItemSlot(i, "", 0, 0);
             }
         }
     }
@@ -380,25 +364,18 @@ public class UI_ActionMenu : MonoBehaviour
     {
         MenuCursor_RectTransform.anchoredPosition = new Vector2(x, y);
     }
-
-    //returns Transform of the nth inventory slot
-    private Transform GetInventorySlot(int n)
-    {
-        return ItemMenu.transform.GetChild(n);
-    }
     //Updates name and uses of item at inventory slot n
-    private void UpdateInventorySlot(int n, string name, int uses, int maxUses)
+    private void UpdateItemSlot(int n, string name, int uses, int maxUses)
     {
-        GetInventorySlot(n).GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
         if (maxUses == 0)
-            GetInventorySlot(n).GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+            actionMenuDisplay.UpdateItemSlot(n, name, "");
         else
-            GetInventorySlot(n).GetChild(1).GetComponent<TextMeshProUGUI>().text = uses + "/" + maxUses;
+            actionMenuDisplay.UpdateItemSlot(n, name, uses + "/" + maxUses);
     }
     //Updates color of the item's name at inventory slot n
     private void SetItemNameColor(int n, Color color)
     {
-        GetInventorySlot(n).GetChild(0).GetComponent<TextMeshProUGUI>().color = color;
+        actionMenuDisplay.UpdateItemColor(n, color);
     }
 
 
