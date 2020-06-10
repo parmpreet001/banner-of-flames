@@ -56,7 +56,8 @@ public class AllyStats : Stats
     public void EquipWeapon(int index)
     {
         ((Weapon)inventory[index]).equipped = true;
-        equippedWeapon.equipped = false;
+        if(equippedWeapon)
+            equippedWeapon.equipped = false;
         equippedWeapon = ((Weapon)inventory[index]);
 
         attackMethod = AttackMethod.PHYSICAL;

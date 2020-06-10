@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IronSword
   m_EditorClassIdentifier: 
   name: Iron Sword
-  currentUses: 0
+  currentUses: 40
   maxUses: 40
   dmg: 5
   hitRate: 85

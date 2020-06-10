@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 
   walkableTerrain: 00000000
   skillLevels:
-    weaponLevels: 00000000000000000000000000000000
+    weaponLevels: 01000000000000000000000000000000
     weaponLevelsExperience: 00000000000000000000000000000000
     magicLevels: 0200000000000000
     magicLevelsExperience: 00000000000000000000000000000000

@@ -15,7 +15,7 @@ public class UI_ActionMenu : MonoBehaviour
     private bool buttonsCreated = false; //Whether or not buttons have beencreated
     List<string> buttons = new List<string>(); //List of buttons
     private int menuCursorPosition = 1; //Position of the cursor, where 1 is at the top
-    private bool selectingItems = false; //If true, player has selected the Items button and is now going through the list of items
+    public bool selectingItems = false; //If true, player has selected the Items button and is now going through the list of items
     private UI_ActionMenuDisplay actionMenuDisplay;
 
     //Shorthand variables to make this shit more fucking readable
@@ -81,7 +81,7 @@ public class UI_ActionMenu : MonoBehaviour
         for (int i = 0; i < buttons.Count; i++)
         {
             actionMenuDisplay.SetButtonActive(buttons[i], true);
-            actionMenuDisplay.SetButtonRectTransform(buttons[i], 0, -35 * i);
+            actionMenuDisplay.SetButtonPosition(buttons[i], 0, -35 * i);
         }
         GetComponent<RectTransform>().anchoredPosition = new Vector2(GetComponent<RectTransform>().anchoredPosition.x, 17.5f * (buttons.Count - 1));
     }
@@ -356,13 +356,14 @@ public class UI_ActionMenu : MonoBehaviour
     //moves the menu cursor
     private void MoveCursor(float x, float y)
     {
-        MenuCursor_RectTransform.anchoredPosition = new Vector2(MenuCursor_RectTransform.anchoredPosition.x + x, MenuCursor_RectTransform.anchoredPosition.y + y);
+        actionMenuDisplay.MoveCursorPosition(x, y);
     }
 
     //Sets position of the menu cursor
     private void SetCursorPosition(float x, float y)
     {
-        MenuCursor_RectTransform.anchoredPosition = new Vector2(x, y);
+        actionMenuDisplay.SetCursorPosition(x, y);
+        //MenuCursor_RectTransform.anchoredPosition = new Vector2(x, y);
     }
     //Updates name and uses of item at inventory slot n
     private void UpdateItemSlot(int n, string name, int uses, int maxUses)

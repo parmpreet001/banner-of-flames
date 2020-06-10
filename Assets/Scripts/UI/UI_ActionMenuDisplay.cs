@@ -20,13 +20,33 @@ public class UI_ActionMenuDisplay : MonoBehaviour
         }
     }
 
+    public struct ItemInfo
+    {
+        public GameObject gameObject;
+        public TextMeshProUGUI damage, hitRate, critRate, range;
+
+        public ItemInfo(GameObject gameObject)
+        {
+            this.gameObject = gameObject;
+            damage = gameObject.transform.Find("Damage").GetComponent<TextMeshProUGUI>();
+            hitRate = gameObject.transform.Find("HitRate").GetComponent<TextMeshProUGUI>();
+            critRate = gameObject.transform.Find("CritRate").GetComponent<TextMeshProUGUI>();
+            range = gameObject.transform.Find("Range").GetComponent<TextMeshProUGUI>();
+        }
+    }
+
     public GameObject[] buttons = new GameObject[5];
     public ItemSlot[] itemSlots = new ItemSlot[5];
+    public ItemInfo itemInfo;
     public GameObject itemMenu;
+    public GameObject menuCursor;
+
 
     private void Start()
     {
-        itemMenu = GameObject.Find("ItemMenu");
+        itemMenu = transform.Find("ItemMenu").gameObject;
+        menuCursor = transform.Find("ActionMenuCursor").gameObject;
+        itemInfo = new ItemInfo(GameObject.Find("WeaponInfo"));
 
         buttons[0] = (transform.Find("WaitButton").gameObject);
         buttons[1] = (transform.Find("AttackButton").gameObject);
@@ -75,8 +95,24 @@ public class UI_ActionMenuDisplay : MonoBehaviour
         GetButton(name).SetActive(active);
     }
 
-    public void SetButtonRectTransform(string name, float x, float y)
+    public void SetButtonPosition(string name, float x, float y)
     {
         GetButton(name).GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
+    }
+
+    public void SetCursorPosition(float x, float y)
+    {
+        menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
+    }
+
+    public void MoveCursorPosition(float x, float y)
+    {
+        menuCursor.GetComponent<RectTransform>().anchoredPosition = new Vector2(menuCursor.GetComponent<RectTransform>().anchoredPosition.x + x,
+            menuCursor.GetComponent<RectTransform>().anchoredPosition.y + y);
+    }
+
+    public void UpdateItemInfo()
+    {
+
     }
 }

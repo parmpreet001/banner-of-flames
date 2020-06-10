@@ -12567,6 +12567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MenuCursor: {fileID: 0}
+  selectingItems: 0
 --- !u!114 &1940039615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12579,6 +12580,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2484ed647bc1b4c8ae8bd97df34530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  itemSlots:
+  - gameobject: {fileID: 0}
+    name: {fileID: 0}
+    uses: {fileID: 0}
+  - gameobject: {fileID: 0}
+    name: {fileID: 0}
+    uses: {fileID: 0}
+  - gameobject: {fileID: 0}
+    name: {fileID: 0}
+    uses: {fileID: 0}
+  - gameobject: {fileID: 0}
+    name: {fileID: 0}
+    uses: {fileID: 0}
+  - gameobject: {fileID: 0}
+    name: {fileID: 0}
+    uses: {fileID: 0}
+  itemMenu: {fileID: 0}
+  menuCursor: {fileID: 0}
 --- !u!1 &2044005908
 GameObject:
   m_ObjectHideFlags: 0
