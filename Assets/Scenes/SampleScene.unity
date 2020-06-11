@@ -8219,7 +8219,7 @@ GameObject:
   - component: {fileID: 1175135957}
   - component: {fileID: 1175135956}
   m_Layer: 5
-  m_Name: WeaponInfo
+  m_Name: ItemInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12567,7 +12567,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MenuCursor: {fileID: 0}
-  selectingItems: 0
+  itemMenuOpen: 0
+  checkingItems: 0
+  checkingBlackMagic: 0
+  checkingWhiteMagic: 0
 --- !u!114 &1940039615
 MonoBehaviour:
   m_ObjectHideFlags: 0
