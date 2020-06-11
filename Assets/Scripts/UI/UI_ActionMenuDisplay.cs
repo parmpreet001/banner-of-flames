@@ -111,8 +111,11 @@ public class UI_ActionMenuDisplay : MonoBehaviour
             menuCursor.GetComponent<RectTransform>().anchoredPosition.y + y);
     }
 
-    public void UpdateItemInfo()
+    public void UpdateItemInfo(string damage, string hitRate, string critRate, string range)
     {
-
+        itemInfo.damage.text = damage;
+        itemInfo.hitRate.text = hitRate;
+        itemInfo.critRate.text = critRate;
+        itemInfo.range.text = range;
     }
 }

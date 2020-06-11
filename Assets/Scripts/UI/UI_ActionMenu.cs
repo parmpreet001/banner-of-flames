@@ -15,7 +15,8 @@ public class UI_ActionMenu : MonoBehaviour
     private bool buttonsCreated = false; //Whether or not buttons have beencreated
     List<string> buttons = new List<string>(); //List of buttons
     private int menuCursorPosition = 1; //Position of the cursor, where 1 is at the top
-    public bool selectingItems = false; //If true, player has selected the Items button and is now going through the list of items
+    public bool itemMenuOpen = false; //If true, player has selected the Items button and is now going through the list of items
+    public bool checkingItems, checkingBlackMagic, checkingWhiteMagic = false; //Whether the player is selecting from the item, black magic, or white magic list
     private UI_ActionMenuDisplay actionMenuDisplay;
 
     //Shorthand variables to make this shit more fucking readable
@@ -88,7 +89,7 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void MenuCursorInput()
     {
-        if (selectingItems)
+        if (itemMenuOpen)
         {
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
@@ -108,7 +109,7 @@ public class UI_ActionMenu : MonoBehaviour
                 }
             }
 
-            UpdateWeaponInfo(menuCursorPosition - 1);
+            UpdateItemSlotInfo(menuCursorPosition - 1);
 
             if (Input.GetKeyDown(KeyCode.Z))
             {
@@ -160,7 +161,8 @@ public class UI_ActionMenu : MonoBehaviour
     {
         MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
         MoveCursor(180, 36);
-        selectingItems = true;
+        itemMenuOpen = true;
+        checkingItems = true;
         ItemMenu.SetActive(true);
         menuCursorPosition = 1;
 
@@ -185,9 +187,73 @@ public class UI_ActionMenu : MonoBehaviour
         }
     }
 
-    private void UpdateWeaponInfo(int index)
-    {     
+    private void UpdateItemSlotInfo(int index)
+    {
+        string damage, hitRate, critRate, range, heal;
+        if(checkingItems)
+        {
+            if(unitInventory[index] && unitInventory[index].GetType() == typeof(Weapon))
+            {
+                Weapon weapon = ((Weapon)unitInventory[index]);
+                damage = weapon.dmg.ToString();
+                hitRate = weapon.hitRate.ToString();
+                critRate = weapon.critRate.ToString();
+                if (weapon.minRange == weapon.maxRange)
+                    range = weapon.minRange.ToString();
+                else
+                    range = weapon.minRange + "-" + weapon.maxRange;
+
+                actionMenuDisplay.UpdateItemInfo(damage, hitRate, critRate, range);
+            }
+            else
+            {
+                actionMenuDisplay.UpdateItemInfo("-", "-", "-", "-");
+            }
+        } 
+        else if(checkingBlackMagic)
+        {
+            if(index < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
+            {
+                OffensiveMagic blackMagic = (OffensiveMagic)MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[index];
+                damage = blackMagic.dmg.ToString();
+                hitRate = blackMagic.hitRate.ToString();
+                critRate = "0";
+                if (blackMagic.minRange == blackMagic.maxRange)
+                    range = blackMagic.minRange.ToString();
+                else
+                    range = blackMagic.minRange + "-" + blackMagic.maxRange;
+
+                actionMenuDisplay.UpdateItemInfo(damage, hitRate, critRate, range);
+            }
+            else
+            {
+                actionMenuDisplay.UpdateItemInfo("-", "-", "-", "-");
+            }
+        }
+        else if(checkingWhiteMagic)
+        {
+            if(index < MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic.Count)
+            {
+
+                HealingMagic whiteMagic = (HealingMagic)MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[index];
+                heal = whiteMagic.heal.ToString();
+                hitRate = whiteMagic.hitRate.ToString();
+                critRate = "0";
+                if (whiteMagic.minRange == whiteMagic.maxRange)
+                    range = whiteMagic.minRange.ToString();
+                else
+                    range = whiteMagic.minRange + "-" + whiteMagic.maxRange;
+
+                actionMenuDisplay.UpdateItemInfo(heal, hitRate, critRate, range);
+            }
+            else
+            {
+                actionMenuDisplay.UpdateItemInfo("-", "-", "-", "-");
+            }
+        }
+        /*
         MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles(); //TODO figure out why the fuck this is here
+
         Weapon tempWeapon = (Weapon)(unitInventory[index]);
         OffensiveMagic tempBlackMagic = null;
 
@@ -224,6 +290,7 @@ public class UI_ActionMenu : MonoBehaviour
         }
         else
             UpdateWeaponInfoText("-", "-", "-", "-");
+            */
     }
 
     private void UpdateWeaponInfoText(string dmg, string hitRate, string critRate, string range)
@@ -238,7 +305,8 @@ public class UI_ActionMenu : MonoBehaviour
     {
         MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
         MoveCursor(180, 36);
-        selectingItems = true;
+        itemMenuOpen = true;
+        checkingBlackMagic = true;
         ItemMenu.SetActive(true);
         menuCursorPosition = 1;
 
@@ -269,7 +337,8 @@ public class UI_ActionMenu : MonoBehaviour
         Debug.Log("selected white magic");
         MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
         MoveCursor(180, 36);
-        selectingItems = true;
+        itemMenuOpen = true;
+        checkingWhiteMagic = true;
         ItemMenu.SetActive(true);
         menuCursorPosition = 1;
 
@@ -332,8 +401,9 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void ResetActionMenu(bool removeSelectedAllyUnit)
     {
-        selectingItems = false;
+        itemMenuOpen = false;
         buttonsCreated = false;
+        itemMenuOpen = buttonsCreated = checkingItems = checkingBlackMagic = checkingWhiteMagic = false;
         SetCursorPosition(MenuCursor_RectTransform.anchoredPosition.x, 0);
         menuCursorPosition = 1;
 
