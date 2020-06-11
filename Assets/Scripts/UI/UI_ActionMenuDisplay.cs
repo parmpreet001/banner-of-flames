@@ -24,6 +24,7 @@ public class UI_ActionMenuDisplay : MonoBehaviour
     {
         public GameObject gameObject;
         public TextMeshProUGUI damage, hitRate, critRate, range;
+        public TextMeshProUGUI staticTextDmgHeal;
 
         public ItemInfo(GameObject gameObject)
         {
@@ -32,6 +33,7 @@ public class UI_ActionMenuDisplay : MonoBehaviour
             hitRate = gameObject.transform.Find("HitRate").GetComponent<TextMeshProUGUI>();
             critRate = gameObject.transform.Find("CritRate").GetComponent<TextMeshProUGUI>();
             range = gameObject.transform.Find("Range").GetComponent<TextMeshProUGUI>();
+            staticTextDmgHeal = gameObject.transform.Find("StaticText").transform.Find("Damage").GetComponent<TextMeshProUGUI>();
         }
     }
 
@@ -41,12 +43,11 @@ public class UI_ActionMenuDisplay : MonoBehaviour
     public GameObject itemMenu;
     public GameObject menuCursor;
 
-
     private void Start()
     {
         itemMenu = transform.Find("ItemMenu").gameObject;
         menuCursor = transform.Find("ActionMenuCursor").gameObject;
-        itemInfo = new ItemInfo(GameObject.Find("WeaponInfo"));
+        itemInfo = new ItemInfo(GameObject.Find("ItemInfo"));
 
         buttons[0] = (transform.Find("WaitButton").gameObject);
         buttons[1] = (transform.Find("AttackButton").gameObject);

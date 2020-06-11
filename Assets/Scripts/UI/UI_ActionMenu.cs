@@ -7,7 +7,6 @@ public class UI_ActionMenu : MonoBehaviour
     //References to other shit
     private MapUIInfo MapUIInfo;
     private GameObject ItemMenu; //Holds and displays items
-    private Transform WeaponInfo; //Displays info about the highlighted weapon 
     public GameObject MenuCursor; //Cursor used for selecting items
     private RectTransform MenuCursor_RectTransform; //menuCursor RectTransform
 
@@ -27,7 +26,6 @@ public class UI_ActionMenu : MonoBehaviour
         MenuCursor = transform.Find("ActionMenuCursor").gameObject;
         MapUIInfo = GetComponentInParent<MapUIInfo>();
         ItemMenu = GameObject.Find("ItemMenu");
-        WeaponInfo = GameObject.Find("WeaponInfo").transform;
         MenuCursor_RectTransform = MenuCursor.GetComponent<RectTransform>();
         actionMenuDisplay = GetComponent<UI_ActionMenuDisplay>();
     }
@@ -65,7 +63,7 @@ public class UI_ActionMenu : MonoBehaviour
     {
         MenuCursor.SetActive(true);
         buttonsCreated = true;
-        SetCursorPosition(MenuCursor_RectTransform.anchoredPosition.x, -35 * (menuCursorPosition - 1));
+        actionMenuDisplay.SetCursorPosition(MenuCursor_RectTransform.anchoredPosition.x, -35 * (menuCursorPosition - 1));
 
         //If unit is finding a target and can use physical attacks
         if (MapUIInfo.selectedAllyUnit_AllyMove.findingTarget && MapUIInfo.selectedAllyUnit_AllyStats.classType.usesPhysicalAttacks)
@@ -96,16 +94,15 @@ public class UI_ActionMenu : MonoBehaviour
                 if (menuCursorPosition <= 4)
                 {
                     menuCursorPosition++;
-                    MoveCursor(0, -24);
+                    actionMenuDisplay.MoveCursorPosition(0, -24);
                 }
-
             }
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 if (menuCursorPosition >= 2)
                 {
                     menuCursorPosition--;
-                    MoveCursor(0, 24);
+                    actionMenuDisplay.MoveCursorPosition(0, 24);
                 }
             }
 
@@ -123,7 +120,7 @@ public class UI_ActionMenu : MonoBehaviour
                 if (menuCursorPosition < buttons.Count)
                 {
                     menuCursorPosition++;
-                    MoveCursor(0, -35);
+                    actionMenuDisplay.MoveCursorPosition(0, -35);
                 }
             }
             if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -131,7 +128,7 @@ public class UI_ActionMenu : MonoBehaviour
                 if (menuCursorPosition > 1)
                 {
                     menuCursorPosition--;
-                    MoveCursor(0, 35);
+                    actionMenuDisplay.MoveCursorPosition(0, 35);
                 }
 
             }
@@ -160,7 +157,7 @@ public class UI_ActionMenu : MonoBehaviour
     public void Item()
     {
         MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
-        MoveCursor(180, 36);
+        actionMenuDisplay.MoveCursorPosition(180, 36);
         itemMenuOpen = true;
         checkingItems = true;
         ItemMenu.SetActive(true);
@@ -175,11 +172,11 @@ public class UI_ActionMenu : MonoBehaviour
                 UpdateItemSlot(i, unitInventory[i].name, unitInventory[i].currentUses, unitInventory[i].maxUses);
 
                 if (unitInventory[i].GetType() == typeof(Weapon) && ((Weapon)unitInventory[i]).equipped)
-                    SetItemNameColor(i, new Color32(34, 170, 160, 255));
+                    actionMenuDisplay.UpdateItemColor(i, new Color32(34, 170, 160, 255));
                 else if (unitInventory[i].GetType() == typeof(Weapon) && !MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(i))
-                    SetItemNameColor(i, Color.gray);
+                    actionMenuDisplay.UpdateItemColor(i, Color.gray);
                 else
-                    SetItemNameColor(i, Color.black);
+                    actionMenuDisplay.UpdateItemColor(i, Color.black);
             }
             //else, set blank values
             else
@@ -192,6 +189,7 @@ public class UI_ActionMenu : MonoBehaviour
         string damage, hitRate, critRate, range, heal;
         if(checkingItems)
         {
+            actionMenuDisplay.itemInfo.staticTextDmgHeal.text = "Damage";
             if(unitInventory[index] && unitInventory[index].GetType() == typeof(Weapon))
             {
                 Weapon weapon = ((Weapon)unitInventory[index]);
@@ -206,13 +204,12 @@ public class UI_ActionMenu : MonoBehaviour
                 actionMenuDisplay.UpdateItemInfo(damage, hitRate, critRate, range);
             }
             else
-            {
                 actionMenuDisplay.UpdateItemInfo("-", "-", "-", "-");
-            }
         } 
         else if(checkingBlackMagic)
         {
-            if(index < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
+            actionMenuDisplay.itemInfo.staticTextDmgHeal.text = "Damage";
+            if (index < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
             {
                 OffensiveMagic blackMagic = (OffensiveMagic)MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[index];
                 damage = blackMagic.dmg.ToString();
@@ -226,16 +223,15 @@ public class UI_ActionMenu : MonoBehaviour
                 actionMenuDisplay.UpdateItemInfo(damage, hitRate, critRate, range);
             }
             else
-            {
                 actionMenuDisplay.UpdateItemInfo("-", "-", "-", "-");
-            }
         }
         else if(checkingWhiteMagic)
         {
+            actionMenuDisplay.itemInfo.staticTextDmgHeal.text = "Heal";
             if(index < MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic.Count)
             {
 
-                HealingMagic whiteMagic = (HealingMagic)MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[index];
+                HealingMagic whiteMagic = (HealingMagic)MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[index];
                 heal = whiteMagic.heal.ToString();
                 hitRate = whiteMagic.hitRate.ToString();
                 critRate = "0";
@@ -243,68 +239,18 @@ public class UI_ActionMenu : MonoBehaviour
                     range = whiteMagic.minRange.ToString();
                 else
                     range = whiteMagic.minRange + "-" + whiteMagic.maxRange;
-
+                
                 actionMenuDisplay.UpdateItemInfo(heal, hitRate, critRate, range);
             }
             else
-            {
                 actionMenuDisplay.UpdateItemInfo("-", "-", "-", "-");
-            }
         }
-        /*
-        MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles(); //TODO figure out why the fuck this is here
-
-        Weapon tempWeapon = (Weapon)(unitInventory[index]);
-        OffensiveMagic tempBlackMagic = null;
-
-        if (MapUIInfo.selectedAllyUnit_AllyStats.UsingOffensiveMagic())
-        {
-            if (index < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
-            {
-                tempBlackMagic = ((OffensiveMagic)MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[index]);
-                string range;
-
-                if (tempBlackMagic.minRange == tempBlackMagic.maxRange)
-                    range = tempBlackMagic.minRange.ToString();
-                else
-                    range = tempBlackMagic.minRange + " - " + tempBlackMagic.maxRange;
-
-                UpdateWeaponInfoText(tempBlackMagic.dmg.ToString(), tempBlackMagic.hitRate.ToString(), "0", range);
-                MapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(tempBlackMagic.minRange, tempBlackMagic.maxRange);
-            }
-            else
-                UpdateWeaponInfoText("-", "-", "-", "-");
-        }
-
-        else if (tempWeapon != null)
-        {
-            string range;
-
-            if (tempWeapon.minRange == tempWeapon.maxRange)
-                range = tempWeapon.minRange.ToString();
-            else
-                range = tempWeapon.minRange + " - " + tempWeapon.maxRange;
-
-            UpdateWeaponInfoText(tempWeapon.dmg.ToString(), tempWeapon.hitRate.ToString(), tempWeapon.critRate.ToString(), range);
-            MapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(tempWeapon.minRange, tempWeapon.maxRange);
-        }
-        else
-            UpdateWeaponInfoText("-", "-", "-", "-");
-            */
-    }
-
-    private void UpdateWeaponInfoText(string dmg, string hitRate, string critRate, string range)
-    {
-        WeaponInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dmg;
-        WeaponInfo.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = hitRate;
-        WeaponInfo.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = critRate;
-        WeaponInfo.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = range;
     }
 
     private void BlackMagic()
     {
         MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
-        MoveCursor(180, 36);
+        actionMenuDisplay.MoveCursorPosition(180, 36);
         itemMenuOpen = true;
         checkingBlackMagic = true;
         ItemMenu.SetActive(true);
@@ -320,9 +266,9 @@ public class UI_ActionMenu : MonoBehaviour
                     MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].maxUses[MapUIInfo.selectedAllyUnit_AllyStats.skillLevels.magicLevels[(int)MagicType.BLACK]]);
 
                 if (MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].equipped)
-                    SetItemNameColor(i, new Color32(34, 170, 160, 255));
+                    actionMenuDisplay.UpdateItemColor(i, new Color32(34, 170, 160, 255));
                 else
-                    SetItemNameColor(i, Color.black);
+                    actionMenuDisplay.UpdateItemColor(i, Color.black);
             }
             //else, set blank values
             else
@@ -336,7 +282,7 @@ public class UI_ActionMenu : MonoBehaviour
     {
         Debug.Log("selected white magic");
         MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
-        MoveCursor(180, 36);
+        actionMenuDisplay.MoveCursorPosition(180, 36);
         itemMenuOpen = true;
         checkingWhiteMagic = true;
         ItemMenu.SetActive(true);
@@ -351,9 +297,9 @@ public class UI_ActionMenu : MonoBehaviour
                     MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[i].maxUses[MapUIInfo.selectedAllyUnit_AllyStats.skillLevels.magicLevels[(int)MagicType.WHITE]]);
 
                 if (MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[i].equipped)
-                    SetItemNameColor(i, new Color32(34, 170, 160, 255));
+                    actionMenuDisplay.UpdateItemColor(i, new Color32(34, 170, 160, 255));
                 else
-                    SetItemNameColor(i, Color.black);
+                    actionMenuDisplay.UpdateItemColor(i, Color.black);
             }
             //else, set blank values
             else
@@ -388,14 +334,14 @@ public class UI_ActionMenu : MonoBehaviour
             //If the item is not null and equal to the equipped weapon
             if (unitInventory[i] != null && unitInventory[i] == MapUIInfo.selectedAllyUnit_AllyStats.equippedWeapon)
             {
-                SetItemNameColor(i, Color.black);
+                actionMenuDisplay.UpdateItemColor(i, Color.black);
                 i = 5;
             }
         }
 
         MapUIInfo.selectedAllyUnit_AllyStats.EquipWeapon(menuCursorPosition - 1);
 
-        SetItemNameColor(menuCursorPosition - 1, new Color32(34, 170, 160, 255));
+        actionMenuDisplay.UpdateItemColor(menuCursorPosition - 1, new Color32(34, 170, 160, 255));
         Debug.Log("Equpped " + unitInventory[menuCursorPosition - 1].name);
     }
 
@@ -404,7 +350,7 @@ public class UI_ActionMenu : MonoBehaviour
         itemMenuOpen = false;
         buttonsCreated = false;
         itemMenuOpen = buttonsCreated = checkingItems = checkingBlackMagic = checkingWhiteMagic = false;
-        SetCursorPosition(MenuCursor_RectTransform.anchoredPosition.x, 0);
+        actionMenuDisplay.SetCursorPosition(MenuCursor_RectTransform.anchoredPosition.x, 0);
         menuCursorPosition = 1;
 
         if (removeSelectedAllyUnit)
@@ -423,18 +369,6 @@ public class UI_ActionMenu : MonoBehaviour
 
     }
 
-    //moves the menu cursor
-    private void MoveCursor(float x, float y)
-    {
-        actionMenuDisplay.MoveCursorPosition(x, y);
-    }
-
-    //Sets position of the menu cursor
-    private void SetCursorPosition(float x, float y)
-    {
-        actionMenuDisplay.SetCursorPosition(x, y);
-        //MenuCursor_RectTransform.anchoredPosition = new Vector2(x, y);
-    }
     //Updates name and uses of item at inventory slot n
     private void UpdateItemSlot(int n, string name, int uses, int maxUses)
     {
@@ -443,11 +377,4 @@ public class UI_ActionMenu : MonoBehaviour
         else
             actionMenuDisplay.UpdateItemSlot(n, name, uses + "/" + maxUses);
     }
-    //Updates color of the item's name at inventory slot n
-    private void SetItemNameColor(int n, Color color)
-    {
-        actionMenuDisplay.UpdateItemColor(n, color);
-    }
-
-
 }
