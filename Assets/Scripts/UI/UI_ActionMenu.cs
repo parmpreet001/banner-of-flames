@@ -18,7 +18,7 @@ public class UI_ActionMenu : MonoBehaviour
     public bool checkingItems, checkingBlackMagic, checkingWhiteMagic = false; //Whether the player is selecting from the item, black magic, or white magic list
     private UI_ActionMenuDisplay actionMenuDisplay;
 
-    //Shorthand variables to make this shit more fucking readable
+    //Variables derived from MapUIInfo
     Item[] unitInventory; //inventory of the currently selected unit
 
     private void Start()
@@ -61,6 +61,7 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void CreateButtons()
     {
+        MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
         MenuCursor.SetActive(true);
         buttonsCreated = true;
         actionMenuDisplay.SetCursorPosition(MenuCursor_RectTransform.anchoredPosition.x, -35 * (menuCursorPosition - 1));
