@@ -238,4 +238,17 @@ public class TileMove : MonoBehaviour
         int yDistance = (int)Mathf.Abs(tile1.transform.position.y - tile2.transform.position.y);
         return (xDistance + yDistance);
     }
+
+    public bool EnemyInRange(int minRange, int maxRange)
+    {
+        ComputeAdjacentLists(false);
+        GetCurrentTile();
+        FindTilesWithinDistance(minRange, maxRange, null);
+        foreach(Tile tile in selectableTiles)
+        {
+            if (tile.HasEnemyUnit() && tile.GetUnit().tag == "EnemyUnit")
+                return true;
+        }
+        return false;
+    }
 }

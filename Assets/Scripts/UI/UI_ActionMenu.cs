@@ -311,17 +311,25 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void SelectItem()
     {
-        //If the selected item was a weapon, and the unit doesn't already have it equipped
-        if (unitInventory[menuCursorPosition - 1] != null && MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(menuCursorPosition - 1)
-            && unitInventory[menuCursorPosition - 1].GetType() == typeof(Weapon)
-            && !((Weapon)unitInventory[menuCursorPosition - 1]).equipped)
+        if (checkingItems)
         {
-            EquipWeapon();
+            if (unitInventory[menuCursorPosition - 1] != null && unitInventory[menuCursorPosition - 1].GetType() == typeof(Weapon)
+                && MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(menuCursorPosition - 1))
+            {
+                EquipWeapon();
+            }
         }
-        else if (MapUIInfo.selectedAllyUnit_AllyStats.UsingOffensiveMagic() && (menuCursorPosition - 1) < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
+        else if (checkingBlackMagic && (menuCursorPosition - 1) < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
         {
-            MapUIInfo.selectedAllyUnit_AllyStats.EquipBlackMagic(menuCursorPosition - 1);
-            Attack();
+            EquipBlackMagic();
+
+            if (MapUIInfo.selectedAllyUnit_AllyMove.EnemyInRange(MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange,
+                MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange))
+            {
+                MapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange,
+                    MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
+                Attack();
+            }
         }
     }
 
@@ -343,6 +351,22 @@ public class UI_ActionMenu : MonoBehaviour
 
         actionMenuDisplay.UpdateItemColor(menuCursorPosition - 1, new Color32(34, 170, 160, 255));
         Debug.Log("Equpped " + unitInventory[menuCursorPosition - 1].name);
+    }
+
+    private void EquipBlackMagic()
+    {
+        MapUIInfo.selectedAllyUnit_AllyStats.EquipBlackMagic(menuCursorPosition - 1);
+        for(int i = 0; i < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count; i++)
+        {
+            if(MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].equipped)
+            {
+                actionMenuDisplay.UpdateItemColor(i, new Color32(34, 170, 160, 255));
+            }
+            else
+            {
+                actionMenuDisplay.UpdateItemColor(i, Color.black);
+            }
+        }
     }
 
     private void ResetActionMenu(bool removeSelectedAllyUnit)
