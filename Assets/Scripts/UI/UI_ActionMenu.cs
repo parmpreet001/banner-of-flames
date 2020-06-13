@@ -312,6 +312,7 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void SelectItem()
     {
+        MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
         if (checkingItems)
         {
             if (unitInventory[menuCursorPosition - 1] != null && unitInventory[menuCursorPosition - 1].GetType() == typeof(Weapon)

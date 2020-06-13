@@ -50,9 +50,20 @@ public class UI_BattleForecastController : MonoBehaviour
     private void ChangeBlackMagic()
     {
         if (Input.GetKeyDown(KeyCode.A))
+        {
             mapUIInfo.selectedAllyUnit_AllyStats.EquipPreviousBlackMagic();
+            mapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
+            mapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange, 
+                mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
+        }
+
         else if (Input.GetKeyDown(KeyCode.S))
+        {
             mapUIInfo.selectedAllyUnit_AllyStats.EquipNextBlackMagic();
+            mapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
+            mapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange,
+                mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
+        }
     }
 
     private void UpdateBattleFoecastDisplay()
@@ -74,8 +85,8 @@ public class UI_BattleForecastController : MonoBehaviour
             weaponName = mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.name;
             minRange = mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange;
             maxRange = mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange;
-            mapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange,
-            mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
+            //mapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange,
+            //mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
         }
             
         damage = mapUIInfo.battleManager.AU_dmg.ToString();
@@ -85,8 +96,8 @@ public class UI_BattleForecastController : MonoBehaviour
         battleForecastDisplay.UpdateAllyUnitInfoText(name, weaponName, damage, hitRate, critRate);
         battleForecastDisplay.SetAllyUnitX2Active(mapUIInfo.battleManager.AU_attackTwice);
 
-        mapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
-        mapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(minRange, maxRange);
+        //mapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
+        //mapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(minRange, maxRange);
 
         //Updating values forenemy Unit
         name = mapUIInfo.hoveringUnit.name;
