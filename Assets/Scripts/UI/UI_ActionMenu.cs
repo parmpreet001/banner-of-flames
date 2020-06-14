@@ -334,7 +334,13 @@ public class UI_ActionMenu : MonoBehaviour
         }
         else if (checkingWhiteMagic)
         {
-            Debug.Log("Cechking white magic");
+            HealingMagic temp = (HealingMagic)MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[menuCursorPosition - 1];
+            if(temp && MapUIInfo.selectedAllyUnit_AllyMove.AllyInRange(temp.minRange, temp.maxRange))
+            {
+                MapUIInfo.selectedAllyUnit_AllyMove.findingAlly = true;
+                MapUIInfo.selectedAllyUnit_AllyMove.FindHealableTiles(temp.minRange, temp.maxRange);
+                Attack();
+            }
         }
     }
 
