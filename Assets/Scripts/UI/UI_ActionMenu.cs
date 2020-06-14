@@ -332,6 +332,10 @@ public class UI_ActionMenu : MonoBehaviour
                 Attack();
             }
         }
+        else if (checkingWhiteMagic)
+        {
+            Debug.Log("Cechking white magic");
+        }
     }
 
     //Equips the current highlighted weapon in the inventory

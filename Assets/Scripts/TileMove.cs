@@ -16,6 +16,7 @@ public class TileMove : MonoBehaviour
     public bool moving = false;
     public bool moved = false;
     public bool findingTarget = false;
+    public bool findingAlly = false;
     public bool attacking = false;
     public bool actionMenu = false;
     public bool finished = false;
@@ -247,6 +248,19 @@ public class TileMove : MonoBehaviour
         foreach(Tile tile in selectableTiles)
         {
             if (tile.HasEnemyUnit() && tile.GetUnit().tag == "EnemyUnit")
+                return true;
+        }
+        return false;
+    }
+
+    public bool AllyInRange(int minRange, int maxRange)
+    {
+        ComputeAdjacentLists(false);
+        GetCurrentTile();
+        FindTilesWithinDistance(minRange, maxRange, null);
+        foreach (Tile tile in selectableTiles)
+        {
+            if (tile.HasEnemyUnit() && tile.GetUnit().tag == "AllyUnit")
                 return true;
         }
         return false;
