@@ -10,13 +10,13 @@ public class MapManager : MonoBehaviour
     private int activeEnemyUnits; //Total number of active(aka not dead enemy units) on the map
     private List<GameObject> allyUnits = new List<GameObject>(); //List of all alive ally units on the map
     private List<GameObject> enemyUnits = new List<GameObject>(); //List of all alive enemy units on the map
-    public GameObject selectedUnit { get; private set; } //The currently selected unit. Can be either a ally unit or an enemy unit.
+    public GameObject selectedUnit; //The currently selected unit. Can be either a ally unit or an enemy unit.
     private AllyStats selectedUnit_AllyStats; //AllyStats component of the selected unit
     private BattleManager battleManager; //BattleManager script
     private Tile selectedTile;
     private Cursor cursor;
     [SerializeField]
-    private UnitStates unitState;
+    public UnitStates unitState;
     private TileController tileController;
     [SerializeField]
     private Tile startingTile = null;
@@ -84,7 +84,9 @@ public class MapManager : MonoBehaviour
             //If a unit is currently selected
             case UnitStates.SELECTED:
             {
-                if (Input.GetKeyDown(KeyCode.Z))
+                if (cursor.CurrentTileHasEnemyUnit())
+                    UpdateBattleManagerStats(selectedUnit, cursor.GetCurrentUnit());
+                    if (Input.GetKeyDown(KeyCode.Z))
                 {
                     if (cursor.currentTile.selectable || cursor.currentTile == startingTile)
                         StartCoroutine(MoveToTile(selectedUnit, cursor.currentTile));
@@ -127,6 +129,29 @@ public class MapManager : MonoBehaviour
                 }
                 break;
             }
+            case UnitStates.FINDING_TARGET:
+            {
+                if(cursor.CurrentTileHasEnemyUnit())
+                {
+                    tileController.RemoveSelectableTiles();
+                    tileController.SetCurrentTile(selectedUnit);
+                    tileController.ShowWeaponRange(selectedUnit_AllyStats.GetMinRange(), selectedUnit_AllyStats.GetMaxRange());
+                    UpdateBattleManagerStats(selectedUnit, cursor.GetCurrentUnit());
+                }
+                else
+                {
+                    tileController.RemoveSelectableTiles();
+                }
+                   
+                if(Input.GetKeyDown(KeyCode.Z))
+                {
+                    if(cursor.currentTile.attackable)
+                    {
+                        StartCoroutine(Attack());
+                    }
+                }
+                break;
+            }
             default:
                 break;
         }
@@ -139,11 +164,21 @@ public class MapManager : MonoBehaviour
         yield return null;
     }
 
-    //Sets the unit state to ActionMenu
-    public void SetUnitStateActionMenu()
+    IEnumerator Attack()
     {
-        unitState = UnitStates.ACTION_MENU;
+        unitState = UnitStates.ATTACKING;
+        battleManager.Attack();
+        unitState = UnitStates.ATTACKED;
+        yield return null;
     }
+
+    private void UpdateBattleManagerStats(GameObject attackingUnit, GameObject defendingUnit)
+    {
+        battleManager.attackingUnit = attackingUnit;
+        battleManager.defendingUnit = defendingUnit;
+        battleManager.UpdateStats();
+    }
+
 
     //Checks unitState and sets behavior of the cursor
     private void CheckCursor()
@@ -163,6 +198,11 @@ public class MapManager : MonoBehaviour
             case UnitStates.ACTION_MENU:
             {
                 cursor.followTarget = selectedUnit.transform;
+                break;
+            }
+            case UnitStates.ATTACKING:
+            {
+                cursor.canMove = false;
                 break;
             }
             default:

@@ -159,18 +159,13 @@ public class UI_ActionMenu : MonoBehaviour
 
     public void Attack()
     {
-        MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
-        actionMenuDisplay.MoveCursorPosition(180, 36);
-        itemMenuOpen = true;
-        checkingBlackMagic = true;
-        ItemMenu.SetActive(true);
-        menuCursorPosition = 1;
+        MapUIInfo.mapManager.unitState = UnitStates.FINDING_TARGET;
     }
 
     //Opens the item menu
     public void Item()
     {
-        MapUIInfo.mapManager.SetUnitStateActionMenu();
+        MapUIInfo.mapManager.unitState = UnitStates.ACTION_MENU;
         MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
         actionMenuDisplay.MoveCursorPosition(180, 36);
         itemMenuOpen = true;

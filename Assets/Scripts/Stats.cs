@@ -5,15 +5,15 @@ using UnityEngine;
 public class Stats : MonoBehaviour
 {
     public bool isDead = false;
-    
+
     protected const int maxInventorySize = 5;
     public int level = 1;
     public ClassType classType;
-    public SkillLevels skillLevels;    
+    public SkillLevels skillLevels;
     public Weapon equippedWeapon;
     public Magic equippedBlackMagic;
     public Magic equippedWhiteMagic;
-    
+
     public Item[] inventory = new Item[maxInventorySize];
     public List<Magic> magicList = new List<Magic>(); //List of magic skills this unit can potentionally learn
 
@@ -26,7 +26,7 @@ public class Stats : MonoBehaviour
     public int maxHP;
 
     public AttackMethod attackMethod;
-    
+
     public void Init()
     {
         hp = baseHP; str = baseSTR; mag = baseMAG; def = baseDEF; res = baseRES; skl = baseSKL; spd = baseSPD;
@@ -94,5 +94,24 @@ public class Stats : MonoBehaviour
     public bool UsingOffensiveMagic()
     {
         return attackMethod == AttackMethod.OFFENSIVE_MAGIC;
+    }
+
+    public int GetMinRange()
+    {
+        if (UsingPhysicalWeapon())
+            return equippedWeapon.minRange;
+        else if (UsingOffensiveMagic())
+            return equippedBlackMagic.minRange;
+        else
+            return -1;
+    }
+
+    public int GetMaxRange()
+    {
+        if (UsingPhysicalWeapon())
+            return equippedWeapon.maxRange;
+        else if (UsingOffensiveMagic())
+            return equippedBlackMagic.maxRange;
+        else return -1;
     }
 }

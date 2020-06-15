@@ -52,17 +52,17 @@ public class UI_BattleForecastController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             mapUIInfo.selectedAllyUnit_AllyStats.EquipPreviousBlackMagic();
-            mapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
-            mapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange, 
-                mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
+            //mapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
+            //mapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange, 
+           //     mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
         }
 
         else if (Input.GetKeyDown(KeyCode.S))
         {
             mapUIInfo.selectedAllyUnit_AllyStats.EquipNextBlackMagic();
-            mapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
-            mapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange,
-                mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
+            //mapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
+          //  mapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange,
+          //      mapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
         }
     }
 

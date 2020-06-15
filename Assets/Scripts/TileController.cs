@@ -80,6 +80,18 @@ public class TileController : MonoBehaviour
         selectableTiles.Clear();
     }
 
+    public void ShowWeaponRange(int minRange, int maxRange)
+    {
+        ComputeAdjacentLists(false);
+        FindTilesWithinDistance(minRange, maxRange, null);
+
+        foreach (Tile tile in selectableTiles)
+        {
+            tile.attackable = true;
+            tile.UpdateColors();
+        }
+    }
+
     //Gets all tiles within a set distance and of type terrain, and then adds them to selectableTiles
     private void FindTilesWithinDistance(int min, int max, TerrainType[] terrain)
     {
