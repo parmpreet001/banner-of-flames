@@ -19,7 +19,7 @@ public class TileMove : MonoBehaviour
     public bool attacking = false;
     public bool actionMenu = false;
     public bool finished = false;
-
+    //Test commit
 
 
     protected void Init()
