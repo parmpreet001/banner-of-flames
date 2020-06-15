@@ -11,6 +11,7 @@ public class MapUIInfo : MonoBehaviour
     private Cursor cursor;
     public BattleManager battleManager;
     public MapManager mapManager;
+    public TileController tileController;
 
     public AllyStats selectedAllyUnit_AllyStats;
     public AllyMove selectedAllyUnit_AllyMove;
@@ -20,6 +21,7 @@ public class MapUIInfo : MonoBehaviour
         cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
         battleManager = GameObject.Find("MapAndBattleManager").GetComponent<BattleManager>();
         mapManager = GameObject.Find("MapAndBattleManager").GetComponent<MapManager>();
+        tileController = GameObject.Find("MapAndBattleManager").GetComponent<TileController>();
     }
 
     private void Update()

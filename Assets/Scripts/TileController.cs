@@ -158,4 +158,28 @@ public class TileController : MonoBehaviour
         unit.transform.position = tile.transform.position;
         yield return null;
     }
+
+    public bool EnemyInRange(int minRange, int maxRange)
+    {
+        ComputeAdjacentLists(false);
+        FindTilesWithinDistance(minRange, maxRange, null);
+        foreach (Tile tile in selectableTiles)
+        {
+            if (tile.HasEnemyUnit())
+                return true;
+        }
+        return false;
+    }
+
+    public bool AllyInRange(int minRange, int maxRange)
+    {
+        ComputeAdjacentLists(false);
+        FindTilesWithinDistance(minRange, maxRange, null);
+        foreach (Tile tile in selectableTiles)
+        {
+            if (tile.HasAllyUnit())
+                return true;
+        }
+        return false;
+    }
 }

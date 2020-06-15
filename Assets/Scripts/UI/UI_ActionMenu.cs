@@ -159,7 +159,12 @@ public class UI_ActionMenu : MonoBehaviour
 
     public void Attack()
     {
-        //TODO implementation
+        MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
+        actionMenuDisplay.MoveCursorPosition(180, 36);
+        itemMenuOpen = true;
+        checkingBlackMagic = true;
+        ItemMenu.SetActive(true);
+        menuCursorPosition = 1;
     }
 
     //Opens the item menu
