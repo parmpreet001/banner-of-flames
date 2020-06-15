@@ -120,7 +120,7 @@ public class UI_ActionMenu : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Z))
             {
-                SelectItem();
+                SelectMenuChoice();
             }
             UpdateItemSlotInfo(menuCursorPosition - 1);
         }
@@ -153,6 +153,7 @@ public class UI_ActionMenu : MonoBehaviour
 
     public void Wait()
     {
+        MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().finished = true;
         //TODO implementation
     }
 
@@ -318,7 +319,7 @@ public class UI_ActionMenu : MonoBehaviour
         }
     }
 
-    private void SelectItem()
+    private void SelectMenuChoice()
     {
         if (checkingItems)
         {

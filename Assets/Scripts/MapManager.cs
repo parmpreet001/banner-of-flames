@@ -5,16 +5,16 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
     public static int turn = 1; //What turn it is. Currently static but might change later
-    public bool playerPhase = true; //True if player phase, false if enemy phase
+    private bool playerPhase = true; //True if player phase, false if enemy phase
     private int unmovedAllyUnits; //During the player's turn, the number of ally units that have not moved yet
     private int activeEnemyUnits; //Total number of active(aka not dead enemy units) on the map
     private List<GameObject> allyUnits = new List<GameObject>(); //List of all alive ally units on the map
     private List<GameObject> enemyUnits = new List<GameObject>(); //List of all alive enemy units on the map
-    public GameObject selectedUnit; //The currently selected unit. Can be either a ally unit or an enemy unit.
+    public GameObject selectedUnit { get; private set; } //The currently selected unit. Can be either a ally unit or an enemy unit.
     private AllyStats selectedUnit_AllyStats; //AllyStats component of the selected unit
     private BattleManager battleManager; //BattleManager script
     private Tile selectedTile;
-    public Cursor cursor;
+    private Cursor cursor;
     [SerializeField]
     private UnitStates unitState;
     private TileController tileController;
@@ -99,6 +99,7 @@ public class MapManager : MonoBehaviour
                 }
                 break;
             }
+            //If a unit has moved to a tile
             case UnitStates.MOVED:
             {
                 if(Input.GetKeyDown(KeyCode.X))
@@ -109,9 +110,15 @@ public class MapManager : MonoBehaviour
                     selectedUnit_AllyStats = null;
                     startingTile = null;
                     tileController.RemoveSelectableTiles();
-                    }
+                }
+                if(selectedUnit.GetComponent<AllyMove>().finished)
+                {
+                    selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
+                    unitState = UnitStates.UNSELECTED;
+                }
                 break;
             }
+            //If the player is navigating through one of the action menus(attack, items, magic, etc)
             case UnitStates.ACTION_MENU:
             {
                 if(Input.GetKeyDown(KeyCode.X))
