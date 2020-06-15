@@ -36,7 +36,7 @@ public class MapManager : MonoBehaviour
 
         cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
         battleManager = GetComponent<BattleManager>();
-        tileController = new TileController();
+        tileController = GetComponent<TileController>();
         tileController.Init();
     }
     void Update()
@@ -78,9 +78,15 @@ public class MapManager : MonoBehaviour
             {   
                 if (cursor.currentTile.selectable)
                 {
-                    Debug.Log("Clicked on selectable tile");
+                    unitState = UnitStates.MOVING;
+                    Tile tempTile = cursor.currentTile;
+                    tileController.MoveToTile(selectedUnit, tempTile);
                 }
             }
+        }
+        else if (unitState == UnitStates.MOVING)
+        {
+
         }
     }
 

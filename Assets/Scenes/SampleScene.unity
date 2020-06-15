@@ -2910,6 +2910,7 @@ GameObject:
   - component: {fileID: 415727090}
   - component: {fileID: 415727091}
   - component: {fileID: 415727092}
+  - component: {fileID: 415727093}
   m_Layer: 0
   m_Name: MapAndBattleManager
   m_TagString: Untagged
@@ -2970,6 +2971,20 @@ MonoBehaviour:
   AU_attackTwice: 0
   DU_attackTwice: 0
   DU_inRange: 0
+--- !u!114 &415727093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415727089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 886f48cdfb848004badd7d6820a9ecb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursor: {fileID: 0}
+  selectableTiles: []
 --- !u!1 &439563445
 GameObject:
   m_ObjectHideFlags: 0

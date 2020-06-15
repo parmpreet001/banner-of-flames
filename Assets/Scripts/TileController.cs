@@ -7,9 +7,9 @@ public class TileController : MonoBehaviour
     public Cursor cursor; 
     public List<Tile> selectableTiles = new List<Tile>(); //List of tiles that can be selected
     GameObject[] tiles; //Array of all tiles 
-    private Tile currentTile; 
+    private Tile currentTile;
 
-    Stack<Tile> path = new Stack<Tile>(); //Used for pathing
+    Stack<Tile> path = new Stack<Tile>();
 
     public void Init()
     {
@@ -55,6 +55,23 @@ public class TileController : MonoBehaviour
                 selectableTiles[i].UpdateColors();
             }
         }
+    }
+
+    public void RemoveSelectableTiles()
+    {
+        if (currentTile != null)
+        {
+            currentTile.current = false;
+            currentTile = null;
+        }
+
+        foreach (Tile tile in selectableTiles)
+        {
+            tile.Reset();
+            tile.UpdateColors();
+        }
+
+        selectableTiles.Clear();
     }
 
     //Gets all tiles within a set distance and of type terrain, and then adds them to selectableTiles
@@ -107,4 +124,32 @@ public class TileController : MonoBehaviour
         return validTerrain;
     }
 
+    public void MoveToTile(GameObject unit, Tile tile)
+    {
+        path.Clear();
+        Tile next = tile;
+        while (next != null)
+        {
+            path.Push(next);
+            next = next.parent;
+        }
+        RemoveSelectableTiles();
+        StartCoroutine(WalkToTileAnimation(unit, tile));
+    }
+
+    IEnumerator WalkToTileAnimation(GameObject unit, Tile tile)
+    {
+        Debug.Log(transform.name + "has Stared coroutine");
+        Tile t = path.Pop();
+        while (path.Count > 0)
+        {
+            unit.transform.SetParent(t.transform);
+            unit.transform.position = t.transform.position;
+            t = path.Pop();
+            yield return new WaitForSeconds(0.25f);
+        }
+        unit.transform.SetParent(tile.transform);
+        unit.transform.position = tile.transform.position;
+        yield return null;
+    }
 }
