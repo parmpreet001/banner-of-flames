@@ -76,7 +76,7 @@ public class MapManager : MonoBehaviour
                         tileController.FindSelectableTiles(selectetUnit_AllyStats.classType.mov, selectetUnit_AllyStats.classType.walkableTerrain, true);
                     }
                 }
-                    break;
+                break;
             }
             case UnitStates.SELECTED:
                 if (Input.GetKeyDown(KeyCode.Z))
