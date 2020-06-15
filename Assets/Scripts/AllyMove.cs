@@ -69,6 +69,10 @@ public class AllyMove :TileMove
             {
                 
             }
+            else if (findingAlly)
+            {
+
+            }
             //If unit is not moving
             else if (!moving)
             {
