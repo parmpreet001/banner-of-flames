@@ -35,8 +35,8 @@ public class BattleManager : MonoBehaviour
     {
         UpdateStats();
 
-        attackingUnit.GetComponent<TileMove>().findingTarget = false;
-        attackingUnit.GetComponent<TileMove>().attacking = true;
+        //attackingUnit.GetComponent<TileMove>().findingTarget = false;
+        //attackingUnit.GetComponent<TileMove>().attacking = true;
 
         //Attacking Unit First Attack
         if(HitOrMiss(AU_accuracy))
@@ -325,8 +325,8 @@ public class BattleManager : MonoBehaviour
     {
         battleLog = "";
 
-        attackingUnit.GetComponent<TileMove>().attacking = false;
-        attackingUnit.GetComponent<TileMove>().finished = true;
+       // attackingUnit.GetComponent<TileMove>().attacking = false;
+       // attackingUnit.GetComponent<TileMove>().finished = true;
         attackingUnit.GetComponent<TileMove>().RemoveSelectableTiles();
 
         if (attackingUnit.CompareTag("PlayerUnit") && !attackingUnitStats.isDead && attackingUnitStats.UsingPhysicalWeapon())

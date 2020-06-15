@@ -11,9 +11,12 @@ public class MapManager : MonoBehaviour
     private List<GameObject> allyUnits = new List<GameObject>(); //List of all alive ally units on the map
     private List<GameObject> enemyUnits = new List<GameObject>(); //List of all alive enemy units on the map
     public GameObject selectedUnit; //The currently selected unit. Can be either a ally unit or an enemy unit.
+    private AllyStats selectetUnit_AllyStats; //AllyStats component of the selected unit
     private BattleManager battleManager; //BattleManager script
-    Tile selectedTile;
+    private Tile selectedTile;
     public Cursor cursor;
+    private UnitStates unitState;
+    private TileController tileController;
 
 
     void Start()
@@ -33,6 +36,8 @@ public class MapManager : MonoBehaviour
 
         cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
         battleManager = GetComponent<BattleManager>();
+        tileController = new TileController();
+        tileController.Init();
     }
     void Update()
     {
@@ -51,54 +56,29 @@ public class MapManager : MonoBehaviour
 
     private void PlayerPhase()
     {
-        //If a unit is selected
-        if (selectedUnit)
+        //If there is no unit currently selected
+        if (unitState == UnitStates.UNSELECTED)
         {
-            //if the unit has finished moving
-            if (selectedUnit.GetComponent<AllyMove>().finished)
+            if (Input.GetKeyDown(KeyCode.Z))
             {
-                selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
-                if (selectedUnit.GetComponent<Stats>().isDead)
-                    Destroy(selectedUnit);
-                selectedUnit = null;
-                unmovedAllyUnits -= 1;
-                Debug.Log("Number of unmoved ally units is " + unmovedAllyUnits);
-            }
-            //If the unit just attacked an enemy
-            else if(selectedUnit.GetComponent<AllyMove>().attacked)
-            {
-                Debug.Log("Attacking");
-                battleManager.attackingUnit = selectedUnit;
-                battleManager.defendingUnit = cursor.GetCurrentUnit();
-                battleManager.Attack();
-                selectedUnit.GetComponent<AllyMove>().attacked = false;
-                
-            }
-            //if the player is selecting a target and is hovering over a tile with an enemy on it
-            else if(selectedUnit.GetComponent<AllyMove>().selected && cursor.CurrentTileHasEnemyUnit())
-            {
-                battleManager.attackingUnit = selectedUnit;
-                battleManager.defendingUnit = cursor.GetCurrentUnit();
-                battleManager.UpdateStats();
-            }
-            else if (!selectedUnit.GetComponent<AllyMove>().selected)
-                selectedUnit = null;
-        }
-        if (Input.GetKeyUp(KeyCode.Z))
-        {
-            //If a unit is not selected
-            if (!selectedUnit)
-            {
-                selectedTile = cursor.currentTile; 
-                //If selectedTile is not null, meaning that the player didnt click outside the map
-                if(selectedTile)
+                if (cursor.CurrentTileHasAllyUnit() && !cursor.GetCurrentUnit().GetComponent<AllyMove>().finished)
                 {
-                    //If a player unit is standing on the tile and has not moved
-                    if(selectedTile.HasAllyUnit() && !selectedTile.GetUnit().GetComponent<AllyMove>().finished)
-                    {
-                        selectedUnit = selectedTile.GetUnit();
-                        selectedUnit.GetComponent<AllyMove>().selected = true;
-                    }
+                    selectedUnit = cursor.GetCurrentUnit();
+                    selectetUnit_AllyStats = selectedUnit.GetComponent<AllyStats>();
+                    unitState = UnitStates.SELECTED;
+                    tileController.SetCurrentTile(selectedUnit);
+                    tileController.FindSelectableTiles(selectetUnit_AllyStats.classType.mov, selectetUnit_AllyStats.classType.walkableTerrain, true);
+                }
+            }
+        }
+        //If a unit has just been selected
+        else if (unitState == UnitStates.SELECTED)
+        {
+            if (Input.GetKeyDown(KeyCode.Z))
+            {   
+                if (cursor.currentTile.selectable)
+                {
+                    Debug.Log("Clicked on selectable tile");
                 }
             }
         }
@@ -156,7 +136,7 @@ public class MapManager : MonoBehaviour
             if(allyUnit)
             {
             unmovedAllyUnits += 1;
-            allyUnit.GetComponent<AllyMove>().finished = false;
+            //allyUnit.GetComponent<AllyMove>().finished = false;
             allyUnit.GetComponent<SpriteRenderer>().color = Color.white;
             }
         }

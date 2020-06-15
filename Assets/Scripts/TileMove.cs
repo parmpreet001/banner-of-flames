@@ -12,15 +12,15 @@ public class TileMove : MonoBehaviour
     Stack<Tile> path = new Stack<Tile>();
     public Tile currentTile = new Tile(); //Tile the unit starts on
 
-    public bool selected = false;
-    public bool moving = false;
-    public bool moved = false;
-    public bool findingTarget = false;
-    public bool findingAlly = false;
-    public bool attacking = false;
-    public bool actionMenu = false;
-    public bool finished = false;
-    //Test commit
+    public bool selected = false; //unit has been selected
+    public bool moving = false; //unit is moving
+    public bool moved = false; //unit has finished moving
+    public bool findingTarget = false; //unit is looking for a target to attack
+    public bool findingAlly = false; //unit is looking for an ally to heal
+    public bool attacking = false; //unit is in the process of attacking
+    public bool healing = false; //unit is in the process of healing
+    public bool actionMenu = false; //unit is in the action menu
+    public bool finished = false; //unit has finishing their turn
 
 
     protected void Init()
