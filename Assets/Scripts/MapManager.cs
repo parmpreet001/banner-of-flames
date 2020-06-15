@@ -15,6 +15,7 @@ public class MapManager : MonoBehaviour
     private BattleManager battleManager; //BattleManager script
     private Tile selectedTile;
     public Cursor cursor;
+    [SerializeField]
     private UnitStates unitState;
     private TileController tileController;
 
@@ -56,37 +57,64 @@ public class MapManager : MonoBehaviour
 
     private void PlayerPhase()
     {
-        //If there is no unit currently selected
-        if (unitState == UnitStates.UNSELECTED)
+        CheckCursor();
+        switch(unitState)
         {
-            if (Input.GetKeyDown(KeyCode.Z))
+            //If a unit has not been selected
+            case UnitStates.UNSELECTED:
             {
-                if (cursor.CurrentTileHasAllyUnit() && !cursor.GetCurrentUnit().GetComponent<AllyMove>().finished)
+                //If Z was pressed
+                if (Input.GetKeyDown(KeyCode.Z))
                 {
-                    selectedUnit = cursor.GetCurrentUnit();
-                    selectetUnit_AllyStats = selectedUnit.GetComponent<AllyStats>();
-                    unitState = UnitStates.SELECTED;
-                    tileController.SetCurrentTile(selectedUnit);
-                    tileController.FindSelectableTiles(selectetUnit_AllyStats.classType.mov, selectetUnit_AllyStats.classType.walkableTerrain, true);
+                    //If the tile has an ally unit that has not yet moved
+                    if (cursor.CurrentTileHasAllyUnit() && !cursor.GetCurrentUnit().GetComponent<AllyMove>().finished)
+                    {
+                        selectedUnit = cursor.GetCurrentUnit();
+                        selectetUnit_AllyStats = selectedUnit.GetComponent<AllyStats>();
+                        unitState = UnitStates.SELECTED;
+                        tileController.SetCurrentTile(selectedUnit);
+                        tileController.FindSelectableTiles(selectetUnit_AllyStats.classType.mov, selectetUnit_AllyStats.classType.walkableTerrain, true);
+                    }
                 }
+                    break;
             }
-        }
-        //If a unit has just been selected
-        else if (unitState == UnitStates.SELECTED)
-        {
-            if (Input.GetKeyDown(KeyCode.Z))
-            {   
-                if (cursor.currentTile.selectable)
-                {
-                    unitState = UnitStates.MOVING;
-                    Tile tempTile = cursor.currentTile;
-                    tileController.MoveToTile(selectedUnit, tempTile);
-                }
+            case UnitStates.SELECTED:
+                if (Input.GetKeyDown(KeyCode.Z))
+                    if (cursor.currentTile.selectable)
+                        StartCoroutine(MoveToTile(selectedUnit, cursor.currentTile));
+                break;
+            case UnitStates.MOVED:
+            {
+                break;
             }
+            default:
+                break;
         }
-        else if (unitState == UnitStates.MOVING)
-        {
+    }
+    IEnumerator MoveToTile(GameObject unit, Tile tile)
+    {
+        unitState = UnitStates.MOVING;
+        yield return tileController.MoveToTile(unit, tile);
+        unitState = UnitStates.ACTION_MENU;
+        yield return null;
+    }
 
+    //Checks unitState and sets behavior of the cursor
+    private void CheckCursor()
+    {
+        switch(unitState)
+        {
+            case UnitStates.MOVING:
+            {
+                cursor.followTarget = selectedUnit.transform;
+                break;
+            }
+            default:
+            {
+                cursor.followTarget = null;
+                cursor.canMove = true;
+                break;
+            }
         }
     }
 

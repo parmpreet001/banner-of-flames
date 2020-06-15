@@ -124,7 +124,7 @@ public class TileController : MonoBehaviour
         return validTerrain;
     }
 
-    public void MoveToTile(GameObject unit, Tile tile)
+    public IEnumerator MoveToTile(GameObject unit, Tile tile)
     {
         path.Clear();
         Tile next = tile;
@@ -134,7 +134,7 @@ public class TileController : MonoBehaviour
             next = next.parent;
         }
         RemoveSelectableTiles();
-        StartCoroutine(WalkToTileAnimation(unit, tile));
+        yield return WalkToTileAnimation(unit, tile);
     }
 
     IEnumerator WalkToTileAnimation(GameObject unit, Tile tile)
