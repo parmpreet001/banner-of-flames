@@ -333,6 +333,16 @@ public class UI_ActionMenu : MonoBehaviour
                 Attack();
             }
         }
+        else if (checkingWhiteMagic)
+        {
+            HealingMagic temp = (HealingMagic)MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[menuCursorPosition - 1];
+            if(temp && MapUIInfo.selectedAllyUnit_AllyMove.AllyInRange(temp.minRange, temp.maxRange))
+            {
+                MapUIInfo.selectedAllyUnit_AllyMove.findingAlly = true;
+                MapUIInfo.selectedAllyUnit_AllyMove.FindHealableTiles(temp.minRange, temp.maxRange);
+                Attack();
+            }
+        }
     }
 
     //Equips the current highlighted weapon in the inventory

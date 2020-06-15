@@ -16,6 +16,7 @@ public class TileMove : MonoBehaviour
     public bool moving = false;
     public bool moved = false;
     public bool findingTarget = false;
+    public bool findingAlly = false;
     public bool attacking = false;
     public bool actionMenu = false;
     public bool finished = false;
@@ -169,6 +170,26 @@ public class TileMove : MonoBehaviour
             actionMenu = true;
     }
 
+    public void FindHealableTiles(int minRange, int maxRange)
+    {
+        ComputeAdjacentLists(false);
+        GetCurrentTile();
+        FindTilesWithinDistance(minRange, maxRange, null);
+
+        for(int i = selectableTiles.Count-1; i >= 0; i--)
+        {
+            if(selectableTiles[i].HasAllyUnit())
+            {
+                selectableTiles[i].selectable = true;
+                selectableTiles[i].UpdateColors();
+            }
+            else
+            {
+                selectableTiles.RemoveAt(i);
+            }
+        }
+    }
+
 
     public void ShowWeaponRange(int minRange, int maxRange)
     {
@@ -246,7 +267,20 @@ public class TileMove : MonoBehaviour
         FindTilesWithinDistance(minRange, maxRange, null);
         foreach(Tile tile in selectableTiles)
         {
-            if (tile.HasEnemyUnit() && tile.GetUnit().tag == "EnemyUnit")
+            if (tile.HasEnemyUnit())
+                return true;
+        }
+        return false;
+    }
+
+    public bool AllyInRange(int minRange, int maxRange)
+    {
+        ComputeAdjacentLists(false);
+        GetCurrentTile();
+        FindTilesWithinDistance(minRange, maxRange, null);
+        foreach (Tile tile in selectableTiles)
+        {
+            if (tile.HasAllyUnit())
                 return true;
         }
         return false;
