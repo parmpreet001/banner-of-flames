@@ -220,4 +220,15 @@ public class MapManager : MonoBehaviour
         if(activeEnemyUnits == 0)
             StartPlayerPhase();
     }
+
+    //Returns true if unitState is equal to any of the values in states
+    public bool CheckUnitStates(params UnitStates[] states)
+    {
+        foreach (UnitStates state in states)
+        {
+            if(unitState == state)
+                return true;
+        }
+         return false;
+    }
 }
