@@ -10,6 +10,7 @@ public class MapUIInfo : MonoBehaviour
     public GameObject hoveringUnit;
     private Cursor cursor;
     public BattleManager battleManager;
+    public MapManager mapManager;
 
     public AllyStats selectedAllyUnit_AllyStats;
     public AllyMove selectedAllyUnit_AllyMove;
@@ -18,19 +19,19 @@ public class MapUIInfo : MonoBehaviour
     {
         cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
         battleManager = GameObject.Find("MapAndBattleManager").GetComponent<BattleManager>();
+        mapManager = GameObject.Find("MapAndBattleManager").GetComponent<MapManager>();
     }
 
     private void Update()
     {
         hoveringUnit = cursor.GetCurrentUnit();
-        if (hoveringUnit && hoveringUnit.GetComponent<TileMove>().selected)
+        if (mapManager.selectedUnit && mapManager.selectedUnit.tag == "PlayerUnit")
         {
-            selectedAllyUnit = hoveringUnit;
-            selectedAllyUnit_AllyStats = selectedAllyUnit.GetComponent<AllyStats>();
-            selectedAllyUnit_AllyMove = selectedAllyUnit.GetComponent<AllyMove>();
+            selectedAllyUnit = mapManager.selectedUnit;
+            selectedAllyUnit_AllyStats = mapManager.selectedUnit.GetComponent<AllyStats>();
         }
             
-        if (selectedAllyUnit && (!selectedAllyUnit.GetComponent<AllyMove>().selected || selectedAllyUnit.GetComponent<AllyMove>().finished))
+        else
             selectedAllyUnit = null;
     }
 }

@@ -30,6 +30,12 @@ public class TileController : MonoBehaviour
        return target.GetComponentInParent<Tile>();
     }
 
+    public void SetUnitToTile(GameObject unit, Tile tile)
+    {
+        unit.transform.SetParent(tile.transform);
+        unit.transform.position = tile.transform.position;
+    }
+
     //Sets adjacency list for all tiles
     public void ComputeAdjacentLists(bool ignoreOccupied)
     {

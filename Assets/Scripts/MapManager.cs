@@ -11,13 +11,15 @@ public class MapManager : MonoBehaviour
     private List<GameObject> allyUnits = new List<GameObject>(); //List of all alive ally units on the map
     private List<GameObject> enemyUnits = new List<GameObject>(); //List of all alive enemy units on the map
     public GameObject selectedUnit; //The currently selected unit. Can be either a ally unit or an enemy unit.
-    private AllyStats selectetUnit_AllyStats; //AllyStats component of the selected unit
+    private AllyStats selectedUnit_AllyStats; //AllyStats component of the selected unit
     private BattleManager battleManager; //BattleManager script
     private Tile selectedTile;
     public Cursor cursor;
     [SerializeField]
     private UnitStates unitState;
     private TileController tileController;
+    [SerializeField]
+    private Tile startingTile = null;
 
 
     void Start()
@@ -69,22 +71,53 @@ public class MapManager : MonoBehaviour
                     //If the tile has an ally unit that has not yet moved
                     if (cursor.CurrentTileHasAllyUnit() && !cursor.GetCurrentUnit().GetComponent<AllyMove>().finished)
                     {
+                        startingTile = cursor.currentTile;
                         selectedUnit = cursor.GetCurrentUnit();
-                        selectetUnit_AllyStats = selectedUnit.GetComponent<AllyStats>();
+                        selectedUnit_AllyStats = selectedUnit.GetComponent<AllyStats>();
                         unitState = UnitStates.SELECTED;
                         tileController.SetCurrentTile(selectedUnit);
-                        tileController.FindSelectableTiles(selectetUnit_AllyStats.classType.mov, selectetUnit_AllyStats.classType.walkableTerrain, true);
+                        tileController.FindSelectableTiles(selectedUnit_AllyStats.classType.mov, selectedUnit_AllyStats.classType.walkableTerrain, true);
                     }
                 }
                 break;
             }
+            //If a unit is currently selected
             case UnitStates.SELECTED:
+            {
                 if (Input.GetKeyDown(KeyCode.Z))
-                    if (cursor.currentTile.selectable)
+                {
+                    if (cursor.currentTile.selectable || cursor.currentTile == startingTile)
                         StartCoroutine(MoveToTile(selectedUnit, cursor.currentTile));
+                }
+                else if (Input.GetKeyDown(KeyCode.X))
+                {
+                    unitState = UnitStates.UNSELECTED;
+                    selectedUnit = null;
+                    selectedUnit_AllyStats = null;
+                    startingTile = null;
+                    tileController.RemoveSelectableTiles();
+                }
                 break;
+            }
             case UnitStates.MOVED:
             {
+                if(Input.GetKeyDown(KeyCode.X))
+                {
+                    tileController.SetUnitToTile(selectedUnit, startingTile);
+                    unitState = UnitStates.UNSELECTED;
+                    selectedUnit = null;
+                    selectedUnit_AllyStats = null;
+                    startingTile = null;
+                    tileController.RemoveSelectableTiles();
+                    }
+                break;
+            }
+            case UnitStates.ACTION_MENU:
+            {
+                if(Input.GetKeyDown(KeyCode.X))
+                {
+                    unitState = UnitStates.MOVED;
+                }
                 break;
             }
             default:
@@ -95,8 +128,14 @@ public class MapManager : MonoBehaviour
     {
         unitState = UnitStates.MOVING;
         yield return tileController.MoveToTile(unit, tile);
-        unitState = UnitStates.ACTION_MENU;
+        unitState = UnitStates.MOVED;
         yield return null;
+    }
+
+    //Sets the unit state to ActionMenu
+    public void SetUnitStateActionMenu()
+    {
+        unitState = UnitStates.ACTION_MENU;
     }
 
     //Checks unitState and sets behavior of the cursor
@@ -105,6 +144,16 @@ public class MapManager : MonoBehaviour
         switch(unitState)
         {
             case UnitStates.MOVING:
+            {
+                cursor.followTarget = selectedUnit.transform;
+                break;
+            }
+            case UnitStates.MOVED:
+            {
+                cursor.followTarget = selectedUnit.transform;
+                break;
+            }
+            case UnitStates.ACTION_MENU:
             {
                 cursor.followTarget = selectedUnit.transform;
                 break;

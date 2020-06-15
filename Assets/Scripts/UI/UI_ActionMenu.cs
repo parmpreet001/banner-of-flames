@@ -35,8 +35,8 @@ public class UI_ActionMenu : MonoBehaviour
         //If an ally unit is selected
         if (MapUIInfo.selectedAllyUnit)
         {
-            //If they're in an action menu state
-            if (MapUIInfo.selectedAllyUnit_AllyMove.actionMenu)
+            //If they have moved
+            if (MapUIInfo.mapManager.CheckUnitStates(UnitStates.MOVED))
             {
                 //If buttons have not been created, create buttons and display the menu cursor
                 if (!buttonsCreated)
@@ -46,8 +46,13 @@ public class UI_ActionMenu : MonoBehaviour
                 MenuCursorInput();
                 unitInventory = MapUIInfo.selectedAllyUnit_AllyStats.inventory;
             }
+            //If the player is navigating through one of the action menu 
+            else if(MapUIInfo.mapManager.CheckUnitStates(UnitStates.ACTION_MENU))
+            {
+                MenuCursorInput();
+            }
             //else, if the ally unit is not in an action menu state, but buttons have been created, then reset buttons
-            else if (!MapUIInfo.selectedAllyUnit_AllyMove.actionMenu && buttonsCreated)
+            else if (!MapUIInfo.mapManager.CheckUnitStates(UnitStates.ACTION_MENU) && buttonsCreated)
             {
                 ResetActionMenu(false);
             }
@@ -61,13 +66,12 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void CreateButtons()
     {
-        MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
         MenuCursor.SetActive(true);
         buttonsCreated = true;
         actionMenuDisplay.SetCursorPosition(MenuCursor_RectTransform.anchoredPosition.x, -35 * (menuCursorPosition - 1));
 
         //If unit is finding a target and can use physical attacks
-        if (MapUIInfo.selectedAllyUnit_AllyMove.findingTarget && MapUIInfo.selectedAllyUnit_AllyStats.classType.usesPhysicalAttacks)
+        if (MapUIInfo.selectedAllyUnit_AllyStats.classType.usesPhysicalAttacks)
             buttons.Add("Attack");
         //if unit can use black magic
         if (MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count > 0 && MapUIInfo.selectedAllyUnit_AllyStats.classType.usesBlackMagic)
@@ -88,6 +92,14 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void MenuCursorInput()
     {
+        if(MapUIInfo.mapManager.CheckUnitStates(UnitStates.ACTION_MENU))
+        {
+            if(Input.GetKey(KeyCode.X))
+            {
+                Debug.Log("aaa");
+                ResetActionMenu(true);
+            }
+        }
         if (itemMenuOpen)
         {
             if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -98,7 +110,7 @@ public class UI_ActionMenu : MonoBehaviour
                     actionMenuDisplay.MoveCursorPosition(0, -24);
                 }
             }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 if (menuCursorPosition >= 2)
                 {
@@ -106,13 +118,11 @@ public class UI_ActionMenu : MonoBehaviour
                     actionMenuDisplay.MoveCursorPosition(0, 24);
                 }
             }
-
-            UpdateItemSlotInfo(menuCursorPosition - 1);
-
-            if (Input.GetKeyDown(KeyCode.Z))
+            else if (Input.GetKeyDown(KeyCode.Z))
             {
                 SelectItem();
             }
+            UpdateItemSlotInfo(menuCursorPosition - 1);
         }
         else
         {
@@ -143,20 +153,18 @@ public class UI_ActionMenu : MonoBehaviour
 
     public void Wait()
     {
-        MapUIInfo.selectedAllyUnit_AllyMove.UnselectUnit();
-        MapUIInfo.selectedAllyUnit_AllyMove.finished = true;
-        ResetActionMenu(true);
+        //TODO implementation
     }
 
     public void Attack()
     {
-        MapUIInfo.selectedAllyUnit_AllyMove.actionMenu = false;
-        ResetActionMenu(false);
+        //TODO implementation
     }
 
     //Opens the item menu
     public void Item()
     {
+        MapUIInfo.mapManager.SetUnitStateActionMenu();
         MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
         actionMenuDisplay.MoveCursorPosition(180, 36);
         itemMenuOpen = true;
@@ -312,7 +320,6 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void SelectItem()
     {
-        MapUIInfo.selectedAllyUnit_AllyMove.RemoveSelectableTiles();
         if (checkingItems)
         {
             if (unitInventory[menuCursorPosition - 1] != null && unitInventory[menuCursorPosition - 1].GetType() == typeof(Weapon)

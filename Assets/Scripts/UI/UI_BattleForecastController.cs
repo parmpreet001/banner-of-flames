@@ -18,8 +18,8 @@ public class UI_BattleForecastController : MonoBehaviour
     void Update()
     { 
         {
-            if (mapUIInfo.selectedAllyUnit && mapUIInfo.hoveringUnit && mapUIInfo.hoveringUnit.tag == "EnemyUnit" && 
-                !mapUIInfo.selectedAllyUnit_AllyMove.attacking)
+            if (mapUIInfo.mapManager.CheckUnitStates(UnitStates.SELECTED, UnitStates.FINDING_TARGET) && mapUIInfo.hoveringUnit 
+                && mapUIInfo.hoveringUnit.tag == "EnemyUnit")
             {
                 battleForecastUI.SetActive(true);
                 UpdateBattleFoecastDisplay();
