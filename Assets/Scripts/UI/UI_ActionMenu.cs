@@ -331,12 +331,12 @@ public class UI_ActionMenu : MonoBehaviour
         }
         else if (checkingBlackMagic && (menuCursorPosition - 1) < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
         {
+            MapUIInfo.tileController.SetCurrentTile(MapUIInfo.selectedAllyUnit);
             EquipBlackMagic();
-
-            if (MapUIInfo.selectedAllyUnit_AllyMove.EnemyInRange(MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange,
-                MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange))
+            if (MapUIInfo.tileController.EnemyInRange(MapUIInfo.selectedAllyUnit_AllyStats.GetMinRange(), MapUIInfo.selectedAllyUnit_AllyStats.GetMaxRange()))
             {
-                MapUIInfo.selectedAllyUnit_AllyMove.ShowWeaponRange(MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange,
+                
+                MapUIInfo.tileController.ShowWeaponRange(MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange,
                     MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
                 Attack();
             }
