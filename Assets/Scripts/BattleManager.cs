@@ -31,9 +31,11 @@ public class BattleManager : MonoBehaviour
             StartCoroutine(AttackProcess());
     }
 
-    IEnumerator AttackProcess()
+    public IEnumerator AttackProcess()
     {
         UpdateStats();
+        if (!CheckWeaponRange(defendingUnitStats, attackingUnitStats))
+            yield return null;
 
         //attackingUnit.GetComponent<TileMove>().findingTarget = false;
         //attackingUnit.GetComponent<TileMove>().attacking = true;

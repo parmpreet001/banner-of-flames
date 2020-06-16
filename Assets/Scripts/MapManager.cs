@@ -104,6 +104,11 @@ public class MapManager : MonoBehaviour
             //If a unit has moved to a tile
             case UnitStates.MOVED:
             {
+                if (selectedUnit.GetComponent<AllyMove>().finished)
+                {
+                    selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
+                    unitState = UnitStates.UNSELECTED;
+                }
                 if(Input.GetKeyDown(KeyCode.X))
                 {
                     tileController.SetUnitToTile(selectedUnit, startingTile);
@@ -113,11 +118,7 @@ public class MapManager : MonoBehaviour
                     startingTile = null;
                     tileController.RemoveSelectableTiles();
                 }
-                if(selectedUnit.GetComponent<AllyMove>().finished)
-                {
-                    selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
-                    unitState = UnitStates.UNSELECTED;
-                }
+
                 break;
             }
             //If the player is navigating through one of the action menus(attack, items, magic, etc)
@@ -171,8 +172,11 @@ public class MapManager : MonoBehaviour
     IEnumerator Attack()
     {
         unitState = UnitStates.ATTACKING;
-        battleManager.Attack();
-        unitState = UnitStates.ATTACKED;
+        yield return battleManager.AttackProcess();
+        tileController.RemoveSelectableTiles();
+        selectedUnit.GetComponent<AllyMove>().finished = true;
+        selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
+        unitState = UnitStates.UNSELECTED;
         yield return null;
     }
 
