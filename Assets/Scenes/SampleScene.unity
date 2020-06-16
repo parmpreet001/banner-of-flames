@@ -2944,9 +2944,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac59570921303a4584aaf378803173a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPhase: 1
   selectedUnit: {fileID: 0}
-  cursor: {fileID: 0}
+  unitState: 0
+  startingTile: {fileID: 0}
 --- !u!114 &415727092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6171,7 +6171,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 870737324}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 457b848e1d397364e9cb1766dba8a8b7, type: 3}
   m_Name: 
@@ -7916,6 +7916,8 @@ MonoBehaviour:
   selectedAllyUnit: {fileID: 0}
   hoveringUnit: {fileID: 0}
   battleManager: {fileID: 0}
+  mapManager: {fileID: 0}
+  tileController: {fileID: 0}
   selectedAllyUnit_AllyStats: {fileID: 0}
   selectedAllyUnit_AllyMove: {fileID: 0}
 --- !u!1001 &1131476391

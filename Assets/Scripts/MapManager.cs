@@ -142,7 +142,11 @@ public class MapManager : MonoBehaviour
                 {
                     tileController.RemoveSelectableTiles();
                 }
-                   
+                if(Input.GetKeyDown(KeyCode.X))
+                {
+                    tileController.RemoveSelectableTiles();
+                    unitState = UnitStates.MOVED;
+                }    
                 if(Input.GetKeyDown(KeyCode.Z))
                 {
                     if(cursor.currentTile.attackable)
