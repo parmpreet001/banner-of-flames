@@ -107,6 +107,7 @@ public class MapManager : MonoBehaviour
                 if (selectedUnit.GetComponent<AllyMove>().finished)
                 {
                     selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
+                    selectedUnit = null;
                     unitState = UnitStates.UNSELECTED;
                 }
                 if(Input.GetKeyDown(KeyCode.X))
@@ -176,6 +177,7 @@ public class MapManager : MonoBehaviour
         tileController.RemoveSelectableTiles();
         selectedUnit.GetComponent<AllyMove>().finished = true;
         selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
+        selectedUnit = null;
         unitState = UnitStates.UNSELECTED;
         yield return null;
     }
