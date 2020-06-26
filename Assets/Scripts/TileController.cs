@@ -194,4 +194,23 @@ public class TileController : MonoBehaviour
         }
         return false;
     }
+
+    public void FindHealableTiles(int minRange, int maxRange)
+    {
+        ComputeAdjacentLists(false);
+        FindTilesWithinDistance(minRange, maxRange, null);
+
+        for (int i = selectableTiles.Count - 1; i >= 0; i--)
+        {
+            if (selectableTiles[i].HasAllyUnit())
+            {
+                selectableTiles[i].healable = true;
+                selectableTiles[i].UpdateColors();
+            }
+            else
+            {
+                selectableTiles.RemoveAt(i);
+            }
+        }
+    }
 }

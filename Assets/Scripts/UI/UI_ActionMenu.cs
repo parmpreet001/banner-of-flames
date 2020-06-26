@@ -259,6 +259,7 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void BlackMagic()
     {
+        MapUIInfo.mapManager.unitState = UnitStates.ACTION_MENU;
         MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
         actionMenuDisplay.MoveCursorPosition(180, 36);
         itemMenuOpen = true;
@@ -343,12 +344,14 @@ public class UI_ActionMenu : MonoBehaviour
         }
         else if (checkingWhiteMagic)
         {
+            MapUIInfo.tileController.SetCurrentTile(MapUIInfo.selectedAllyUnit);
+
             HealingMagic temp = (HealingMagic)MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[menuCursorPosition - 1];
-            if(temp && MapUIInfo.selectedAllyUnit_AllyMove.AllyInRange(temp.minRange, temp.maxRange))
+            if(temp && MapUIInfo.tileController.AllyInRange(temp.minRange, temp.maxRange))
             {
-                MapUIInfo.selectedAllyUnit_AllyMove.findingAlly = true;
-                MapUIInfo.selectedAllyUnit_AllyMove.FindHealableTiles(temp.minRange, temp.maxRange);
-                Attack();
+                MapUIInfo.mapManager.unitState = UnitStates.FINDING_ALLY;
+                MapUIInfo.tileController.FindHealableTiles(temp.minRange, temp.maxRange);
+                
             }
         }
     }

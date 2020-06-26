@@ -9,6 +9,7 @@ public class Tile : MonoBehaviour
     public bool target = false; //Tile that the ally or enemy will be moving too
     public bool selectable = false; //Tiles that the ally or enemy can go to/click on
     public bool attackable = false;
+    public bool healable = false;
 
     public TerrainType terrainType;
 
@@ -30,6 +31,7 @@ public class Tile : MonoBehaviour
         target = false; 
         selectable = false;
         attackable = false;
+        healable = false;
 
         adjacentTiles.Clear();
 
@@ -99,6 +101,8 @@ public class Tile : MonoBehaviour
             GetComponent<SpriteRenderer>().color = Color.blue;
         else if (attackable)
             GetComponent<SpriteRenderer>().color = Color.red;
+        else if (healable)
+            GetComponent<SpriteRenderer>().color = Color.green;
         else
             GetComponent<SpriteRenderer>().color = Color.white;
     }

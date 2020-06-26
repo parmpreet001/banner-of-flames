@@ -158,6 +158,16 @@ public class MapManager : MonoBehaviour
                 }
                 break;
             }
+            case UnitStates.FINDING_ALLY:
+            {
+                if(Input.GetKeyDown(KeyCode.X))
+                {
+                    tileController.RemoveSelectableTiles();
+                    unitState = UnitStates.MOVED;
+                }
+               
+                break;
+            }
             default:
                 break;
         }
