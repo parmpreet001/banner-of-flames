@@ -183,6 +183,14 @@ public class BattleManager : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator HealProcess()
+    {
+        attackingUnitStats = attackingUnit.GetComponent<Stats>();
+        int temp = GetHeal(attackingUnitStats);
+        Debug.Log("Heal Amount is " + temp);
+        yield return null;
+    }
+
     public void UpdateStats()
     {
         attackingUnitStats = attackingUnit.GetComponent<Stats>();
@@ -280,6 +288,11 @@ public class BattleManager : MonoBehaviour
             return 0;
 
         return 0;
+    }
+
+    private int GetHeal(Stats unit)
+    {
+        return ((HealingMagic)unit.equippedWhiteMagic).heal + (unit.mag / 2);
     }
 
     //Hit or miss, guess they never miss huh

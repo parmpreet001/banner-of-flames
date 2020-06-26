@@ -345,7 +345,7 @@ public class UI_ActionMenu : MonoBehaviour
         else if (checkingWhiteMagic)
         {
             MapUIInfo.tileController.SetCurrentTile(MapUIInfo.selectedAllyUnit);
-
+            EquipWhiteMagic();
             HealingMagic temp = (HealingMagic)MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[menuCursorPosition - 1];
             if(temp && MapUIInfo.tileController.AllyInRange(temp.minRange, temp.maxRange))
             {
@@ -382,6 +382,22 @@ public class UI_ActionMenu : MonoBehaviour
         for(int i = 0; i < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count; i++)
         {
             if(MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[i].equipped)
+            {
+                actionMenuDisplay.UpdateItemColor(i, new Color32(34, 170, 160, 255));
+            }
+            else
+            {
+                actionMenuDisplay.UpdateItemColor(i, Color.black);
+            }
+        }
+    }
+
+    private void EquipWhiteMagic()
+    {
+        MapUIInfo.selectedAllyUnit_AllyStats.EquipWhiteMagic(menuCursorPosition - 1);
+        for (int i = 0; i < MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic.Count; i++)
+        {
+            if (MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[i].equipped)
             {
                 actionMenuDisplay.UpdateItemColor(i, new Color32(34, 170, 160, 255));
             }

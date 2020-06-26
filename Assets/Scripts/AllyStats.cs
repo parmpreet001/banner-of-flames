@@ -141,7 +141,8 @@ public class AllyStats : Stats
 
     public void EquipBlackMagic(int index)
     {
-        equippedBlackMagic.equipped = false;
+        if(equippedBlackMagic)
+            equippedBlackMagic.equipped = false;
         equippedBlackMagic = blackMagic[index];
         equippedBlackMagic.equipped = true;
 
@@ -172,5 +173,13 @@ public class AllyStats : Stats
             else
                 EquipBlackMagic(indexOfEquippedMagic + 1);
         }
+    }
+
+    public void EquipWhiteMagic(int index)
+    {
+        if(equippedWhiteMagic)
+            equippedWhiteMagic.equipped = false;
+        equippedWhiteMagic = whiteMagic[index];
+        equippedWhiteMagic.equipped = true;
     }
 }

@@ -165,6 +165,14 @@ public class MapManager : MonoBehaviour
                     tileController.RemoveSelectableTiles();
                     unitState = UnitStates.MOVED;
                 }
+                
+                if(Input.GetKeyDown(KeyCode.Z))
+                {
+                    if(cursor.currentTile.healable)
+                    {
+                        StartCoroutine(Heal());
+                    }
+                }
                
                 break;
             }
@@ -184,6 +192,18 @@ public class MapManager : MonoBehaviour
     {
         unitState = UnitStates.ATTACKING;
         yield return battleManager.AttackProcess();
+        tileController.RemoveSelectableTiles();
+        selectedUnit.GetComponent<AllyMove>().finished = true;
+        selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
+        selectedUnit = null;
+        unitState = UnitStates.UNSELECTED;
+        yield return null;
+    }
+
+    IEnumerator Heal()
+    {
+        battleManager.attackingUnit = selectedUnit;
+        yield return battleManager.HealProcess();
         tileController.RemoveSelectableTiles();
         selectedUnit.GetComponent<AllyMove>().finished = true;
         selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
