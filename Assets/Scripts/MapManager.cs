@@ -180,6 +180,11 @@ public class MapManager : MonoBehaviour
                
                 break;
             }
+            case UnitStates.HEALING:
+            {
+                cursor.canMove = false;
+                break;
+            }
             default:
                 break;
         }
@@ -206,6 +211,7 @@ public class MapManager : MonoBehaviour
 
     IEnumerator Heal()
     {
+        unitState = UnitStates.HEALING;
         yield return battleManager.HealProcess();
         tileController.RemoveSelectableTiles();
         selectedUnit.GetComponent<AllyMove>().finished = true;

@@ -351,7 +351,6 @@ public class UI_ActionMenu : MonoBehaviour
             {
                 MapUIInfo.mapManager.unitState = UnitStates.FINDING_ALLY;
                 MapUIInfo.tileController.FindHealableTiles(temp.minRange, temp.maxRange);
-                
             }
         }
     }
