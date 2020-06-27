@@ -299,6 +299,7 @@ public class MapManager : MonoBehaviour
         {
             enemyUnit.GetComponent<EnemyMove>().finished = false;
         }
+        unitState = UnitStates.SELECTED;
         activeEnemyUnits = enemyUnits.Count;
         selectedUnit = enemyUnits[activeEnemyUnits - 1];
         cursor.canMove = false;
@@ -330,7 +331,22 @@ public class MapManager : MonoBehaviour
     //Enemy Phase
     private void EnemyPhase()
     {
-        //If the enemy has not moved and is not currently moving, they move (wow this sounds fucking stupid)
+        switch (unitState)
+        {
+            case UnitStates.SELECTED:
+            {
+                    cursor.followTarget = selectedUnit.transform;
+                    GameObject closestTarget = tileController.GetClosestTarget(selectedUnit);
+                    unitState = UnitStates.MOVING;
+                break;
+            }
+            default:
+            {
+                break;
+            }
+        }
+        
+        /*
 
         if(selectedUnit.GetComponent<EnemyMove>().attacking)
         {
@@ -367,7 +383,10 @@ public class MapManager : MonoBehaviour
         //If all enemies have moved
         if(activeEnemyUnits == 0)
             StartPlayerPhase();
+            */
     }
+
+    
 
     //Returns true if unitState is equal to any of the values in states
     public bool CheckUnitStates(params UnitStates[] states)

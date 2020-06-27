@@ -157,7 +157,6 @@ public class TileController : MonoBehaviour
 
     IEnumerator WalkToTileAnimation(GameObject unit, Tile tile)
     {
-        Debug.Log(transform.name + "has Stared coroutine");
         Tile t = path.Pop();
         while (path.Count > 0)
         {
@@ -212,5 +211,32 @@ public class TileController : MonoBehaviour
                 selectableTiles.RemoveAt(i);
             }
         }
+    }
+
+    public int GetDistanceBetweenTiles(GameObject tile1, GameObject tile2)
+    {
+        int xDistance = (int)Mathf.Abs(tile1.transform.position.x - tile2.transform.position.x);
+        int yDistance = (int)Mathf.Abs(tile1.transform.position.y - tile2.transform.position.y);
+        return (xDistance + yDistance);
+    }
+
+    //Returns the closest ally target that the enemy unit can attack
+    public GameObject GetClosestTarget(GameObject unit)
+    {
+        SetCurrentTile(unit);
+        FindSelectableTiles(unit.GetComponent<Stats>().classType.mov, unit.GetComponent<Stats>().classType.walkableTerrain, false);
+        GameObject[] targets = GameObject.FindGameObjectsWithTag("PlayerUnit"); //All possible targets
+
+
+        GameObject closestTarget = targets[0]; //Closest target. 
+        Tile closestTileToTarget = selectableTiles[0]; //Tile closest to the target. Default value is the tile the enemy is currently standing on
+
+        foreach (GameObject target in targets)
+        { 
+            if (Vector2.Distance(unit.transform.position, target.transform.position) < Vector2.Distance(unit.transform.position, closestTarget.transform.position))
+                closestTarget = target;
+        }
+
+        return closestTarget;
     }
 }

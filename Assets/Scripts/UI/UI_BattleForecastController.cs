@@ -18,7 +18,7 @@ public class UI_BattleForecastController : MonoBehaviour
     void Update()
     { 
         {
-            if (mapUIInfo.mapManager.CheckUnitStates(UnitStates.SELECTED, UnitStates.FINDING_TARGET) && mapUIInfo.hoveringUnit 
+            if (mapUIInfo.selectedAllyUnit && mapUIInfo.mapManager.CheckUnitStates(UnitStates.SELECTED, UnitStates.FINDING_TARGET) && mapUIInfo.hoveringUnit 
                 && mapUIInfo.hoveringUnit.tag == "EnemyUnit")
             {
                 battleForecastUI.SetActive(true);
