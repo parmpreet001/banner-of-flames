@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    public GameObject attackingUnit;
-    public GameObject defendingUnit;
+    public GameObject activeUnit; //unit that is doing an action
+    public GameObject receivingUnit; //unit that is being acted upon
 
-    private Stats attackingUnitStats;
-    private Stats defendingUnitStats;
+    private Stats activeUnitStats;
+    private Stats receivingUnitStats;
 
     public string battleLog;
 
@@ -27,14 +27,14 @@ public class BattleManager : MonoBehaviour
     public void Attack()
     {
         UpdateStats();
-        if (CheckWeaponRange(defendingUnitStats, attackingUnitStats))
+        if (CheckWeaponRange(receivingUnitStats, activeUnitStats))
             StartCoroutine(AttackProcess());
     }
 
     public IEnumerator AttackProcess()
     {
         UpdateStats();
-        if (!CheckWeaponRange(defendingUnitStats, attackingUnitStats))
+        if (!CheckWeaponRange(receivingUnitStats, activeUnitStats))
             yield return null;
 
         //attackingUnit.GetComponent<TileMove>().findingTarget = false;
@@ -50,16 +50,16 @@ public class BattleManager : MonoBehaviour
                 battleLog += "Critical Hit! ";
             }
 
-            battleLog += (attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + dmg + " damage.\n");
-            defendingUnitStats.hp -= dmg;
+            battleLog += (activeUnit.name + " attacked " + receivingUnit.transform.name + " for " + dmg + " damage.\n");
+            receivingUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
 
-            if (attackingUnitStats.UsingPhysicalWeapon())
-                attackingUnitStats.equippedWeapon.currentUses--;
-            else if (attackingUnitStats.UsingOffensiveMagic())
-                attackingUnitStats.equippedBlackMagic.currentUses--;
+            if (activeUnitStats.UsingPhysicalWeapon())
+                activeUnitStats.equippedWeapon.currentUses--;
+            else if (activeUnitStats.UsingOffensiveMagic())
+                activeUnitStats.equippedBlackMagic.currentUses--;
 
-            if (CheckDead(defendingUnitStats))
+            if (CheckDead(receivingUnitStats))
             {
                 yield return new WaitForSeconds(1f);
                 EndAttack();
@@ -69,7 +69,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            battleLog += (attackingUnit.name + " tried to attack, but missed.\n");
+            battleLog += (activeUnit.name + " tried to attack, but missed.\n");
             yield return new WaitForSeconds(1f);
         }
 
@@ -83,16 +83,16 @@ public class BattleManager : MonoBehaviour
                 dmg *= 2;
                 battleLog += "Critical Hit! ";
             }
-            battleLog += (defendingUnit.name + " attacked " + attackingUnit.transform.name + " for " + dmg + " damage.\n");
-            attackingUnitStats.hp -= dmg;
+            battleLog += (receivingUnit.name + " attacked " + activeUnit.transform.name + " for " + dmg + " damage.\n");
+            activeUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
 
-            if (defendingUnitStats.UsingPhysicalWeapon())
-                defendingUnitStats.equippedWeapon.currentUses--;
-            else if (defendingUnitStats.UsingOffensiveMagic())
-                defendingUnitStats.equippedBlackMagic.currentUses--;
+            if (receivingUnitStats.UsingPhysicalWeapon())
+                receivingUnitStats.equippedWeapon.currentUses--;
+            else if (receivingUnitStats.UsingOffensiveMagic())
+                receivingUnitStats.equippedBlackMagic.currentUses--;
 
-            if (CheckDead(attackingUnitStats))
+            if (CheckDead(activeUnitStats))
             {
                 yield return new WaitForSeconds(1f);
                 EndAttack();
@@ -102,7 +102,7 @@ public class BattleManager : MonoBehaviour
         }
         else if(DU_inRange)
         {
-            battleLog += (defendingUnit.name + " tried to attack, but missed.\n");
+            battleLog += (receivingUnit.name + " tried to attack, but missed.\n");
             yield return new WaitForSeconds(1f);
         }
 
@@ -118,16 +118,16 @@ public class BattleManager : MonoBehaviour
                     battleLog += "Critical Hit! ";
                 }
 
-                battleLog += (attackingUnit.name + " attacked " + defendingUnit.transform.name + " for " + dmg + " damage.\n");
-                defendingUnitStats.hp -= dmg;
+                battleLog += (activeUnit.name + " attacked " + receivingUnit.transform.name + " for " + dmg + " damage.\n");
+                receivingUnitStats.hp -= dmg;
                 yield return new WaitForSeconds(1f);
 
-                if (attackingUnitStats.UsingPhysicalWeapon())
-                    attackingUnitStats.equippedWeapon.currentUses--;
-                else if (attackingUnitStats.UsingOffensiveMagic())
-                    attackingUnitStats.equippedBlackMagic.currentUses--;
+                if (activeUnitStats.UsingPhysicalWeapon())
+                    activeUnitStats.equippedWeapon.currentUses--;
+                else if (activeUnitStats.UsingOffensiveMagic())
+                    activeUnitStats.equippedBlackMagic.currentUses--;
 
-                if (CheckDead(defendingUnitStats))
+                if (CheckDead(receivingUnitStats))
                 {
                     yield return new WaitForSeconds(1f);
                     EndAttack();
@@ -136,7 +136,7 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                battleLog += (attackingUnit.name + " tried to attack, but missed.\n");
+                battleLog += (activeUnit.name + " tried to attack, but missed.\n");
                 yield return new WaitForSeconds(1f);
             }
         }
@@ -152,16 +152,16 @@ public class BattleManager : MonoBehaviour
                     dmg *= 2;
                     battleLog += "Critical Hit! ";
                 }
-                battleLog += (defendingUnit.name + " attacked " + attackingUnit.transform.name + " for " + dmg + " damage.\n");
-                attackingUnitStats.hp -= dmg;
+                battleLog += (receivingUnit.name + " attacked " + activeUnit.transform.name + " for " + dmg + " damage.\n");
+                activeUnitStats.hp -= dmg;
                 yield return new WaitForSeconds(1f);
 
-                if (defendingUnitStats.UsingPhysicalWeapon())
-                    defendingUnitStats.equippedWeapon.currentUses--;
-                else if (defendingUnitStats.UsingOffensiveMagic())
-                    defendingUnitStats.equippedBlackMagic.currentUses--;
+                if (receivingUnitStats.UsingPhysicalWeapon())
+                    receivingUnitStats.equippedWeapon.currentUses--;
+                else if (receivingUnitStats.UsingOffensiveMagic())
+                    receivingUnitStats.equippedBlackMagic.currentUses--;
 
-                if (CheckDead(attackingUnitStats))
+                if (CheckDead(activeUnitStats))
                 {
                     yield return new WaitForSeconds(1f);
                     EndAttack();
@@ -170,7 +170,7 @@ public class BattleManager : MonoBehaviour
             }
             else if(DU_inRange)
             {
-                battleLog += (defendingUnit.name + " tried to attack, but missed.\n");
+                battleLog += (receivingUnit.name + " tried to attack, but missed.\n");
                 yield return new WaitForSeconds(1f);
             }
         }
@@ -185,35 +185,46 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator HealProcess()
     {
-        attackingUnitStats = attackingUnit.GetComponent<Stats>();
-        int temp = GetHeal(attackingUnitStats);
-        Debug.Log("Heal Amount is " + temp);
+        int healAmount = GetHeal(activeUnitStats); 
+        if(healAmount + receivingUnitStats.hp > receivingUnitStats.maxHP)
+        {
+            battleLog += ("Healed " + receivingUnit.name + " for " + (receivingUnitStats.maxHP - receivingUnitStats.hp) + " HP.");
+            receivingUnitStats.hp = receivingUnitStats.maxHP;
+        }
+        else
+        {
+            battleLog += ("Healed " + receivingUnit.name + " for " + healAmount + " HP.");
+            receivingUnitStats.hp += healAmount;
+        }
+
+        yield return new WaitForSeconds(1.5f);
+        EndHeal();
         yield return null;
     }
 
     public void UpdateStats()
     {
-        attackingUnitStats = attackingUnit.GetComponent<Stats>();
-        defendingUnitStats = defendingUnit.GetComponent<Stats>();
+        activeUnitStats = activeUnit.GetComponent<Stats>();
+        receivingUnitStats = receivingUnit.GetComponent<Stats>();
 
         AU_attackTwice = false;
         DU_attackTwice = false;
 
-        AU_dmg = GetDmg(attackingUnitStats, defendingUnitStats);
-        AU_accuracy = GetAccuracy(attackingUnitStats, defendingUnitStats);
-        AU_crit = GetCrit(attackingUnitStats);
+        AU_dmg = GetDmg(activeUnitStats, receivingUnitStats);
+        AU_accuracy = GetAccuracy(activeUnitStats, receivingUnitStats);
+        AU_crit = GetCrit(activeUnitStats);
 
 
-        DU_dmg = GetDmg(defendingUnitStats, attackingUnitStats);
-        DU_accuracy = GetAccuracy(defendingUnitStats, attackingUnitStats);
-        DU_crit = GetCrit(defendingUnitStats);
+        DU_dmg = GetDmg(receivingUnitStats, activeUnitStats);
+        DU_accuracy = GetAccuracy(receivingUnitStats, activeUnitStats);
+        DU_crit = GetCrit(receivingUnitStats);
 
-        if (attackingUnitStats.spd >= defendingUnitStats.spd + 5)
+        if (activeUnitStats.spd >= receivingUnitStats.spd + 5)
             AU_attackTwice = true;
-        else if (defendingUnitStats.spd >= attackingUnitStats.spd + 5)
+        else if (receivingUnitStats.spd >= activeUnitStats.spd + 5)
             DU_attackTwice = true;
 
-        DU_inRange = CheckWeaponRange(attackingUnitStats,defendingUnitStats);
+        DU_inRange = CheckWeaponRange(activeUnitStats,receivingUnitStats);
     }
 
     //returns damage unit does to target
@@ -340,37 +351,44 @@ public class BattleManager : MonoBehaviour
     {
         battleLog = "";
 
-       // attackingUnit.GetComponent<TileMove>().attacking = false;
-       // attackingUnit.GetComponent<TileMove>().finished = true;
-        attackingUnit.GetComponent<TileMove>().RemoveSelectableTiles();
+        activeUnit.GetComponent<TileMove>().RemoveSelectableTiles();
 
-        if (attackingUnit.CompareTag("PlayerUnit") && !attackingUnitStats.isDead && attackingUnitStats.UsingPhysicalWeapon())
+        if (activeUnit.CompareTag("PlayerUnit") && !activeUnitStats.isDead && activeUnitStats.UsingPhysicalWeapon())
         {
-            switch (attackingUnitStats.equippedWeapon.weaponType)
+            switch (activeUnitStats.equippedWeapon.weaponType)
             {
                 case WeaponType.SWORD:
-                    AddWeaponExperience(attackingUnitStats, WeaponType.SWORD); break;
+                    AddWeaponExperience(activeUnitStats, WeaponType.SWORD); break;
                 case WeaponType.AXE:
-                    AddWeaponExperience(attackingUnitStats, WeaponType.AXE); break;
+                    AddWeaponExperience(activeUnitStats, WeaponType.AXE); break;
                 case WeaponType.LANCE:
-                    AddWeaponExperience(attackingUnitStats, WeaponType.LANCE); break;
+                    AddWeaponExperience(activeUnitStats, WeaponType.LANCE); break;
                 case WeaponType.BOW:
-                    AddWeaponExperience(attackingUnitStats, WeaponType.BOW); break;
+                    AddWeaponExperience(activeUnitStats, WeaponType.BOW); break;
                 default:
                     break;
             }
         }
 
-        else if(attackingUnit.CompareTag("PlayerUnit") && !attackingUnitStats.isDead && attackingUnitStats.UsingOffensiveMagic())
+        else if(activeUnit.CompareTag("PlayerUnit") && !activeUnitStats.isDead && activeUnitStats.UsingOffensiveMagic())
         {
-            if (attackingUnitStats.equippedBlackMagic.magicType == MagicType.BLACK)
-                AddWeaponExperience(attackingUnitStats, MagicType.BLACK);
-            else if (attackingUnitStats.equippedBlackMagic.magicType == MagicType.WHITE)
-                AddWeaponExperience(attackingUnitStats, MagicType.WHITE);
+            if (activeUnitStats.equippedBlackMagic.magicType == MagicType.BLACK)
+                AddMagicExperience(activeUnitStats, MagicType.BLACK);
+            else if (activeUnitStats.equippedBlackMagic.magicType == MagicType.WHITE)
+                AddMagicExperience(activeUnitStats, MagicType.WHITE);
         }
             
-        if (defendingUnitStats.isDead)
-            Destroy(defendingUnit);
+        if (receivingUnitStats.isDead)
+            Destroy(receivingUnit);
+    }
+
+    private void EndHeal()
+    {
+        battleLog = "";
+
+        activeUnit.GetComponent<TileMove>().RemoveSelectableTiles();
+        AddMagicExperience(activeUnitStats, MagicType.WHITE);
+        
     }
     private void AddWeaponExperience(Stats unit, WeaponType weaponType)
     {
@@ -388,7 +406,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    private void AddWeaponExperience(Stats unit, MagicType magicType)
+    private void AddMagicExperience(Stats unit, MagicType magicType)
     {
         int magicTypeIndex = (int)magicType; //index of the weapon type the unit used during this attack
 

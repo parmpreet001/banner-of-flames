@@ -160,6 +160,10 @@ public class MapManager : MonoBehaviour
             }
             case UnitStates.FINDING_ALLY:
             {
+                if(cursor.CurrentTileHasAllyUnit())
+                {
+                    UpdateBattleManagerStats(selectedUnit, cursor.GetCurrentUnit());
+                }
                 if(Input.GetKeyDown(KeyCode.X))
                 {
                     tileController.RemoveSelectableTiles();
@@ -202,7 +206,6 @@ public class MapManager : MonoBehaviour
 
     IEnumerator Heal()
     {
-        battleManager.attackingUnit = selectedUnit;
         yield return battleManager.HealProcess();
         tileController.RemoveSelectableTiles();
         selectedUnit.GetComponent<AllyMove>().finished = true;
@@ -214,8 +217,8 @@ public class MapManager : MonoBehaviour
 
     private void UpdateBattleManagerStats(GameObject attackingUnit, GameObject defendingUnit)
     {
-        battleManager.attackingUnit = attackingUnit;
-        battleManager.defendingUnit = defendingUnit;
+        battleManager.activeUnit = attackingUnit;
+        battleManager.receivingUnit = defendingUnit;
         battleManager.UpdateStats();
     }
 
@@ -330,8 +333,8 @@ public class MapManager : MonoBehaviour
             if(selectedUnit.GetComponent<EnemyMove>().closestTarget.transform.parent.GetComponent<Tile>().attackable)
             {
                 Debug.Log("Enemy attacked");
-                battleManager.attackingUnit = selectedUnit;
-                battleManager.defendingUnit = selectedUnit.GetComponent<EnemyMove>().closestTarget;
+                battleManager.activeUnit = selectedUnit;
+                battleManager.receivingUnit = selectedUnit.GetComponent<EnemyMove>().closestTarget;
                 battleManager.Attack();
             }
         }
