@@ -7,7 +7,7 @@ public class UI_ActionMenu : MonoBehaviour
     //References to other shit
     private MapUIInfo MapUIInfo;
     private GameObject ItemMenu; //Holds and displays items
-    public GameObject MenuCursor; //Cursor used for selecting items
+    //public GameObject MenuCursor; //Cursor used for selecting items
     private RectTransform MenuCursor_RectTransform; //menuCursor RectTransform
 
     //Local variables
@@ -23,10 +23,9 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void Start()
     {
-        MenuCursor = transform.Find("ActionMenuCursor").gameObject;
         MapUIInfo = GetComponentInParent<MapUIInfo>();
         ItemMenu = GameObject.Find("ItemMenu");
-        MenuCursor_RectTransform = MenuCursor.GetComponent<RectTransform>();
+        MenuCursor_RectTransform = transform.Find("ActionMenuCursor").gameObject.GetComponent<RectTransform>();
         actionMenuDisplay = GetComponent<UI_ActionMenuDisplay>();
     }
 
@@ -66,7 +65,7 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void CreateButtons()
     {
-        MenuCursor.SetActive(true);
+        actionMenuDisplay.menuCursor.SetActive(true);
         buttonsCreated = true;
         actionMenuDisplay.SetCursorPosition(MenuCursor_RectTransform.anchoredPosition.x, -35 * (menuCursorPosition - 1));
 
@@ -426,8 +425,9 @@ public class UI_ActionMenu : MonoBehaviour
                 transform.GetChild(i).gameObject.SetActive(false);
         }
 
-        MenuCursor.GetComponent<Transform>().position = new Vector2(GameObject.Find("ActionMenu").transform.position.x + 100,
-            MenuCursor.GetComponent<RectTransform>().anchoredPosition.y);
+
+        actionMenuDisplay.menuCursor.GetComponent<Transform>().position = new Vector2(GameObject.Find("ActionMenu").transform.position.x + 100,
+            actionMenuDisplay.menuCursor.GetComponent<RectTransform>().anchoredPosition.y);
 
     }
 
