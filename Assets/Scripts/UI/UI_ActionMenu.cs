@@ -7,7 +7,6 @@ public class UI_ActionMenu : MonoBehaviour
     //References to other shit
     private MapUIInfo MapUIInfo;
     private GameObject ItemMenu; //Holds and displays items
-    //public GameObject MenuCursor; //Cursor used for selecting items
     private RectTransform MenuCursor_RectTransform; //menuCursor RectTransform
 
     //Local variables
@@ -37,7 +36,7 @@ public class UI_ActionMenu : MonoBehaviour
             //If they have moved
             if (MapUIInfo.mapManager.CheckUnitStates(UnitStates.MOVED))
             {
-                //If buttons have not been created, create buttons and display the menu cursor
+                //If buttons have not been created, create buttons
                 if (!buttonsCreated)
                 {
                     CreateButtons();
@@ -95,7 +94,6 @@ public class UI_ActionMenu : MonoBehaviour
         {
             if(Input.GetKey(KeyCode.X))
             {
-                Debug.Log("aaa");
                 ResetActionMenu(true);
             }
         }
@@ -153,7 +151,6 @@ public class UI_ActionMenu : MonoBehaviour
     public void Wait()
     {
         MapUIInfo.selectedAllyUnit.GetComponent<AllyMove>().finished = true;
-        //TODO implementation
     }
 
     public void Attack()

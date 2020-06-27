@@ -106,6 +106,7 @@ public class MapManager : MonoBehaviour
             {
                 if (selectedUnit.GetComponent<AllyMove>().finished)
                 {
+                    unmovedAllyUnits--;
                     selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
                     selectedUnit = null;
                     unitState = UnitStates.UNSELECTED;
@@ -206,6 +207,7 @@ public class MapManager : MonoBehaviour
         selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
         selectedUnit = null;
         unitState = UnitStates.UNSELECTED;
+        unmovedAllyUnits--;
         yield return null;
     }
 
@@ -218,6 +220,7 @@ public class MapManager : MonoBehaviour
         selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
         selectedUnit = null;
         unitState = UnitStates.UNSELECTED;
+        unmovedAllyUnits--;
         yield return null;
     }
 
