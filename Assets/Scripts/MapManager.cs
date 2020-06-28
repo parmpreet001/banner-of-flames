@@ -106,10 +106,7 @@ public class MapManager : MonoBehaviour
             {
                 if (selectedUnit.GetComponent<AllyMove>().finished)
                 {
-                    unmovedAllyUnits--;
-                    selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
-                    selectedUnit = null;
-                    unitState = UnitStates.UNSELECTED;
+                    EndUnitTurn();
                 }
                 if(Input.GetKeyDown(KeyCode.X))
                 {
@@ -204,10 +201,7 @@ public class MapManager : MonoBehaviour
         yield return battleManager.AttackProcess();
         tileController.RemoveSelectableTiles();
         selectedUnit.GetComponent<AllyMove>().finished = true;
-        selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
-        selectedUnit = null;
-        unitState = UnitStates.UNSELECTED;
-        unmovedAllyUnits--;
+        EndUnitTurn();
         yield return null;
     }
 
@@ -217,10 +211,7 @@ public class MapManager : MonoBehaviour
         yield return battleManager.HealProcess();
         tileController.RemoveSelectableTiles();
         selectedUnit.GetComponent<AllyMove>().finished = true;
-        selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
-        selectedUnit = null;
-        unitState = UnitStates.UNSELECTED;
-        unmovedAllyUnits--;
+        EndUnitTurn();
         yield return null;
     }
 
@@ -237,6 +228,12 @@ public class MapManager : MonoBehaviour
     {
         switch(unitState)
         {
+            case UnitStates.SELECTED:
+            {
+                if (selectedUnit.tag == "EnemyUnit")
+                    cursor.followTarget = selectedUnit.transform;
+                break;
+            }
             case UnitStates.MOVING:
             {
                 cursor.followTarget = selectedUnit.transform;
@@ -335,58 +332,39 @@ public class MapManager : MonoBehaviour
         {
             case UnitStates.SELECTED:
             {
-                    cursor.followTarget = selectedUnit.transform;
-                    GameObject closestTarget = tileController.GetClosestTarget(selectedUnit);
-                    Tile closestTile = tileController.GetClosestTileToTarget(selectedUnit, closestTarget);
-                    Debug.Log("closestTarget: " + closestTarget);
-                    Debug.Log(closestTile.name + "," + closestTile.transform.parent.name);
-                    unitState = UnitStates.MOVING;
+                GameObject closestTarget = tileController.GetClosestTarget(selectedUnit);
+                Tile closestTile = tileController.GetClosestTileToTarget(selectedUnit, closestTarget);
+                StartCoroutine(MoveToTile(selectedUnit, closestTile));
+                unitState = UnitStates.MOVING;
                 break;
+            }
+            case UnitStates.MOVED:
+            {
+                    tileController.SetCurrentTile(selectedUnit);
+                    bool targetInRange = tileController.AllyInRange(selectedUnit.GetComponent<EnemyStats>().GetMinRange(),
+                        selectedUnit.GetComponent<EnemyStats>().GetMaxRange());
+                    if(targetInRange)
+                    {
+                        EndUnitTurn();
+                    }
+                    break;
             }
             default:
             {
                 break;
             }
         }
-        
-        /*
+    }
 
-        if(selectedUnit.GetComponent<EnemyMove>().attacking)
-        {
-
-        }
-        //Enemy attacking phase. Will attack a target if there is one avaliable
-        else if(selectedUnit.GetComponent<EnemyMove>().findingTarget)
-        {
-            if(selectedUnit.GetComponent<EnemyMove>().closestTarget.transform.parent.GetComponent<Tile>().attackable)
-            {
-                Debug.Log("Enemy attacked");
-                battleManager.activeUnit = selectedUnit;
-                battleManager.receivingUnit = selectedUnit.GetComponent<EnemyMove>().closestTarget;
-                battleManager.Attack();
-            }
-        }
-        else if (!selectedUnit.GetComponent<EnemyMove>().finished && !selectedUnit.GetComponent<EnemyMove>().moving)
-            selectedUnit.GetComponent<EnemyMove>().Move();
-        //If the enemy has moved
-        else if(selectedUnit.GetComponent<EnemyMove>().finished)
-        {
-            enemyUnits[activeEnemyUnits - 1].GetComponent<EnemyMove>().RemoveSelectableTiles();
-            Debug.Log(selectedUnit.transform.name + " has finished moving");
-            activeEnemyUnits -= 1;
-            
-            //If the enemy unit dies during a counter attack, delete
-            if (selectedUnit.GetComponent<Stats>().isDead)
-                Destroy(selectedUnit);
-
-            if(activeEnemyUnits != 0)
-                selectedUnit = enemyUnits[activeEnemyUnits - 1];    
-        }  
-
-        //If all enemies have moved
-        if(activeEnemyUnits == 0)
-            StartPlayerPhase();
-            */
+    private void EndUnitTurn()
+    {
+        if (selectedUnit.tag == "PlayerUnit")
+            unmovedAllyUnits--;
+        else
+            activeEnemyUnits--;
+        selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
+        selectedUnit = null;
+        unitState = UnitStates.UNSELECTED;
     }
 
     
