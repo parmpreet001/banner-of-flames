@@ -337,6 +337,9 @@ public class MapManager : MonoBehaviour
             {
                     cursor.followTarget = selectedUnit.transform;
                     GameObject closestTarget = tileController.GetClosestTarget(selectedUnit);
+                    Tile closestTile = tileController.GetClosestTileToTarget(selectedUnit, closestTarget);
+                    Debug.Log("closestTarget: " + closestTarget);
+                    Debug.Log(closestTile.name + "," + closestTile.transform.parent.name);
                     unitState = UnitStates.MOVING;
                 break;
             }

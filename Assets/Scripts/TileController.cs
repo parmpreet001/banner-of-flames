@@ -224,13 +224,8 @@ public class TileController : MonoBehaviour
     //Returns the closest ally target that the enemy unit can attack
     public GameObject GetClosestTarget(GameObject unit)
     {
-        SetCurrentTile(unit);
-        FindSelectableTiles(unit.GetComponent<Stats>().classType.mov, unit.GetComponent<Stats>().classType.walkableTerrain, false);
         GameObject[] targets = GameObject.FindGameObjectsWithTag("PlayerUnit"); //All possible targets
-
-
         GameObject closestTarget = targets[0]; //Closest target. 
-        Tile closestTileToTarget = selectableTiles[0]; //Tile closest to the target. Default value is the tile the enemy is currently standing on
 
         foreach (GameObject target in targets)
         { 
@@ -243,9 +238,45 @@ public class TileController : MonoBehaviour
 
     public Tile GetClosestTileToTarget(GameObject unit, GameObject target)
     {
+        SetCurrentTile(unit);
+        FindSelectableTiles(unit.GetComponent<Stats>().classType.mov, unit.GetComponent<Stats>().classType.walkableTerrain, false);
 
+        int minRange = unit.GetComponent<EnemyStats>().GetMinRange();
+        int maxRange = unit.GetComponent<EnemyStats>().GetMaxRange();
+        Tile closestTileToTarget = selectableTiles[0];
+        bool targetOutsideRange = (GetDistanceBetweenTiles(unit.transform.parent.gameObject, target.transform.parent.gameObject)
+            > unit.GetComponent<Stats>().classType.mov + maxRange);
+        Debug.Log("Target outside range: " + targetOutsideRange);
 
+        if (!targetOutsideRange)
+        {
+            int targetTileDistance = 0; //Distance between the target and the tile during iteration
 
-        return null;
+            //Find closest tile that this unit can attack from
+            for (int i = selectableTiles.Count - 1; i >= 0; i--)
+            {
+                targetTileDistance = GetDistanceBetweenTiles(target.transform.parent.gameObject, selectableTiles[i].gameObject);
+                if (targetTileDistance < minRange || targetTileDistance > maxRange)
+                    selectableTiles.RemoveAt(i);
+            }
+            closestTileToTarget = selectableTiles[0];
+        }
+
+        else
+        {
+            closestTileToTarget = selectableTiles[selectableTiles.Count - 1];
+            int targetTileDistance = GetDistanceBetweenTiles(target.transform.parent.gameObject, closestTileToTarget.gameObject);
+
+            //Find tile closest to target
+            for (int i = selectableTiles.Count - 1; i >= 0; i--)
+            {
+                if (GetDistanceBetweenTiles(target.transform.parent.gameObject, selectableTiles[i].gameObject) < targetTileDistance)
+                {
+                    closestTileToTarget = selectableTiles[i];
+                    targetTileDistance = GetDistanceBetweenTiles(target.transform.parent.gameObject, closestTileToTarget.gameObject);
+                }
+            }
+        }
+        return closestTileToTarget;
     }
 }
