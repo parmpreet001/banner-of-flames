@@ -330,24 +330,39 @@ public class MapManager : MonoBehaviour
     {
         switch (unitState)
         {
+            case UnitStates.UNSELECTED:
+            {
+                if(activeEnemyUnits > 0)
+                {
+                    selectedUnit = enemyUnits[activeEnemyUnits - 1];
+                    unitState = UnitStates.SELECTED;
+                }
+                else
+                    {
+
+                    }
+                        
+                break;
+            }
             case UnitStates.SELECTED:
             {
                 GameObject closestTarget = tileController.GetClosestTarget(selectedUnit);
                 Tile closestTile = tileController.GetClosestTileToTarget(selectedUnit, closestTarget);
+                    Debug.Log("Closest tile is: " + closestTile.name + "," + closestTile.transform.parent.name);
                 StartCoroutine(MoveToTile(selectedUnit, closestTile));
                 unitState = UnitStates.MOVING;
                 break;
             }
             case UnitStates.MOVED:
             {
-                    tileController.SetCurrentTile(selectedUnit);
-                    bool targetInRange = tileController.AllyInRange(selectedUnit.GetComponent<EnemyStats>().GetMinRange(),
-                        selectedUnit.GetComponent<EnemyStats>().GetMaxRange());
-                    if(targetInRange)
-                    {
-                        EndUnitTurn();
-                    }
-                    break;
+                tileController.SetCurrentTile(selectedUnit);
+                bool targetInRange = tileController.AllyInRange(selectedUnit.GetComponent<EnemyStats>().GetMinRange(),
+                    selectedUnit.GetComponent<EnemyStats>().GetMaxRange());
+
+                tileController.RemoveSelectableTiles();
+                EndUnitTurn();
+
+                break;
             }
             default:
             {
