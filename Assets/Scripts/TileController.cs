@@ -58,7 +58,8 @@ public class TileController : MonoBehaviour
             else
             {
                 selectableTiles[i].selectable = true;
-                selectableTiles[i].UpdateColors();
+                if(updateTTileColors)
+                    selectableTiles[i].UpdateColors();
             }
         }
     }
