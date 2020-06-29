@@ -55,11 +55,12 @@ public class MapManager : MonoBehaviour
         {
             EnemyPhase();
         }
+        CheckCursor();
     }
 
     private void PlayerPhase()
     {
-        CheckCursor();
+        
         switch(unitState)
         {
             //If a unit has not been selected
@@ -299,7 +300,7 @@ public class MapManager : MonoBehaviour
         unitState = UnitStates.SELECTED;
         activeEnemyUnits = enemyUnits.Count;
         selectedUnit = enemyUnits[activeEnemyUnits - 1];
-        cursor.canMove = false;
+        //cursor.canMove = false;
     }
 
     //Starts the player phase
@@ -321,8 +322,8 @@ public class MapManager : MonoBehaviour
             }
         }
 
-        cursor.canMove = true;
-        cursor.followTarget = null;
+        //cursor.canMove = true;
+        //cursor.followTarget = null;
     }
 
     //Enemy Phase
