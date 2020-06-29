@@ -21,6 +21,9 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private Tile startingTile = null;
 
+    //Enemy ai
+    GameObject closestTarget;
+    bool targetInRange;
 
     void Start()
     {
@@ -201,7 +204,7 @@ public class MapManager : MonoBehaviour
         unitState = UnitStates.ATTACKING;
         yield return battleManager.AttackProcess();
         tileController.RemoveSelectableTiles();
-        selectedUnit.GetComponent<AllyMove>().finished = true;
+        selectedUnit.GetComponent<TileMove>().finished = true;
         EndUnitTurn();
         yield return null;
     }
@@ -339,17 +342,16 @@ public class MapManager : MonoBehaviour
                     unitState = UnitStates.SELECTED;
                 }
                 else
-                    {
-
-                    }
+                {
+                    //End Enemy phase
+                }
                         
                 break;
             }
             case UnitStates.SELECTED:
             {
-                GameObject closestTarget = tileController.GetClosestTarget(selectedUnit);
+                closestTarget = tileController.GetClosestTarget(selectedUnit);
                 Tile closestTile = tileController.GetClosestTileToTarget(selectedUnit, closestTarget);
-                    Debug.Log("Closest tile is: " + closestTile.name + "," + closestTile.transform.parent.name);
                 StartCoroutine(MoveToTile(selectedUnit, closestTile));
                 unitState = UnitStates.MOVING;
                 break;
@@ -357,12 +359,28 @@ public class MapManager : MonoBehaviour
             case UnitStates.MOVED:
             {
                 tileController.SetCurrentTile(selectedUnit);
-                bool targetInRange = tileController.AllyInRange(selectedUnit.GetComponent<EnemyStats>().GetMinRange(),
+                targetInRange = tileController.AllyInRange(selectedUnit.GetComponent<EnemyStats>().GetMinRange(),
                     selectedUnit.GetComponent<EnemyStats>().GetMaxRange());
 
-                tileController.RemoveSelectableTiles();
-                EndUnitTurn();
-
+                if(!targetInRange)
+                {
+                    tileController.RemoveSelectableTiles();
+                    EndUnitTurn();
+                }
+                else
+                {
+                    unitState = UnitStates.FINDING_TARGET;
+                }
+                break;
+            }
+            case UnitStates.FINDING_TARGET:
+            {
+                if(targetInRange)
+                {
+                        battleManager.activeUnit = selectedUnit;
+                        battleManager.receivingUnit = closestTarget;
+                        StartCoroutine(Attack());
+                }
                 break;
             }
             default:
