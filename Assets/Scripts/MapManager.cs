@@ -73,7 +73,7 @@ public class MapManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
                     //If the tile has an ally unit that has not yet moved
-                    if (cursor.CurrentTileHasAllyUnit() && !cursor.GetCurrentUnit().GetComponent<AllyMove>().finished)
+                    if (cursor.CurrentTileHasAllyUnit() && !cursor.GetCurrentUnit().GetComponent<TileMove>().finished)
                     {
                         startingTile = cursor.currentTile;
                         selectedUnit = cursor.GetCurrentUnit();
@@ -108,7 +108,7 @@ public class MapManager : MonoBehaviour
             //If a unit has moved to a tile
             case UnitStates.MOVED:
             {
-                if (selectedUnit.GetComponent<AllyMove>().finished)
+                if (selectedUnit.GetComponent<TileMove>().finished)
                 {
                     EndUnitTurn();
                 }
@@ -214,7 +214,7 @@ public class MapManager : MonoBehaviour
         unitState = UnitStates.HEALING;
         yield return battleManager.HealProcess();
         tileController.RemoveSelectableTiles();
-        selectedUnit.GetComponent<AllyMove>().finished = true;
+        selectedUnit.GetComponent<TileMove>().finished = true;
         EndUnitTurn();
         yield return null;
     }
@@ -267,20 +267,6 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    //Checks and updates the value of unmovedAllyUnits
-    private void CheckUnmovedUnits()
-    {
-        //If the selected unit has moved and is not currently moving(meaning that it has reaching the end of its walk animation coroutine)
-        if (selectedUnit && selectedUnit.GetComponent<AllyMove>().finished && !selectedUnit.GetComponent<AllyMove>().moving && !selectedUnit.GetComponent<AllyMove>().findingTarget)
-        {
-            unmovedAllyUnits -= 1; //Decrements the amount of allies that have not moved yet
-            selectedUnit = null; //Unselects the current unit
-            //If all ally units have moved, begin the enemy phase
-            if (unmovedAllyUnits == 0)
-                StartEnemyPhase();
-        }
-    }
-
     //Starts the enemy phase
     private void StartEnemyPhase()
     {
@@ -320,7 +306,7 @@ public class MapManager : MonoBehaviour
             if(allyUnit)
             {
             unmovedAllyUnits += 1;
-            allyUnit.GetComponent<AllyMove>().finished = false;
+            allyUnit.GetComponent<TileMove>().finished = false;
             allyUnit.GetComponent<SpriteRenderer>().color = Color.white;
             }
         }

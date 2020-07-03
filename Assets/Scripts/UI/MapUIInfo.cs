@@ -14,7 +14,6 @@ public class MapUIInfo : MonoBehaviour
     public TileController tileController;
 
     public AllyStats selectedAllyUnit_AllyStats;
-    public AllyMove selectedAllyUnit_AllyMove;
 
     private void Start()
     {
