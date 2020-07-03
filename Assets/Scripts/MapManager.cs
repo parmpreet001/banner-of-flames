@@ -320,8 +320,16 @@ public class MapManager : MonoBehaviour
             if(allyUnit)
             {
             unmovedAllyUnits += 1;
-            //allyUnit.GetComponent<AllyMove>().finished = false;
+            allyUnit.GetComponent<AllyMove>().finished = false;
             allyUnit.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+        }
+
+        foreach(GameObject enemyUnit in enemyUnits)
+        {
+            if(enemyUnit)
+            {
+                enemyUnit.GetComponent<SpriteRenderer>().color = new Color32(200, 110, 120, 255);
             }
         }
 
@@ -343,7 +351,7 @@ public class MapManager : MonoBehaviour
                 }
                 else
                 {
-                    //End Enemy phase
+                    StartPlayerPhase();
                 }
                         
                 break;
