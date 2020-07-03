@@ -298,7 +298,7 @@ public class MapManager : MonoBehaviour
         //Sets all enemyUnits moved value to false
         foreach(GameObject enemyUnit in enemyUnits)
         {
-            enemyUnit.GetComponent<EnemyMove>().finished = false;
+            enemyUnit.GetComponent<TileMove>().finished = false;
         }
         unitState = UnitStates.SELECTED;
         activeEnemyUnits = enemyUnits.Count;
