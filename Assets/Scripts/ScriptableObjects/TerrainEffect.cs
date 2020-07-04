@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu]
 public class TerrainEffect : ScriptableObject
 {
-    public int dmgBoost = 0;
+    public int strBoost;
 }

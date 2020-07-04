@@ -228,10 +228,14 @@ public class BattleManager : MonoBehaviour
     private int GetDmg(Stats unit, Stats target)
     {
         int dmg = 0;
-        //if unit is attacking with physical weapon
-        if(unit.UsingPhysicalWeapon())
+        if (unit.GetComponentInParent<Tile>().terrainEffect)
         {
-            dmg = unit.str + unit.equippedWeapon.dmg - target.def;
+            dmg += activeUnitStats.GetComponentInParent<Tile>().terrainEffect.strBoost;
+        }
+        //if unit is attacking with physical weapon
+        if (unit.UsingPhysicalWeapon())
+        {
+            dmg += unit.str + unit.equippedWeapon.dmg - target.def;
             //if target is also attacking with physical weapon 
             if(target.UsingPhysicalWeapon())
             {
@@ -260,6 +264,7 @@ public class BattleManager : MonoBehaviour
                 }
                 if (dmg <= 0)
                     dmg = 1;
+
             }
         }
 

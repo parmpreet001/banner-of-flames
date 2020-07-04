@@ -210,6 +210,7 @@ MonoBehaviour:
   spdGrowth: 0
   maxHP: 0
   attackMethod: 0
+  finishedTurn: 0
 --- !u!114 &9538727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,17 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847852fd4ab9eb940ab50b422bb00d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursor: {fileID: 0}
-  selectableTiles: []
-  currentTile: {fileID: 0}
-  selected: 0
-  moving: 0
-  moved: 0
-  findingTarget: 0
-  findingAlly: 0
-  attacking: 0
-  healing: 0
-  actionMenu: 0
   finished: 0
 --- !u!61 &9538728
 BoxCollider2D:
@@ -1122,6 +1112,7 @@ MonoBehaviour:
   spdGrowth: 0
   maxHP: 0
   attackMethod: 0
+  finishedTurn: 0
 --- !u!114 &139194058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1134,17 +1125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847852fd4ab9eb940ab50b422bb00d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursor: {fileID: 0}
-  selectableTiles: []
-  currentTile: {fileID: 0}
-  selected: 0
-  moving: 0
-  moved: 0
-  findingTarget: 0
-  findingAlly: 0
-  attacking: 0
-  healing: 0
-  actionMenu: 0
   finished: 0
 --- !u!212 &139194059
 SpriteRenderer:
@@ -3870,6 +3850,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 971898364}
     m_Modifications:
+    - target: {fileID: 6724136971068816829, guid: fd0a0b39790f3484eb10fff5d74e9cc8,
+        type: 3}
+      propertyPath: terrainEffect
+      value: 
+      objectReference: {fileID: 11400000, guid: 3edb914b6b522f4498fa2ea3a89cb956,
+        type: 2}
     - target: {fileID: 8310946379419804037, guid: fd0a0b39790f3484eb10fff5d74e9cc8,
         type: 3}
       propertyPath: m_Name
@@ -4654,17 +4640,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847852fd4ab9eb940ab50b422bb00d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursor: {fileID: 0}
-  selectableTiles: []
-  currentTile: {fileID: 0}
-  selected: 0
-  moving: 0
-  moved: 0
-  findingTarget: 0
-  findingAlly: 0
-  attacking: 0
-  healing: 0
-  actionMenu: 0
   finished: 0
 --- !u!212 &616844895
 SpriteRenderer:
@@ -4771,6 +4746,7 @@ MonoBehaviour:
   spdGrowth: 0
   maxHP: 0
   attackMethod: 0
+  finishedTurn: 0
 --- !u!1 &627056664
 GameObject:
   m_ObjectHideFlags: 0
@@ -6020,6 +5996,7 @@ MonoBehaviour:
   attackable: 0
   healable: 0
   terrainType: 1
+  terrainEffect: {fileID: 0}
   adjacentTiles: []
   visited: 0
   parent: {fileID: 0}
@@ -6170,17 +6147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847852fd4ab9eb940ab50b422bb00d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursor: {fileID: 0}
-  selectableTiles: []
-  currentTile: {fileID: 0}
-  selected: 0
-  moving: 0
-  moved: 0
-  findingTarget: 0
-  findingAlly: 0
-  attacking: 0
-  healing: 0
-  actionMenu: 0
   finished: 0
 --- !u!61 &870737328
 BoxCollider2D:
@@ -6263,6 +6229,7 @@ MonoBehaviour:
   spdGrowth: 0
   maxHP: 0
   attackMethod: 0
+  finishedTurn: 0
 --- !u!1 &884414520
 GameObject:
   m_ObjectHideFlags: 0
@@ -7910,7 +7877,6 @@ MonoBehaviour:
   mapManager: {fileID: 0}
   tileController: {fileID: 0}
   selectedAllyUnit_AllyStats: {fileID: 0}
-  selectedAllyUnit_AllyMove: {fileID: 0}
 --- !u!1001 &1131476391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10150,17 +10116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847852fd4ab9eb940ab50b422bb00d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursor: {fileID: 0}
-  selectableTiles: []
-  currentTile: {fileID: 0}
-  selected: 0
-  moving: 0
-  moved: 0
-  findingTarget: 0
-  findingAlly: 0
-  attacking: 0
-  healing: 0
-  actionMenu: 0
   finished: 0
 --- !u!61 &1553497268
 BoxCollider2D:
@@ -10294,6 +10249,7 @@ MonoBehaviour:
   spdGrowth: 0
   maxHP: 0
   attackMethod: 0
+  finishedTurn: 0
 --- !u!1001 &1574432285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13556,6 +13512,7 @@ MonoBehaviour:
   attackable: 0
   healable: 0
   terrainType: 1
+  terrainEffect: {fileID: 0}
   adjacentTiles: []
   visited: 0
   parent: {fileID: 0}
