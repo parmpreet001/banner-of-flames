@@ -12,6 +12,8 @@ public class Tile : MonoBehaviour
     public bool healable = false;
 
     public TerrainType terrainType;
+    [SerializeField]
+    public TerrainEffect terrainEffect;
 
     public List<Tile> adjacentTiles = new List<Tile>(); //Adjacent tiles
 
