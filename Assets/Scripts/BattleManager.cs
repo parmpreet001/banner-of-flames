@@ -37,9 +37,6 @@ public class BattleManager : MonoBehaviour
         if (!CheckWeaponRange(receivingUnitStats, activeUnitStats))
             yield return null;
 
-        //attackingUnit.GetComponent<TileMove>().findingTarget = false;
-        //attackingUnit.GetComponent<TileMove>().attacking = true;
-
         //Attacking Unit First Attack
         if(HitOrMiss(AU_accuracy))
         {
@@ -322,7 +319,7 @@ public class BattleManager : MonoBehaviour
     //returns true if unit1 is within unit2's weapon range. In otherwords, returns true if unit2 can attack
     private bool CheckWeaponRange(Stats unit1, Stats unit2)
     {
-        int distance = unit1.GetComponent<TileMove>().GetDistanceBetweenTiles(unit1.transform.parent.gameObject, unit2.transform.parent.gameObject);
+        int distance = GetDistanceBetweenUnits(unit1.gameObject, unit2.gameObject);
         //float distance = Vector2.Distance(unit1.transform.position, unit2.transform.position); //Distance between unit 1 and 2
         //distance = Mathf.Ceil(distance);
 
@@ -350,8 +347,6 @@ public class BattleManager : MonoBehaviour
     private void EndAttack()
     {
         battleLog = "";
-
-        activeUnit.GetComponent<TileMove>().RemoveSelectableTiles();
 
         if (activeUnit.CompareTag("PlayerUnit") && !activeUnitStats.isDead && activeUnitStats.UsingPhysicalWeapon())
         {
@@ -386,7 +381,6 @@ public class BattleManager : MonoBehaviour
     {
         battleLog = "";
 
-        activeUnit.GetComponent<TileMove>().RemoveSelectableTiles();
         AddMagicExperience(activeUnitStats, MagicType.WHITE);
         
     }
@@ -420,5 +414,12 @@ public class BattleManager : MonoBehaviour
             unit.skillLevels.magicLevelsExperience[magicTypeIndex] = 0;
             unit.skillLevels.magicLevels[magicTypeIndex]++;
         }
+    }
+
+    private int GetDistanceBetweenUnits(GameObject unit1, GameObject unit2)
+    {
+        int xDistance = (int)Mathf.Abs(unit1.transform.parent.transform.position.x - unit2.transform.parent.transform.position.x);
+        int yDistance = (int)Mathf.Abs(unit1.transform.parent.transform.position.y - unit2.transform.parent.transform.position.y);
+        return (xDistance + yDistance);
     }
 }

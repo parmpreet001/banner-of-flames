@@ -27,6 +27,8 @@ public class Stats : MonoBehaviour
 
     public AttackMethod attackMethod;
 
+    public bool finishedTurn = false;
+
     public void Init()
     {
         hp = baseHP; str = baseSTR; mag = baseMAG; def = baseDEF; res = baseRES; skl = baseSKL; spd = baseSPD;

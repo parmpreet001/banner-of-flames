@@ -73,7 +73,7 @@ public class MapManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
                     //If the tile has an ally unit that has not yet moved
-                    if (cursor.CurrentTileHasAllyUnit() && !cursor.GetCurrentUnit().GetComponent<TileMove>().finished)
+                    if (cursor.CurrentTileHasAllyUnit() && !cursor.GetCurrentUnit().GetComponent<Stats>().finishedTurn)
                     {
                         startingTile = cursor.currentTile;
                         selectedUnit = cursor.GetCurrentUnit();
@@ -108,7 +108,7 @@ public class MapManager : MonoBehaviour
             //If a unit has moved to a tile
             case UnitStates.MOVED:
             {
-                if (selectedUnit.GetComponent<TileMove>().finished)
+                if (selectedUnit.GetComponent<Stats>().finishedTurn)
                 {
                     EndUnitTurn();
                 }
@@ -204,7 +204,7 @@ public class MapManager : MonoBehaviour
         unitState = UnitStates.ATTACKING;
         yield return battleManager.AttackProcess();
         tileController.RemoveSelectableTiles();
-        selectedUnit.GetComponent<TileMove>().finished = true;
+        selectedUnit.GetComponent<Stats>().finishedTurn = true;
         EndUnitTurn();
         yield return null;
     }
@@ -214,7 +214,7 @@ public class MapManager : MonoBehaviour
         unitState = UnitStates.HEALING;
         yield return battleManager.HealProcess();
         tileController.RemoveSelectableTiles();
-        selectedUnit.GetComponent<TileMove>().finished = true;
+        selectedUnit.GetComponent<Stats>().finishedTurn = true;
         EndUnitTurn();
         yield return null;
     }
@@ -284,7 +284,7 @@ public class MapManager : MonoBehaviour
         //Sets all enemyUnits moved value to false
         foreach(GameObject enemyUnit in enemyUnits)
         {
-            enemyUnit.GetComponent<TileMove>().finished = false;
+            enemyUnit.GetComponent<Stats>().finishedTurn = false;
         }
         unitState = UnitStates.SELECTED;
         activeEnemyUnits = enemyUnits.Count;
@@ -306,7 +306,7 @@ public class MapManager : MonoBehaviour
             if(allyUnit)
             {
             unmovedAllyUnits += 1;
-            allyUnit.GetComponent<TileMove>().finished = false;
+            allyUnit.GetComponent<Stats>().finishedTurn = false;
             allyUnit.GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
@@ -392,6 +392,7 @@ public class MapManager : MonoBehaviour
             activeEnemyUnits--;
         selectedUnit.GetComponent<SpriteRenderer>().color = Color.gray;
         selectedUnit = null;
+        tileController.RemoveSelectableTiles();
         unitState = UnitStates.UNSELECTED;
     }
 

@@ -150,7 +150,7 @@ public class UI_ActionMenu : MonoBehaviour
 
     public void Wait()
     {
-        MapUIInfo.selectedAllyUnit.GetComponent<TileMove>().finished = true;
+        MapUIInfo.selectedAllyUnit.GetComponent<Stats>().finishedTurn = true;
     }
 
     public void Attack()
