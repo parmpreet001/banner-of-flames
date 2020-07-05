@@ -4,5 +4,5 @@ using UnityEngine;
 
 public enum TerrainType
 {
-    GROUND, MOUNTAIN
+    GROUND, MOUNTAIN, FOREST
 }
