@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Fighter
   description: Uses an axe to strike down foes with great power.
-  walkableTerrain: 00000000
+  walkableTerrain: 0000000002000000
   skillLevels:
     weaponLevels: 00000000020000000000000000000000
     weaponLevelsExperience: 00000000000000000000000000000000

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   description: 
-  walkableTerrain: 00000000
+  walkableTerrain: 0000000002000000
   skillLevels:
     weaponLevels: 01000000000000000000000000000000
     weaponLevelsExperience: 00000000000000000000000000000000
