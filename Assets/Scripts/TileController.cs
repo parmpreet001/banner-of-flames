@@ -143,6 +143,44 @@ public class TileController : MonoBehaviour
         return validTerrain;
     }
 
+    //Returns a list of adjacent tiles that have the same terrain type as tile
+    public List<Tile> GetAdjacenTileTerrainType(Tile startingTile)
+    {
+        List<Tile> tiles = new List<Tile>();
+
+        Queue<Tile> process = new Queue<Tile>();
+
+        process.Enqueue(startingTile); //Adds the tile the unit is standing on to the process Queue
+        startingTile.visited = true;
+
+        //Loop runs while process has tiles in it. Adds all tiles within unit's move range to the process queue. 
+        while (process.Count > 0)
+        {
+            Tile t = process.Dequeue(); //Removes the tile from process and assigns it to Tile t
+
+            //If the tile is of the same terrain type as the original tile
+            if (t.terrainType == startingTile.terrainType)
+            {
+                tiles.Add(t);
+                foreach (Tile tile in t.adjacentTiles) //For each tile adjacent to the current tile
+                {
+                    if (!tile.visited) //True if the tile has not already been visited by the search
+                    {
+                        tile.parent = t; //The parent of the adjacent tile is the current tile
+                        tile.visited = true; //The tile is marked as visited
+                        process.Enqueue(tile); //The tile gets added to the proces queue
+                    }
+                }
+            }
+        }
+
+        foreach(Tile t in tiles)
+        {
+            Debug.Log(t.name + "," + t.parent.name + ": " + t.terrainType);
+        }
+        return tiles;
+    }
+
     public IEnumerator MoveToTile(GameObject unit, Tile tile)
     {
         path.Clear();
