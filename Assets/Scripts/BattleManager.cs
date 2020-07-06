@@ -227,7 +227,7 @@ public class BattleManager : MonoBehaviour
     //returns damage unit does to target
     private int GetDmg(Stats unit, Stats target)
     {
-        Tile unitTile = unit.GetComponentInChildren<Tile>();
+        Tile unitTile = unit.GetComponentInParent<Tile>();
         Tile targetTile = target.GetComponentInParent<Tile>();
         int dmg = 0;
         //if unit is attacking with physical weapon
@@ -279,7 +279,7 @@ public class BattleManager : MonoBehaviour
     private int GetAccuracy(Stats unit, Stats target)
     {
         int accuracy = 0;
-        Tile unitTile = unit.GetComponentInChildren<Tile>();
+        Tile unitTile = unit.GetComponentInParent<Tile>();
         Tile targetTile = target.GetComponentInParent<Tile>();
 
         if (unit.UsingPhysicalWeapon())

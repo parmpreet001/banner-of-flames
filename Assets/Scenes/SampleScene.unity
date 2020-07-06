@@ -8717,7 +8717,7 @@ PrefabInstance:
     - target: {fileID: 8310946379419804039, guid: fd0a0b39790f3484eb10fff5d74e9cc8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8310946379419804039, guid: fd0a0b39790f3484eb10fff5d74e9cc8,
         type: 3}
@@ -13469,6 +13469,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 971898364}
     m_Modifications:
+    - target: {fileID: 504035703384032379, guid: d83eb686d251ef3488f9063046c680f0,
+        type: 3}
+      propertyPath: terrainEffect
+      value: 
+      objectReference: {fileID: 11400000, guid: 3edb914b6b522f4498fa2ea3a89cb956,
+        type: 2}
     - target: {fileID: 2952169535619438657, guid: d83eb686d251ef3488f9063046c680f0,
         type: 3}
       propertyPath: m_LocalPosition.x

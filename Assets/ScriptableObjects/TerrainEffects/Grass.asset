@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba63cd3494a0d184c816f4190e738838, type: 3}
-  m_Name: Forest
+  m_Name: Grass
   m_EditorClassIdentifier: 
-  description: Avoid +15
+  description: Grass
   strBoost: 0
   magBoost: 0
   defBoost: 0
   resBoost: 0
   hitBoost: 0
-  avoidBoost: 15
+  avoidBoost: 0

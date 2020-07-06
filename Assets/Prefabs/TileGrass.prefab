@@ -99,6 +99,10 @@ MonoBehaviour:
   current: 0
   target: 0
   selectable: 0
+  attackable: 0
+  healable: 0
+  terrainType: 0
+  terrainEffect: {fileID: 11400000, guid: c4ab761766d48694ebe24c4d6f2d1a10, type: 2}
   adjacentTiles: []
   visited: 0
   parent: {fileID: 0}
