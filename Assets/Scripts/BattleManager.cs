@@ -380,6 +380,8 @@ public class BattleManager : MonoBehaviour
             
         if (receivingUnitStats.isDead)
             Destroy(receivingUnit);
+        if (activeUnitStats.isDead)
+            Destroy(activeUnit);
     }
 
     private void EndHeal()
