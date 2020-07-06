@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   description: Pew
-  walkableTerrain: 0000000002000000
+  walkableTerrain: 000000000200000003000000
   skillLevels:
     weaponLevels: 00000000000000000000000002000000
     weaponLevelsExperience: 00000000000000000000000000000000
-    magicLevels: 0100000001000000
+    magicLevels: 0000000000000000
     magicLevelsExperience: 00000000000000000000000000000000
   hpGrowth: 0
   strGrowth: 5

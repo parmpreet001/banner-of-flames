@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Soldier
   description: 'Uses both a axe and lance for offensive and defensive combat. '
-  walkableTerrain: 0000000002000000
+  walkableTerrain: 000000000200000003000000
   skillLevels:
     weaponLevels: 00000000010000000100000000000000
     weaponLevelsExperience: 00000000000000000000000000000000

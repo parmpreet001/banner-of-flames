@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba63cd3494a0d184c816f4190e738838, type: 3}
+  m_Name: Water
+  m_EditorClassIdentifier: 
+  description: 'Difficult to tread in. Avoid -10
+
+    Using thunder magic will damage
+    nearby units standing in water'
+  strBoost: 0
+  magBoost: 0
+  defBoost: 0
+  resBoost: 0
+  hitBoost: 0
+  avoidBoost: 0
