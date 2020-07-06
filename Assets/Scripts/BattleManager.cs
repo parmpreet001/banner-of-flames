@@ -227,15 +227,13 @@ public class BattleManager : MonoBehaviour
     //returns damage unit does to target
     private int GetDmg(Stats unit, Stats target)
     {
+        Tile unitTile = unit.GetComponentInChildren<Tile>();
+        Tile targetTile = target.GetComponentInParent<Tile>();
         int dmg = 0;
-        if (unit.GetComponentInParent<Tile>().terrainEffect)
-        {
-            dmg += activeUnitStats.GetComponentInParent<Tile>().terrainEffect.strBoost;
-        }
         //if unit is attacking with physical weapon
         if (unit.UsingPhysicalWeapon())
         {
-            dmg += unit.str + unit.equippedWeapon.dmg - target.def;
+            dmg += unit.str + unitTile.terrainEffect.strBoost + unit.equippedWeapon.dmg - target.def - targetTile.terrainEffect.defBoost;
             //if target is also attacking with physical weapon 
             if(target.UsingPhysicalWeapon())
             {
@@ -271,7 +269,7 @@ public class BattleManager : MonoBehaviour
         //else if unit is attacking with black magic
         else if (unit.UsingOffensiveMagic())
         {
-            dmg = unit.mag + ((OffensiveMagic)unit.equippedBlackMagic).dmg - target.res;
+            dmg = unit.mag + ((OffensiveMagic)unit.equippedBlackMagic).dmg + unitTile.terrainEffect.magBoost - target.res - targetTile.terrainEffect.resBoost;
         }
 
         return dmg;
@@ -281,12 +279,16 @@ public class BattleManager : MonoBehaviour
     private int GetAccuracy(Stats unit, Stats target)
     {
         int accuracy = 0;
+        Tile unitTile = unit.GetComponentInChildren<Tile>();
+        Tile targetTile = target.GetComponentInParent<Tile>();
 
-        if(unit.UsingPhysicalWeapon())
+        if (unit.UsingPhysicalWeapon())
             accuracy = unit.equippedWeapon.hitRate + (unit.skl * 2) - target.spd * 2;
 
         else if (unit.UsingOffensiveMagic())
-            accuracy = unit.equippedBlackMagic.hitRate + (unit.skl * 2) - target.spd * 2;        
+            accuracy = unit.equippedBlackMagic.hitRate + (unit.skl * 2) - target.spd * 2;
+
+        accuracy += unitTile.terrainEffect.hitBoost - targetTile.terrainEffect.avoidBoost;
 
         if (accuracy > 100)
             accuracy = 100;
