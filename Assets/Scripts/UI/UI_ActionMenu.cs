@@ -238,7 +238,7 @@ public class UI_ActionMenu : MonoBehaviour
             {
 
                 HealingMagic whiteMagic = (HealingMagic)MapUIInfo.selectedAllyUnit_AllyStats.whiteMagic[index];
-                heal = whiteMagic.heal.ToString();
+                heal = whiteMagic.GetHealAmount(MapUIInfo.selectedAllyUnit_AllyStats.mag).ToString(); 
                 hitRate = whiteMagic.hitRate.ToString();
                 critRate = "0";
                 if (whiteMagic.minRange == whiteMagic.maxRange)
