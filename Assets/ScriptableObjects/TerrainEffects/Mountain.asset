@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba63cd3494a0d184c816f4190e738838, type: 3}
-  m_Name: Water
+  m_Name: Mountain
   m_EditorClassIdentifier: 
-  description: 'Difficult to tread in. Avoid -10. Hit -10
+  description: 'Only traversable  by fliers.
 
-    Using thunder magic
-    will damage nearby units standing in water'
+    Avoid +15'
   strBoost: 0
   magBoost: 0
   defBoost: 0
   resBoost: 0
-  hitBoost: -10
-  avoidBoost: -10
+  hitBoost: 0
+  avoidBoost: 15
