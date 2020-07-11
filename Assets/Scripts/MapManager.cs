@@ -201,19 +201,35 @@ public class MapManager : MonoBehaviour
 
     IEnumerator Attack()
     {
-        unitState = UnitStates.ATTACKING;
-
-        if(battleManager.receivingUnit.GetComponentInParent<Tile>().terrainType == TerrainType.WATER)
+        bool usingThunderMagic = false;
+        if (battleManager.activeUnit.GetComponent<Stats>().attackMethod == AttackMethod.OFFENSIVE_MAGIC &&
+            battleManager.activeUnit.GetComponent<Stats>().equippedBlackMagic.name == "Thunder" &&
+            battleManager.receivingUnit.GetComponentInParent<Tile>().terrainType == TerrainType.WATER)
         {
-            Debug.Log("Here");
+            usingThunderMagic = true;
+        }
+
+            unitState = UnitStates.ATTACKING;
+
+        if(usingThunderMagic)
+        {
             tileController.RemoveSelectableTiles();
             tileController.GetAdjacenTileTerrainType(battleManager.receivingUnit.GetComponentInParent<Tile>());
             foreach(Tile tile in tileController.selectableTiles)
             {
-                Debug.Log(tile + "," + tile.transform.parent.name);
+                if(tile.HasUnit() && tile.GetUnit() != battleManager.receivingUnit)
+                {
+                    Debug.Log("Added " + tile.GetUnit().name);
+                    battleManager.additionalUnits.Add(tile.GetUnit());
+                }
             }
         }
         yield return battleManager.AttackProcess();
+
+        if(usingThunderMagic)
+        {
+            yield return battleManager.LightningDamage();
+        }
 
         tileController.RemoveSelectableTiles();
         selectedUnit.GetComponent<Stats>().finishedTurn = true;

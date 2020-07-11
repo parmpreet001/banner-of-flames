@@ -6,6 +6,7 @@ public class BattleManager : MonoBehaviour
 {
     public GameObject activeUnit; //unit that is doing an action
     public GameObject receivingUnit; //unit that is being acted upon
+    public List<GameObject> additionalUnits = new List<GameObject>(); 
 
     private Stats activeUnitStats;
     private Stats receivingUnitStats;
@@ -196,6 +197,13 @@ public class BattleManager : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
         EndHeal();
+        yield return null;
+    }
+
+    //Deals damage to units standing in water
+    public IEnumerator LightningDamage()
+    {
+        Debug.Log("lightning damage");
         yield return null;
     }
 
