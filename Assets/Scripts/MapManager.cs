@@ -203,7 +203,6 @@ public class MapManager : MonoBehaviour
     {
         unitState = UnitStates.ATTACKING;
 
-        yield return battleManager.AttackProcess();
         if(battleManager.receivingUnit.GetComponentInParent<Tile>().terrainType == TerrainType.WATER)
         {
             Debug.Log("Here");
@@ -214,6 +213,8 @@ public class MapManager : MonoBehaviour
                 Debug.Log(tile + "," + tile.transform.parent.name);
             }
         }
+        yield return battleManager.AttackProcess();
+
         tileController.RemoveSelectableTiles();
         selectedUnit.GetComponent<Stats>().finishedTurn = true;
         EndUnitTurn();

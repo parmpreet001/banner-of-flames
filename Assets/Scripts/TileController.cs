@@ -146,6 +146,7 @@ public class TileController : MonoBehaviour
     //Returns a list of adjacent tiles that have the same terrain type as tile
     public void GetAdjacenTileTerrainType(Tile startingTile)
     {
+        ComputeAdjacentLists(false);
         Queue<Tile> process = new Queue<Tile>();
         process.Enqueue(startingTile);
         startingTile.visited = true;
