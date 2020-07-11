@@ -204,12 +204,15 @@ public class MapManager : MonoBehaviour
         unitState = UnitStates.ATTACKING;
 
         yield return battleManager.AttackProcess();
-        Debug.Log("Receiving unit: " + battleManager.receivingUnit);
-        Debug.Log("Terrain type: " + battleManager.receivingUnit.GetComponentInParent<Tile>().terrainType);
         if(battleManager.receivingUnit.GetComponentInParent<Tile>().terrainType == TerrainType.WATER)
         {
+            Debug.Log("Here");
             tileController.RemoveSelectableTiles();
-            tileController.GetAdjacenTileTerrainType(selectedUnit.GetComponentInParent<Tile>());
+            tileController.GetAdjacenTileTerrainType(battleManager.receivingUnit.GetComponentInParent<Tile>());
+            foreach(Tile tile in tileController.selectableTiles)
+            {
+                Debug.Log(tile + "," + tile.transform.parent.name);
+            }
         }
         tileController.RemoveSelectableTiles();
         selectedUnit.GetComponent<Stats>().finishedTurn = true;
