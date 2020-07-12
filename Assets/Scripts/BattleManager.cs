@@ -201,11 +201,12 @@ public class BattleManager : MonoBehaviour
     }
 
     //Deals damage to units standing in water
-    public IEnumerator LightningDamage()
+    public IEnumerator LightningDamage(Cursor cursor)
     {
         int dmg = (int)(GetDmg(activeUnitStats, receivingUnitStats) * 0.25);
         foreach(GameObject unit in additionalUnits)
         {
+            cursor.followTarget = unit.transform;
             unit.GetComponent<Stats>().hp -= dmg;
             battleLog += unit.name + " took " + dmg + " damage.";
             yield return new WaitForSeconds(1f);
@@ -215,6 +216,7 @@ public class BattleManager : MonoBehaviour
             }
         }
         battleLog = "";
+        cursor.followTarget = receivingUnit.transform;
         yield return null;
     }
 

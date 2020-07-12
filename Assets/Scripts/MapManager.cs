@@ -228,7 +228,7 @@ public class MapManager : MonoBehaviour
 
         if(usingThunderMagic)
         {
-            yield return battleManager.LightningDamage();
+            yield return battleManager.LightningDamage(cursor);
         }
 
         tileController.RemoveSelectableTiles();

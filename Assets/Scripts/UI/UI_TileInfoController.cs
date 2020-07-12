@@ -10,17 +10,32 @@ public class UI_TileInfoController : MonoBehaviour
 
     private void Start()
     {
-        tileInfoDisplay = GetComponent<UI_TileInfoDisplay>();
+        tileInfoDisplay = transform.GetChild(0).GetComponent<UI_TileInfoDisplay>();
         mapUIInfo = GetComponentInParent<MapUIInfo>();
         cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
     }
 
     private void Update()
     {
-        if(cursor.currentTile)
+        if(mapUIInfo.mapManager.unitState == UnitStates.ATTACKING)
         {
-            tileInfoDisplay.SetTileName(cursor.currentTile.terrainEffect.name);
-            tileInfoDisplay.SetTileInfo(cursor.currentTile.terrainEffect.description);
+            SetTileInfoActive(false);
         }
+        else
+        {
+            SetTileInfoActive(true);
+            if(cursor.currentTile)
+            {
+                tileInfoDisplay.SetTileName(cursor.currentTile.terrainEffect.name);
+                tileInfoDisplay.SetTileInfo(cursor.currentTile.terrainEffect.description);
+            }
+        }
+
+
+    }
+
+    private void SetTileInfoActive(bool active)
+    {
+        tileInfoDisplay.gameObject.SetActive(active);
     }
 }
