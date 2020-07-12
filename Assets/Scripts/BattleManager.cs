@@ -203,7 +203,18 @@ public class BattleManager : MonoBehaviour
     //Deals damage to units standing in water
     public IEnumerator LightningDamage()
     {
-        Debug.Log("lightning damage");
+        int dmg = (int)(GetDmg(activeUnitStats, receivingUnitStats) * 0.25);
+        foreach(GameObject unit in additionalUnits)
+        {
+            unit.GetComponent<Stats>().hp -= dmg;
+            battleLog += unit.name + " took " + dmg + " damage.";
+            yield return new WaitForSeconds(1f);
+            if(CheckDead(unit.GetComponent<Stats>()))
+            {
+                yield return new WaitForSeconds(1f);
+            }
+        }
+        battleLog = "";
         yield return null;
     }
 
