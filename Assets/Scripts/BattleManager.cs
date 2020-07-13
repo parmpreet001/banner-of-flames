@@ -42,7 +42,7 @@ public class BattleManager : MonoBehaviour
         if(HitOrMiss(AU_accuracy))
         {
             int dmg = AU_dmg;
-            if(CritChance(AU_crit))
+            if(GetRandomCrit(AU_crit))
             {
                 dmg *= 2;
                 battleLog += "Critical Hit! ";
@@ -76,7 +76,7 @@ public class BattleManager : MonoBehaviour
         if (DU_inRange && HitOrMiss(DU_accuracy))
         {
             int dmg = DU_dmg;
-            if (CritChance(DU_crit))
+            if (GetRandomCrit(DU_crit))
             {
                 dmg *= 2;
                 battleLog += "Critical Hit! ";
@@ -110,7 +110,7 @@ public class BattleManager : MonoBehaviour
             if (HitOrMiss(AU_accuracy))
             {
                 int dmg = AU_dmg;
-                if (CritChance(AU_crit))
+                if (GetRandomCrit(AU_crit))
                 {
                     dmg *= 2;
                     battleLog += "Critical Hit! ";
@@ -145,7 +145,7 @@ public class BattleManager : MonoBehaviour
             if (DU_inRange && HitOrMiss(DU_accuracy))
             {
                 int dmg = DU_dmg;
-                if (CritChance(DU_crit))
+                if (GetRandomCrit(DU_crit))
                 {
                     dmg *= 2;
                     battleLog += "Critical Hit! ";
@@ -334,14 +334,14 @@ public class BattleManager : MonoBehaviour
     //Hit or miss, guess they never miss huh
     private bool HitOrMiss(int accuracy)
     {
-        float rnd = Random.Range(0, 100);
+        int rnd = Random.Range(0, 100);
         return rnd <= accuracy;
     }
     
-    private bool CritChance(int critRate)
+    private bool GetRandomCrit(int critRate)
     {
-        float rnd = Random.Range(0, 100);
-        return rnd <= critRate;
+        int rnd = Random.Range(0, 100);
+        return rnd < critRate;
     }
 
     //returns true if unit1 is within unit2's weapon range. In otherwords, returns true if unit2 can attack
