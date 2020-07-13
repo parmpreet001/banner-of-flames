@@ -39,7 +39,7 @@ public class BattleManager : MonoBehaviour
             yield return null;
 
         //Attacking Unit First Attack
-        if(HitOrMiss(AU_accuracy))
+        if(GetHitChance(AU_accuracy))
         {
             int dmg = AU_dmg;
             if(GetRandomCrit(AU_crit))
@@ -73,7 +73,7 @@ public class BattleManager : MonoBehaviour
 
 
         //Defending Unit First Attack
-        if (DU_inRange && HitOrMiss(DU_accuracy))
+        if (DU_inRange && GetHitChance(DU_accuracy))
         {
             int dmg = DU_dmg;
             if (GetRandomCrit(DU_crit))
@@ -107,7 +107,7 @@ public class BattleManager : MonoBehaviour
         //Attacking Unit Second Attack
         if (AU_attackTwice)
         {
-            if (HitOrMiss(AU_accuracy))
+            if (GetHitChance(AU_accuracy))
             {
                 int dmg = AU_dmg;
                 if (GetRandomCrit(AU_crit))
@@ -142,7 +142,7 @@ public class BattleManager : MonoBehaviour
         //Defending Unit Attack Twice
         if(DU_attackTwice)
         {
-            if (DU_inRange && HitOrMiss(DU_accuracy))
+            if (DU_inRange && GetHitChance(DU_accuracy))
             {
                 int dmg = DU_dmg;
                 if (GetRandomCrit(DU_crit))
@@ -332,10 +332,10 @@ public class BattleManager : MonoBehaviour
     }
 
     //Hit or miss, guess they never miss huh
-    private bool HitOrMiss(int accuracy)
+    private bool GetHitChance(int accuracy)
     {
         int rnd = Random.Range(0, 100);
-        return rnd <= accuracy;
+        return rnd < accuracy;
     }
     
     private bool GetRandomCrit(int critRate)
