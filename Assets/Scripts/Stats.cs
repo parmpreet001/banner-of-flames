@@ -62,6 +62,7 @@ public class Stats : MonoBehaviour
                     
                     magicList[i].currentUses = magicList[i].maxUses[skillLevels.magicLevels[(int)MagicType.BLACK]];
                     blackMagic.Add(magicList[i]);
+                    magicList[i].equipped = false; //aaa
                     magicList.RemoveAt(i);
                     
                 }

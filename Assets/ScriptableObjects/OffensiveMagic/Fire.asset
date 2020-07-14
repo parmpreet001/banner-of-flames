@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Fire
   minRequirement: 1
   maxUses: 06000000080000000a0000000c0000001000000014000000
-  currentUses: 0
+  currentUses: -2
   targetType: 1
   magicType: 0
   minRange: 1
