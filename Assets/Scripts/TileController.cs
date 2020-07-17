@@ -232,7 +232,8 @@ public class TileController : MonoBehaviour
 
         for (int i = selectableTiles.Count - 1; i >= 0; i--)
         {
-            if (selectableTiles[i].HasAllyUnit())
+            if (selectableTiles[i].HasAllyUnit() && selectableTiles[i].GetUnit().GetComponent<Stats>().hp 
+                != selectableTiles[i].GetUnit().GetComponent<Stats>().maxHP)
             {
                 selectableTiles[i].healable = true;
                 selectableTiles[i].UpdateColors();
