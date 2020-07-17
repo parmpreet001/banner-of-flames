@@ -326,7 +326,7 @@ public class BattleManager : MonoBehaviour
         return 0;
     }
 
-    private int GetHeal(Stats unit)
+    public int GetHeal(Stats unit)
     {
         return ((HealingMagic)unit.equippedWhiteMagic).heal + (unit.mag / 2);
     }

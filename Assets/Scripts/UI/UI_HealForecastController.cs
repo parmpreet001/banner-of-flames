@@ -21,8 +21,17 @@ public class UI_HealForecastController : MonoBehaviour
             && cursor.GetCurrentUnit() != mapUIInfo.selectedAllyUnit)
         {
             transform.GetChild(0).gameObject.SetActive(true);
-            healForecastDisplay.UpdateInfo(cursor.GetCurrentUnit().GetComponent<Stats>().hp,
-                cursor.GetCurrentUnit().GetComponent<Stats>().maxHP, 0);
+            healForecastDisplay.UpdateFillBar(cursor.GetCurrentUnit().GetComponent<Stats>().hp, cursor.GetCurrentUnit().GetComponent<Stats>().maxHP);
+
+            if(mapUIInfo.mapManager.CheckUnitStates(UnitStates.HEALING))
+            {
+                healForecastDisplay.UpdateText(cursor.GetCurrentUnit().GetComponent<Stats>().hp, cursor.GetCurrentUnit().GetComponent<Stats>().hp);
+            }
+            else
+            {
+                healForecastDisplay.UpdateText(cursor.GetCurrentUnit().GetComponent<Stats>().hp, cursor.GetCurrentUnit().GetComponent<Stats>().hp +
+                    mapUIInfo.battleManager.GetHeal(mapUIInfo.selectedAllyUnit_AllyStats));
+            }
         }
         else
         {
