@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class UI_HealForecastController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private MapUIInfo mapUIInfo;
+    private UI_HealForecastDisplay healForecastDisplay;
     void Start()
     {
-        
+        mapUIInfo = GetComponentInParent<MapUIInfo>();
+        healForecastDisplay = transform.GetChild(0).GetComponent<UI_HealForecastDisplay>();
     }
 
     // Update is called once per frame

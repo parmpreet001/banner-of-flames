@@ -2,34 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UI_HealForecastDisplay : MonoBehaviour
 {
-    private Image CurrentHpHealthBar; //How much health the unit currently has
-    private Image HealedHpHealthBar; //How much health the unit will have after healing
+    private Image CurrentHpBar; //How much health the unit currently has
+    private Image HealedHpBar; //How much health the unit will have after healing
+    private TextMeshProUGUI currentHP;
+    private TextMeshProUGUI healedHP;
 
     private MapUIInfo mapUIInfo;
     
     private void Start()
     {
         mapUIInfo = GetComponentInParent<MapUIInfo>();
-        HealedHpHealthBar = transform.Find("HealedHP").GetComponent<Image>();
-        CurrentHpHealthBar = transform.Find("CurrentHP").GetComponent<Image>();
 
-        HealedHpHealthBar.fillAmount = 0;
+        HealedHpBar = transform.Find("HealedHpBar").GetComponent<Image>();
+        CurrentHpBar = transform.Find("CurrentHpBar").GetComponent<Image>();
+        currentHP = transform.Find("Text_CurrentHP").GetComponent<TextMeshProUGUI>();
+        healedHP = transform.Find("Text_HealedHP").GetComponent<TextMeshProUGUI>();
     }
 
-    private void Update()
+    public void UpdateInfo(float currentHP, float maxHP, int healAmount)
     {
-        if(mapUIInfo.selectedAllyUnit)
-        {
-            SetFillAmounts(mapUIInfo.selectedAllyUnit_AllyStats.hp, mapUIInfo.selectedAllyUnit_AllyStats.maxHP, 0);
-        }
-    }
 
-    public void SetFillAmounts(float currentHP, float maxHP, int healAmount)
-    {
-        Debug.Log(currentHP / maxHP);
-        CurrentHpHealthBar.fillAmount = (currentHP / maxHP);
+        CurrentHpBar.fillAmount = (currentHP / maxHP);
+
     }
 }
