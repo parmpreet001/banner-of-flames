@@ -23,9 +23,11 @@ public class UI_HealForecastDisplay : MonoBehaviour
         healedHP = transform.Find("Text_HealedHP").GetComponent<TextMeshProUGUI>();
     }
 
-    public void UpdateFillBar(float currentHP, float maxHP)
+    public void UpdateFillBar(float currentHP, float maxHP, int healAmount)
     {
         CurrentHpBar.fillAmount = (currentHP / maxHP);
+        Debug.Log((currentHP + healAmount) / maxHP);
+        HealedHpBar.fillAmount = (currentHP + healAmount) / maxHP;
     }
 
     public void UpdateText(int currentHP, int healedHP)

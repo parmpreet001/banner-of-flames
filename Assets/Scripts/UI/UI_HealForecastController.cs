@@ -17,21 +17,12 @@ public class UI_HealForecastController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (mapUIInfo.mapManager.CheckUnitStates(UnitStates.FINDING_ALLY, UnitStates.HEALING) && cursor.CurrentTileHasAllyUnit() 
+        if (mapUIInfo.mapManager.CheckUnitStates(UnitStates.FINDING_ALLY) && cursor.CurrentTileHasAllyUnit() 
             && cursor.GetCurrentUnit() != mapUIInfo.selectedAllyUnit)
         {
             transform.GetChild(0).gameObject.SetActive(true);
-            healForecastDisplay.UpdateFillBar(cursor.GetCurrentUnit().GetComponent<Stats>().hp, cursor.GetCurrentUnit().GetComponent<Stats>().maxHP);
-
-            if(mapUIInfo.mapManager.CheckUnitStates(UnitStates.HEALING))
-            {
-                healForecastDisplay.UpdateText(cursor.GetCurrentUnit().GetComponent<Stats>().hp, cursor.GetCurrentUnit().GetComponent<Stats>().hp);
-            }
-            else
-            {
-                healForecastDisplay.UpdateText(cursor.GetCurrentUnit().GetComponent<Stats>().hp, cursor.GetCurrentUnit().GetComponent<Stats>().hp +
-                    mapUIInfo.battleManager.GetHeal(mapUIInfo.selectedAllyUnit_AllyStats));
-            }
+            healForecastDisplay.UpdateFillBar(cursor.GetCurrentUnit().GetComponent<Stats>().hp, cursor.GetCurrentUnit().GetComponent<Stats>().maxHP,
+                mapUIInfo.battleManager.GetHeal(mapUIInfo.selectedAllyUnit_AllyStats));
         }
         else
         {
