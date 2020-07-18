@@ -8,8 +8,8 @@ public class UI_HealForecastDisplay : MonoBehaviour
 {
     private Image CurrentHpBar; //How much health the unit currently has
     private Image HealedHpBar; //How much health the unit will have after healing
-    private TextMeshProUGUI currentHP;
-    private TextMeshProUGUI healedHP;
+    private TextMeshProUGUI currentHPText;
+    private TextMeshProUGUI healedHPText;
 
     private MapUIInfo mapUIInfo;
     
@@ -19,20 +19,20 @@ public class UI_HealForecastDisplay : MonoBehaviour
 
         HealedHpBar = transform.Find("HealedHpBar").GetComponent<Image>();
         CurrentHpBar = transform.Find("CurrentHpBar").GetComponent<Image>();
-        currentHP = transform.Find("Text_CurrentHP").GetComponent<TextMeshProUGUI>();
-        healedHP = transform.Find("Text_HealedHP").GetComponent<TextMeshProUGUI>();
+        currentHPText = transform.Find("Text_CurrentHP").GetComponent<TextMeshProUGUI>();
+        healedHPText = transform.Find("Text_HealedHP").GetComponent<TextMeshProUGUI>();
     }
 
-    public void UpdateFillBar(float currentHP, float maxHP, int healAmount)
+    public void UpdateInfo(float currentHP, float maxHP, int healAmount)
     {
         CurrentHpBar.fillAmount = (currentHP / maxHP);
-        Debug.Log((currentHP + healAmount) / maxHP);
         HealedHpBar.fillAmount = (currentHP + healAmount) / maxHP;
-    }
 
-    public void UpdateText(int currentHP, int healedHP)
-    {
-        this.currentHP.text = currentHP.ToString();
-        this.healedHP.text = (healedHP).ToString();
+        currentHPText.text = currentHP.ToString();
+
+        if((currentHP + healAmount) > maxHP)
+            healedHPText.text = maxHP.ToString();
+        else
+            healedHPText.text = (currentHP + healAmount).ToString();
     }
 }
