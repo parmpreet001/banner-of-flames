@@ -29,6 +29,10 @@ public class Tile : MonoBehaviour
     void Start()
     {
         FindNeighbors(true);
+        if (terrainType == TerrainType.GROUND)
+        {
+            SetOnFire();
+        }
     }
 
     public void Reset()
@@ -116,9 +120,8 @@ public class Tile : MonoBehaviour
     //Sets the terrain on fire
     public void SetOnFire()
     {
-
         fireTurnCount = 3;
-        GetComponent<Image>().sprite = (Sprite)Resources.Load("Assets/Images/TileEnflamedGrass.png");
-        terrainEffect = (TerrainEffect)Resources.Load("Assets/ScriptableObjects/TerrainEffects/Enflamed Grass.asset");
+        GetComponent<SpriteRenderer>().sprite = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Images/TileEnflamedGrass.png",typeof(Sprite));
+        terrainEffect = (TerrainEffect)AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/TerrainEffects/Enflamed Grass.asset", typeof(TerrainEffect));
     }
 }
