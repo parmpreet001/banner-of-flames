@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using UnityEngine.UI;
 
 public class Tile : MonoBehaviour
 {
@@ -115,5 +117,8 @@ public class Tile : MonoBehaviour
     public void SetOnFire()
     {
 
+        fireTurnCount = 3;
+        GetComponent<Image>().sprite = (Sprite)Resources.Load("Assets/Images/TileEnflamedGrass.png");
+        terrainEffect = (TerrainEffect)Resources.Load("Assets/ScriptableObjects/TerrainEffects/Enflamed Grass.asset");
     }
 }
