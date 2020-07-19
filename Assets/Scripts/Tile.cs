@@ -17,6 +17,8 @@ public class Tile : MonoBehaviour
 
     public List<Tile> adjacentTiles = new List<Tile>(); //Adjacent tiles
 
+    public int fireTurnCount = -1;
+
     //BFS
     public bool visited = false; //TIle has been visited by BFS
     public Tile parent = null; //Starting tile
@@ -107,5 +109,11 @@ public class Tile : MonoBehaviour
             GetComponent<SpriteRenderer>().color = Color.green;
         else
             GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    //Sets the terrain on fire
+    public void SetOnFire()
+    {
+
     }
 }
