@@ -173,8 +173,9 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        Debug.Log("reached end of attack");
         yield return new WaitForSeconds(1f);
+
+        //AAAAAAAAAAAAAAAA
 
         EndAttack();
 

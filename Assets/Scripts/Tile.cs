@@ -29,10 +29,6 @@ public class Tile : MonoBehaviour
     void Start()
     {
         FindNeighbors(true);
-        if (terrainType == TerrainType.GROUND)
-        {
-            SetOnFire();
-        }
     }
 
     public void Reset()
