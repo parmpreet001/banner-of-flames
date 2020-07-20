@@ -202,7 +202,6 @@ public class MapManager : MonoBehaviour
     IEnumerator Attack()
     {
         bool usingThunderMagic = false;
-
         if (battleManager.activeUnit.GetComponent<Stats>().attackMethod == AttackMethod.OFFENSIVE_MAGIC &&
             battleManager.activeUnit.GetComponent<Stats>().equippedBlackMagic.name == "Thunder" &&
             battleManager.receivingUnit.GetComponentInParent<Tile>().terrainType == TerrainType.WATER)
@@ -436,10 +435,5 @@ public class MapManager : MonoBehaviour
                 return true;
         }
          return false;
-    }
-
-    private void CheckTilesOnFire()
-    {
-
     }
 }

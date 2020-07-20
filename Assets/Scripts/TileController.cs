@@ -310,19 +310,4 @@ public class TileController : MonoBehaviour
         }
         return closestTileToTarget;
     }
-
-
-    public List<Tile> GetTilesOnFire()
-    {
-        List<Tile> tilesOnFire = new List<Tile>();
-
-        foreach(GameObject tile in tiles)
-        {
-            if(tile.GetComponent<Tile>().fireTurnCount > -1)
-            {
-                tilesOnFire.Add(tile.GetComponent<Tile>());
-            }
-        }
-        return tilesOnFire;
-    }
 }

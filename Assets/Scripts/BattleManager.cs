@@ -173,17 +173,10 @@ public class BattleManager : MonoBehaviour
             }
         }
 
+        Debug.Log("reached end of attack");
         yield return new WaitForSeconds(1f);
 
-        //AAAAAAAAAAAAAAAA
-        if(receivingUnitStats.GetComponentInParent<Tile>().terrainEffect.name == "Grass" && activeUnitStats.equippedBlackMagic &&
-            activeUnitStats.equippedBlackMagic.name == "Fire")
-        {
-            receivingUnitStats.GetComponentInParent<Tile>().SetOnFire();
-        }
-
         EndAttack();
-
 
         yield return null;
     }

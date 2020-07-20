@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
-using UnityEngine.UI;
 
 public class Tile : MonoBehaviour
 {
@@ -18,8 +16,6 @@ public class Tile : MonoBehaviour
     public TerrainEffect terrainEffect;
 
     public List<Tile> adjacentTiles = new List<Tile>(); //Adjacent tiles
-
-    public int fireTurnCount = -1;
 
     //BFS
     public bool visited = false; //TIle has been visited by BFS
@@ -111,13 +107,5 @@ public class Tile : MonoBehaviour
             GetComponent<SpriteRenderer>().color = Color.green;
         else
             GetComponent<SpriteRenderer>().color = Color.white;
-    }
-
-    //Sets the terrain on fire
-    public void SetOnFire()
-    {
-        fireTurnCount = 6;
-        GetComponent<SpriteRenderer>().sprite = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Images/TileEnflamedGrass.png",typeof(Sprite));
-        terrainEffect = (TerrainEffect)AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/TerrainEffects/Enflamed Grass.asset", typeof(TerrainEffect));
     }
 }
