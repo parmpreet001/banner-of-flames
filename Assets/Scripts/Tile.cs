@@ -116,7 +116,7 @@ public class Tile : MonoBehaviour
     //Sets the terrain on fire
     public void SetOnFire()
     {
-        fireTurnCount = 3;
+        fireTurnCount = 6;
         GetComponent<SpriteRenderer>().sprite = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Images/TileEnflamedGrass.png",typeof(Sprite));
         terrainEffect = (TerrainEffect)AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/TerrainEffects/Enflamed Grass.asset", typeof(TerrainEffect));
     }
