@@ -20,7 +20,7 @@ public class UI_UnitInfoController : MonoBehaviour
     {
         
         {
-            if (mapUIInfo.selectedAllyUnit && !mapUIInfo.mapManager.CheckUnitStates(UnitStates.FINDING_ALLY, UnitStates.HEALING))
+            if (mapUIInfo.selectedAllyUnit)
             {
                 unitInfoDisplay.SetAllyUnitInfoActive(true);
                 UpdateAllyStatsInfoText(mapUIInfo.selectedAllyUnit);
