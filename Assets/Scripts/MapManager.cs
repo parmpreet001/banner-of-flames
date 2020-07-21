@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
     public static int turn = 1; //What turn it is. Currently static but might change later
-    private bool playerPhase = true; //True if player phase, false if enemy phase
+    public bool playerPhase = true;  //True if player phase, false if enemy phase
     private int unmovedAllyUnits; //During the player's turn, the number of ally units that have not moved yet
     private int activeEnemyUnits; //Total number of active(aka not dead enemy units) on the map
     private List<GameObject> allyUnits = new List<GameObject>(); //List of all alive ally units on the map
