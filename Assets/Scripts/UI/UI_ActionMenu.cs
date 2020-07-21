@@ -287,6 +287,7 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void WhiteMagic()
     {
+        MapUIInfo.mapManager.unitState = UnitStates.ACTION_MENU;
         Debug.Log("selected white magic");
         MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
         actionMenuDisplay.MoveCursorPosition(180, 36);
