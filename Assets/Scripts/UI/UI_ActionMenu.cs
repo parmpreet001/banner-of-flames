@@ -216,13 +216,17 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void UpdateItemSlotInfo(int index)
     {
+        MapUIInfo.tileController.RemoveSelectableTiles();
+        MapUIInfo.tileController.SetCurrentTile(MapUIInfo.selectedAllyUnit);
         string damage, hitRate, critRate, range, heal;
-        if(checkingItems)
+        if(checkingItems || checkingWeapons)
         {
             actionMenuDisplay.itemInfo.staticTextDmgHeal.text = "Damage";
             if(unitInventory[index] && unitInventory[index].GetType() == typeof(Weapon))
             {
+                
                 Weapon weapon = ((Weapon)unitInventory[index]);
+                MapUIInfo.tileController.ShowWeaponRange(weapon.minRange, weapon.maxRange);
                 damage = weapon.dmg.ToString();
                 hitRate = weapon.hitRate.ToString();
                 critRate = weapon.critRate.ToString();
@@ -242,6 +246,7 @@ public class UI_ActionMenu : MonoBehaviour
             if (index < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
             {
                 OffensiveMagic blackMagic = (OffensiveMagic)MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[index];
+                MapUIInfo.tileController.ShowWeaponRange(blackMagic.minRange, blackMagic.maxRange);
                 damage = blackMagic.dmg.ToString();
                 hitRate = blackMagic.hitRate.ToString();
                 critRate = "0";
@@ -442,9 +447,8 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void ResetActionMenu(bool removeSelectedAllyUnit)
     {
-        itemMenuOpen = false;
-        buttonsCreated = false;
-        itemMenuOpen = buttonsCreated = checkingItems = checkingBlackMagic = checkingWhiteMagic = false;
+        MapUIInfo.tileController.RemoveSelectableTiles();
+        itemMenuOpen = buttonsCreated = checkingItems = checkingBlackMagic = checkingWhiteMagic = checkingWeapons = false;
         actionMenuDisplay.SetCursorPosition(MenuCursor_RectTransform.anchoredPosition.x, 0);
         menuCursorPosition = 1;
 
