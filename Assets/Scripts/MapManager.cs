@@ -135,16 +135,12 @@ public class MapManager : MonoBehaviour
             }
             case UnitStates.FINDING_TARGET:
             {
+                tileController.RemoveSelectableTiles();
+                tileController.SetCurrentTile(selectedUnit);
+                tileController.ShowWeaponRange(selectedUnit_AllyStats.GetMinRange(), selectedUnit_AllyStats.GetMaxRange());
                 if(cursor.CurrentTileHasEnemyUnit())
                 {
-                    tileController.RemoveSelectableTiles();
-                    tileController.SetCurrentTile(selectedUnit);
-                    tileController.ShowWeaponRange(selectedUnit_AllyStats.GetMinRange(), selectedUnit_AllyStats.GetMaxRange());
                     UpdateBattleManagerStats(selectedUnit, cursor.GetCurrentUnit());
-                }
-                else
-                {
-                    tileController.RemoveSelectableTiles();
                 }
                 if(Input.GetKeyDown(KeyCode.X))
                 {
