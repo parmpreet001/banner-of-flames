@@ -298,7 +298,7 @@ public class BattleManager : MonoBehaviour
     private int GetCrit(Stats unit)
     {
         if (unit.UsingPhysicalWeapon())
-            return unit.skl / 2;
+            return (unit.skl / 2) + unit.equippedWeapon.critRate;
         else if (unit.UsingOffensiveMagic())
             return 0;
 

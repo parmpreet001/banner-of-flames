@@ -17,7 +17,7 @@ MonoBehaviour:
   maxUses: 40
   dmg: 6
   hitRate: 75
-  critRate: 15
+  critRate: 10
   minRange: 1
   maxRange: 1
   minRequirement: 1
