@@ -97,4 +97,9 @@ public class Cursor : MonoBehaviour
         else
             return null;
     }
+
+    public void MoveToTile(Tile tile)
+    {
+        transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y);
+    }
 }

@@ -115,6 +115,7 @@ public class MapManager : MonoBehaviour
                 if(Input.GetKeyDown(KeyCode.X))
                 {
                     tileController.SetUnitToTile(selectedUnit, startingTile);
+                        cursor.MoveToTile(startingTile);
                     unitState = UnitStates.UNSELECTED;
                     selectedUnit = null;
                     selectedUnit_AllyStats = null;
