@@ -1543,7 +1543,7 @@ PrefabInstance:
     - target: {fileID: 8310946379419804039, guid: fd0a0b39790f3484eb10fff5d74e9cc8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 8310946379419804039, guid: fd0a0b39790f3484eb10fff5d74e9cc8,
         type: 3}
@@ -8418,7 +8418,7 @@ MonoBehaviour:
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
-  enemyBehavior: 0
+  enemyBehavior: 2
 --- !u!61 &431842219
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13360,7 +13360,7 @@ MonoBehaviour:
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
-  enemyBehavior: 0
+  enemyBehavior: 1
 --- !u!61 &632225278
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15514,7 +15514,7 @@ MonoBehaviour:
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
-  enemyBehavior: 0
+  enemyBehavior: 1
 --- !u!61 &714309481
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17581,7 +17581,7 @@ PrefabInstance:
     - target: {fileID: 8310946379419804039, guid: fd0a0b39790f3484eb10fff5d74e9cc8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 8310946379419804039, guid: fd0a0b39790f3484eb10fff5d74e9cc8,
         type: 3}
@@ -27379,7 +27379,7 @@ PrefabInstance:
     - target: {fileID: 7725268528317138446, guid: 5b605a39d32a47d41ba24c992b5f395b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 7725268528317138446, guid: 5b605a39d32a47d41ba24c992b5f395b,
         type: 3}
@@ -34714,7 +34714,7 @@ PrefabInstance:
     - target: {fileID: 8310946379419804039, guid: fd0a0b39790f3484eb10fff5d74e9cc8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8310946379419804039, guid: fd0a0b39790f3484eb10fff5d74e9cc8,
         type: 3}
