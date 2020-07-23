@@ -343,10 +343,44 @@ public class MapManager : MonoBehaviour
             }
             case UnitStates.SELECTED:
             {
-                closestTarget = tileController.GetClosestTarget(selectedUnit);
-                Tile closestTile = tileController.GetClosestTileToTarget(selectedUnit, closestTarget);
-                StartCoroutine(MoveToTile(selectedUnit, closestTile));
-                unitState = UnitStates.MOVING;
+                if(selectedUnit.GetComponent<EnemyStats>().enemyBehavior == EnemyBehavior.AGGRESSIVE)
+                {
+                    closestTarget = tileController.GetClosestTarget(selectedUnit);
+                    Tile closestTile = tileController.GetClosestTileToTarget(selectedUnit, closestTarget);
+                    StartCoroutine(MoveToTile(selectedUnit, closestTile));
+                    unitState = UnitStates.MOVING;
+                }
+                else if(selectedUnit.GetComponent<EnemyStats>().enemyBehavior == EnemyBehavior.DEFENSIVE)
+                {
+                    closestTarget = tileController.GetClosestTarget(selectedUnit);
+                    tileController.SetCurrentTile(selectedUnit);
+                    if(tileController.AllyInRange(selectedUnit.GetComponent<EnemyStats>().GetMinRange(), selectedUnit.GetComponent<EnemyStats>().GetMaxRange()))
+                    {
+                        Tile closestTile = tileController.GetClosestTileToTarget(selectedUnit, closestTarget);
+                        StartCoroutine(MoveToTile(selectedUnit, closestTile));
+                        unitState = UnitStates.MOVING;
+                    }
+                    else
+                    {
+                            EndUnitTurn();
+                    }
+                }
+                else if(selectedUnit.GetComponent<EnemyStats>().enemyBehavior == EnemyBehavior.NEUTRAL)
+                {
+                    closestTarget = tileController.GetClosestTarget(selectedUnit);
+                    tileController.SetCurrentTile(selectedUnit);
+                    if (tileController.AllyInRange(1, selectedUnit.GetComponent<EnemyStats>().classType.mov +
+                        selectedUnit.GetComponent<EnemyStats>().GetMaxRange()))
+                    {
+                        Tile closestTile = tileController.GetClosestTileToTarget(selectedUnit, closestTarget);
+                        StartCoroutine(MoveToTile(selectedUnit, closestTile));
+                        unitState = UnitStates.MOVING;
+                    }
+                    else
+                    {
+                        EndUnitTurn();
+                    }
+                }
                 break;
             }
             case UnitStates.MOVED:

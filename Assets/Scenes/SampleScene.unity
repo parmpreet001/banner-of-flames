@@ -8418,6 +8418,7 @@ MonoBehaviour:
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
+  enemyBehavior: 0
 --- !u!61 &431842219
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13359,6 +13360,7 @@ MonoBehaviour:
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
+  enemyBehavior: 0
 --- !u!61 &632225278
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15512,6 +15514,7 @@ MonoBehaviour:
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
+  enemyBehavior: 0
 --- !u!61 &714309481
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -42052,6 +42055,7 @@ MonoBehaviour:
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
+  enemyBehavior: 1
 --- !u!61 &2085249752
 BoxCollider2D:
   m_ObjectHideFlags: 0
