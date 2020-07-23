@@ -7,6 +7,8 @@ public class Cursor : MonoBehaviour
     public bool canMove = true;
     public Tile currentTile; //The tile the cursor is currently on
     public Transform followTarget;
+    [SerializeField]
+    private int buffer = -1;
     void Update()
     {
         if (followTarget)
@@ -14,7 +16,7 @@ public class Cursor : MonoBehaviour
             transform.position = followTarget.position;
         }
         
-        else if(canMove)
+        else if(canMove && buffer == -1)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
                 transform.position = (Vector2)transform.position + Vector2.up;
@@ -24,8 +26,41 @@ public class Cursor : MonoBehaviour
                 transform.position = (Vector2)transform.position + Vector2.down;
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
                 transform.position = (Vector2)transform.position + Vector2.left;
-            //if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+                buffer = 60;
                 
+        }
+        else if (canMove && buffer >= 0)
+        {
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                buffer--;
+                if(buffer == 0)
+                {
+                    if (Input.GetKey(KeyCode.UpArrow))
+                    {
+                        transform.position = (Vector2)transform.position + Vector2.up;
+                    }
+                    else if(Input.GetKey(KeyCode.RightArrow))
+                    {
+                        transform.position = (Vector2)transform.position + Vector2.right;
+                    }
+                    else if(Input.GetKey(KeyCode.DownArrow))
+                    {
+                        transform.position = (Vector2)transform.position + Vector2.down;
+                    }
+                    else if (Input.GetKey(KeyCode.LeftArrow))
+                    {
+                        transform.position = (Vector2)transform.position + Vector2.left;
+                    }
+                }
+                else if (buffer == -1)
+                    buffer = 20;
+            }
+            else
+            {
+                buffer = -1;
+            }
         }
         GetTile();
     }

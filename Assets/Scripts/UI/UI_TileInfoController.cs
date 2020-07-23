@@ -17,7 +17,7 @@ public class UI_TileInfoController : MonoBehaviour
 
     private void Update()
     {
-        if(mapUIInfo.mapManager.unitState == UnitStates.ATTACKING)
+        if(mapUIInfo.mapManager.unitState == UnitStates.ATTACKING || !mapUIInfo.mapManager.playerPhase)
         {
             SetTileInfoActive(false);
         }

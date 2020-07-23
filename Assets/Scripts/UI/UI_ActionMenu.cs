@@ -6,7 +6,6 @@ public class UI_ActionMenu : MonoBehaviour
 {
     //References to other shit
     private MapUIInfo MapUIInfo;
-    private GameObject ItemMenu; //Holds and displays items
     private RectTransform MenuCursor_RectTransform; //menuCursor RectTransform
 
     //Local variables
@@ -14,7 +13,7 @@ public class UI_ActionMenu : MonoBehaviour
     List<string> buttons = new List<string>(); //List of buttons
     private int menuCursorPosition = 1; //Position of the cursor, where 1 is at the top
     public bool itemMenuOpen = false; //If true, player has selected the Items button and is now going through the list of items
-    public bool checkingItems, checkingBlackMagic, checkingWhiteMagic = false; //Whether the player is selecting from the item, black magic, or white magic list
+    public bool checkingItems, checkingBlackMagic, checkingWhiteMagic, checkingWeapons = false; //Whether the player is selecting from the item, black magic, or white magic list
     private UI_ActionMenuDisplay actionMenuDisplay;
 
     //Variables derived from MapUIInfo
@@ -23,7 +22,6 @@ public class UI_ActionMenu : MonoBehaviour
     private void Start()
     {
         MapUIInfo = GetComponentInParent<MapUIInfo>();
-        ItemMenu = GameObject.Find("ItemMenu");
         MenuCursor_RectTransform = transform.Find("ActionMenuCursor").gameObject.GetComponent<RectTransform>();
         actionMenuDisplay = GetComponent<UI_ActionMenuDisplay>();
     }
@@ -155,18 +153,44 @@ public class UI_ActionMenu : MonoBehaviour
 
     public void Attack()
     {
-        MapUIInfo.mapManager.unitState = UnitStates.FINDING_TARGET;
+        MapUIInfo.mapManager.unitState = UnitStates.ACTION_MENU;
+        MenuCursor_RectTransform.anchoredPosition = actionMenuDisplay.itemMenu.GetComponent<RectTransform>().anchoredPosition;
+        actionMenuDisplay.MoveCursorPosition(180, 36);
+        itemMenuOpen = true;
+        checkingWeapons = true;
+        actionMenuDisplay.itemMenu.SetActive(true);
+        menuCursorPosition = 1;
+
+        //Updates every item in the inventory to match the currently selected unit's inventory
+        for (int i = 0; i < 5; i++)
+        {
+            //If the unit's inventory slot is not empty, update name, durability, and text color
+            if (unitInventory[i] != null)
+            {
+                UpdateItemSlot(i, unitInventory[i].name, unitInventory[i].currentUses, unitInventory[i].maxUses);
+
+                if (unitInventory[i].GetType() == typeof(Weapon) && ((Weapon)unitInventory[i]).equipped)
+                    actionMenuDisplay.UpdateItemColor(i, new Color32(34, 170, 160, 255));
+                else if (unitInventory[i].GetType() == typeof(Weapon) && !MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(i))
+                    actionMenuDisplay.UpdateItemColor(i, Color.gray);
+                else
+                    actionMenuDisplay.UpdateItemColor(i, Color.black);
+            }
+            //else, set blank values
+            else
+                UpdateItemSlot(i, "", 0, 0);
+        }
     }
 
     //Opens the item menu
     public void Item()
     {
         MapUIInfo.mapManager.unitState = UnitStates.ACTION_MENU;
-        MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
+        MenuCursor_RectTransform.anchoredPosition = actionMenuDisplay.itemMenu.GetComponent<RectTransform>().anchoredPosition;
         actionMenuDisplay.MoveCursorPosition(180, 36);
         itemMenuOpen = true;
         checkingItems = true;
-        ItemMenu.SetActive(true);
+        actionMenuDisplay.itemMenu.SetActive(true);
         menuCursorPosition = 1;
 
         //Updates every item in the inventory to match the currently selected unit's inventory
@@ -192,13 +216,17 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void UpdateItemSlotInfo(int index)
     {
+        MapUIInfo.tileController.RemoveSelectableTiles();
+        MapUIInfo.tileController.SetCurrentTile(MapUIInfo.selectedAllyUnit);
         string damage, hitRate, critRate, range, heal;
-        if(checkingItems)
+        if(checkingItems || checkingWeapons)
         {
             actionMenuDisplay.itemInfo.staticTextDmgHeal.text = "Damage";
             if(unitInventory[index] && unitInventory[index].GetType() == typeof(Weapon))
             {
+                
                 Weapon weapon = ((Weapon)unitInventory[index]);
+                MapUIInfo.tileController.ShowWeaponRange(weapon.minRange, weapon.maxRange);
                 damage = weapon.dmg.ToString();
                 hitRate = weapon.hitRate.ToString();
                 critRate = weapon.critRate.ToString();
@@ -218,6 +246,7 @@ public class UI_ActionMenu : MonoBehaviour
             if (index < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
             {
                 OffensiveMagic blackMagic = (OffensiveMagic)MapUIInfo.selectedAllyUnit_AllyStats.blackMagic[index];
+                MapUIInfo.tileController.ShowWeaponRange(blackMagic.minRange, blackMagic.maxRange);
                 damage = blackMagic.dmg.ToString();
                 hitRate = blackMagic.hitRate.ToString();
                 critRate = "0";
@@ -256,11 +285,11 @@ public class UI_ActionMenu : MonoBehaviour
     private void BlackMagic()
     {
         MapUIInfo.mapManager.unitState = UnitStates.ACTION_MENU;
-        MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
+        MenuCursor_RectTransform.anchoredPosition = actionMenuDisplay.itemMenu.GetComponent<RectTransform>().anchoredPosition;
         actionMenuDisplay.MoveCursorPosition(180, 36);
         itemMenuOpen = true;
         checkingBlackMagic = true;
-        ItemMenu.SetActive(true);
+        actionMenuDisplay.itemMenu.SetActive(true);
         menuCursorPosition = 1;
 
         //Updates every item in the inventory to match the currently selected unit's inventory
@@ -287,12 +316,13 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void WhiteMagic()
     {
+        MapUIInfo.mapManager.unitState = UnitStates.ACTION_MENU;
         Debug.Log("selected white magic");
-        MenuCursor_RectTransform.anchoredPosition = ItemMenu.GetComponent<RectTransform>().anchoredPosition;
+        MenuCursor_RectTransform.anchoredPosition = actionMenuDisplay.itemMenu.GetComponent<RectTransform>().anchoredPosition;
         actionMenuDisplay.MoveCursorPosition(180, 36);
         itemMenuOpen = true;
         checkingWhiteMagic = true;
-        ItemMenu.SetActive(true);
+        actionMenuDisplay.itemMenu.SetActive(true);
         menuCursorPosition = 1;
 
         for (int i = 0; i < 5; i++)
@@ -318,7 +348,19 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void SelectMenuChoice()
     {
-        if (checkingItems)
+        if (checkingWeapons)
+        {
+            MapUIInfo.tileController.SetCurrentTile(MapUIInfo.selectedAllyUnit);
+            EquipWeapon();
+            if (MapUIInfo.tileController.EnemyInRange(MapUIInfo.selectedAllyUnit_AllyStats.GetMinRange(), MapUIInfo.selectedAllyUnit_AllyStats.GetMaxRange()))
+            {
+
+                MapUIInfo.tileController.ShowWeaponRange(MapUIInfo.selectedAllyUnit_AllyStats.GetMinRange(),
+                    MapUIInfo.selectedAllyUnit_AllyStats.GetMaxRange());
+                MapUIInfo.mapManager.unitState = UnitStates.FINDING_TARGET;
+            }
+        }
+        else if (checkingItems)
         {
             if (unitInventory[menuCursorPosition - 1] != null && unitInventory[menuCursorPosition - 1].GetType() == typeof(Weapon)
                 && MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(menuCursorPosition - 1))
@@ -335,7 +377,7 @@ public class UI_ActionMenu : MonoBehaviour
                 
                 MapUIInfo.tileController.ShowWeaponRange(MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.minRange,
                     MapUIInfo.selectedAllyUnit_AllyStats.equippedBlackMagic.maxRange);
-                Attack();
+                MapUIInfo.mapManager.unitState = UnitStates.FINDING_TARGET;
             }
         }
         else if (checkingWhiteMagic)
@@ -405,9 +447,8 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void ResetActionMenu(bool removeSelectedAllyUnit)
     {
-        itemMenuOpen = false;
-        buttonsCreated = false;
-        itemMenuOpen = buttonsCreated = checkingItems = checkingBlackMagic = checkingWhiteMagic = false;
+        MapUIInfo.tileController.RemoveSelectableTiles();
+        itemMenuOpen = buttonsCreated = checkingItems = checkingBlackMagic = checkingWhiteMagic = checkingWeapons = false;
         actionMenuDisplay.SetCursorPosition(MenuCursor_RectTransform.anchoredPosition.x, 0);
         menuCursorPosition = 1;
 
