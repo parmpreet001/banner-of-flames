@@ -3100,6 +3100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac59570921303a4584aaf378803173a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPhase: 1
   selectedUnit: {fileID: 0}
   unitState: 0
   startingTile: {fileID: 0}
@@ -6174,7 +6175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &799076090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13398,6 +13399,7 @@ MonoBehaviour:
   checkingItems: 0
   checkingBlackMagic: 0
   checkingWhiteMagic: 0
+  checkingWeapons: 0
 --- !u!114 &1940039615
 MonoBehaviour:
   m_ObjectHideFlags: 0
