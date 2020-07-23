@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyStats : Stats
 {
-    // Start is called before the first frame update
+    public EnemyBehavior enemyBehavior;
     void Start()
     {
         Init();
