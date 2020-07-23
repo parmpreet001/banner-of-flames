@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Iron Bow
   m_EditorClassIdentifier: 
   name: Iron Bow
-  currentUses: 0
+  currentUses: 40
   maxUses: 40
   dmg: 4
   hitRate: 80
