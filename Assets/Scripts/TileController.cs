@@ -275,7 +275,7 @@ public class TileController : MonoBehaviour
 
         int minRange = unit.GetComponent<EnemyStats>().GetMinRange();
         int maxRange = unit.GetComponent<EnemyStats>().GetMaxRange();
-        Tile closestTileToTarget = selectableTiles[0];
+        Tile closestTileToTarget = unit.GetComponentInParent<Tile>();
         bool targetOutsideRange = true;
         Debug.Log("Target outside range: " + targetOutsideRange);
 
@@ -308,7 +308,7 @@ public class TileController : MonoBehaviour
             }
         }
 
-        else
+        else if(targetOutsideRange && selectableTiles.Count > 0)
         {
             closestTileToTarget = selectableTiles[selectableTiles.Count - 1];
             int targetTileDistance = GetDistanceBetweenTiles(target.transform.parent.gameObject, closestTileToTarget.gameObject);
