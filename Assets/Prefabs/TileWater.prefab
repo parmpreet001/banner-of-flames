@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73de12fc31da1fc46a8b77268c3f3bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkable: 1
+  walkable: 0
   current: 0
   target: 0
   selectable: 0

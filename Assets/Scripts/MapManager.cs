@@ -69,7 +69,18 @@ public class MapManager : MonoBehaviour
             //If a unit has not been selected
             case UnitStates.UNSELECTED:
             {
-                //If Z was pressed
+                
+                if (cursor.CurrentTileHasEnemyUnit())
+                {
+                    tileController.SetCurrentTile(cursor.GetCurrentUnit());
+                    tileController.FindSelectableTiles(cursor.GetCurrentUnit().GetComponent<EnemyStats>().classType.mov,
+                        cursor.GetCurrentUnit().GetComponent<EnemyStats>().classType.walkableTerrain, true);
+                    
+                }
+                else
+                {
+                    tileController.RemoveSelectableTiles();
+                }
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
                     //If the tile has an ally unit that has not yet moved
