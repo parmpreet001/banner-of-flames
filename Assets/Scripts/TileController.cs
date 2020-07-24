@@ -269,16 +269,23 @@ public class TileController : MonoBehaviour
 
     public Tile GetClosestTileToTarget(GameObject unit, GameObject target)
     {
+        RemoveSelectableTiles();
         SetCurrentTile(unit);
         FindSelectableTiles(unit.GetComponent<Stats>().classType.mov, unit.GetComponent<Stats>().classType.walkableTerrain, false);
 
         int minRange = unit.GetComponent<EnemyStats>().GetMinRange();
         int maxRange = unit.GetComponent<EnemyStats>().GetMaxRange();
         Tile closestTileToTarget = selectableTiles[0];
-        bool targetOutsideRange = (GetDistanceBetweenTiles(unit.transform.parent.gameObject, target.transform.parent.gameObject)
-            > unit.GetComponent<Stats>().classType.mov + maxRange);
+        bool targetOutsideRange = true;
         Debug.Log("Target outside range: " + targetOutsideRange);
 
+        foreach(Tile tile in selectableTiles)
+        {
+            if(GetDistanceBetweenTiles(tile.gameObject,target.transform.parent.gameObject) <= unit.GetComponent<Stats>().GetMaxRange())
+            {
+                targetOutsideRange = false;
+            }
+        }
 
         if (!targetOutsideRange)
         {
