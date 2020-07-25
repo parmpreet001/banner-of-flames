@@ -66,7 +66,7 @@ public class TileController : MonoBehaviour
 
     public void ShowAttackRange(int moveRange, TerrainType[] terrain, int minAttackRange, int maxAttackRange)
     {
-        ComputeAdjacentLists(false);
+        ComputeAdjacentLists(true);
         FindTilesWithinDistance(0, moveRange, terrain);
         foreach(Tile tile in selectableTiles)
         {
@@ -77,9 +77,20 @@ public class TileController : MonoBehaviour
         {
             foreach(Tile adjacentTile in tile.adjacentTiles)
             {
-                if(!CheckTileTerrain(adjacentTile,terrain))
+                if(!adjacentTile.selectable)
                 {
-                    adjacentTile.selectable = false;
+                    adjacentTile.attackable = true;
+                    adjacentTile.UpdateColors();
+                }
+            }
+        }
+        ComputeAdjacentLists(false);
+        foreach(Tile tile in selectableTiles)
+        {
+            foreach(Tile adjacentTile in tile.adjacentTiles)
+            {
+                if(adjacentTile.HasAllyUnit())
+                {
                     adjacentTile.attackable = true;
                     adjacentTile.UpdateColors();
                 }
