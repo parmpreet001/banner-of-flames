@@ -79,7 +79,7 @@ public class MapManager : MonoBehaviour
                 }
                 else
                 {
-                    tileController.RemoveSelectableTiles();
+                        tileController.RemoveAllTiles();
                 }
                 if (Input.GetKeyDown(KeyCode.Z))
                 {

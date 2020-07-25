@@ -66,37 +66,25 @@ public class TileController : MonoBehaviour
 
     public void ShowAttackRange(int moveRange, TerrainType[] terrain, int minAttackRange, int maxAttackRange)
     {
-        ComputeAdjacentLists(true);
-        FindTilesWithinDistance(0, moveRange + maxAttackRange, null);
+        ComputeAdjacentLists(false);
+        FindTilesWithinDistance(0, moveRange, terrain);
         foreach(Tile tile in selectableTiles)
         {
-            if(tile.distance <= moveRange)
+            tile.selectable = true;
+            tile.UpdateColors();
+        }
+        foreach(Tile tile in selectableTiles)
+        {
+            foreach(Tile adjacentTile in tile.adjacentTiles)
             {
-                if(CheckTileTerrain(tile,terrain))
+                if(!CheckTileTerrain(adjacentTile,terrain))
                 {
-                    tile.selectable = true;
-                    tile.UpdateColors();
+                    adjacentTile.selectable = false;
+                    adjacentTile.attackable = true;
+                    adjacentTile.UpdateColors();
                 }
-                else
-                {
-                    foreach(Tile adjacentTile in tile.adjacentTiles)
-                    {
-                        if(adjacentTile.selectable)
-                        {
-                            tile.attackable = true;
-                            tile.UpdateColors();
-                            break;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                tile.attackable = true;
-                tile.UpdateColors();
             }
         }
-
     }
 
     public void RemoveSelectableTiles()
@@ -114,6 +102,15 @@ public class TileController : MonoBehaviour
         }
 
         selectableTiles.Clear();
+    }
+
+    public void RemoveAllTiles()
+    {
+        for(int i = 0; i < tiles.Length; i++)
+        {
+            tiles[i].GetComponent<Tile>().Reset();
+            tiles[i].GetComponent<Tile>().UpdateColors();
+        }
     }
 
     public void ShowWeaponRange(int minRange, int maxRange)
