@@ -64,6 +64,41 @@ public class TileController : MonoBehaviour
         }
     }
 
+    public void ShowAttackRange(int moveRange, TerrainType[] terrain, int minAttackRange, int maxAttackRange)
+    {
+        ComputeAdjacentLists(true);
+        FindTilesWithinDistance(0, moveRange + maxAttackRange, null);
+        foreach(Tile tile in selectableTiles)
+        {
+            if(tile.distance <= moveRange)
+            {
+                if(CheckTileTerrain(tile,terrain))
+                {
+                    tile.selectable = true;
+                    tile.UpdateColors();
+                }
+                else
+                {
+                    foreach(Tile adjacentTile in tile.adjacentTiles)
+                    {
+                        if(adjacentTile.selectable)
+                        {
+                            tile.attackable = true;
+                            tile.UpdateColors();
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                tile.attackable = true;
+                tile.UpdateColors();
+            }
+        }
+
+    }
+
     public void RemoveSelectableTiles()
     {
         if (currentTile != null)

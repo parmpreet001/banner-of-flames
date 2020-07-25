@@ -72,10 +72,10 @@ public class MapManager : MonoBehaviour
                 
                 if (cursor.CurrentTileHasEnemyUnit())
                 {
+                    EnemyStats enemyUnitStats = cursor.GetCurrentUnit().GetComponent<EnemyStats>();
                     tileController.SetCurrentTile(cursor.GetCurrentUnit());
-                    tileController.FindSelectableTiles(cursor.GetCurrentUnit().GetComponent<EnemyStats>().classType.mov,
-                        cursor.GetCurrentUnit().GetComponent<EnemyStats>().classType.walkableTerrain, true);
-                    
+                    tileController.ShowAttackRange(enemyUnitStats.classType.mov, enemyUnitStats.classType.walkableTerrain, 
+                        enemyUnitStats.GetMinRange(),enemyUnitStats.GetMaxRange());                    
                 }
                 else
                 {
