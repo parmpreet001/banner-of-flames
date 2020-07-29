@@ -76,6 +76,7 @@ public class UI_ActionMenu : MonoBehaviour
             buttons.Add("WhiteMagic");
         buttons.Add("Item");
         buttons.Add("Wait");
+        buttons.Add("EndTurn");
 
         //Activates buttons and positions them in descending order
         for (int i = 0; i < buttons.Count; i++)
@@ -149,6 +150,11 @@ public class UI_ActionMenu : MonoBehaviour
     public void Wait()
     {
         MapUIInfo.selectedAllyUnit.GetComponent<Stats>().finishedTurn = true;
+    }
+
+    public void EndTurn()
+    {
+        MapUIInfo.mapManager.StartEnemyPhase();
     }
 
     public void Attack()

@@ -278,7 +278,7 @@ public class MapManager : MonoBehaviour
     }
 
     //Starts the enemy phase
-    private void StartEnemyPhase()
+    public void StartEnemyPhase()
     {
         playerPhase = false;
         List<GameObject> enemyUnitsTemp = new List<GameObject>();

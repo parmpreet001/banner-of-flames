@@ -54,6 +54,7 @@ public class UI_ActionMenuDisplay : MonoBehaviour
         buttons[2] = (transform.Find("ItemButton").gameObject);
         buttons[3] = (transform.Find("BlackMagicButton").gameObject);
         buttons[4] = (transform.Find("WhiteMagicButton").gameObject);
+        buttons[5] = transform.Find("EndTurnButton").gameObject;
 
         for(int i = 0; i < 5; i++)
         {
@@ -86,6 +87,8 @@ public class UI_ActionMenuDisplay : MonoBehaviour
                 return buttons[3];
             case "WhiteMagic":
                 return buttons[4];
+            case "EndTurn":
+                return buttons[5];
             default:
                 return null;
         }
