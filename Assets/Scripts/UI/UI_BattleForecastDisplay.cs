@@ -61,22 +61,22 @@ public class UI_BattleForecastDisplay : MonoBehaviour
 
     public void SetAllyUnitGreenArrow()
     {
-        greenArrow.transform.position = new Vector2(-62.5f, 98f);
+        greenArrow.transform.localPosition = new Vector2(-62.5f, 98f);
     }
 
     public void SetAllyUnitRedArrow()
     {
-        redArrow.transform.position = new Vector2(-62.5f, 98f);
+        redArrow.transform.localPosition = new Vector2(-62.5f, 98f);
     }
 
     public void SetEnemyUnitGreenArrow()
     {
-        greenArrow.transform.position = new Vector2(62.5f, 98f);
+        greenArrow.transform.localPosition = new Vector2(62.5f, 98f);
     }
 
     public void SetEnemyUnitRedArrow()
     {
-        redArrow.transform.position = new Vector2(62.5f, 98f);
+        redArrow.transform.localPosition = new Vector2(62.5f, 98f);
     }
 
     public void SetGreenArrowActive(bool active)

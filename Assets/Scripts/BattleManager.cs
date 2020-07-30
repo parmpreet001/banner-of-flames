@@ -243,18 +243,24 @@ public class BattleManager : MonoBehaviour
                     {
                         if (target.equippedWeapon.weaponType == WeaponType.AXE)
                             dmg = (int)(dmg * 1.35);
+                        else if (target.equippedWeapon.weaponType == WeaponType.LANCE)
+                            dmg = (int)(dmg * 0.65);
                         break;
                     }
                     case WeaponType.AXE:
                     {
                         if (target.equippedWeapon.weaponType == WeaponType.LANCE)
                             dmg = (int)(dmg * 1.35);
+                        else if (target.equippedWeapon.weaponType == WeaponType.SWORD)
+                            dmg = (int)(dmg * 0.65);
                         break;
                     }
                     case WeaponType.LANCE:
                     {
                         if (target.equippedWeapon.weaponType == WeaponType.SWORD)
                             dmg = (int)(dmg * 1.35);
+                        else if (target.equippedWeapon.weaponType == WeaponType.AXE)
+                            dmg = (int)(dmg * 0.65);
                         break;
                     }
                     default:

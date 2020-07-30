@@ -118,7 +118,40 @@ public class UI_BattleForecastController : MonoBehaviour
         battleForecastDisplay.UpdateEnemyInfoText(name, weaponName, damage, hitRate, critRate);
         battleForecastDisplay.SetEnemyUnitX2Active(mapUIInfo.battleManager.DU_attackTwice);
 
-        
+        if(mapUIInfo.selectedAllyUnit_AllyStats.attackMethod == AttackMethod.PHYSICAL && hoveringUnit_enemyStats.attackMethod == AttackMethod.PHYSICAL)
+        {
+            battleForecastDisplay.SetGreenArrowActive(true);
+            battleForecastDisplay.SetRedArrowActive(true);
+            switch (CheckWeaponTriangleAdvantage(mapUIInfo.selectedAllyUnit_AllyStats,hoveringUnit_enemyStats))
+            {
+                case -1:
+                {
+                    battleForecastDisplay.SetAllyUnitRedArrow();
+                    battleForecastDisplay.SetEnemyUnitGreenArrow();
+                    break;
+                }
+                case 0:
+                {
+                    battleForecastDisplay.SetGreenArrowActive(false);
+                    battleForecastDisplay.SetRedArrowActive(false);
+                    break;
+                }
+                case 1:
+                {
+                    battleForecastDisplay.SetAllyUnitGreenArrow();
+                    battleForecastDisplay.SetEnemyUnitRedArrow();
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            battleForecastDisplay.SetGreenArrowActive(true);
+            battleForecastDisplay.SetRedArrowActive(true);
+        }
+
     }
 
     //Returns -1 if disadvantage, 0 is neutral, 1 if advantage
