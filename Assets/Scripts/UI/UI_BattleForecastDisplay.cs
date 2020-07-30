@@ -10,6 +10,8 @@ public class UI_BattleForecastDisplay : MonoBehaviour
     private TextMeshProUGUI[] EnemyUnitInfoText = new TextMeshProUGUI[5];
     private GameObject AllyUnitX2;
     private GameObject EnemyUnitX2;
+    private GameObject redArrow;
+    private GameObject greenArrow;
 
     void Start()
     {
@@ -24,6 +26,9 @@ public class UI_BattleForecastDisplay : MonoBehaviour
 
         AllyUnitX2 = allyUnitInfo.GetChild(5).gameObject;
         EnemyUnitX2 = enemyUnitInfo.GetChild(5).gameObject;
+
+        redArrow = transform.GetChild(4).gameObject;
+        greenArrow = transform.GetChild(5).gameObject;
     }
 
     public void UpdateAllyUnitInfoText(string name, string weapon, string damage, string hitRate, string crit)
@@ -52,5 +57,31 @@ public class UI_BattleForecastDisplay : MonoBehaviour
     public void SetEnemyUnitX2Active(bool active)
     {
         EnemyUnitX2.SetActive(active);
+    }
+
+    public void SetAllyUnitGreenArrow()
+    {
+        greenArrow.transform.position = new Vector2(-62.5f, 98f);
+    }
+
+    public void SetAllyUnitRedArrow()
+    {
+        redArrow.transform.position = new Vector2(-62.5f, 98f);
+    }
+
+    public void SetEnemyUnitGreenArrow()
+    {
+        greenArrow.transform.position = new Vector2(62.5f, 98f);
+    }
+
+    public void SetEnemyUnitRedArrow()
+    {
+        redArrow.transform.position = new Vector2(62.5f, 98f);
+    }
+
+    public void SetArrowsActive(bool active)
+    {
+        greenArrow.SetActive(active);
+        redArrow.SetActive(active);
     }
 }
