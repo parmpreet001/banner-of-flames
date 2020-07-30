@@ -13864,7 +13864,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 187934178}
+  m_Father: {fileID: 803601762}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &644601648
@@ -13923,7 +13923,7 @@ MonoBehaviour:
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
-  enemyBehavior: 2
+  enemyBehavior: 1
 --- !u!61 &644601649
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20117,7 +20117,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1186016595}
+  m_Father: {fileID: 916052091}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &983511594
@@ -20176,7 +20176,7 @@ MonoBehaviour:
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
-  enemyBehavior: 2
+  enemyBehavior: 1
 --- !u!61 &983511595
 BoxCollider2D:
   m_ObjectHideFlags: 0
