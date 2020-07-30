@@ -79,9 +79,13 @@ public class UI_BattleForecastDisplay : MonoBehaviour
         redArrow.transform.position = new Vector2(62.5f, 98f);
     }
 
-    public void SetArrowsActive(bool active)
+    public void SetGreenArrowActive(bool active)
     {
         greenArrow.SetActive(active);
+    }
+
+    public void SetRedArrowActive(bool active)
+    {
         redArrow.SetActive(active);
     }
 }

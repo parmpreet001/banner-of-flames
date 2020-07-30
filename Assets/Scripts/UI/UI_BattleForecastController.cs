@@ -117,5 +117,44 @@ public class UI_BattleForecastController : MonoBehaviour
 
         battleForecastDisplay.UpdateEnemyInfoText(name, weaponName, damage, hitRate, critRate);
         battleForecastDisplay.SetEnemyUnitX2Active(mapUIInfo.battleManager.DU_attackTwice);
+
+        
+    }
+
+    //Returns -1 if disadvantage, 0 is neutral, 1 if advantage
+    private int CheckWeaponTriangleAdvantage(Stats firstUnit, Stats secondUnit)
+    {
+        switch(firstUnit.equippedWeapon.weaponType)
+        {
+            case WeaponType.SWORD:
+            {
+                if(secondUnit.equippedWeapon.weaponType == WeaponType.AXE)
+                    return 1;
+                else if(secondUnit.equippedWeapon.weaponType == WeaponType.LANCE)
+                    return -1;
+                else
+                    return 0;
+            }
+            case WeaponType.AXE:
+            {
+                    if (secondUnit.equippedWeapon.weaponType == WeaponType.LANCE)
+                        return 1;
+                    else if (secondUnit.equippedWeapon.weaponType == WeaponType.SWORD)
+                        return -1;
+                    else
+                        return 0;
+            }
+            case WeaponType.LANCE:
+            {
+                if (secondUnit.equippedWeapon.weaponType == WeaponType.SWORD)
+                    return 1;
+                else if (secondUnit.equippedWeapon.weaponType == WeaponType.AXE)
+                    return -1;
+                else
+                    return 0;
+            }
+            default:
+                return 0; 
+        }
     }
 }
