@@ -17,7 +17,9 @@ public class AllyStats : Stats
             rand[i] = Random.value * 100;
 
         if (rand[0] <= hpGrowth + classType.hpGrowth)
-            hp++;
+        {
+            maxHP++; hp++;
+        }     
         if (rand[1] <= strGrowth + classType.strGrowth)
             str++;
         if (rand[2] <= magGrowth + classType.magGrowth)
@@ -31,7 +33,6 @@ public class AllyStats : Stats
         if (rand[6] <= spdGrowth + classType.spdGrowth)
             spd++;
         
-        maxHP = hp;
     }
 
     //If unit gained a level, returns an array of the unit's stats before leveling up. Null otherwise
@@ -42,7 +43,7 @@ public class AllyStats : Stats
         experience += exp;
         if(experience >= 100)
         {
-            experience = experience -= 100;
+            experience -= 100;
             LevelUp();
             return previousStats;
         }

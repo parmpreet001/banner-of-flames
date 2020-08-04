@@ -361,6 +361,53 @@ public class BattleManager : MonoBehaviour
     {
         battleLog = "";
 
+        if(activeUnit.CompareTag("PlayerUnit") && !activeUnitStats.isDead)
+        {
+            int levelDifference = activeUnitStats.level - receivingUnitStats.level;
+            int[] previousStats = null;
+            int expGain = 0;
+            
+            switch (levelDifference)
+            {
+                case 0:
+                    expGain = 60; break;
+                case 1:
+                    expGain = 25; break;
+                case 2:
+                    expGain = 19; break;
+                case 3:
+                    expGain = 13; break;
+                case 4:
+                    expGain = 7; break;
+                case 5:
+                    expGain = 3; break;
+                default:
+                {
+                    if(levelDifference >= 6)
+                        expGain = 1;
+                    else
+                        expGain = 35;
+                }
+                    break;
+            }
+            if(!receivingUnitStats.isDead)
+            {
+                expGain /= 2;
+            }
+
+            previousStats = activeUnit.GetComponent<AllyStats>().AddExperience(expGain);
+            Debug.Log(activeUnit.name + " gained " + expGain + "experience");
+            Debug.Log(activeUnit.GetComponent<AllyStats>().experience + "/" + 100);
+            if(previousStats != null)
+            {
+                Debug.Log("Previous Stats: ");
+                for(int i = 0; i < previousStats.Length; i++)
+                {
+                    Debug.Log(previousStats[i]);
+                }
+            }
+        }
+
         if (activeUnit.CompareTag("PlayerUnit") && !activeUnitStats.isDead && activeUnitStats.UsingPhysicalWeapon())
         {
             switch (activeUnitStats.equippedWeapon.weaponType)
