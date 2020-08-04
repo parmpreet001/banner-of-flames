@@ -370,7 +370,7 @@ public class BattleManager : MonoBehaviour
             switch (levelDifference)
             {
                 case 0:
-                    expGain = 60; break;
+                    expGain = 30; break;
                 case 1:
                     expGain = 25; break;
                 case 2:
