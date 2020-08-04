@@ -395,17 +395,7 @@ public class BattleManager : MonoBehaviour
                 expGain /= 2;
             }
 
-            previousStats = activeUnit.GetComponent<AllyStats>().AddExperience(expGain);
-            Debug.Log(activeUnit.name + " gained " + expGain + "experience");
-            Debug.Log(activeUnit.GetComponent<AllyStats>().experience + "/" + 100);
-            if(previousStats != null)
-            {
-                Debug.Log("Previous Stats: ");
-                for(int i = 0; i < previousStats.Length; i++)
-                {
-                    Debug.Log(previousStats[i]);
-                }
-            }
+            activeUnit.GetComponent<AllyStats>().AddExperience(expGain);
         }
 
         if (activeUnit.CompareTag("PlayerUnit") && !activeUnitStats.isDead && activeUnitStats.UsingPhysicalWeapon())
@@ -442,6 +432,10 @@ public class BattleManager : MonoBehaviour
     private void EndHeal()
     {
         battleLog = "";
+        if(activeUnit.CompareTag("PlayerUnit"))
+        {
+            activeUnit.GetComponent<AllyStats>().AddExperience(20);
+        }
 
         AddMagicExperience(activeUnitStats, MagicType.WHITE);
         
