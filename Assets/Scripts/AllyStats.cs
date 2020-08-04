@@ -12,6 +12,7 @@ public class AllyStats : Stats
 
     private void LevelUp()
     {
+        level++;
         double[] rand = new double[7];
         for (int i = 0; i < 7; i++)
             rand[i] = Random.value * 100;
