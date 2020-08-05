@@ -20,6 +20,7 @@ public class MapManager : MonoBehaviour
     private TileController tileController;
     [SerializeField]
     private Tile startingTile = null;
+    private UI_LevelUpDisplay levelUpDisplay;
 
     //Enemy ai
     GameObject closestTarget;
@@ -27,6 +28,7 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
+        levelUpDisplay = GameObject.Find("LevelUpUI").GetComponent<UI_LevelUpDisplay>();
         //Adds each AllyUnit to the allyUnits list
         foreach(GameObject allyUnit in GameObject.FindGameObjectsWithTag("PlayerUnit"))
         {
@@ -209,12 +211,14 @@ public class MapManager : MonoBehaviour
 
     IEnumerator Attack()
     {
-
+        int startingExp = selectedUnit_AllyStats.experience;
         unitState = UnitStates.ATTACKING;
         yield return battleManager.AttackProcess();
+        yield return levelUpDisplay.FillExperienceBar(startingExp, selectedUnit_AllyStats.experience - startingExp, selectedUnit_AllyStats.level);
 
         tileController.RemoveSelectableTiles();
         selectedUnit.GetComponent<Stats>().finishedTurn = true;
+
         EndUnitTurn();
         yield return null;
     }
