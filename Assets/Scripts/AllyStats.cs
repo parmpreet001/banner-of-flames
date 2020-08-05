@@ -10,32 +10,48 @@ public class AllyStats : Stats
         Init();
     }
 
-    public void LevelUp(int levels)
+    private void LevelUp()
     {
         level++;
         double[] rand = new double[7];
         for (int i = 0; i < 7; i++)
             rand[i] = Random.value * 100;
 
-        while (levels > 0)
+        if (rand[0] <= hpGrowth + classType.hpGrowth)
         {
-            if (rand[0] <= hpGrowth + classType.hpGrowth)
-                hp++;
-            if (rand[1] <= strGrowth + classType.strGrowth)
-                str++;
-            if (rand[2] <= magGrowth + classType.magGrowth)
-                mag++;
-            if (rand[3] <= defGrowth + classType.defGrowth)
-                def++;
-            if (rand[4] <= resGrowth + classType.resGrowth)
-                res++;
-            if (rand[5] <= sklGrowth + classType.sklGrowth)
-                skl++;
-            if (rand[6] <= spdGrowth + classType.spdGrowth)
-                spd++;
-            levels--;
+            maxHP++; hp++;
+        }     
+        if (rand[1] <= strGrowth + classType.strGrowth)
+            str++;
+        if (rand[2] <= magGrowth + classType.magGrowth)
+            mag++;
+        if (rand[3] <= defGrowth + classType.defGrowth)
+            def++;
+        if (rand[4] <= resGrowth + classType.resGrowth)
+            res++;
+        if (rand[5] <= sklGrowth + classType.sklGrowth)
+            skl++;
+        if (rand[6] <= spdGrowth + classType.spdGrowth)
+            spd++;
+        
+    }
+
+    //If unit gained a level, returns an array of the unit's stats before leveling up. Null otherwise
+    public int[] AddExperience(int exp)
+    {
+        int[] previousStats = { hp, str, mag, def, baseRES, spd };
+
+        experience += exp;
+        if(experience >= 100)
+        {
+            experience -= 100;
+            LevelUp();
+            return previousStats;
         }
-        maxHP = hp;
+        else
+        {
+            return null;
+        }
     }
 
     //Checks to see if the unit can equip a weapon, based on the weapons their class can use, and the skill level requirement for the weapon

@@ -2585,6 +2585,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   level: 1
+  experience: 0
   classType: {fileID: 11400000, guid: 2aa3a595410abc74dacc7c3bdc2169d0, type: 2}
   skillLevels:
     weaponLevels: 01000000010000000100000001000000
@@ -8376,6 +8377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   level: 1
+  experience: 0
   classType: {fileID: 11400000, guid: d34c1dbf4afed40498e92df8bbfd9bb0, type: 2}
   skillLevels:
     weaponLevels: 01000000010000000100000001000000
@@ -13111,6 +13113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   level: 1
+  experience: 0
   classType: {fileID: 11400000, guid: d34c1dbf4afed40498e92df8bbfd9bb0, type: 2}
   skillLevels:
     weaponLevels: 01000000010000000100000001000000
@@ -13122,7 +13125,7 @@ MonoBehaviour:
   equippedWhiteMagic: {fileID: 0}
   inventory:
   - {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -13432,6 +13435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   level: 1
+  experience: 0
   classType: {fileID: 11400000, guid: a183aedb0fb8334438f95977d71f2e5f, type: 2}
   skillLevels:
     weaponLevels: 01000000010000000100000001000000
@@ -13918,6 +13922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   level: 1
+  experience: 0
   classType: {fileID: 11400000, guid: f103cae39a7ee3343aef2f6d0eaeba57, type: 2}
   skillLevels:
     weaponLevels: 01000000010000000100000001000000
@@ -15839,6 +15844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   level: 1
+  experience: 0
   classType: {fileID: 11400000, guid: a183aedb0fb8334438f95977d71f2e5f, type: 2}
   skillLevels:
     weaponLevels: 01000000010000000100000001000000
@@ -20317,6 +20323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   level: 1
+  experience: 0
   classType: {fileID: 11400000, guid: d34c1dbf4afed40498e92df8bbfd9bb0, type: 2}
   skillLevels:
     weaponLevels: 01000000010000000100000001000000
@@ -27994,6 +28001,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   level: 1
+  experience: 0
   classType: {fileID: 11400000, guid: 5bab89c8ef73f684a8bd5f9860831557, type: 2}
   skillLevels:
     weaponLevels: 01000000010000000100000001000000
@@ -32415,6 +32423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   level: 1
+  experience: 0
   classType: {fileID: 11400000, guid: a183aedb0fb8334438f95977d71f2e5f, type: 2}
   skillLevels:
     weaponLevels: 01000000010000000100000001000000
@@ -42936,6 +42945,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   level: 1
+  experience: 0
   classType: {fileID: 11400000, guid: a183aedb0fb8334438f95977d71f2e5f, type: 2}
   skillLevels:
     weaponLevels: 01000000010000000100000001000000

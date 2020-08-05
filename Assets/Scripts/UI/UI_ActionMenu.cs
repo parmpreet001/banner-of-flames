@@ -356,14 +356,18 @@ public class UI_ActionMenu : MonoBehaviour
     {
         if (checkingWeapons)
         {
-            MapUIInfo.tileController.SetCurrentTile(MapUIInfo.selectedAllyUnit);
-            EquipWeapon();
-            if (MapUIInfo.tileController.EnemyInRange(MapUIInfo.selectedAllyUnit_AllyStats.GetMinRange(), MapUIInfo.selectedAllyUnit_AllyStats.GetMaxRange()))
+            if (unitInventory[menuCursorPosition - 1] != null && unitInventory[menuCursorPosition - 1].GetType() == typeof(Weapon) 
+                && MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(menuCursorPosition - 1))
             {
+                EquipWeapon();
+                MapUIInfo.tileController.SetCurrentTile(MapUIInfo.selectedAllyUnit);
+                if (MapUIInfo.tileController.EnemyInRange(MapUIInfo.selectedAllyUnit_AllyStats.GetMinRange(), MapUIInfo.selectedAllyUnit_AllyStats.GetMaxRange()))
+                {
 
-                MapUIInfo.tileController.ShowWeaponRange(MapUIInfo.selectedAllyUnit_AllyStats.GetMinRange(),
-                    MapUIInfo.selectedAllyUnit_AllyStats.GetMaxRange());
-                MapUIInfo.mapManager.unitState = UnitStates.FINDING_TARGET;
+                    MapUIInfo.tileController.ShowWeaponRange(MapUIInfo.selectedAllyUnit_AllyStats.GetMinRange(),
+                        MapUIInfo.selectedAllyUnit_AllyStats.GetMaxRange());
+                    MapUIInfo.mapManager.unitState = UnitStates.FINDING_TARGET;
+                }
             }
         }
         else if (checkingItems)
@@ -374,6 +378,7 @@ public class UI_ActionMenu : MonoBehaviour
                 EquipWeapon();
             }
         }
+
         else if (checkingBlackMagic && (menuCursorPosition - 1) < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
         {
             MapUIInfo.tileController.SetCurrentTile(MapUIInfo.selectedAllyUnit);
@@ -386,6 +391,7 @@ public class UI_ActionMenu : MonoBehaviour
                 MapUIInfo.mapManager.unitState = UnitStates.FINDING_TARGET;
             }
         }
+
         else if (checkingWhiteMagic)
         {
             MapUIInfo.tileController.SetCurrentTile(MapUIInfo.selectedAllyUnit);

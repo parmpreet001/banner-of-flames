@@ -243,18 +243,24 @@ public class BattleManager : MonoBehaviour
                     {
                         if (target.equippedWeapon.weaponType == WeaponType.AXE)
                             dmg = (int)(dmg * 1.35);
+                        else if (target.equippedWeapon.weaponType == WeaponType.LANCE)
+                            dmg = (int)(dmg * 0.65);
                         break;
                     }
                     case WeaponType.AXE:
                     {
                         if (target.equippedWeapon.weaponType == WeaponType.LANCE)
                             dmg = (int)(dmg * 1.35);
+                        else if (target.equippedWeapon.weaponType == WeaponType.SWORD)
+                            dmg = (int)(dmg * 0.65);
                         break;
                     }
                     case WeaponType.LANCE:
                     {
                         if (target.equippedWeapon.weaponType == WeaponType.SWORD)
                             dmg = (int)(dmg * 1.35);
+                        else if (target.equippedWeapon.weaponType == WeaponType.AXE)
+                            dmg = (int)(dmg * 0.65);
                         break;
                     }
                     default:
@@ -355,6 +361,43 @@ public class BattleManager : MonoBehaviour
     {
         battleLog = "";
 
+        if(activeUnit.CompareTag("PlayerUnit") && !activeUnitStats.isDead)
+        {
+            int levelDifference = activeUnitStats.level - receivingUnitStats.level;
+            int[] previousStats = null;
+            int expGain = 0;
+            
+            switch (levelDifference)
+            {
+                case 0:
+                    expGain = 30; break;
+                case 1:
+                    expGain = 25; break;
+                case 2:
+                    expGain = 19; break;
+                case 3:
+                    expGain = 13; break;
+                case 4:
+                    expGain = 7; break;
+                case 5:
+                    expGain = 3; break;
+                default:
+                {
+                    if(levelDifference >= 6)
+                        expGain = 1;
+                    else
+                        expGain = 35;
+                }
+                    break;
+            }
+            if(!receivingUnitStats.isDead)
+            {
+                expGain /= 2;
+            }
+
+            activeUnit.GetComponent<AllyStats>().AddExperience(expGain);
+        }
+
         if (activeUnit.CompareTag("PlayerUnit") && !activeUnitStats.isDead && activeUnitStats.UsingPhysicalWeapon())
         {
             switch (activeUnitStats.equippedWeapon.weaponType)
@@ -389,6 +432,10 @@ public class BattleManager : MonoBehaviour
     private void EndHeal()
     {
         battleLog = "";
+        if(activeUnit.CompareTag("PlayerUnit"))
+        {
+            activeUnit.GetComponent<AllyStats>().AddExperience(20);
+        }
 
         AddMagicExperience(activeUnitStats, MagicType.WHITE);
         

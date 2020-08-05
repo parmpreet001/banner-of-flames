@@ -8,6 +8,7 @@ public class Stats : MonoBehaviour
 
     protected const int maxInventorySize = 5;
     public int level = 1;
+    public int experience = 0;
     public ClassType classType;
     public SkillLevels skillLevels;
     public Weapon equippedWeapon;
