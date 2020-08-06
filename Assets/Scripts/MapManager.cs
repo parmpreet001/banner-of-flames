@@ -211,10 +211,24 @@ public class MapManager : MonoBehaviour
 
     IEnumerator Attack()
     {
-        int startingExp = selectedUnit_AllyStats.experience;
+        int startingExp = 0;
+        AllyStats playerUnitStats = null;
+        if (playerPhase)
+        {
+            playerUnitStats = selectedUnit_AllyStats;
+            startingExp = selectedUnit_AllyStats.experience;
+        }
+        else
+        {
+            playerUnitStats = battleManager.receivingUnit.GetComponent<AllyStats>();
+            startingExp = playerUnitStats.experience;
+        }
+
         unitState = UnitStates.ATTACKING;
         yield return battleManager.AttackProcess();
-        yield return levelUpDisplay.FillExperienceBar(startingExp, selectedUnit_AllyStats.experience - startingExp, selectedUnit_AllyStats.level);
+        Debug.Log("Staring Exp: " + startingExp);
+        Debug.Log("Exp gained: " + (playerUnitStats.experience - startingExp).ToString());
+        yield return levelUpDisplay.FillExperienceBar(startingExp, playerUnitStats.experience - startingExp, playerUnitStats.level);
 
         tileController.RemoveSelectableTiles();
         selectedUnit.GetComponent<Stats>().finishedTurn = true;
