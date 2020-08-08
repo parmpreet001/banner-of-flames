@@ -24,6 +24,8 @@ public class BattleManager : MonoBehaviour
 
     public bool DU_inRange;
 
+    private int enemyStartingHp;
+
     public void Attack()
     {
         UpdateStats();
@@ -222,6 +224,11 @@ public class BattleManager : MonoBehaviour
             DU_attackTwice = true;
 
         DU_inRange = CheckWeaponRange(activeUnitStats,receivingUnitStats);
+
+        if (activeUnitStats.CompareTag("EnemyUnit"))
+            enemyStartingHp = activeUnitStats.hp;
+        else
+            enemyStartingHp = receivingUnitStats.hp;
     }
 
     //returns damage unit does to target
@@ -428,7 +435,9 @@ public class BattleManager : MonoBehaviour
         }
         if (!enemyUnitStats.isDead)
         {
-            expGain /= 2;
+            Debug.Log("enemy unit hp: " + enemyUnitStats.hp);
+            Debug.Log("starting hp: " + enemyStartingHp);
+            expGain = (int)(expGain * ((float)enemyUnitStats.hp / (float)enemyStartingHp));
         }
 
         playerUnitStats.gameObject.GetComponent<AllyStats>().AddExperience(expGain);
