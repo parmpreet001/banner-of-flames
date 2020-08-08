@@ -10,8 +10,7 @@ public class UI_LevelUpDisplay : MonoBehaviour
     private Image experienceBar;
     private GameObject experienceCursor;
 
-    private const int minCursorXPosition = -117;
-    private const int maxCursorXPosition = 117;
+    private const int levelUpBarLength = 234;
 
     private void Start()
     {
@@ -37,7 +36,7 @@ public class UI_LevelUpDisplay : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         background.SetActive(false);
         experienceBar.gameObject.SetActive(false);
@@ -48,7 +47,7 @@ public class UI_LevelUpDisplay : MonoBehaviour
 
     private void SetExperienceCursorPosition(float experience)
     {
-        float xPosition = minCursorXPosition + (experience * 2);
+        float xPosition = -117 + (levelUpBarLength * (experience / 100));
         float yPosition = experienceCursor.transform.localPosition.y;
         experienceCursor.transform.localPosition = new Vector2(xPosition, yPosition);
         experienceCursor.transform.GetComponentInChildren<TextMeshProUGUI>().text = experience.ToString();
