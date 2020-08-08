@@ -303,8 +303,13 @@ public class TileController : MonoBehaviour
 
         foreach (GameObject target in targets)
         { 
-            if (Vector2.Distance(unit.transform.position, target.transform.position) < Vector2.Distance(unit.transform.position, closestTarget.transform.position))
+            if(GetDistanceBetweenTiles(target.transform.parent.gameObject,unit.transform.parent.gameObject) 
+                < GetDistanceBetweenTiles(closestTarget.transform.parent.gameObject, unit.transform.parent.gameObject))
+            {
                 closestTarget = target;
+            }
+            //if (Vector2.Distance(unit.transform.position, target.transform.position) < Vector2.Distance(unit.transform.position, closestTarget.transform.position))
+            //    closestTarget = target;
         }
 
         return closestTarget;
