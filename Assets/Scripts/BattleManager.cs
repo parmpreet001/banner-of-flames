@@ -368,11 +368,6 @@ public class BattleManager : MonoBehaviour
     {
         battleLog = "";
 
-        if (activeUnit.CompareTag("PlayerUnit") && !activeUnitStats.isDead)
-            SetExp(activeUnitStats, receivingUnitStats);
-        else if (receivingUnit.CompareTag("PlayerUnit") && !receivingUnitStats.isDead)
-            SetExp(receivingUnitStats, activeUnitStats);
-
         if (activeUnit.CompareTag("PlayerUnit") && !activeUnitStats.isDead && activeUnitStats.UsingPhysicalWeapon())
         {
             switch (activeUnitStats.equippedWeapon.weaponType)
@@ -399,10 +394,10 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    private void SetExp(Stats playerUnitStats, Stats enemyUnitStats)
+    //returns exp gained
+    public int GetExpGained(Stats playerUnitStats, Stats enemyUnitStats)
     {
         int levelDifference = playerUnitStats.level - enemyUnitStats.level;
-        int[] previousStats = null;
         int expGain = 0;
 
         switch (levelDifference)
@@ -437,7 +432,8 @@ public class BattleManager : MonoBehaviour
                 expGain = 1;
         }
 
-        playerUnitStats.gameObject.GetComponent<AllyStats>().AddExperience(expGain);
+        return expGain;
+        //playerUnitStats.gameObject.GetComponent<AllyStats>().AddExperience(expGain);
     }
 
     private void EndHeal()

@@ -31,8 +31,17 @@ public class UI_LevelUpDisplay : MonoBehaviour
 
         for(int i = 0; i <= expGain; i++)
         {
-            SetExperienceCursorPosition(startingExp + i);
-            experienceBar.fillAmount = (startingExp + i) / 100;
+            if(startingExp + i >= 100)
+            {
+                SetExperienceCursorPosition(startingExp + i - 100);
+                experienceBar.fillAmount = ((startingExp + i) / 100) - 1;
+            }
+            else
+            {
+                SetExperienceCursorPosition(startingExp + i);
+                experienceBar.fillAmount = (startingExp + i) / 100;
+            }
+
             yield return new WaitForSeconds(0.02f);
         }
 

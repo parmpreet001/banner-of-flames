@@ -213,22 +213,26 @@ public class MapManager : MonoBehaviour
     {
         int startingExp = 0;
         AllyStats playerUnitStats = null;
+        EnemyStats enemyUnitStats = null;
         if (playerPhase)
         {
             playerUnitStats = selectedUnit_AllyStats;
-            startingExp = selectedUnit_AllyStats.experience;
+            enemyUnitStats = battleManager.receivingUnit.GetComponent<EnemyStats>();
         }
         else
         {
             playerUnitStats = battleManager.receivingUnit.GetComponent<AllyStats>();
-            startingExp = playerUnitStats.experience;
+            enemyUnitStats = battleManager.activeUnit.GetComponent<EnemyStats>();
         }
+
+        startingExp = playerUnitStats.experience;
 
         unitState = UnitStates.ATTACKING;
         yield return battleManager.AttackProcess();
-        Debug.Log("Staring Exp: " + startingExp);
-        Debug.Log("Exp gained: " + (playerUnitStats.experience - startingExp).ToString());
-        yield return levelUpDisplay.FillExperienceBar(startingExp, playerUnitStats.experience - startingExp, playerUnitStats.level);
+
+        int expGain = battleManager.GetExpGained(playerUnitStats, enemyUnitStats);
+        yield return levelUpDisplay.FillExperienceBar(startingExp, expGain, playerUnitStats.level);
+        playerUnitStats.AddExperience(expGain);
 
         tileController.RemoveSelectableTiles();
         selectedUnit.GetComponent<Stats>().finishedTurn = true;
@@ -459,6 +463,7 @@ public class MapManager : MonoBehaviour
         selectedUnit = null;
         tileController.RemoveSelectableTiles();
         unitState = UnitStates.UNSELECTED;
+
 
         if(battleManager.receivingUnit && battleManager.receivingUnit.GetComponent<Stats>().isDead)
             Destroy(battleManager.receivingUnit);
