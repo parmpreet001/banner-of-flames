@@ -9,6 +9,8 @@ public class UI_LevelUpDisplay : MonoBehaviour
     private GameObject background;
     private Image experienceBar;
     private GameObject experienceCursor;
+    private TextMeshProUGUI currentLevel;
+    private TextMeshProUGUI nextLevel;
 
     private const int levelUpBarLength = 234;
 
@@ -17,6 +19,8 @@ public class UI_LevelUpDisplay : MonoBehaviour
         background = transform.Find("Background").gameObject;
         experienceBar = transform.Find("ExperienceBar").GetComponent<Image>();
         experienceCursor = transform.Find("ExperienceCursor").gameObject;
+        currentLevel = transform.Find("CurrentLevel").GetComponent<TextMeshProUGUI>();
+        nextLevel = transform.Find("NextLevel").GetComponent<TextMeshProUGUI>();
     }
 
     public IEnumerator FillExperienceBar(float startingExp, int expGain, int startingLevel)
@@ -24,9 +28,14 @@ public class UI_LevelUpDisplay : MonoBehaviour
         background.SetActive(true);
         experienceBar.gameObject.SetActive(true);
         experienceCursor.SetActive(true);
+        currentLevel.gameObject.SetActive(true);
+        nextLevel.gameObject.SetActive(true);
 
         SetExperienceCursorPosition(startingExp);
         experienceBar.fillAmount = (startingExp / 100);
+        currentLevel.text = startingLevel.ToString();
+        nextLevel.text = (startingLevel + 1).ToString();
+
         yield return new WaitForSeconds(0.5f);
 
         for(int i = 0; i <= expGain; i++)
@@ -35,9 +44,12 @@ public class UI_LevelUpDisplay : MonoBehaviour
             {
                 SetExperienceCursorPosition(startingExp + i - 100);
                 experienceBar.fillAmount = ((startingExp + i) / 100) - 1;
+                currentLevel.text = (startingLevel + 1).ToString();
+                nextLevel.text = (startingLevel + 2).ToString();
             }
             else
             {
+
                 SetExperienceCursorPosition(startingExp + i);
                 experienceBar.fillAmount = (startingExp + i) / 100;
             }
@@ -50,6 +62,8 @@ public class UI_LevelUpDisplay : MonoBehaviour
         background.SetActive(false);
         experienceBar.gameObject.SetActive(false);
         experienceCursor.SetActive(false);
+        currentLevel.gameObject.SetActive(false);
+        nextLevel.gameObject.SetActive(false);
 
         yield return null;
     }
