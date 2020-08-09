@@ -432,7 +432,9 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log("enemy unit hp: " + enemyUnitStats.hp);
             Debug.Log("starting hp: " + enemyStartingHp);
-            expGain = (int)(expGain * ((float)enemyUnitStats.hp / (float)enemyStartingHp));
+            expGain = (int)(expGain * (1 - ((float)enemyUnitStats.hp / (float)enemyStartingHp)));
+            if (expGain == 0)
+                expGain = 1;
         }
 
         playerUnitStats.gameObject.GetComponent<AllyStats>().AddExperience(expGain);
