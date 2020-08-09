@@ -459,6 +459,11 @@ public class MapManager : MonoBehaviour
         selectedUnit = null;
         tileController.RemoveSelectableTiles();
         unitState = UnitStates.UNSELECTED;
+
+        if(battleManager.receivingUnit && battleManager.receivingUnit.GetComponent<Stats>().isDead)
+            Destroy(battleManager.receivingUnit);
+        else if(battleManager.activeUnit && battleManager.activeUnit.GetComponent<Stats>().isDead)
+            Destroy(battleManager.activeUnit);
     }
 
     

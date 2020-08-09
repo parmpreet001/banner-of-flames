@@ -397,11 +397,6 @@ public class BattleManager : MonoBehaviour
             else if (activeUnitStats.equippedBlackMagic.magicType == MagicType.WHITE)
                 AddMagicExperience(activeUnitStats, MagicType.WHITE);
         }
-            
-        if (receivingUnitStats.isDead)
-            Destroy(receivingUnit);
-        if (activeUnitStats.isDead)
-            Destroy(activeUnit);
     }
 
     private void SetExp(Stats playerUnitStats, Stats enemyUnitStats)
