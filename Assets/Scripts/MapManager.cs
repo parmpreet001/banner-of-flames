@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,6 +47,26 @@ public class MapManager : MonoBehaviour
         battleManager = GetComponent<BattleManager>();
         tileController = GetComponent<TileController>();
         tileController.Init();
+
+        if(File.Exists(Application.dataPath + "save.json"))
+        {
+            Debug.Log("Loading");
+            string json = File.ReadAllText(Application.dataPath + "save.json");
+            Debug.Log(json);
+            Debug.Log("path:" + Application.dataPath + "save.json");
+            AllyStats temp = new AllyStats();
+            JsonUtility.FromJsonOverwrite(json, allyUnits[0].GetComponent<AllyStats>());
+            //temp    = JsonUtility.FromJson<AllyStats>(json);
+        }
+        else
+        {
+            Debug.Log("Saving");
+            string json = JsonUtility.ToJson(allyUnits[0].GetComponent<AllyStats>());
+            File.WriteAllText(Application.dataPath + "save.json",json);
+            Debug.Log(json);
+            Debug.Log("path:" + Application.dataPath + "save.json");
+        }
+
     }
     void Update()
     {
