@@ -9,14 +9,78 @@ public class SaveData : MonoBehaviour
     public struct PlayerUnitData
     {
         public int level;
-        public string equippedWeapon;
+        public int experience;
+        public int baseHP, baseSTR, baseMAG, baseDEF, baseRES, baseSKL, baseSPD;
+        public int hp, str, mag, def, res, skl, spd;
+        public int hpGrowth, strGrowth, magGrowth, defGrowth, resGrowth, sklGrowth, spdGrowth;
+        public int maxHP;
+        public SkillLevels skillLevels;
+
+        public string equippedWeapon, classType, equippedBlackMagic, equippedWhiteMagic;
+        public List<string> magicList, blackMagic, whiteMagic;
+
+        public AttackMethod attackMethod;       
+
         public PlayerUnitData(AllyStats stats)
         {
+            magicList = new List<string>();
+            blackMagic = new List<string>();
+            whiteMagic = new List<string>();
+
             level = stats.level;
+            experience = stats.experience;
+
+            baseHP = stats.baseHP;
+            baseSTR = stats.baseSTR;
+            baseMAG = stats.baseMAG;
+            baseDEF = stats.baseDEF;
+            baseRES = stats.baseRES;
+            baseSKL = stats.baseSKL;
+            baseSPD = stats.baseSPD;
+
+            hp = stats.hp;
+            str = stats.str;
+            mag = stats.mag;
+            def = stats.def;
+            res = stats.res;
+            skl = stats.skl;
+            spd = stats.spd;
+
+            hpGrowth = stats.hpGrowth;
+            strGrowth = stats.strGrowth;
+            magGrowth = stats.magGrowth;
+            defGrowth = stats.defGrowth;
+            resGrowth = stats.resGrowth;
+            sklGrowth = stats.sklGrowth;
+            spdGrowth = stats.spdGrowth;
+
+            maxHP = stats.maxHP;
+
+            skillLevels = stats.skillLevels;
+
+            classType = stats.classType.name;
+            equippedWeapon = equippedWhiteMagic = equippedBlackMagic = null;
             if (stats.equippedWeapon)
                 equippedWeapon = stats.equippedWeapon.name;
-            else
-                equippedWeapon = null;
+            if (stats.equippedWhiteMagic)
+                equippedWhiteMagic = stats.equippedWhiteMagic.name;
+            if (stats.equippedBlackMagic)
+                equippedBlackMagic = stats.equippedBlackMagic.name;
+
+            foreach(Magic spell in stats.magicList)
+            {
+                magicList.Add(spell.name);
+            }
+            foreach(Magic spell in stats.blackMagic)
+            {
+                magicList.Add(spell.name);
+            }
+            foreach(Magic spell in stats.whiteMagic)
+            {
+                magicList.Add(spell.name);
+            }
+
+            attackMethod = stats.attackMethod;
         }
     }
 
