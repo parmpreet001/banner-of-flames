@@ -50,6 +50,11 @@ public class MapManager : MonoBehaviour
 
         if(File.Exists(Application.dataPath + "save.json"))
         {
+            SaveData save = SaveSystem.LoadGame();
+            allyUnits[0].GetComponent<AllyStats>().level = save.playerUnits[0].level;
+            allyUnits[1].GetComponent<AllyStats>().level = save.playerUnits[1].level;
+
+            /*
             Debug.Log("Loading");
             string json = File.ReadAllText(Application.dataPath + "save.json");
             Debug.Log(json);
@@ -57,14 +62,18 @@ public class MapManager : MonoBehaviour
             AllyStats temp = new AllyStats();
             JsonUtility.FromJsonOverwrite(json, allyUnits[0].GetComponent<AllyStats>());
             //temp    = JsonUtility.FromJson<AllyStats>(json);
+            */
         }
         else
         {
+            SaveSystem.SaveGame(1, allyUnits);
+            /*
             Debug.Log("Saving");
             string json = JsonUtility.ToJson(allyUnits[0].GetComponent<AllyStats>());
             File.WriteAllText(Application.dataPath + "save.json",json);
             Debug.Log(json);
             Debug.Log("path:" + Application.dataPath + "save.json");
+            */
         }
 
     }
