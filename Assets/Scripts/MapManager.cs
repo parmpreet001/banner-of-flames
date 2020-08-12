@@ -51,8 +51,9 @@ public class MapManager : MonoBehaviour
         if(File.Exists(Application.dataPath + "save.json"))
         {
             SaveData save = SaveSystem.LoadGame();
+            allyUnits[0].GetComponent<AllyStats>().equippedWeapon = Resources.Load("Assets/ScriptableObjects/Weapons/" + 
+                save.playerUnits[0].equippedWeapon) as Weapon;
             allyUnits[0].GetComponent<AllyStats>().level = save.playerUnits[0].level;
-            allyUnits[1].GetComponent<AllyStats>().level = save.playerUnits[1].level;
 
             /*
             Debug.Log("Loading");

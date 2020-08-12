@@ -9,9 +9,14 @@ public class SaveData : MonoBehaviour
     public struct PlayerUnitData
     {
         public int level;
+        public string equippedWeapon;
         public PlayerUnitData(AllyStats stats)
         {
             level = stats.level;
+            if (stats.equippedWeapon)
+                equippedWeapon = stats.equippedWeapon.name;
+            else
+                equippedWeapon = null;
         }
     }
 
