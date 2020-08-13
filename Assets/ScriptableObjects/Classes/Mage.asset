@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94d562ac78819c4aa4dff1b48568471, type: 3}
   m_Name: Mage
   m_EditorClassIdentifier: 
-  name: 
+  name: Mage
   description: 
   walkableTerrain: 0000000002000000
   skillLevels:

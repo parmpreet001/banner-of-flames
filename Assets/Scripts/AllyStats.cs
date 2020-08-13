@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+
 
 public class AllyStats : Stats
 {
@@ -197,5 +199,66 @@ public class AllyStats : Stats
             equippedWhiteMagic.equipped = false;
         equippedWhiteMagic = whiteMagic[index];
         equippedWhiteMagic.equipped = true;
+    }
+
+    public void LoadStats(int index, SaveData save)
+    {
+        
+        level = save.playerUnits[index].level;
+        experience = save.playerUnits[index].experience;
+
+        baseHP = save.playerUnits[index].baseHP;
+        baseSTR = save.playerUnits[index].baseSTR;
+        baseMAG = save.playerUnits[index].baseMAG;
+        baseDEF = save.playerUnits[index].baseDEF;
+        baseRES = save.playerUnits[index].baseRES;
+        baseSKL = save.playerUnits[index].baseSKL;
+        baseSPD = save.playerUnits[index].baseSPD;
+
+        hp = save.playerUnits[index].hp;
+        str = save.playerUnits[index].str;
+        mag = save.playerUnits[index].mag;
+        def = save.playerUnits[index].def;
+        res = save.playerUnits[index].res;
+        skl = save.playerUnits[index].skl;
+        spd = save.playerUnits[index].spd;
+
+        hpGrowth = save.playerUnits[index].hpGrowth;
+        strGrowth = save.playerUnits[index].strGrowth;
+        magGrowth = save.playerUnits[index].magGrowth;
+        defGrowth = save.playerUnits[index].defGrowth;
+        resGrowth = save.playerUnits[index].resGrowth;
+        sklGrowth = save.playerUnits[index].sklGrowth;
+        spdGrowth = save.playerUnits[index].spdGrowth;
+
+        maxHP = save.playerUnits[index].maxHP;
+
+        skillLevels = save.playerUnits[index].skillLevels;
+
+        classType = AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/Classes/" + save.playerUnits[index].classType + ".asset",
+            typeof(ClassType)) as ClassType;
+
+        equippedWeapon = AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/Weapons/" + save.playerUnits[index].equippedWeapon + ".asset",
+            typeof(Weapon)) as Weapon;
+        equippedWhiteMagic = AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/HealingMagic/" + save.playerUnits[index].equippedWhiteMagic,
+            typeof(Magic)) as Magic;
+        equippedBlackMagic = AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/OffensiveMagic/" + save.playerUnits[index].equippedBlackMagic + ".asset",
+            typeof(Magic)) as Magic;
+
+        magicList = new List<Magic>();
+        blackMagic = new List<Magic>();
+        whiteMagic = new List<Magic>();
+        foreach(string spell in save.playerUnits[index].blackMagic)
+        {
+            blackMagic.Add(AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/OffensiveMagic/" + spell + ".asset",
+                typeof(Magic)) as Magic);
+        }
+        foreach(string spell in save.playerUnits[index].whiteMagic)
+        {
+            whiteMagic.Add(AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/HealingMagic/" + spell + ".asset",
+                typeof(Magic)) as Magic);
+        }
+
+        attackMethod = save.playerUnits[index].attackMethod;
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SaveData : MonoBehaviour
+public class SaveData
 {
     [System.Serializable]
     public struct PlayerUnitData
@@ -65,7 +65,11 @@ public class SaveData : MonoBehaviour
             if (stats.equippedWhiteMagic)
                 equippedWhiteMagic = stats.equippedWhiteMagic.name;
             if (stats.equippedBlackMagic)
+            {
+                
                 equippedBlackMagic = stats.equippedBlackMagic.name;
+            }
+                
 
             foreach(Magic spell in stats.magicList)
             {
@@ -73,11 +77,11 @@ public class SaveData : MonoBehaviour
             }
             foreach(Magic spell in stats.blackMagic)
             {
-                magicList.Add(spell.name);
+                blackMagic.Add(spell.name);
             }
             foreach(Magic spell in stats.whiteMagic)
             {
-                magicList.Add(spell.name);
+                whiteMagic.Add(spell.name);
             }
 
             attackMethod = stats.attackMethod;
