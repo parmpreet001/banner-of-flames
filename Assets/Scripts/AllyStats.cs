@@ -248,6 +248,20 @@ public class AllyStats : Stats
         magicList = new List<Magic>();
         blackMagic = new List<Magic>();
         whiteMagic = new List<Magic>();
+
+        foreach(string spell in save.playerUnits[index].magicList)
+        {
+            if(AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/OffensiveMagic/" + spell + ".asset",typeof(Magic)))
+            {
+                magicList.Add(AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/OffensiveMagic/" + spell + ".asset",
+                typeof(Magic)) as Magic);
+            }
+            else if(AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/HealingMagic/" + spell + ".asset",typeof(Magic)))
+            {
+                magicList.Add(AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/HealingMagic/" + spell + ".asset",
+                typeof(Magic)) as Magic);
+            }
+        }
         foreach(string spell in save.playerUnits[index].blackMagic)
         {
             blackMagic.Add(AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/OffensiveMagic/" + spell + ".asset",
