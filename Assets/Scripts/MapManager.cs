@@ -22,7 +22,7 @@ public class MapManager : MonoBehaviour
     private TileController tileController;
     [SerializeField]
     private Tile startingTile = null;
-    private UI_LevelUpDisplay levelUpDisplay;
+    private UI_LevelUpController levelUpController;
 
     //Enemy ai
     GameObject closestTarget;
@@ -30,7 +30,7 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-        levelUpDisplay = GameObject.Find("LevelUpUI").GetComponent<UI_LevelUpDisplay>();
+        levelUpController = GameObject.Find("LevelUp").GetComponent<UI_LevelUpController>();
         //Adds each AllyUnit to the allyUnits list
         foreach(GameObject allyUnit in GameObject.FindGameObjectsWithTag("PlayerUnit"))
         {
@@ -263,7 +263,7 @@ public class MapManager : MonoBehaviour
         yield return battleManager.AttackProcess();
 
         int expGain = battleManager.GetExpGained(playerUnitStats, enemyUnitStats);
-        yield return levelUpDisplay.FillExperienceBar(startingExp, expGain, playerUnitStats.level);
+        yield return levelUpController.FillExperienceBar(startingExp, expGain, playerUnitStats.level);
         playerUnitStats.AddExperience(expGain);
 
         tileController.RemoveSelectableTiles();

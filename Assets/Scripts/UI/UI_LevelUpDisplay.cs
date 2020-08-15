@@ -14,7 +14,7 @@ public class UI_LevelUpDisplay : MonoBehaviour
 
     private const int levelUpBarLength = 234;
 
-    private void Start()
+    public void Init()
     {
         background = transform.Find("Background").gameObject;
         experienceBar = transform.Find("ExperienceBar").GetComponent<Image>();
@@ -25,11 +25,6 @@ public class UI_LevelUpDisplay : MonoBehaviour
 
     public IEnumerator FillExperienceBar(float startingExp, int expGain, int startingLevel)
     {
-        background.SetActive(true);
-        experienceBar.gameObject.SetActive(true);
-        experienceCursor.SetActive(true);
-        currentLevel.gameObject.SetActive(true);
-        nextLevel.gameObject.SetActive(true);
 
         SetExperienceCursorPosition(startingExp);
         experienceBar.fillAmount = (startingExp / 100);
@@ -58,12 +53,6 @@ public class UI_LevelUpDisplay : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
-
-        background.SetActive(false);
-        experienceBar.gameObject.SetActive(false);
-        experienceCursor.SetActive(false);
-        currentLevel.gameObject.SetActive(false);
-        nextLevel.gameObject.SetActive(false);
 
         yield return null;
     }
