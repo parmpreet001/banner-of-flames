@@ -12,6 +12,7 @@ public class UI_LevelUpDisplay : MonoBehaviour
     private TextMeshProUGUI currentLevel;
     private TextMeshProUGUI nextLevel;
 
+
     private const int levelUpBarLength = 234;
 
     public void Init()
