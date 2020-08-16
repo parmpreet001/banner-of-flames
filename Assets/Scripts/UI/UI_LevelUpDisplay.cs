@@ -15,6 +15,8 @@ public class UI_LevelUpDisplay : MonoBehaviour
     private GameObject statsDisplay;
     private TextMeshProUGUI statsText1;
     private TextMeshProUGUI statsText2;
+
+    private List<GameObject> levelUpArrows;
    
 
 
@@ -31,6 +33,16 @@ public class UI_LevelUpDisplay : MonoBehaviour
         statsDisplay = transform.Find("StatsDisplay").gameObject;
         statsText1 = statsDisplay.transform.Find("StatsText1").GetComponent<TextMeshProUGUI>();
         statsText2 = statsDisplay.transform.Find("StatsText2").GetComponent<TextMeshProUGUI>();
+
+        levelUpArrows = new List<GameObject>();
+        for(int i = 0; i < transform.Find("StatsDisplay").Find("Arrows1").childCount; i++ )
+        {
+            levelUpArrows.Add(transform.Find("StatsDisplay").Find("Arrows1").GetChild(i).gameObject);
+        }
+        for (int i = 0; i < transform.Find("StatsDisplay").Find("Arrows2").childCount; i++)
+        {
+            levelUpArrows.Add(transform.Find("StatsDisplay").Find("Arrows2").GetChild(i).gameObject);
+        }
     }
 
     public IEnumerator FillExperienceBar(float startingExp, int expGain, AllyStats unitStats, int[] previouStats)
@@ -69,7 +81,23 @@ public class UI_LevelUpDisplay : MonoBehaviour
         {
             UpdateStatsText(previouStats);
             statsDisplay.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            int[] currentStats = unitStats.GetBattleStats();
+            for(int i = 0; i < previouStats.Length; i++)
+            {
+                if(previouStats[i] != currentStats[i])
+                {
+                    previouStats[i] = currentStats[i];
+                    UpdateStatsText(previouStats);
+                    levelUpArrows[i].SetActive(true);
+                    yield return new WaitForSeconds(0.5f);
+                }
+            }
             yield return new WaitForSeconds(1f);
+            foreach(GameObject arrow in levelUpArrows)
+            {
+                arrow.SetActive(false);
+            }
         }
 
         statsDisplay.SetActive(false);
