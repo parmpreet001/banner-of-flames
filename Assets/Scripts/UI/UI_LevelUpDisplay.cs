@@ -12,6 +12,11 @@ public class UI_LevelUpDisplay : MonoBehaviour
     private TextMeshProUGUI currentLevel;
     private TextMeshProUGUI nextLevel;
 
+    private GameObject statsDisplay;
+    private TextMeshProUGUI statsText1;
+    private TextMeshProUGUI statsText2;
+   
+
 
     private const int levelUpBarLength = 234;
 
@@ -22,10 +27,15 @@ public class UI_LevelUpDisplay : MonoBehaviour
         experienceCursor = transform.Find("ExperienceCursor").gameObject;
         currentLevel = transform.Find("CurrentLevel").GetComponent<TextMeshProUGUI>();
         nextLevel = transform.Find("NextLevel").GetComponent<TextMeshProUGUI>();
+
+        statsDisplay = transform.Find("StatsDisplay").gameObject;
+        statsText1 = statsDisplay.transform.Find("StatsText1").GetComponent<TextMeshProUGUI>();
+        statsText2 = statsDisplay.transform.Find("StatsText2").GetComponent<TextMeshProUGUI>();
     }
 
     public IEnumerator FillExperienceBar(float startingExp, int expGain, int startingLevel)
     {
+        statsDisplay.SetActive(false);
 
         SetExperienceCursorPosition(startingExp);
         experienceBar.fillAmount = (startingExp / 100);
@@ -54,6 +64,14 @@ public class UI_LevelUpDisplay : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
+
+        if(expGain + startingExp >= 100)
+        {
+            statsDisplay.SetActive(true);
+            yield return new WaitForSeconds(1f);
+        }
+
+        statsDisplay.SetActive(false);
 
         yield return null;
     }
