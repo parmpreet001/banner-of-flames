@@ -263,8 +263,12 @@ public class MapManager : MonoBehaviour
         yield return battleManager.AttackProcess();
 
         int expGain = battleManager.GetExpGained(playerUnitStats, enemyUnitStats);
-        yield return levelUpController.FillExperienceBar(startingExp, expGain, playerUnitStats.level);
-        playerUnitStats.AddExperience(expGain);
+
+        int[] previousStats = playerUnitStats.AddExperience(expGain);
+        
+
+        yield return levelUpController.FillExperienceBar(startingExp, expGain, playerUnitStats, previousStats);
+        
 
         tileController.RemoveSelectableTiles();
         selectedUnit.GetComponent<Stats>().finishedTurn = true;

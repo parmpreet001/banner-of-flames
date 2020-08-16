@@ -118,4 +118,11 @@ public class Stats : MonoBehaviour
             return equippedBlackMagic.maxRange;
         else return -1;
     }
+
+    //Returns an array of the unit's current stats
+    public int[] GetBattleStats()
+    {
+        int[] temp = { hp, str, mag, def, res, skl, spd, classType.mov };
+        return temp;
+    }
 }

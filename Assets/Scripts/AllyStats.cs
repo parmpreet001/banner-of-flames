@@ -41,7 +41,7 @@ public class AllyStats : Stats
     //If unit gained a level, returns an array of the unit's stats before leveling up. Null otherwise
     public int[] AddExperience(int exp)
     {
-        int[] previousStats = { hp, str, mag, def, baseRES, spd };
+        int[] previousStats = { hp, str, mag, spd, skl, def, res, classType.mov };
 
         experience += exp;
         if(experience >= 100)

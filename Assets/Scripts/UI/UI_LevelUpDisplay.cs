@@ -33,14 +33,14 @@ public class UI_LevelUpDisplay : MonoBehaviour
         statsText2 = statsDisplay.transform.Find("StatsText2").GetComponent<TextMeshProUGUI>();
     }
 
-    public IEnumerator FillExperienceBar(float startingExp, int expGain, int startingLevel)
+    public IEnumerator FillExperienceBar(float startingExp, int expGain, AllyStats unitStats, int[] previouStats)
     {
         statsDisplay.SetActive(false);
 
         SetExperienceCursorPosition(startingExp);
         experienceBar.fillAmount = (startingExp / 100);
-        currentLevel.text = startingLevel.ToString();
-        nextLevel.text = (startingLevel + 1).ToString();
+        currentLevel.text = (unitStats.level - 1).ToString();
+        nextLevel.text = (unitStats.level).ToString();
 
         yield return new WaitForSeconds(0.5f);
 
@@ -50,8 +50,8 @@ public class UI_LevelUpDisplay : MonoBehaviour
             {
                 SetExperienceCursorPosition(startingExp + i - 100);
                 experienceBar.fillAmount = ((startingExp + i) / 100) - 1;
-                currentLevel.text = (startingLevel + 1).ToString();
-                nextLevel.text = (startingLevel + 2).ToString();
+                currentLevel.text = (unitStats.level).ToString();
+                nextLevel.text = (unitStats.level + 1).ToString();
             }
             else
             {
@@ -67,6 +67,7 @@ public class UI_LevelUpDisplay : MonoBehaviour
 
         if(expGain + startingExp >= 100)
         {
+            UpdateStatsText(previouStats);
             statsDisplay.SetActive(true);
             yield return new WaitForSeconds(1f);
         }
@@ -82,5 +83,11 @@ public class UI_LevelUpDisplay : MonoBehaviour
         float yPosition = experienceCursor.transform.localPosition.y;
         experienceCursor.transform.localPosition = new Vector2(xPosition, yPosition);
         experienceCursor.transform.GetComponentInChildren<TextMeshProUGUI>().text = experience.ToString();
+    }
+
+    private void UpdateStatsText(int[] stats)
+    {
+        statsText1.text = stats[0] + "\n" + stats[1] + "\n" + stats[2] + "\n" + stats[3];
+        statsText2.text = stats[4] + "\n" + stats[5] + "\n" + stats[6] + "\n" + stats[7];
     }
 }
