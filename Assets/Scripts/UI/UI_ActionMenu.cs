@@ -377,6 +377,22 @@ public class UI_ActionMenu : MonoBehaviour
             {
                 EquipWeapon();
             }
+            else if(unitInventory[menuCursorPosition - 1] != null && unitInventory[menuCursorPosition - 1].GetType() == typeof(HealingItem))
+            {
+                HealingItem item = (HealingItem)unitInventory[menuCursorPosition - 1];
+                MapUIInfo.selectedAllyUnit_AllyStats.hp += item.healAmount;
+                if (MapUIInfo.selectedAllyUnit_AllyStats.hp > MapUIInfo.selectedAllyUnit_AllyStats.maxHP)
+                {
+                    MapUIInfo.selectedAllyUnit_AllyStats.hp = MapUIInfo.selectedAllyUnit_AllyStats.maxHP;
+                }
+                item.currentUses--;
+                if (item.currentUses == 0)
+                {
+                    unitInventory[menuCursorPosition - 1] = null;
+                }
+                MapUIInfo.selectedAllyUnit_AllyStats.finishedTurn = true;
+                MapUIInfo.mapManager.unitState = UnitStates.MOVED;
+            }
         }
 
         else if (checkingBlackMagic && (menuCursorPosition - 1) < MapUIInfo.selectedAllyUnit_AllyStats.blackMagic.Count)
