@@ -71,12 +71,33 @@ public class AllyStats : Stats
         return false;
     }
 
+    public bool CanUseWeapon(Weapon weapon)
+    {
+        if (classType.skillLevels.weaponLevels[(int)weapon.weaponType] >= weapon.minRequirement &&
+    skillLevels.weaponLevels[(int)weapon.weaponType] >= weapon.minRequirement)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public void EquipWeapon(int index)
     {
         ((Weapon)inventory[index]).equipped = true;
         if(equippedWeapon)
             equippedWeapon.equipped = false;
         equippedWeapon = ((Weapon)inventory[index]);
+
+        attackMethod = AttackMethod.PHYSICAL;
+    }
+
+    public void EquipWeapon(Weapon weapon)
+    {
+        weapon.equipped = true;
+        if (equippedWeapon)
+            equippedWeapon.equipped = false;
+        equippedWeapon = weapon;
 
         attackMethod = AttackMethod.PHYSICAL;
     }

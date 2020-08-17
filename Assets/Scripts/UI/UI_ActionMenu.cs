@@ -18,12 +18,14 @@ public class UI_ActionMenu : MonoBehaviour
 
     //Variables derived from MapUIInfo
     Item[] unitInventory; //inventory of the currently selected unit
+    List<Weapon> weaponList;
 
     private void Start()
     {
         MapUIInfo = GetComponentInParent<MapUIInfo>();
         MenuCursor_RectTransform = transform.Find("ActionMenuCursor").gameObject.GetComponent<RectTransform>();
         actionMenuDisplay = GetComponent<UI_ActionMenuDisplay>();
+        weaponList = new List<Weapon>();
     }
 
     void Update()
@@ -167,24 +169,37 @@ public class UI_ActionMenu : MonoBehaviour
         actionMenuDisplay.itemMenu.SetActive(true);
         menuCursorPosition = 1;
 
-        //Updates every item in the inventory to match the currently selected unit's inventory
-        for (int i = 0; i < 5; i++)
+        weaponList.Clear();
+        for(int i = 0; i < 5; i++)
         {
-            //If the unit's inventory slot is not empty, update name, durability, and text color
-            if (unitInventory[i] != null)
+            if (unitInventory[i] != null && unitInventory[i].GetType() == typeof(Weapon))
             {
-                UpdateItemSlot(i, unitInventory[i].name, unitInventory[i].currentUses, unitInventory[i].maxUses);
-
-                if (unitInventory[i].GetType() == typeof(Weapon) && ((Weapon)unitInventory[i]).equipped)
-                    actionMenuDisplay.UpdateItemColor(i, new Color32(34, 170, 160, 255));
-                else if (unitInventory[i].GetType() == typeof(Weapon) && !MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(i))
-                    actionMenuDisplay.UpdateItemColor(i, Color.gray);
-                else
-                    actionMenuDisplay.UpdateItemColor(i, Color.black);
+                weaponList.Add(unitInventory[i] as Weapon);
             }
-            //else, set blank values
+        }
+
+        for(int i = 0; i < weaponList.Count; i++)
+        {
+            UpdateItemSlot(i, weaponList[i].name, weaponList[i].currentUses, weaponList[i].maxUses);
+            if(weaponList[i].equipped)
+            {
+                actionMenuDisplay.UpdateItemColor(i, new Color32(34, 170, 160, 255));
+
+            }
+            else if(MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(weaponList[i]))
+            {
+                actionMenuDisplay.UpdateItemColor(i, Color.gray);
+            }
             else
-                UpdateItemSlot(i, "", 0, 0);
+            {
+                actionMenuDisplay.UpdateItemColor(i, Color.black);
+
+            }
+        }
+        for(int i = weaponList.Count; i < 5; i++)
+        {
+            UpdateItemSlot(i, "", 0, 0);
+
         }
     }
 
@@ -356,10 +371,10 @@ public class UI_ActionMenu : MonoBehaviour
     {
         if (checkingWeapons)
         {
-            if (unitInventory[menuCursorPosition - 1] != null && unitInventory[menuCursorPosition - 1].GetType() == typeof(Weapon) 
-                && MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(menuCursorPosition - 1))
+            Weapon weapon = weaponList[menuCursorPosition - 1];
+            if (weapon != null && MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(weapon))
             {
-                EquipWeapon();
+                EquipWeapon(weapon);
                 MapUIInfo.tileController.SetCurrentTile(MapUIInfo.selectedAllyUnit);
                 if (MapUIInfo.tileController.EnemyInRange(MapUIInfo.selectedAllyUnit_AllyStats.GetMinRange(), MapUIInfo.selectedAllyUnit_AllyStats.GetMaxRange()))
                 {
@@ -436,6 +451,25 @@ public class UI_ActionMenu : MonoBehaviour
         }
 
         MapUIInfo.selectedAllyUnit_AllyStats.EquipWeapon(menuCursorPosition - 1);
+
+        actionMenuDisplay.UpdateItemColor(menuCursorPosition - 1, new Color32(34, 170, 160, 255));
+        Debug.Log("Equpped " + unitInventory[menuCursorPosition - 1].name);
+    }
+
+    private void EquipWeapon(Weapon weapon)
+    {
+        //Iterates through each inventory slot
+        for (int i = 0; i < 5; i++)
+        {
+            //If the item is not null and equal to the equipped weapon
+            if (unitInventory[i] != null && unitInventory[i] == MapUIInfo.selectedAllyUnit_AllyStats.equippedWeapon)
+            {
+                actionMenuDisplay.UpdateItemColor(i, Color.black);
+                i = 5;
+            }
+        }
+
+        MapUIInfo.selectedAllyUnit_AllyStats.EquipWeapon(weapon);
 
         actionMenuDisplay.UpdateItemColor(menuCursorPosition - 1, new Color32(34, 170, 160, 255));
         Debug.Log("Equpped " + unitInventory[menuCursorPosition - 1].name);
