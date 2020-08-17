@@ -6704,10 +6704,10 @@ MonoBehaviour:
   magicList: []
   blackMagic: []
   whiteMagic: []
-  baseHP: 20
+  baseHP: 19
   baseSTR: 7
   baseMAG: 2
-  baseDEF: 3
+  baseDEF: 4
   baseRES: 2
   baseSKL: 4
   baseSPD: 4
