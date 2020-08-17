@@ -54,7 +54,7 @@ public class MapManager : MonoBehaviour
             SaveData save = SaveSystem.LoadGame();
 
             //allyUnits[0].GetComponent<AllyStats>().level = save.playerUnits[0].level;
-            allyUnits[0].GetComponent<AllyStats>().LoadStats(0, save);
+            //allyUnits[0].GetComponent<AllyStats>().LoadStats(0, save);
 
             /*
             Debug.Log("Loading");
