@@ -5670,10 +5670,10 @@ Transform:
   - {fileID: 2141045380}
   - {fileID: 322937488}
   - {fileID: 1673236910}
-  - {fileID: 706816782}
   - {fileID: 688666623}
-  - {fileID: 1309893029}
+  - {fileID: 706816782}
   - {fileID: 488820282}
+  - {fileID: 1309893029}
   - {fileID: 596253419}
   - {fileID: 122398416}
   - {fileID: 807407493}
@@ -6769,10 +6769,10 @@ MonoBehaviour:
   magicList: []
   blackMagic: []
   whiteMagic: []
-  baseHP: 20
+  baseHP: 19
   baseSTR: 7
   baseMAG: 2
-  baseDEF: 3
+  baseDEF: 4
   baseRES: 2
   baseSKL: 4
   baseSPD: 4
