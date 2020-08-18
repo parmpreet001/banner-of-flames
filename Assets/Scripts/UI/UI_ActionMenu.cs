@@ -121,7 +121,8 @@ public class UI_ActionMenu : MonoBehaviour
                 SelectMenuChoice();
             }
             if (checkingWeapons)
-                UpdateItemSlotInfo(menuCursorPosition-1,weaponList[menuCursorPosition-1]);
+                if(menuCursorPosition < weaponList.Count)
+                    UpdateItemSlotInfo(menuCursorPosition-1,weaponList[menuCursorPosition-1]);
             else
                 UpdateItemSlotInfo(menuCursorPosition - 1);
         }
