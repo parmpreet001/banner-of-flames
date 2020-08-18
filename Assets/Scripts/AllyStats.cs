@@ -94,10 +94,14 @@ public class AllyStats : Stats
 
     public void EquipWeapon(Weapon weapon)
     {
-        weapon.equipped = true;
-        if (equippedWeapon)
-            equippedWeapon.equipped = false;
-        equippedWeapon = weapon;
+        if(!weapon.equipped)
+        {
+            weapon.equipped = true;
+            if (equippedWeapon)
+                equippedWeapon.equipped = false;
+            equippedWeapon = weapon;
+        }
+
 
         attackMethod = AttackMethod.PHYSICAL;
     }

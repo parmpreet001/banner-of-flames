@@ -120,7 +120,10 @@ public class UI_ActionMenu : MonoBehaviour
             {
                 SelectMenuChoice();
             }
-            UpdateItemSlotInfo(menuCursorPosition - 1);
+            if (checkingWeapons)
+                UpdateItemSlotInfo(menuCursorPosition-1,weaponList[menuCursorPosition-1]);
+            else
+                UpdateItemSlotInfo(menuCursorPosition - 1);
         }
         else
         {
@@ -235,6 +238,23 @@ public class UI_ActionMenu : MonoBehaviour
         }
     }
 
+
+    private void UpdateItemSlotInfo(int index, Weapon weapon)
+    {
+        MapUIInfo.tileController.RemoveSelectableTiles();
+        MapUIInfo.tileController.SetCurrentTile(MapUIInfo.selectedAllyUnit);
+        string damage, hitRate, critRate, range, heal;
+        actionMenuDisplay.itemInfo.staticTextDmgHeal.text = "Damage";
+        MapUIInfo.tileController.ShowWeaponRange(weapon.minRange, weapon.maxRange);
+        damage = weapon.dmg.ToString();
+        hitRate = weapon.hitRate.ToString();
+        critRate = weapon.critRate.ToString();
+        if (weapon.minRange == weapon.maxRange)
+            range = weapon.minRange.ToString();
+        else
+            range = weapon.minRange + "-" + weapon.maxRange;
+        actionMenuDisplay.UpdateItemInfo(damage, hitRate, critRate, range);
+    }
     private void UpdateItemSlotInfo(int index)
     {
         MapUIInfo.tileController.RemoveSelectableTiles();
