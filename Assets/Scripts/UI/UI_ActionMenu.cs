@@ -186,7 +186,7 @@ public class UI_ActionMenu : MonoBehaviour
                 actionMenuDisplay.UpdateItemColor(i, new Color32(34, 170, 160, 255));
 
             }
-            else if(MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(weaponList[i]))
+            else if(!MapUIInfo.selectedAllyUnit_AllyStats.CanUseWeapon(weaponList[i]))
             {
                 actionMenuDisplay.UpdateItemColor(i, Color.gray);
             }
