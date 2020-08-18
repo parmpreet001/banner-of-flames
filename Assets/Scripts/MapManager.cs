@@ -261,16 +261,16 @@ public class MapManager : MonoBehaviour
         int startingLevel = playerUnitStats.level;
 
         unitState = UnitStates.ATTACKING;
-        yield return battleManager.AttackProcess();
+        yield return battleManager.AttackProcess();       
 
-        int expGain = battleManager.GetExpGained(playerUnitStats, enemyUnitStats);
+        if(!playerUnitStats.isDead)
+        {
+            int expGain = battleManager.GetExpGained(playerUnitStats, enemyUnitStats);
+            int[] previousStats = playerUnitStats.AddExperience(expGain);
+            yield return levelUpController.FillExperienceBar(startingExp, expGain, playerUnitStats, previousStats,startingLevel);
 
-        int[] previousStats = playerUnitStats.AddExperience(expGain);
+        }
         
-
-        yield return levelUpController.FillExperienceBar(startingExp, expGain, playerUnitStats, previousStats,startingLevel);
-        
-
         tileController.RemoveSelectableTiles();
         selectedUnit.GetComponent<Stats>().finishedTurn = true;
 
