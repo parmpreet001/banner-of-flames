@@ -13,10 +13,10 @@ public class UI_LevelUpController : MonoBehaviour
         levelUpUI.GetComponent<UI_LevelUpDisplay>().Init();
     }
 
-    public IEnumerator FillExperienceBar(float startingExp, int expGain, AllyStats unitStats, int[] previousStats)
+    public IEnumerator FillExperienceBar(float startingExp, int expGain, AllyStats unitStats, int[] previousStats, int startingLevel)
     {
         levelUpUI.SetActive(true);
-        yield return levelUpUI.GetComponent<UI_LevelUpDisplay>().FillExperienceBar(startingExp, expGain, unitStats, previousStats);
+        yield return levelUpUI.GetComponent<UI_LevelUpDisplay>().FillExperienceBar(startingExp, expGain, unitStats, previousStats, startingLevel);
         levelUpUI.SetActive(false);
     }
 }

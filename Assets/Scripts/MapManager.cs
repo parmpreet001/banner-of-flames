@@ -258,6 +258,7 @@ public class MapManager : MonoBehaviour
         }
 
         startingExp = playerUnitStats.experience;
+        int startingLevel = playerUnitStats.level;
 
         unitState = UnitStates.ATTACKING;
         yield return battleManager.AttackProcess();
@@ -267,7 +268,7 @@ public class MapManager : MonoBehaviour
         int[] previousStats = playerUnitStats.AddExperience(expGain);
         
 
-        yield return levelUpController.FillExperienceBar(startingExp, expGain, playerUnitStats, previousStats);
+        yield return levelUpController.FillExperienceBar(startingExp, expGain, playerUnitStats, previousStats,startingLevel);
         
 
         tileController.RemoveSelectableTiles();

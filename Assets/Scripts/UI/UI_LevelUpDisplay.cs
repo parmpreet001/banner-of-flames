@@ -45,14 +45,14 @@ public class UI_LevelUpDisplay : MonoBehaviour
         }
     }
 
-    public IEnumerator FillExperienceBar(float startingExp, int expGain, AllyStats unitStats, int[] previouStats)
+    public IEnumerator FillExperienceBar(float startingExp, int expGain, AllyStats unitStats, int[] previouStats, int startingLevel)
     {
         statsDisplay.SetActive(false);
 
         SetExperienceCursorPosition(startingExp);
         experienceBar.fillAmount = (startingExp / 100);
-        currentLevel.text = (unitStats.level - 1).ToString();
-        nextLevel.text = (unitStats.level).ToString();
+        currentLevel.text = (startingLevel).ToString();
+        nextLevel.text = (startingLevel + 1).ToString();
 
         yield return new WaitForSeconds(0.5f);
 
@@ -62,8 +62,8 @@ public class UI_LevelUpDisplay : MonoBehaviour
             {
                 SetExperienceCursorPosition(startingExp + i - 100);
                 experienceBar.fillAmount = ((startingExp + i) / 100) - 1;
-                currentLevel.text = (unitStats.level).ToString();
-                nextLevel.text = (unitStats.level + 1).ToString();
+                currentLevel.text = (startingLevel + 1).ToString();
+                nextLevel.text = (startingLevel + 2).ToString();
             }
             else
             {
