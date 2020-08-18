@@ -211,12 +211,12 @@ public class BattleManager : MonoBehaviour
 
         AU_dmg = GetDmg(activeUnitStats, receivingUnitStats);
         AU_accuracy = GetAccuracy(activeUnitStats, receivingUnitStats);
-        AU_crit = GetCrit(activeUnitStats);
+        AU_crit = GetCrit(activeUnitStats, receivingUnitStats);
 
 
         DU_dmg = GetDmg(receivingUnitStats, activeUnitStats);
         DU_accuracy = GetAccuracy(receivingUnitStats, activeUnitStats);
-        DU_crit = GetCrit(receivingUnitStats);
+        DU_crit = GetCrit(receivingUnitStats, activeUnitStats);
 
         if (activeUnitStats.spd >= receivingUnitStats.spd + 5)
             AU_attackTwice = true;
@@ -308,14 +308,16 @@ public class BattleManager : MonoBehaviour
         return accuracy;
     }
 
-    private int GetCrit(Stats unit)
+    private int GetCrit(Stats unit, Stats otherUnit)
     {
+        int temp = 0;
         if (unit.UsingPhysicalWeapon())
-            return (unit.skl / 2) + unit.equippedWeapon.critRate;
-        else if (unit.UsingOffensiveMagic())
-            return 0;
-
-        return 0;
+        {
+            temp = (unit.skl / 2) + unit.equippedWeapon.critRate - otherUnit.lck;
+            if (temp < 0)
+                temp = 0;
+        }
+        return temp;
     }
 
     public int GetHeal(Stats unit)

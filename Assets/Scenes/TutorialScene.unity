@@ -5428,7 +5428,7 @@ MonoBehaviour:
   baseRES: 2
   baseSKL: 4
   baseSPD: 4
-  baseLCK: 0
+  baseLCK: 2
   hp: 0
   str: 0
   mag: 0
