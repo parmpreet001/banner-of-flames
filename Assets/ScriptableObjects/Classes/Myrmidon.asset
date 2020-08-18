@@ -27,6 +27,7 @@ MonoBehaviour:
   resGrowth: 0
   sklGrowth: 5
   spdGrowth: 5
+  lckGrowth: 0
   maxHp: 40
   maxStr: 25
   maxMag: 15
@@ -34,6 +35,7 @@ MonoBehaviour:
   maxRes: 20
   maxSkl: 30
   maxSpd: 30
+  maxLck: 25
   mov: 5
   usesPhysicalAttacks: 1
   usesBlackMagic: 0

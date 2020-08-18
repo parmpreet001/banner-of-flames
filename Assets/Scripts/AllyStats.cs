@@ -15,8 +15,8 @@ public class AllyStats : Stats
     private void LevelUp()
     {
         level++;
-        double[] rand = new double[7];
-        for (int i = 0; i < 7; i++)
+        double[] rand = new double[8];
+        for (int i = 0; i < 8; i++)
             rand[i] = Random.value * 100;
 
         if (rand[0] <= hpGrowth + classType.hpGrowth)
@@ -35,13 +35,15 @@ public class AllyStats : Stats
             skl++;
         if (rand[6] <= spdGrowth + classType.spdGrowth)
             spd++;
+        if (rand[7] <= lckGrowth + classType.lckGrowth)
+            lck++;
         
     }
 
     //If unit gained a level, returns an array of the unit's stats before leveling up. Null otherwise
     public int[] AddExperience(int exp)
     {
-        int[] previousStats = { hp, str, mag, spd, skl, def, res, classType.mov };
+        int[] previousStats = { hp, str, mag, spd, skl, def, res, lck };
 
         experience += exp;
         if(experience >= 100)

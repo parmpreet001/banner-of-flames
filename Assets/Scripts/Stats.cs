@@ -21,9 +21,9 @@ public class Stats : MonoBehaviour
     public List<Magic> blackMagic = new List<Magic>(); //List of black magic skills the unit currently knows
     public List<Magic> whiteMagic = new List<Magic>(); //List of black magic skills the unit currently knows
 
-    public int baseHP, baseSTR, baseMAG, baseDEF, baseRES, baseSKL, baseSPD; //The base stats of the unit. ie their stats at level 1
-    public int hp, str, mag, def, res, skl, spd; //The units current stats
-    public int hpGrowth, strGrowth, magGrowth, defGrowth, resGrowth, sklGrowth, spdGrowth; //Growth rates of the unit.
+    public int baseHP, baseSTR, baseMAG, baseDEF, baseRES, baseSKL, baseSPD, baseLCK; //The base stats of the unit. ie their stats at level 1
+    public int hp, str, mag, def, res, skl, spd, lck; //The units current stats
+    public int hpGrowth, strGrowth, magGrowth, defGrowth, resGrowth, sklGrowth, spdGrowth, lckGrowth; //Growth rates of the unit.
     public int maxHP;
 
     public AttackMethod attackMethod;
@@ -32,7 +32,7 @@ public class Stats : MonoBehaviour
 
     public void Init()
     {
-        hp = baseHP; str = baseSTR; mag = baseMAG; def = baseDEF; res = baseRES; skl = baseSKL; spd = baseSPD;
+        hp = baseHP; str = baseSTR; mag = baseMAG; def = baseDEF; res = baseRES; skl = baseSKL; spd = baseSPD; lck = baseLCK;
         maxHP = hp;
 
         //Instanties each item in the unit's inventory. Items are scriptable objects
@@ -122,7 +122,7 @@ public class Stats : MonoBehaviour
     //Returns an array of the unit's current stats
     public int[] GetBattleStats()
     {
-        int[] temp = { hp, str, mag, spd, skl, def, res, classType.mov };
+        int[] temp = { hp, str, mag, spd, skl, def, res, lck };
         return temp;
     }
 }

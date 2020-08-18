@@ -432,6 +432,7 @@ MonoBehaviour:
   baseRES: 2
   baseSKL: 4
   baseSPD: 4
+  baseLCK: 0
   hp: 0
   str: 0
   mag: 0
@@ -439,6 +440,7 @@ MonoBehaviour:
   res: 0
   skl: 0
   spd: 0
+  lck: 0
   hpGrowth: 0
   strGrowth: 0
   magGrowth: 0
@@ -446,6 +448,7 @@ MonoBehaviour:
   resGrowth: 0
   sklGrowth: 0
   spdGrowth: 0
+  lckGrowth: 0
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
@@ -688,6 +691,7 @@ MonoBehaviour:
   baseRES: 4
   baseSKL: 6
   baseSPD: 7
+  baseLCK: 0
   hp: 0
   str: 0
   mag: 0
@@ -695,6 +699,7 @@ MonoBehaviour:
   res: 0
   skl: 0
   spd: 0
+  lck: 0
   hpGrowth: 0
   strGrowth: 0
   magGrowth: 0
@@ -702,6 +707,7 @@ MonoBehaviour:
   resGrowth: 0
   sklGrowth: 0
   spdGrowth: 0
+  lckGrowth: 0
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
@@ -5002,6 +5008,7 @@ MonoBehaviour:
   baseRES: 4
   baseSKL: 6
   baseSPD: 6
+  baseLCK: 6
   hp: 0
   str: 0
   mag: 0
@@ -5009,6 +5016,7 @@ MonoBehaviour:
   res: 0
   skl: 0
   spd: 0
+  lck: 0
   hpGrowth: 90
   strGrowth: 75
   magGrowth: 15
@@ -5016,6 +5024,7 @@ MonoBehaviour:
   resGrowth: 25
   sklGrowth: 45
   spdGrowth: 40
+  lckGrowth: 40
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
@@ -5419,6 +5428,7 @@ MonoBehaviour:
   baseRES: 2
   baseSKL: 4
   baseSPD: 4
+  baseLCK: 0
   hp: 0
   str: 0
   mag: 0
@@ -5426,6 +5436,7 @@ MonoBehaviour:
   res: 0
   skl: 0
   spd: 0
+  lck: 0
   hpGrowth: 0
   strGrowth: 0
   magGrowth: 0
@@ -5433,6 +5444,7 @@ MonoBehaviour:
   resGrowth: 0
   sklGrowth: 0
   spdGrowth: 0
+  lckGrowth: 0
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
@@ -9440,6 +9452,7 @@ MonoBehaviour:
   baseRES: 3
   baseSKL: 4
   baseSPD: 4
+  baseLCK: 0
   hp: 0
   str: 0
   mag: 0
@@ -9447,6 +9460,7 @@ MonoBehaviour:
   res: 0
   skl: 0
   spd: 0
+  lck: 0
   hpGrowth: 0
   strGrowth: 0
   magGrowth: 0
@@ -9454,6 +9468,7 @@ MonoBehaviour:
   resGrowth: 0
   sklGrowth: 0
   spdGrowth: 0
+  lckGrowth: 0
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
@@ -14890,7 +14905,7 @@ MonoBehaviour:
 
     RES
 
-    MOV'
+    LCK'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf0f0694c42791f4ea797b92fcb77c13, type: 2}
   m_sharedMaterial: {fileID: 6695346499676202200, guid: cf0f0694c42791f4ea797b92fcb77c13,
@@ -16008,6 +16023,7 @@ MonoBehaviour:
   baseRES: 4
   baseSKL: 9
   baseSPD: 10
+  baseLCK: 4
   hp: 0
   str: 0
   mag: 0
@@ -16015,6 +16031,7 @@ MonoBehaviour:
   res: 0
   skl: 0
   spd: 0
+  lck: 0
   hpGrowth: 80
   strGrowth: 55
   magGrowth: 20
@@ -16022,6 +16039,7 @@ MonoBehaviour:
   resGrowth: 25
   sklGrowth: 70
   spdGrowth: 65
+  lckGrowth: 35
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
@@ -24983,6 +25001,7 @@ MonoBehaviour:
   baseRES: 3
   baseSKL: 5
   baseSPD: 4
+  baseLCK: 0
   hp: 0
   str: 0
   mag: 0
@@ -24990,6 +25009,7 @@ MonoBehaviour:
   res: 0
   skl: 0
   spd: 0
+  lck: 0
   hpGrowth: 0
   strGrowth: 0
   magGrowth: 0
@@ -24997,6 +25017,7 @@ MonoBehaviour:
   resGrowth: 0
   sklGrowth: 0
   spdGrowth: 0
+  lckGrowth: 0
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
