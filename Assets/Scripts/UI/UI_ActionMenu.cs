@@ -122,8 +122,10 @@ public class UI_ActionMenu : MonoBehaviour
             }
             if (checkingWeapons)
             {
-                if (menuCursorPosition < weaponList.Count)
+                if (menuCursorPosition <= weaponList.Count)
                     UpdateItemSlotInfo(menuCursorPosition - 1, weaponList[menuCursorPosition - 1]);
+                else
+                    actionMenuDisplay.UpdateItemInfo("-", "-", "-", "-");
             }
 
             else if (checkingItems)
@@ -248,6 +250,7 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void UpdateItemSlotInfo(int index, Weapon weapon)
     {
+        Debug.Log("Here");
         MapUIInfo.tileController.RemoveSelectableTiles();
         MapUIInfo.tileController.SetCurrentTile(MapUIInfo.selectedAllyUnit);
         string damage, hitRate, critRate, range, heal;
