@@ -121,10 +121,16 @@ public class UI_ActionMenu : MonoBehaviour
                 SelectMenuChoice();
             }
             if (checkingWeapons)
-                if(menuCursorPosition < weaponList.Count)
-                    UpdateItemSlotInfo(menuCursorPosition-1,weaponList[menuCursorPosition-1]);
-            else
+            {
+                if (menuCursorPosition < weaponList.Count)
+                    UpdateItemSlotInfo(menuCursorPosition - 1, weaponList[menuCursorPosition - 1]);
+            }
+
+            else if (checkingItems)
+            {
                 UpdateItemSlotInfo(menuCursorPosition - 1);
+            }
+                
         }
         else
         {
@@ -261,7 +267,7 @@ public class UI_ActionMenu : MonoBehaviour
         MapUIInfo.tileController.RemoveSelectableTiles();
         MapUIInfo.tileController.SetCurrentTile(MapUIInfo.selectedAllyUnit);
         string damage, hitRate, critRate, range, heal;
-        if(checkingItems || checkingWeapons)
+        if(checkingItems)
         {
             actionMenuDisplay.itemInfo.staticTextDmgHeal.text = "Damage";
             if(unitInventory[index] && unitInventory[index].GetType() == typeof(Weapon))
