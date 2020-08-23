@@ -6,4 +6,6 @@ using UnityEngine;
 public class HealingItem : Item
 {
     public int healAmount;
+    public int currentUses;
+    public int maxUses;
 }

@@ -53,9 +53,7 @@ public class BattleManager : MonoBehaviour
             receivingUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
 
-            if (activeUnitStats.UsingPhysicalWeapon())
-                activeUnitStats.equippedWeapon.currentUses--;
-            else if (activeUnitStats.UsingOffensiveMagic())
+            if (activeUnitStats.UsingOffensiveMagic())
                 activeUnitStats.equippedBlackMagic.currentUses--;
 
             if (CheckDead(receivingUnitStats))
@@ -86,9 +84,7 @@ public class BattleManager : MonoBehaviour
             activeUnitStats.hp -= dmg;
             yield return new WaitForSeconds(1f);
 
-            if (receivingUnitStats.UsingPhysicalWeapon())
-                receivingUnitStats.equippedWeapon.currentUses--;
-            else if (receivingUnitStats.UsingOffensiveMagic())
+            if (receivingUnitStats.UsingOffensiveMagic())
                 receivingUnitStats.equippedBlackMagic.currentUses--;
 
             if (CheckDead(activeUnitStats))
@@ -121,9 +117,7 @@ public class BattleManager : MonoBehaviour
                 receivingUnitStats.hp -= dmg;
                 yield return new WaitForSeconds(1f);
 
-                if (activeUnitStats.UsingPhysicalWeapon())
-                    activeUnitStats.equippedWeapon.currentUses--;
-                else if (activeUnitStats.UsingOffensiveMagic())
+                if (activeUnitStats.UsingOffensiveMagic())
                     activeUnitStats.equippedBlackMagic.currentUses--;
 
                 if (CheckDead(receivingUnitStats))
@@ -155,9 +149,7 @@ public class BattleManager : MonoBehaviour
                 activeUnitStats.hp -= dmg;
                 yield return new WaitForSeconds(1f);
 
-                if (receivingUnitStats.UsingPhysicalWeapon())
-                    receivingUnitStats.equippedWeapon.currentUses--;
-                else if (receivingUnitStats.UsingOffensiveMagic())
+                if (receivingUnitStats.UsingOffensiveMagic())
                     receivingUnitStats.equippedBlackMagic.currentUses--;
 
                 if (CheckDead(activeUnitStats))
