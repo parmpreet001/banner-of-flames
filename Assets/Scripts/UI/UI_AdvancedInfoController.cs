@@ -22,6 +22,7 @@ public class UI_AdvancedInfoController : MonoBehaviour
             advancedInfoDisplay.UpdateInventory(mapUIInfo.selectedAllyUnit_AllyStats.inventory);
             advancedInfoDisplay.UpdateBasicInfo(mapUIInfo.selectedAllyUnit_AllyStats);
             advancedInfoDisplay.UpdateMagic(mapUIInfo.selectedAllyUnit_AllyStats.blackMagic, mapUIInfo.selectedAllyUnit_AllyStats.whiteMagic);
+            advancedInfoDisplay.UpdateWeaponSkillExperience(mapUIInfo.selectedAllyUnit_AllyStats.skillLevels);
         }
         else
         {

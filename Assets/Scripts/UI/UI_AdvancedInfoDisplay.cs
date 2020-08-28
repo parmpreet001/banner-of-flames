@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UI_AdvancedInfoDisplay : MonoBehaviour
 {
     private TextMeshProUGUI statsText1;
     private TextMeshProUGUI statsText2;
     private TextMeshProUGUI basicInfo;
+    private Image[] weaponExperienceBars;
 
     public struct ItemSlot
     {
@@ -43,6 +45,12 @@ public class UI_AdvancedInfoDisplay : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             magicSlots[i] = new ItemSlot(magicDisplay.transform.GetChild(i).gameObject);
+        }
+
+        weaponExperienceBars = new Image[6];
+        for(int i = 0; i < 6; i++)
+        {
+            weaponExperienceBars[i] = transform.Find("WeaponSkillSlots").GetChild(i).GetChild(1).GetComponent<Image>();
         }
     }
 
@@ -107,5 +115,10 @@ public class UI_AdvancedInfoDisplay : MonoBehaviour
     public void UpdateBasicInfo(AllyStats stats)
     {
         basicInfo.text = "Level: " + stats.level + "\n" + "Exerpience: " + stats.experience + "\n" + "Class: " + stats.classType.name;
+    }
+
+    public void UpdateWeaponSkillExperience(SkillLevels skillLevels)
+    {
+        weaponExperienceBars[0].fillAmount = skillLevels.weaponLevelsExperience[0] / 100;
     }
 }
