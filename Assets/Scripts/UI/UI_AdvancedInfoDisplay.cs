@@ -82,6 +82,28 @@ public class UI_AdvancedInfoDisplay : MonoBehaviour
         }
     }
 
+    public void UpdateMagic(List<Magic> blackMagic, List<Magic> whiteMagic)
+    {
+        int index = 0;
+        foreach(Magic magic in blackMagic)
+        {
+            magicSlots[index].name.text = magic.name;
+            magicSlots[index].uses.text = magic.currentUses + "/" + magic.maxUses;
+            index++;
+        }
+        foreach(Magic magic in whiteMagic)
+        {
+            magicSlots[index].name.text = magic.name;
+            magicSlots[index].uses.text = magic.currentUses + "/" + magic.maxUses;
+            index++;
+        }
+        while(index < 5)
+        {
+            magicSlots[index].name.text = magicSlots[index].uses.text = "";
+            index++;
+        }
+    }
+
     public void UpdateBasicInfo(AllyStats stats)
     {
         basicInfo.text = "Level: " + stats.level + "\n" + "Exerpience: " + stats.experience + "\n" + "Class: " + stats.classType.name;
