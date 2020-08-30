@@ -250,7 +250,6 @@ public class UI_ActionMenu : MonoBehaviour
 
     private void UpdateItemSlotInfo(int index, Weapon weapon)
     {
-        Debug.Log("Here");
         MapUIInfo.tileController.RemoveSelectableTiles();
         MapUIInfo.tileController.SetCurrentTile(MapUIInfo.selectedAllyUnit);
         string damage, hitRate, critRate, range, heal;

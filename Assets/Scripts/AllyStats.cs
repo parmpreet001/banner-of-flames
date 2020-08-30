@@ -43,6 +43,10 @@ public class AllyStats : Stats
     //If unit gained a level, returns an array of the unit's stats before leveling up. Null otherwise
     public int[] AddExperience(int exp)
     {
+        if(UsingPhysicalWeapon())
+        {
+            skillLevels.weaponLevelsExperience[(int)equippedWeapon.weaponType] += 10;
+        }
         int[] previousStats = { hp, str, mag, spd, skl, def, res, lck };
 
         experience += exp;
@@ -56,6 +60,8 @@ public class AllyStats : Stats
         {
             return null;
         }
+
+
     }
 
     //Checks to see if the unit can equip a weapon, based on the weapons their class can use, and the skill level requirement for the weapon

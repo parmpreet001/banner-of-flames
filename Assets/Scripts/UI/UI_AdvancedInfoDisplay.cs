@@ -10,6 +10,7 @@ public class UI_AdvancedInfoDisplay : MonoBehaviour
     private TextMeshProUGUI statsText2;
     private TextMeshProUGUI basicInfo;
     private Image[] weaponExperienceBars;
+    private TextMeshProUGUI[] weaponRankText;
 
     public struct ItemSlot
     {
@@ -51,6 +52,12 @@ public class UI_AdvancedInfoDisplay : MonoBehaviour
         for(int i = 0; i < 6; i++)
         {
             weaponExperienceBars[i] = transform.Find("WeaponSkillSlots").GetChild(i).GetChild(1).GetComponent<Image>();
+        }
+
+        weaponRankText = new TextMeshProUGUI[6];
+        for(int i = 0; i < 6; i++)
+        {
+            weaponRankText[i] = transform.Find("WeaponSkillSlots").GetChild(i).GetChild(2).GetComponent<TextMeshProUGUI>();
         }
     }
 
@@ -119,6 +126,18 @@ public class UI_AdvancedInfoDisplay : MonoBehaviour
 
     public void UpdateWeaponSkillExperience(SkillLevels skillLevels)
     {
-        weaponExperienceBars[0].fillAmount = skillLevels.weaponLevelsExperience[0] / 100;
+        for(int i = 0; i < 4; i++)
+        {
+            weaponExperienceBars[i].fillAmount = skillLevels.weaponLevelsExperience[i] / 100f;
+            weaponRankText[i].text = skillLevels.GetWeaponRank(skillLevels.weaponLevels[i]);
+        }
+        weaponExperienceBars[4].fillAmount = skillLevels.magicLevelsExperience[0] / 100f;
+        weaponRankText[4].text = skillLevels.GetWeaponRank(skillLevels.magicLevels[0]);
+
+        weaponExperienceBars[5].fillAmount = skillLevels.magicLevelsExperience[1] / 100f;
+        weaponRankText[5].text = skillLevels.GetWeaponRank(skillLevels.magicLevels[1]);
+
+
+
     }
 }

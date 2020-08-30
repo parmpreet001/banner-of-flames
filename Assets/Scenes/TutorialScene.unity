@@ -21639,7 +21639,7 @@ MonoBehaviour:
   classType: {fileID: 11400000, guid: d34c1dbf4afed40498e92df8bbfd9bb0, type: 2}
   skillLevels:
     weaponLevels: 01000000010000000100000001000000
-    weaponLevelsExperience: 5a000000000000000000000000000000
+    weaponLevelsExperience: 14000000000000000000000000000000
     magicLevels: 0100000001000000
     magicLevelsExperience: 00000000000000000000000000000000
   equippedWeapon: {fileID: 0}
