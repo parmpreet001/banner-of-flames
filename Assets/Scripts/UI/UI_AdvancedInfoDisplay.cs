@@ -120,7 +120,7 @@ public class UI_AdvancedInfoDisplay : MonoBehaviour
         }
     }
 
-    public void UpdateBasicInfo(AllyStats stats)
+    public void UpdateBasicInfo(Stats stats)
     {
         basicInfo.text = "Level: " + stats.level + "\n" + "Exerpience: " + stats.experience + "\n" + "Class: " + stats.classType.name;
     }

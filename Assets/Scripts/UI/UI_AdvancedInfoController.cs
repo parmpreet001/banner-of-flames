@@ -7,7 +7,7 @@ public class UI_AdvancedInfoController : MonoBehaviour
     private UI_AdvancedInfoDisplay advancedInfoDisplay;
     private MapUIInfo mapUIInfo;
     private Cursor cursor;
-    private AllyStats allyStats;
+    private Stats currentUnitStats;
 
     private void Start()
     {
@@ -21,20 +21,21 @@ public class UI_AdvancedInfoController : MonoBehaviour
     private void Update()
     {
         //TODO this
-        if (advancedInfoDisplay.gameObject.activeInHierarchy && (Input.GetKeyDown(KeyCode.C) || !cursor.CurrentTileHasAllyUnit()))
+        if (advancedInfoDisplay.gameObject.activeInHierarchy && (Input.GetKeyDown(KeyCode.C) || !cursor.GetCurrentUnit() ||
+            cursor.GetCurrentUnit().GetComponent<Stats>() != currentUnitStats))
         {
             advancedInfoDisplay.gameObject.SetActive(false);
 
         }
-        else if(!advancedInfoDisplay.gameObject.activeInHierarchy && cursor.CurrentTileHasAllyUnit() && Input.GetKeyDown(KeyCode.C))
+        else if(!advancedInfoDisplay.gameObject.activeInHierarchy && cursor.GetCurrentUnit() != null && Input.GetKeyDown(KeyCode.C))
         {
-            allyStats = cursor.GetCurrentUnit().GetComponent<AllyStats>();
+            currentUnitStats = cursor.GetCurrentUnit().GetComponent<Stats>();
             advancedInfoDisplay.gameObject.SetActive(true);
-            advancedInfoDisplay.UpdateStatsText(allyStats.GetBattleStats());
-            advancedInfoDisplay.UpdateInventory(allyStats.inventory);
-            advancedInfoDisplay.UpdateBasicInfo(allyStats);
-            advancedInfoDisplay.UpdateMagic(allyStats.blackMagic, allyStats.whiteMagic);
-            advancedInfoDisplay.UpdateWeaponSkillExperience(allyStats.skillLevels);
+            advancedInfoDisplay.UpdateStatsText(currentUnitStats.GetBattleStats());
+            advancedInfoDisplay.UpdateInventory(currentUnitStats.inventory);
+            advancedInfoDisplay.UpdateBasicInfo(currentUnitStats);
+            advancedInfoDisplay.UpdateMagic(currentUnitStats.blackMagic, currentUnitStats.whiteMagic);
+            advancedInfoDisplay.UpdateWeaponSkillExperience(currentUnitStats.skillLevels);
         }
 
     }
