@@ -506,6 +506,8 @@ public class MapManager : MonoBehaviour
             Destroy(battleManager.receivingUnit);
         else if(battleManager.activeUnit && battleManager.activeUnit.GetComponent<Stats>().isDead)
             Destroy(battleManager.activeUnit);
+
+        CheckVictory();
     }
 
     
@@ -519,5 +521,11 @@ public class MapManager : MonoBehaviour
                 return true;
         }
          return false;
+    }
+
+    private bool CheckVictory()
+    {
+        Debug.Log("Checking victory condition");
+        return (activeEnemyUnits == 0);
     }
 }

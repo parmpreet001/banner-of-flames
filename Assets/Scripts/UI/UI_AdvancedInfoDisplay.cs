@@ -63,7 +63,6 @@ public class UI_AdvancedInfoDisplay : MonoBehaviour
 
     public void UpdateStatsText(int[] stats)
     {
-        Debug.Log(stats[0]);
         statsText1.text = stats[0] + "\n" + stats[1] + "\n" + stats[2] + "\n" + stats[3];
         statsText2.text = stats[4] + "\n" + stats[5] + "\n" + stats[6] + "\n" + stats[7];
     }

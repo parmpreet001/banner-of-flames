@@ -501,7 +501,6 @@ public class UI_ActionMenu : MonoBehaviour
         MapUIInfo.selectedAllyUnit_AllyStats.EquipWeapon(weapon);
 
         actionMenuDisplay.UpdateItemColor(menuCursorPosition - 1, new Color32(34, 170, 160, 255));
-        Debug.Log("Equpped " + unitInventory[menuCursorPosition - 1].name);
     }
 
     private void EquipBlackMagic()
