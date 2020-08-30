@@ -42,6 +42,7 @@ public class UI_ActionMenuDisplay : MonoBehaviour
     public ItemInfo itemInfo;
     public GameObject itemMenu;
     public GameObject menuCursor;
+    public TextMeshProUGUI itemMenuTitle;
 
     private void Start()
     {
@@ -60,6 +61,8 @@ public class UI_ActionMenuDisplay : MonoBehaviour
         {
             itemSlots[i] = new ItemSlot(itemMenu.transform.GetChild(i).gameObject);
         }
+
+        itemMenuTitle = itemMenu.transform.Find("Title").GetComponent<TextMeshProUGUI>();
     }
 
     public void UpdateItemSlot(int index, string name, string uses)

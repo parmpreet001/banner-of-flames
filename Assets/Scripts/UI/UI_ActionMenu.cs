@@ -181,6 +181,8 @@ public class UI_ActionMenu : MonoBehaviour
         actionMenuDisplay.itemMenu.SetActive(true);
         menuCursorPosition = 1;
 
+        actionMenuDisplay.itemMenuTitle.text = "Weapons";
+
         weaponList.Clear();
         for(int i = 0; i < 5; i++)
         {
@@ -225,6 +227,8 @@ public class UI_ActionMenu : MonoBehaviour
         checkingItems = true;
         actionMenuDisplay.itemMenu.SetActive(true);
         menuCursorPosition = 1;
+
+        actionMenuDisplay.itemMenuTitle.text = "Items";
 
         //Updates every item in the inventory to match the currently selected unit's inventory
         for (int i = 0; i < 5; i++)
@@ -342,6 +346,8 @@ public class UI_ActionMenu : MonoBehaviour
         actionMenuDisplay.itemMenu.SetActive(true);
         menuCursorPosition = 1;
 
+        actionMenuDisplay.itemMenuTitle.text = "Black Magic";
+
         //Updates every item in the inventory to match the currently selected unit's inventory
         for (int i = 0; i < 5; i++)
         {
@@ -374,6 +380,8 @@ public class UI_ActionMenu : MonoBehaviour
         checkingWhiteMagic = true;
         actionMenuDisplay.itemMenu.SetActive(true);
         menuCursorPosition = 1;
+
+        actionMenuDisplay.itemMenuTitle.text = "Black Magic";
 
         for (int i = 0; i < 5; i++)
         {
