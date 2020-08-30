@@ -416,10 +416,8 @@ public class MapManager : MonoBehaviour
                 if(selectedUnit.GetComponent<EnemyStats>().enemyBehavior == EnemyBehavior.AGGRESSIVE)
                 {
                     closestTarget = tileController.GetClosestTarget(selectedUnit);
-                    Debug.Log("Closest Target:" + closestTarget.name);
                         
                     Tile closestTile = tileController.GetClosestTileToTarget(selectedUnit, closestTarget);
-                    Debug.Log("Tile: " + closestTile.transform.position.x + "," + closestTarget.transform.position.y);
                     StartCoroutine(MoveToTile(selectedUnit, closestTile));
                     unitState = UnitStates.MOVING;
                 }

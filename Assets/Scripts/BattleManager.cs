@@ -419,8 +419,6 @@ public class BattleManager : MonoBehaviour
         }
         if (!enemyUnitStats.isDead)
         {
-            Debug.Log("enemy unit hp: " + enemyUnitStats.hp);
-            Debug.Log("starting hp: " + enemyStartingHp);
             expGain = (int)(expGain * (1 - ((float)enemyUnitStats.hp / (float)enemyStartingHp)));
             if (expGain == 0)
                 expGain = 1;
