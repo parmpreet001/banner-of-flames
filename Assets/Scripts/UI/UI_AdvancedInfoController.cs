@@ -6,28 +6,37 @@ public class UI_AdvancedInfoController : MonoBehaviour
 {
     private UI_AdvancedInfoDisplay advancedInfoDisplay;
     private MapUIInfo mapUIInfo;
+    private Cursor cursor;
+    private AllyStats allyStats;
 
     private void Start()
     {
-        advancedInfoDisplay = GetComponentInChildren<UI_AdvancedInfoDisplay>();
+        advancedInfoDisplay = GetComponentInChildren<UI_AdvancedInfoDisplay>(true);
+        advancedInfoDisplay.Init();
+        advancedInfoDisplay.gameObject.SetActive(false);
         mapUIInfo = GetComponentInParent<MapUIInfo>();
+        cursor = GameObject.Find("Cursor").GetComponent<Cursor>();
     }
 
     private void Update()
     {
-        if(mapUIInfo.selectedAllyUnit)
-        {
-            advancedInfoDisplay.gameObject.SetActive(true);
-            advancedInfoDisplay.UpdateStatsText(mapUIInfo.selectedAllyUnit_AllyStats.GetBattleStats());
-            advancedInfoDisplay.UpdateInventory(mapUIInfo.selectedAllyUnit_AllyStats.inventory);
-            advancedInfoDisplay.UpdateBasicInfo(mapUIInfo.selectedAllyUnit_AllyStats);
-            advancedInfoDisplay.UpdateMagic(mapUIInfo.selectedAllyUnit_AllyStats.blackMagic, mapUIInfo.selectedAllyUnit_AllyStats.whiteMagic);
-            advancedInfoDisplay.UpdateWeaponSkillExperience(mapUIInfo.selectedAllyUnit_AllyStats.skillLevels);
-        }
-        else
+        //TODO this
+        if (advancedInfoDisplay.gameObject.activeInHierarchy && (Input.GetKeyDown(KeyCode.C) || !cursor.CurrentTileHasAllyUnit()))
         {
             advancedInfoDisplay.gameObject.SetActive(false);
+
         }
+        else if(!advancedInfoDisplay.gameObject.activeInHierarchy && cursor.CurrentTileHasAllyUnit() && Input.GetKeyDown(KeyCode.C))
+        {
+            allyStats = cursor.GetCurrentUnit().GetComponent<AllyStats>();
+            advancedInfoDisplay.gameObject.SetActive(true);
+            advancedInfoDisplay.UpdateStatsText(allyStats.GetBattleStats());
+            advancedInfoDisplay.UpdateInventory(allyStats.inventory);
+            advancedInfoDisplay.UpdateBasicInfo(allyStats);
+            advancedInfoDisplay.UpdateMagic(allyStats.blackMagic, allyStats.whiteMagic);
+            advancedInfoDisplay.UpdateWeaponSkillExperience(allyStats.skillLevels);
+        }
+
     }
 
     public void UpdateInfo()
