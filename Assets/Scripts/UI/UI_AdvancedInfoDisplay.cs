@@ -80,14 +80,11 @@ public class UI_AdvancedInfoDisplay : MonoBehaviour
                         itemSlots[i].name.color = new Color32(34, 170, 160, 255);
                     else
                         itemSlots[i].name.color = Color.black;
+                    itemSlots[i].uses.text = "";
                 }
                 else if(inventory[i].GetType() == typeof(HealingItem))
                 {
                     itemSlots[i].uses.text = (inventory[i] as HealingItem).currentUses + "/" + (inventory[i] as HealingItem).maxUses;
-                }
-                else
-                {
-                    itemSlots[i].uses.text = "";
                 }
             }
             else
