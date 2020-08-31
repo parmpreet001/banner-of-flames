@@ -642,11 +642,11 @@ MonoBehaviour:
     weaponLevelsExperience: 00000000000000000000000000000000
     magicLevels: 0100000001000000
     magicLevelsExperience: 00000000000000000000000000000000
-  equippedWeapon: {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
+  equippedWeapon: {fileID: 0}
   equippedBlackMagic: {fileID: 0}
   equippedWhiteMagic: {fileID: 0}
   inventory:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -901,11 +901,11 @@ MonoBehaviour:
     weaponLevelsExperience: 00000000000000000000000000000000
     magicLevels: 0100000001000000
     magicLevelsExperience: 00000000000000000000000000000000
-  equippedWeapon: {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
+  equippedWeapon: {fileID: 0}
   equippedBlackMagic: {fileID: 0}
   equippedWhiteMagic: {fileID: 0}
   inventory:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -7829,11 +7829,11 @@ MonoBehaviour:
     weaponLevelsExperience: 00000000000000000000000000000000
     magicLevels: 0100000001000000
     magicLevelsExperience: 00000000000000000000000000000000
-  equippedWeapon: {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
+  equippedWeapon: {fileID: 0}
   equippedBlackMagic: {fileID: 0}
   equippedWhiteMagic: {fileID: 0}
   inventory:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -12826,11 +12826,11 @@ MonoBehaviour:
     weaponLevelsExperience: 00000000000000000000000000000000
     magicLevels: 0100000001000000
     magicLevelsExperience: 00000000000000000000000000000000
-  equippedWeapon: {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
+  equippedWeapon: {fileID: 0}
   equippedBlackMagic: {fileID: 0}
   equippedWhiteMagic: {fileID: 0}
   inventory:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -33497,11 +33497,11 @@ MonoBehaviour:
     weaponLevelsExperience: 00000000000000000000000000000000
     magicLevels: 0100000001000000
     magicLevelsExperience: 00000000000000000000000000000000
-  equippedWeapon: {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
+  equippedWeapon: {fileID: 0}
   equippedBlackMagic: {fileID: 0}
   equippedWhiteMagic: {fileID: 0}
   inventory:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
