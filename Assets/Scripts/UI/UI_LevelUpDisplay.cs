@@ -15,6 +15,7 @@ public class UI_LevelUpDisplay : MonoBehaviour
     private GameObject statsDisplay;
     private TextMeshProUGUI statsText1;
     private TextMeshProUGUI statsText2;
+    private TextMeshProUGUI statsName;
 
     private List<GameObject> levelUpArrows;
    
@@ -35,6 +36,7 @@ public class UI_LevelUpDisplay : MonoBehaviour
         statsText2 = statsDisplay.transform.Find("StatsText2").GetComponent<TextMeshProUGUI>();
 
         levelUpArrows = new List<GameObject>();
+        statsName = statsDisplay.transform.Find("Name").GetComponent<TextMeshProUGUI>();
         for(int i = 0; i < transform.Find("StatsDisplay").Find("Arrows1").childCount; i++ )
         {
             levelUpArrows.Add(transform.Find("StatsDisplay").Find("Arrows1").GetChild(i).gameObject);
@@ -80,6 +82,7 @@ public class UI_LevelUpDisplay : MonoBehaviour
         if(expGain + startingExp >= 100)
         {
             UpdateStatsText(previouStats);
+            statsName.text = unitStats.name;
             statsDisplay.SetActive(true);
             yield return new WaitForSeconds(0.5f);
             int[] currentStats = unitStats.GetBattleStats();
