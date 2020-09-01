@@ -22,12 +22,13 @@ public class UI_AdvancedInfoController : MonoBehaviour
     {
         //TODO this
         if (advancedInfoDisplay.gameObject.activeInHierarchy && (Input.GetKeyDown(KeyCode.C) || !cursor.GetCurrentUnit() ||
-            cursor.GetCurrentUnit().GetComponent<Stats>() != currentUnitStats))
+            cursor.GetCurrentUnit().GetComponent<Stats>() != currentUnitStats) || !mapUIInfo.mapManager.CheckUnitStates(UnitStates.UNSELECTED))
         {
             advancedInfoDisplay.gameObject.SetActive(false);
 
         }
-        else if(!advancedInfoDisplay.gameObject.activeInHierarchy && cursor.GetCurrentUnit() != null && Input.GetKeyDown(KeyCode.C))
+        else if(!advancedInfoDisplay.gameObject.activeInHierarchy && cursor.GetCurrentUnit() != null && Input.GetKeyDown(KeyCode.C)
+            && mapUIInfo.mapManager.CheckUnitStates(UnitStates.UNSELECTED))
         {
             currentUnitStats = cursor.GetCurrentUnit().GetComponent<Stats>();
             advancedInfoDisplay.gameObject.SetActive(true);
