@@ -9,11 +9,11 @@ public static class SaveSystem
     {
         SaveData save = new SaveData(level, playerUnits);
         string json = JsonUtility.ToJson(save);
-        File.WriteAllText(Application.dataPath + "save.json", json);
+        File.WriteAllText(Application.persistentDataPath + "save.json", json);
     }
     public static SaveData LoadGame()
     {
-        string json = File.ReadAllText(Application.dataPath + "save.json");
+        string json = File.ReadAllText(Application.persistentDataPath + "save.json");
         SaveData save = new SaveData();
         JsonUtility.FromJsonOverwrite(json, save);
         return save;

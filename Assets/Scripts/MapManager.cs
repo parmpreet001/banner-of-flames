@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class MapManager : MonoBehaviour
 {
@@ -49,33 +50,22 @@ public class MapManager : MonoBehaviour
         tileController = GetComponent<TileController>();
         tileController.Init();
 
-        if(File.Exists(Application.dataPath + "save.json"))
+        if(File.Exists(Application.persistentDataPath + "save.json"))
         {
+            Debug.Log("here");
             SaveData save = SaveSystem.LoadGame();
 
-            //allyUnits[0].GetComponent<AllyStats>().level = save.playerUnits[0].level;
-            //allyUnits[0].GetComponent<AllyStats>().LoadStats(0, save);
-
-            /*
-            Debug.Log("Loading");
-            string json = File.ReadAllText(Application.dataPath + "save.json");
-            Debug.Log(json);
-            Debug.Log("path:" + Application.dataPath + "save.json");
-            AllyStats temp = new AllyStats();
-            JsonUtility.FromJsonOverwrite(json, allyUnits[0].GetComponent<AllyStats>());
-            //temp    = JsonUtility.FromJson<AllyStats>(json);
-            */
+            Debug.Log(save.playerUnits[1].level);
+            allyUnits[0].GetComponent<AllyStats>().LoadStats(0, save);
+            allyUnits[1].GetComponent<AllyStats>().LoadStats(1, save);
         }
         else
         {
-            SaveSystem.SaveGame(1, allyUnits);
-            /*
-            Debug.Log("Saving");
-            string json = JsonUtility.ToJson(allyUnits[0].GetComponent<AllyStats>());
-            File.WriteAllText(Application.dataPath + "save.json",json);
-            Debug.Log(json);
-            Debug.Log("path:" + Application.dataPath + "save.json");
-            */
+            foreach(GameObject allyUnit in allyUnits)
+            {
+                Debug.Log("Init");
+                allyUnit.GetComponent<Stats>().Init();
+            }
         }
 
     }
@@ -521,9 +511,10 @@ public class MapManager : MonoBehaviour
          return false;
     }
 
-    private bool CheckVictory()
+    private void CheckVictory()
     {
         Debug.Log("Checking victory condition");
-        return (activeEnemyUnits == 0);
+        SaveSystem.SaveGame(1, allyUnits);
+        SceneManager.LoadScene("Level1");
     }
 }

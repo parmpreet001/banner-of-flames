@@ -7,10 +7,6 @@ using UnityEditor;
 public class AllyStats : Stats
 {
     // Start is called before the first frame update
-    void Start()
-    {
-        Init();
-    }
 
     private void LevelUp()
     {

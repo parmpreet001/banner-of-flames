@@ -34,7 +34,7 @@ public class MainMenu : MonoBehaviour
             }
             else if(cursorPosition == 2)
             {
-                //Load Game
+                LoadGame();
             }
         }
     }
@@ -54,5 +54,14 @@ public class MainMenu : MonoBehaviour
     private void NewGame()
     {
         SceneManager.LoadScene("TutorialScene");
+    }
+
+    void LoadGame()
+    {
+        SaveData save = SaveSystem.LoadGame();
+        if(save.stage == 1)
+        {
+            SceneManager.LoadScene("Level1");
+        }
     }
 }
