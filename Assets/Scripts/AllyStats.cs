@@ -244,7 +244,7 @@ public class AllyStats : Stats
         baseSKL = save.playerUnits[index].baseSKL;
         baseSPD = save.playerUnits[index].baseSPD;
 
-        hp = save.playerUnits[index].hp;
+        hp = save.playerUnits[index].maxHP;
         str = save.playerUnits[index].str;
         mag = save.playerUnits[index].mag;
         def = save.playerUnits[index].def;
