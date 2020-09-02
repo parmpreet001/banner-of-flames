@@ -58,7 +58,10 @@ public class MapManager : MonoBehaviour
             Debug.Log(save.playerUnits[1].level);
             stage = save.stage;
             allyUnits[0].GetComponent<AllyStats>().LoadStats(0, save);
+            allyUnits[0].GetComponent<Stats>().hp = allyUnits[0].GetComponent<Stats>().maxHP;
             allyUnits[1].GetComponent<AllyStats>().LoadStats(1, save);
+            allyUnits[1].GetComponent<Stats>().hp = allyUnits[1].GetComponent<Stats>().maxHP;
+
         }
         else
         {
