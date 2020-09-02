@@ -24,7 +24,7 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private Tile startingTile = null;
     private UI_LevelUpController levelUpController;
-
+    private int stage = 0;
     //Enemy ai
     GameObject closestTarget;
     bool targetInRange;
@@ -50,12 +50,13 @@ public class MapManager : MonoBehaviour
         tileController = GetComponent<TileController>();
         tileController.Init();
 
-        if(File.Exists(Application.persistentDataPath + "save.json"))
+        if(File.Exists(Application.dataPath + "save.json"))
         {
             Debug.Log("here");
             SaveData save = SaveSystem.LoadGame();
 
             Debug.Log(save.playerUnits[1].level);
+            stage = save.stage;
             allyUnits[0].GetComponent<AllyStats>().LoadStats(0, save);
             allyUnits[1].GetComponent<AllyStats>().LoadStats(1, save);
         }
@@ -333,12 +334,14 @@ public class MapManager : MonoBehaviour
         List<GameObject> enemyUnitsTemp = new List<GameObject>();
         
         //Removes dead enemies from enemyUnits list
+        /*
         foreach (GameObject enemyUnit in enemyUnits)
         {
             if (enemyUnit)
                 enemyUnitsTemp.Add(enemyUnit);
         }
         enemyUnits = enemyUnitsTemp;
+        */
 
         //Sets all enemyUnits moved value to false
         foreach(GameObject enemyUnit in enemyUnits)
@@ -491,9 +494,25 @@ public class MapManager : MonoBehaviour
 
 
         if(battleManager.receivingUnit && battleManager.receivingUnit.GetComponent<Stats>().isDead)
+        {
+            if (battleManager.receivingUnit.tag == "EnemyUnit")
+            {
+                enemyUnits.Remove(battleManager.receivingUnit);
+            }
             Destroy(battleManager.receivingUnit);
+        }
+            
         else if(battleManager.activeUnit && battleManager.activeUnit.GetComponent<Stats>().isDead)
+        {
+            if (battleManager.activeUnit.tag == "EnemyUnit")
+            {
+                enemyUnits.Remove(battleManager.activeUnit);
+            }
+
             Destroy(battleManager.activeUnit);
+
+        }
+
 
         CheckVictory();
     }
@@ -514,7 +533,14 @@ public class MapManager : MonoBehaviour
     private void CheckVictory()
     {
         Debug.Log("Checking victory condition");
-        SaveSystem.SaveGame(1, allyUnits);
-        SceneManager.LoadScene("Level1");
+        Debug.Log("Number of enemy units is: " + enemyUnits.Count);
+
+        if(enemyUnits.Count == 0)
+        {
+            SaveSystem.SaveGame(stage+1, allyUnits);
+            SceneManager.LoadScene("Level" + (stage+1).ToString());
+        }
+
+
     }
 }
