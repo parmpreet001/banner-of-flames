@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Windows;
 
 public class MainMenu : MonoBehaviour
 {
@@ -53,6 +54,8 @@ public class MainMenu : MonoBehaviour
 
     private void NewGame()
     {
+        if (File.Exists(Application.dataPath + "save.json"))
+            File.Delete(Application.dataPath + "save.json");
         SceneManager.LoadScene("TutorialScene");
     }
 
