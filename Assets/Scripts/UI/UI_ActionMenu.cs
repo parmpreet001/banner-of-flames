@@ -236,7 +236,10 @@ public class UI_ActionMenu : MonoBehaviour
             //If the unit's inventory slot is not empty, update name, durability, and text color
             if (unitInventory[i] != null)
             {
-                UpdateItemSlot(i, unitInventory[i].name, 0, 0);
+                if(unitInventory[i].GetType() == typeof(HealingItem))
+                    UpdateItemSlot(i, unitInventory[i].name, ((HealingItem)unitInventory[i]).currentUses, ((HealingItem)unitInventory[i]).maxUses);
+                else
+                    UpdateItemSlot(i, unitInventory[i].name, 0, 0);
 
                 if (unitInventory[i].GetType() == typeof(Weapon) && ((Weapon)unitInventory[i]).equipped)
                     actionMenuDisplay.UpdateItemColor(i, new Color32(34, 170, 160, 255));
