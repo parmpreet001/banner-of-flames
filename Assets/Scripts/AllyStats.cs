@@ -42,6 +42,20 @@ public class AllyStats : Stats
         if(UsingPhysicalWeapon())
         {
             skillLevels.weaponLevelsExperience[(int)equippedWeapon.weaponType] += 10;
+            if(skillLevels.weaponLevelsExperience[(int)equippedWeapon.weaponType] >= 100)
+            {
+                skillLevels.weaponLevelsExperience[(int)equippedWeapon.weaponType] = 0;
+                skillLevels.weaponLevels[(int)equippedWeapon.weaponType]++;
+            }
+        }
+        else if(UsingOffensiveMagic())
+        {
+            skillLevels.magicLevelsExperience[0] += 10;
+            if(skillLevels.magicLevelsExperience[0] >= 100)
+            {
+                skillLevels.magicLevelsExperience[0] = 0;
+                skillLevels.magicLevels[0]++;
+            }
         }
         int[] previousStats = { hp, str, mag, spd, skl, def, res, lck };
 
