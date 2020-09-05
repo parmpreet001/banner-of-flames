@@ -57,7 +57,7 @@ public class AllyStats : Stats
                 skillLevels.magicLevels[0]++;
             }
         }
-        int[] previousStats = { hp, str, mag, spd, skl, def, res, lck };
+        int[] previousStats = { maxHP, str, mag, spd, skl, def, res, lck };
 
         experience += exp;
         if(experience >= 100)

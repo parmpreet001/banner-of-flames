@@ -122,7 +122,7 @@ public class Stats : MonoBehaviour
     //Returns an array of the unit's current stats
     public int[] GetBattleStats()
     {
-        int[] temp = { hp, str, mag, spd, skl, def, res, lck };
+        int[] temp = { maxHP, str, mag, spd, skl, def, res, lck };
         return temp;
     }
 }
