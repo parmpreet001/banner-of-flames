@@ -281,12 +281,50 @@ public class AllyStats : Stats
         classType = AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/Classes/" + save.playerUnits[index].classType + ".asset",
             typeof(ClassType)) as ClassType;
 
+        for(int i = 0; i < save.playerUnits[index].inventory.Count; i++)
+        {
+            if(save.playerUnits[index].inventory[i].type.Equals(typeof(Weapon).ToString()))
+            {
+                inventory[i] = AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/Weapons/" + save.playerUnits[index].inventory[i].name + ".asset",
+            typeof(Weapon)) as Weapon;
+                if((inventory[i] as Weapon).equipped)
+                {
+                    (inventory[i] as Weapon).equipped = true;
+                }
+            }
+            else if(save.playerUnits[index].inventory[i].type.Equals(typeof(HealingItem).ToString()))
+            {
+                inventory[i] = AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/HealingItems/" + save.playerUnits[index].inventory[i].name + ".asset",
+            typeof(HealingItem)) as HealingItem;
+            }
+        }
+
+        for (int i = 0; i < inventory.Length; i++)
+        {
+            if (inventory[i] != null)
+            {
+                inventory[i] = Instantiate(inventory[i]);
+                if(inventory[i].GetType() == typeof(Weapon) && save.playerUnits[index].inventory[i].equipped)
+                {
+                    (inventory[i] as Weapon).equipped = true;
+                    equippedWeapon = (inventory[i] as Weapon);
+                }
+                else if(inventory[i].GetType() == typeof(HealingItem))
+                {
+                    (inventory[i] as HealingItem).currentUses = save.playerUnits[index].inventory[i].uses;
+                }
+            }
+
+        }
+
+        /*
         equippedWeapon = AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/Weapons/" + save.playerUnits[index].equippedWeapon + ".asset",
             typeof(Weapon)) as Weapon;
         equippedWhiteMagic = AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/HealingMagic/" + save.playerUnits[index].equippedWhiteMagic,
             typeof(Magic)) as Magic;
         equippedBlackMagic = AssetDatabase.LoadAssetAtPath("Assets/ScriptableObjects/OffensiveMagic/" + save.playerUnits[index].equippedBlackMagic + ".asset",
             typeof(Magic)) as Magic;
+        */
 
         magicList = new List<Magic>();
         blackMagic = new List<Magic>();
