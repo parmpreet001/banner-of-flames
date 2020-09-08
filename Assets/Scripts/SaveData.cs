@@ -6,6 +6,29 @@ using UnityEngine;
 public class SaveData
 {
     [System.Serializable]
+    public struct InventoryItem
+    {
+        public string name;
+        public string type;
+        public int uses;
+        public bool equipped;
+
+        [SerializeField]
+        public InventoryItem(Item item)
+        {
+            uses = -1;
+            equipped = false;
+
+            type = item.GetType().ToString();
+            name = item.name;
+
+            if(item.GetType() == typeof(HealingItem))
+                uses = (item as HealingItem).currentUses;
+            if (item.GetType() == typeof(Weapon) && (item as Weapon).equipped)
+                equipped = true;
+        }
+    }
+    [System.Serializable]
     public struct PlayerUnitData
     {
         public int level;
@@ -19,6 +42,8 @@ public class SaveData
         public string equippedWeapon, classType, equippedBlackMagic, equippedWhiteMagic;
         public List<string> magicList, blackMagic, whiteMagic;
 
+        public List<InventoryItem> inventory;
+
         public AttackMethod attackMethod;       
 
         public PlayerUnitData(AllyStats stats)
@@ -26,6 +51,7 @@ public class SaveData
             magicList = new List<string>();
             blackMagic = new List<string>();
             whiteMagic = new List<string>();
+            inventory = new List<InventoryItem>();
 
             level = stats.level;
             experience = stats.experience;
@@ -82,6 +108,11 @@ public class SaveData
             foreach(Magic spell in stats.whiteMagic)
             {
                 whiteMagic.Add(spell.name);
+            }
+            foreach(Item item in stats.inventory)
+            {
+                if(item)
+                    inventory.Add(new InventoryItem(item));
             }
 
             attackMethod = stats.attackMethod;

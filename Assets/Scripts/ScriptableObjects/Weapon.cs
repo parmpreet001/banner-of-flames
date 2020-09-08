@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
+[System.Serializable]
 public class Weapon : Item
 {
     public int dmg;
