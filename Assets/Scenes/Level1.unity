@@ -7369,29 +7369,29 @@ MonoBehaviour:
   classType: {fileID: 11400000, guid: f103cae39a7ee3343aef2f6d0eaeba57, type: 2}
   skillLevels:
     weaponLevels: 01000000010000000100000001000000
-    weaponLevelsExperience: 5a000000000000000000000000000000
+    weaponLevelsExperience: 00000000000000000000000000000000
     magicLevels: 0100000001000000
     magicLevelsExperience: 00000000000000000000000000000000
   equippedWeapon: {fileID: 0}
   equippedBlackMagic: {fileID: 0}
   equippedWhiteMagic: {fileID: 0}
   inventory:
-  - {fileID: 11400000, guid: 917145678e071da4ebceccfbc3183247, type: 2}
-  - {fileID: 11400000, guid: 7188ee385f80d124a96fab0eb1196b94, type: 2}
-  - {fileID: 11400000, guid: ce84a7dbdc84abe40bc989e8e9f5e006, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   magicList: []
   blackMagic: []
   whiteMagic: []
-  baseHP: 27
-  baseSTR: 8
-  baseMAG: 4
-  baseDEF: 7
-  baseRES: 4
-  baseSKL: 6
-  baseSPD: 6
-  baseLCK: 6
+  baseHP: 0
+  baseSTR: 0
+  baseMAG: 0
+  baseDEF: 0
+  baseRES: 0
+  baseSKL: 0
+  baseSPD: 0
+  baseLCK: 0
   hp: 0
   str: 0
   mag: 0
@@ -7400,14 +7400,14 @@ MonoBehaviour:
   skl: 0
   spd: 0
   lck: 0
-  hpGrowth: 90
-  strGrowth: 75
-  magGrowth: 15
-  defGrowth: 40
-  resGrowth: 25
-  sklGrowth: 45
-  spdGrowth: 40
-  lckGrowth: 40
+  hpGrowth: 0
+  strGrowth: 0
+  magGrowth: 0
+  defGrowth: 0
+  resGrowth: 0
+  sklGrowth: 0
+  spdGrowth: 0
+  lckGrowth: 0
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
@@ -22247,14 +22247,14 @@ MonoBehaviour:
   magicList: []
   blackMagic: []
   whiteMagic: []
-  baseHP: 22
-  baseSTR: 7
-  baseMAG: 4
-  baseDEF: 6
-  baseRES: 4
-  baseSKL: 9
-  baseSPD: 10
-  baseLCK: 4
+  baseHP: 0
+  baseSTR: 0
+  baseMAG: 0
+  baseDEF: 0
+  baseRES: 0
+  baseSKL: 0
+  baseSPD: 0
+  baseLCK: 0
   hp: 0
   str: 0
   mag: 0
@@ -22263,14 +22263,14 @@ MonoBehaviour:
   skl: 0
   spd: 0
   lck: 0
-  hpGrowth: 80
-  strGrowth: 55
-  magGrowth: 20
-  defGrowth: 35
-  resGrowth: 25
-  sklGrowth: 70
-  spdGrowth: 65
-  lckGrowth: 35
+  hpGrowth: 0
+  strGrowth: 0
+  magGrowth: 0
+  defGrowth: 0
+  resGrowth: 0
+  sklGrowth: 0
+  spdGrowth: 0
+  lckGrowth: 0
   maxHP: 0
   attackMethod: 0
   finishedTurn: 0
