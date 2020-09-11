@@ -311,6 +311,7 @@ public class AllyStats : Stats
                 }
                 else if(inventory[i].GetType() == typeof(HealingItem))
                 {
+                    Debug.Log(inventory[i].name + ", i = " + i + ", index = " + index);
                     (inventory[i] as HealingItem).currentUses = save.playerUnits[index].inventory[i].uses;
                 }
             }

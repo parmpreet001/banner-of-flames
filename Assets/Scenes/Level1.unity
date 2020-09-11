@@ -22229,20 +22229,20 @@ MonoBehaviour:
   isDead: 0
   level: 1
   experience: 0
-  classType: {fileID: 11400000, guid: d34c1dbf4afed40498e92df8bbfd9bb0, type: 2}
+  classType: {fileID: 0}
   skillLevels:
     weaponLevels: 01000000010000000100000001000000
-    weaponLevelsExperience: 14000000000000000000000000000000
+    weaponLevelsExperience: 00000000000000000000000000000000
     magicLevels: 0100000001000000
     magicLevelsExperience: 00000000000000000000000000000000
   equippedWeapon: {fileID: 0}
   equippedBlackMagic: {fileID: 0}
   equippedWhiteMagic: {fileID: 0}
   inventory:
-  - {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
-  - {fileID: 11400000, guid: ce84a7dbdc84abe40bc989e8e9f5e006, type: 2}
-  - {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
-  - {fileID: 11400000, guid: ce84a7dbdc84abe40bc989e8e9f5e006, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   magicList: []
   blackMagic: []

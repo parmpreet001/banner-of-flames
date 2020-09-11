@@ -21873,8 +21873,8 @@ MonoBehaviour:
   inventory:
   - {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
   - {fileID: 11400000, guid: ce84a7dbdc84abe40bc989e8e9f5e006, type: 2}
-  - {fileID: 11400000, guid: d09b29bb97547af4a91a48e4f36d509a, type: 2}
   - {fileID: 11400000, guid: ce84a7dbdc84abe40bc989e8e9f5e006, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   magicList: []
   blackMagic: []
