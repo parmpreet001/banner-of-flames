@@ -167,6 +167,9 @@ MonoBehaviour:
   image: {fileID: 2800000, guid: 8826b9479b8b03340aaaa0aae6895275, type: 3}
   grassObject: {fileID: 8310946379419804037, guid: fd0a0b39790f3484eb10fff5d74e9cc8,
     type: 3}
+  mountainObject: {fileID: 7725268528317138444, guid: 5b605a39d32a47d41ba24c992b5f395b,
+    type: 3}
+  forestObject: {fileID: 0}
 --- !u!1 &1412770969
 GameObject:
   m_ObjectHideFlags: 0
