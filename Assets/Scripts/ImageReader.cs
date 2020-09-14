@@ -19,14 +19,10 @@ public class ImageReader : MonoBehaviour
     private Color forestColor;
     private Color waterColor;
 
-    int grassCount;
-
     private void Start()
     {
         mapLength = image.width;
         mapHeight = image.height;
-
-        Debug.Log(mapLength + "," + mapHeight);
 
         grassColor = new Color32(144, 212, 97,255);
         enemyUnitColor = new Color32(221, 41, 41,255);
@@ -34,16 +30,34 @@ public class ImageReader : MonoBehaviour
         mountainColor = new Color32(174, 125, 46, 255);
         forestColor = new Color32(58, 167, 32, 255);
 
-        Color[] pixels = image.GetPixels();
-        foreach(Color pixel in pixels)
+        for(int row = 0; row < mapHeight; row++)
         {
-            if(pixel.Equals(grassColor))
+            GameObject temp = new GameObject();
+            temp.name = ("row" + (row + 1).ToString());
+            temp.transform.position = new Vector2(0, -row);
+        }
+        for(int row = 0; row < mapHeight; row++)
+        {
+            for(int col = 0; col < mapLength; col++)
             {
-                grassCount++;
+                GameObject temp = null;
+                if(image.GetPixel(row,col).Equals(grassColor))
+                {
+                    temp = Instantiate(grassObject, new Vector3(row, -col, 0), Quaternion.identity);          
+                }
+                else if(image.GetPixel(row,col).Equals(mountainColor))
+                {
+                    temp = Instantiate(mountainObject, new Vector3(row, -col, 0), Quaternion.identity);
+                }
+                else if(image.GetPixel(row,col).Equals(forestColor))
+                {
+                    temp = Instantiate(forestObject, new Vector3(row, -col, 0), Quaternion.identity);
+                }
+                temp.transform.parent = GameObject.Find("row" + (row + 1).ToString()).transform;
             }
         }
 
-
+        /*
         for(int i = mapHeight; i > 0; i--)
         {
             for(int j = 0; j < mapLength; j++)
@@ -59,6 +73,7 @@ public class ImageReader : MonoBehaviour
                 }
             }
         }
+        */
     }
 
 }
