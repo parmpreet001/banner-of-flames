@@ -50,6 +50,7 @@ public class MapManager : MonoBehaviour
         tileController = GetComponent<TileController>();
         tileController.Init();
 
+        /*
         if(File.Exists(Application.dataPath + "save.json"))
         {
             Debug.Log("here");
@@ -71,13 +72,14 @@ public class MapManager : MonoBehaviour
             }
         }
         else
-        {
+        */
+        //{
             foreach(GameObject allyUnit in allyUnits)
             {
                 Debug.Log("Init");
                 allyUnit.GetComponent<Stats>().Init();
             }
-        }
+        //}
 
     }
     void Update()

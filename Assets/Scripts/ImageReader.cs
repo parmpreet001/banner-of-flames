@@ -21,6 +21,8 @@ public class ImageReader : MonoBehaviour
 
     private void Start()
     {
+
+
         mapLength = image.width;
         mapHeight = image.height;
 
@@ -36,26 +38,29 @@ public class ImageReader : MonoBehaviour
             temp.name = ("row" + (row + 1).ToString());
             temp.transform.position = new Vector2(0, -row);
         }
+
+        
         for(int row = 0; row < mapHeight; row++)
         {
             for(int col = 0; col < mapLength; col++)
             {
                 GameObject temp = null;
-                if(image.GetPixel(row,col).Equals(grassColor))
+                if(image.GetPixel(col,row).Equals(grassColor))
                 {
-                    temp = Instantiate(grassObject, new Vector3(row, -col, 0), Quaternion.identity);          
+                    temp = Instantiate(grassObject, new Vector3(col-1-mapLength, row-1-mapHeight, 0), Quaternion.identity);          
                 }
-                else if(image.GetPixel(row,col).Equals(mountainColor))
+                else if(image.GetPixel(col, row).Equals(mountainColor))
                 {
-                    temp = Instantiate(mountainObject, new Vector3(row, -col, 0), Quaternion.identity);
+                    temp = Instantiate(mountainObject, new Vector3(col - 1 - mapLength, row - 1 - mapHeight, 0), Quaternion.identity);
                 }
-                else if(image.GetPixel(row,col).Equals(forestColor))
+                else if(image.GetPixel(col, row).Equals(forestColor))
                 {
-                    temp = Instantiate(forestObject, new Vector3(row, -col, 0), Quaternion.identity);
+                    temp = Instantiate(forestObject, new Vector3(col - 1 - mapLength, row - 1 - mapHeight, 0), Quaternion.identity);
                 }
                 temp.transform.parent = GameObject.Find("row" + (row + 1).ToString()).transform;
             }
         }
+        
 
         /*
         for(int i = mapHeight; i > 0; i--)
