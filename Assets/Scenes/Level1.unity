@@ -22229,7 +22229,7 @@ MonoBehaviour:
   isDead: 0
   level: 1
   experience: 0
-  classType: {fileID: 0}
+  classType: {fileID: 11400000, guid: f103cae39a7ee3343aef2f6d0eaeba57, type: 2}
   skillLevels:
     weaponLevels: 01000000010000000100000001000000
     weaponLevelsExperience: 00000000000000000000000000000000

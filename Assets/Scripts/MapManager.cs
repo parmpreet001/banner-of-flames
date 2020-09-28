@@ -53,7 +53,6 @@ public class MapManager : MonoBehaviour
         
         if(File.Exists(Application.dataPath + "save.json"))
         {
-            Debug.Log("here");
             SaveData save = SaveSystem.LoadGame();
 
             Debug.Log(save.playerUnits[1].level);
@@ -553,7 +552,5 @@ public class MapManager : MonoBehaviour
             SaveSystem.SaveGame(stage+1, allyUnits);
             SceneManager.LoadScene("Level" + (stage+1).ToString());
         }
-
-
     }
 }

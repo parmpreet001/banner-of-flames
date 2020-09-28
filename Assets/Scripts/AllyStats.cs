@@ -306,6 +306,7 @@ public class AllyStats : Stats
                 inventory[i] = Instantiate(inventory[i]);
                 if(inventory[i].GetType() == typeof(Weapon) && save.playerUnits[index].inventory[i].equipped)
                 {
+                    Debug.Log("Here");
                     (inventory[i] as Weapon).equipped = true;
                     equippedWeapon = (inventory[i] as Weapon);
                 }
